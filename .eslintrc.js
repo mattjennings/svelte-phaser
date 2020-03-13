@@ -7,6 +7,7 @@ module.exports = {
   env: {
     es6: true,
     browser: true,
+    node: true,
   },
   plugins: ['svelte3'],
   overrides: [
@@ -16,6 +17,6 @@ module.exports = {
     },
   ],
   rules: {
-    // ...
+    'no-unused-vars': 1,
   },
 }

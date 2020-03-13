@@ -2,7 +2,6 @@
   import Phaser from 'phaser'
   import { getContext, setContext } from 'svelte'
   import { removeUndefined } from './util'
-  const game = getContext('phaser/game')
 
   export let key = undefined
   export let active = undefined
@@ -15,7 +14,7 @@
   export let loader = undefined
   export let plugins = undefined
 
-  export let scene = new Phaser.Scene(
+  export let instance = new Phaser.Scene(
     removeUndefined({
       key,
       active,
@@ -29,9 +28,25 @@
       plugins,
     })
   )
-  setContext('phaser/scene', scene)
+  const game = getContext('phaser/game')
+  setContext('phaser/scene', instance)
+  game.scene.add(key, instance, true)
 
-  game.scene.add(key, scene, true)
+  let loading = false
+  let loadingProgress = 0
+
+  instance.load.on('progress', progress => {
+    loadingProgress = progress
+  })
+
+  instance.load.on('complete', () => {
+    loading = false
+    loadingProgress = false
+  })
 </script>
 
-<slot />
+{#if loading}
+  <slot name="loading" progress={loadingProgress} />
+{:else}
+  <slot />
+{/if}
