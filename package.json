@@ -1,0 +1,35 @@
+{
+  "name": "svelte-phaser-monorepo",
+  "version": "0.0.1",
+  "description": "Create pixi.js apps with svelte 3",
+  "repository": "https://github.com/mattjennings/svelte-pixi",
+  "author": "Matt Jennings",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "clean:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +"
+  },
+  "workspaces": {
+    "packages": [
+      "examples/*",
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/svelte"
+    ]
+  },
+  "resolutions": {
+    "svelte": "3.19.2"
+  },
+  "devDependencies": {
+    "svelte": "^3.0.0",
+    "phaser": "^3.22.0",
+    "prettier": "^1.19.1",
+    "eslint": "6.8.0",
+    "eslint-plugin-svelte3": "^2.7.3"
+  },
+  "keywords": [
+    "svelte",
+    "phaser"
+  ]
+}
