@@ -4,6 +4,7 @@
   import { addInstance, shouldApplyProps } from './util'
   import { applyAlpha, applyScale, applyTint } from './props/index'
 
+  export let accumulator = undefined
   export let active = undefined
   export let align = undefined
   export let alpha = undefined
@@ -16,28 +17,41 @@
   export let blendMode = undefined
   export let data = undefined
   export let defaultPipeline = undefined
+  export let delay = undefined
   export let depth = undefined
   export let displayHeight = undefined
   export let displayOriginX = undefined
   export let displayOriginY = undefined
   export let displayWidth = undefined
+  export let duration = undefined
   export let flipX = undefined
   export let flipY = undefined
+  export let forward = undefined
   export let frame = undefined
+  export let frameRate = undefined
   export let height = undefined
+  export let isPlaying = undefined
   export let mask = undefined
+  export let msPerFrame = undefined
   export let name = undefined
   export let originX = undefined
   export let originY = undefined
+  export let progress = undefined
   export let renderFlags = undefined
+  export let repeat = undefined
+  export let repeatDelay = undefined
   export let rotation = undefined
   export let scale = undefined
   export let scaleX = undefined
   export let scaleY = undefined
   export let scrollFactorX = undefined
   export let scrollFactorY = undefined
+  export let skipMissedFrames = undefined
+  export let stopAfterDelay = undefined
+  export let stopOnFrame = undefined
   export let tabIndex = undefined
-  export let texture
+  export let texture = undefined
+  export let timeScale = undefined
   export let tint = undefined
   export let tintBottomLeft = undefined
   export let tintBottomRight = undefined
@@ -51,6 +65,7 @@
   export let wordWrap = undefined
   export let x = undefined
   export let y = undefined
+  export let yoyo = undefined
   export let z = undefined
 
   const scene = getContext('phaser/scene')
@@ -147,6 +162,33 @@
   $: shouldApplyProps(x) && instance.setX(x)
   $: shouldApplyProps(y) && instance.setY(y)
   $: shouldApplyProps(z) && instance.setZ(z)
+
+  // animation props
+  $: shouldApplyProps(accumulator) && (instance.accumulator = accumulator)
+  $: {
+    if (shouldApplyProps(animation)) {
+      const ignoreIfPlaying =
+        instance.anims.currentAnim &&
+        instance.anims.currentAnim.key === animation
+      instance.anims.play(animation, ignoreIfPlaying, 0)
+    }
+  }
+  $: shouldApplyProps(delay) && instance.setDelay(delay)
+  $: shouldApplyProps(duration) && (instance.anims.duration = duration)
+  $: shouldApplyProps(forward) && (instance.anims.forward = forward)
+  $: shouldApplyProps(frameRate) && (instance.anims.frameRate = frameRate)
+  $: shouldApplyProps(isPlaying) && (instance.anims.isPlaying = isPlaying)
+  $: shouldApplyProps(msPerFrame) && (instance.anims.msPerFrame = msPerFrame)
+  $: shouldApplyProps(skipMissedFrames) &&
+    (instance.anims.skipMissedFrames = skipMissedFrames)
+  $: shouldApplyProps(progress) && instance.anims.setProgress(progress)
+  $: shouldApplyProps(stopOnFrame) && instance.anims.stopOnFrame(stopOnFrame)
+  $: shouldApplyProps(stopAfterDelay) &&
+    instance.anims.stopAfterDelay(stopAfterDelay)
+  $: shouldApplyProps(repeat) && instance.anims.setRepeat(repeat)
+  $: shouldApplyProps(repeatDelay) && instance.anims.setRepeatDelay(repeatDelay)
+  $: shouldApplyProps(timeScale) && instance.anims.setTimeScale(timeScale)
+  $: shouldApplyProps(yoyo) && instance.anims.setYoyo(yoyo)
 </script>
 
 <slot />

@@ -3,6 +3,7 @@ export { default as Scene } from './Scene.svelte'
 export { default as Text } from './Text.svelte'
 export { default as Image } from './Image.svelte'
 export { default as Sprite } from './Sprite.svelte'
+export { default as TileSprite } from './TileSprite.svelte'
 export { default as ArcadePhysics } from './ArcadePhysics.svelte'
 export { default as ArcadeCollider } from './ArcadeCollider.svelte'
 
