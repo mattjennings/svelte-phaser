@@ -6,7 +6,6 @@
 
   const scene = getContext('phaser/scene')
 
-  //#region props
   export let active = undefined
   export let align = undefined
   export let alpha = undefined
@@ -76,7 +75,6 @@
   export let x = undefined
   export let y = undefined
   export let z = undefined
-  //#endregion props
 
   export let instance = new Phaser.GameObjects.Text(scene, x, y, text, style)
 
@@ -84,8 +82,6 @@
     addInstance(instance)
     onMount(() => () => instance.destroy())
   }
-
-  onMount(() => instance.destroy)
 
   $: shouldApplyProps(active) && instance.setActive(active)
   $: shouldApplyProps(align) && instance.setAlign(align)
