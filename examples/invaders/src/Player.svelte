@@ -9,6 +9,7 @@
     onGameEvent,
   } from 'svelte-phaser'
   import PlayerBullet from './PlayerBullet.svelte'
+  import { lives } from './store'
 
   export let x
   export let y
@@ -50,6 +51,9 @@
 </script>
 
 <Image bind:instance depth={10} name="player" texture="textures/player" {x} {y}>
-  <ArcadeCollider with={['enemies', 'enemyBullet']} overlapOnly />
+  <ArcadeCollider
+    with={['enemies', 'enemyBullet']}
+    overlapOnly
+    on:collide={() => lives.update(prev => prev - 1)} />
   <ArcadePhysics {velocityX} collideWorldBounds />
 </Image>

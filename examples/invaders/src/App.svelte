@@ -1,13 +1,18 @@
 <script>
-  import { Game, Scene, Text } from 'svelte-phaser'
+  import { Game, Scene, Text, Spawner } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
-  import Invaders from './Invaders.svelte'
 
+  import Background from './Background.svelte'
+  import Player from './Player.svelte'
+  import Enemies from './Enemies.svelte'
+  import UI from './UI.svelte'
+  import { lives } from './store'
   let game
 
   $: {
     window.game = game
   }
+
   function preload(scene) {
     scene.load.image('textures/starfield', 'assets/starfield.png')
     scene.load.spritesheet('textures/enemy', 'assets/invader.png', {
@@ -58,6 +63,13 @@
         color="white" />
     </template>
 
-    <Invaders />
+    <Spawner>
+      <Background />
+      <Enemies />
+      {#if $lives > 0}
+        <Player x={300} y={500} />
+      {/if}
+      <UI />
+    </Spawner>
   </Scene>
 </Game>

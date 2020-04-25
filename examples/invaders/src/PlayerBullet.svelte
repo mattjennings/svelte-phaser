@@ -40,7 +40,7 @@
     {x}
     {y}>
     <ArcadeCollider
-      with={'enemy'}
+      with="enemy"
       overlapOnly
       on:collide={() => {
         velocityY = 0
