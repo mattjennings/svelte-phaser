@@ -1,5 +1,4 @@
 <script>
-  import Phaser from 'phaser'
   import { Game, Scene, Text } from 'svelte-phaser'
 
   let game
@@ -11,6 +10,6 @@
 
 <Game bind:instance={game}>
   <Scene key="main">
-    <Text x={100} y={100} text="hello world" style={{ color: 'white' }} />
+    <Text x={400} y={300} text="Hello World!" style={{ color: 'white' }} />
   </Scene>
 </Game>

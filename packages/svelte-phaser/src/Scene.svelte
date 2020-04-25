@@ -1,6 +1,6 @@
 <script>
   import Phaser from 'phaser'
-  import { getContext, setContext } from 'svelte'
+  import { getContext, setContext, onMount } from 'svelte'
   import { removeUndefined } from './util'
 
   export let key = undefined
@@ -13,6 +13,9 @@
   export let physics = undefined
   export let loader = undefined
   export let plugins = undefined
+  export let preload = undefined
+  export let create = undefined
+  export let init = undefined
 
   export let instance = new Phaser.Scene(
     removeUndefined({
@@ -28,20 +31,37 @@
       plugins,
     })
   )
+
   const game = getContext('phaser/game')
   setContext('phaser/scene', instance)
+
+  instance.preload = preload ? () => preload(instance) : null
+  instance.create = create ? () => create(instance) : null
+  instance.init = init ? () => init(instance) : null
+
   game.scene.add(key, instance, true)
 
-  let loading = false
+  let loading = !!preload
   let loadingProgress = 0
+  let listeners = [
+    instance.load.on('progress', progress => {
+      loadingProgress = progress
+    }),
 
-  instance.load.on('progress', progress => {
-    loadingProgress = progress
-  })
+    instance.load.on('complete', () => {
+      loading = false
+      loadingProgress = false
+    }),
+  ]
 
-  instance.load.on('complete', () => {
-    loading = false
-    loadingProgress = false
+  onMount(() => {
+    return () => {
+      game.scene.remove(key)
+
+      listeners.forEach(listener => {
+        listener.eventNames().forEach(event => listener.off(event))
+      })
+    }
   })
 </script>
 

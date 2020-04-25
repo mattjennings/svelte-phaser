@@ -3,21 +3,24 @@
   import { onMount, getContext } from 'svelte'
   import { addInstance } from './util'
 
+  const scene = getContext('phaser/scene')
+
   export let text = ''
   export let x = undefined
   export let y = undefined
   export let style = undefined
 
-  const scene = getContext('phaser/scene')
+  export let instance = new Phaser.GameObjects.Text(scene, x, y, text, style)
 
-  const instance = new Phaser.GameObjects.Text(scene, x, y, text, style)
-
-  addInstance(instance)
+  if (!scene.children.exists(instance)) {
+    addInstance(instance)
+    onMount(() => () => instance.destroy())
+  }
 
   $: instance.setX(x)
   $: instance.setY(y)
   $: instance.setText(text)
   $: instance.setStyle(style)
-
-  onMount(() => instance.destroy)
 </script>
+
+<slot />

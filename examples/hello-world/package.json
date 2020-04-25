@@ -10,6 +10,7 @@
     "rollup-plugin-terser": "^5.1.2",
     "svelte": "^3.0.0",
     "svelte-phaser": "*",
+    "svelte-fragment": "^1.0.1",
     "phaser": "^3.22.0"
   },
   "dependencies": {
