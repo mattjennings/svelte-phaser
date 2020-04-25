@@ -1,10 +1,8 @@
 <script>
   import Phaser from 'phaser'
-  import { onMount, getContext } from 'svelte'
+  import { onMount, getContext, setContext } from 'svelte'
   import { addInstance, shouldApplyProps } from './util'
   import { applyAlpha, applyScale, applyTint } from './props/index'
-
-  const scene = getContext('phaser/scene')
 
   export let active = undefined
   export let align = undefined
@@ -14,7 +12,7 @@
   export let alphaTopLeft = undefined
   export let alphaTopRight = undefined
   export let angle = undefined
-  export let animation
+  export let animation = undefined
   export let blendMode = undefined
   export let data = undefined
   export let defaultPipeline = undefined
@@ -25,7 +23,7 @@
   export let displayWidth = undefined
   export let flipX = undefined
   export let flipY = undefined
-  export let frame
+  export let frame = undefined
   export let height = undefined
   export let mask = undefined
   export let name = undefined
@@ -51,9 +49,11 @@
   export let w = undefined
   export let width = undefined
   export let wordWrap = undefined
-  export let x
-  export let y
+  export let x = undefined
+  export let y = undefined
   export let z = undefined
+
+  const scene = getContext('phaser/scene')
 
   export let instance = new Phaser.GameObjects.Sprite(
     scene,
@@ -62,6 +62,8 @@
     texture,
     frame
   )
+
+  setContext('phaser/game-object', instance)
 
   if (!scene.children.exists(instance)) {
     addInstance(instance)

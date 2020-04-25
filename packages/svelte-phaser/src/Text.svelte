@@ -1,10 +1,8 @@
 <script>
   import Phaser from 'phaser'
-  import { onMount, getContext } from 'svelte'
+  import { onMount, getContext, setContext } from 'svelte'
   import { addInstance, shouldApplyProps } from './util'
   import { applyAlpha, applyScale, applyTint } from './props/index'
-
-  const scene = getContext('phaser/scene')
 
   export let active = undefined
   export let align = undefined
@@ -76,7 +74,11 @@
   export let y = undefined
   export let z = undefined
 
+  const scene = getContext('phaser/scene')
+
   export let instance = new Phaser.GameObjects.Text(scene, x, y, text, style)
+
+  setContext('phaser/game-object', instance)
 
   if (!scene.children.exists(instance)) {
     addInstance(instance)
