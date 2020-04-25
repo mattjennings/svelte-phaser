@@ -74,7 +74,7 @@
     if (shouldApplyProps(acceleration)) {
       instance.body.setAcceleration(acceleration)
     } else if (shouldApplyProps(accelerationX, accelerationY)) {
-      instance.body.setAcceleration(accelerationX, accelerationY)
+      instance.body.setAcceleration(accelerationX || 0, accelerationY || 0)
     }
   }
   $: shouldApplyProps(angularAcceleration) &&
@@ -86,7 +86,7 @@
     if (shouldApplyProps(bounce)) {
       instance.body.setBounce(bounce)
     } else if (shouldApplyProps(bounceX, bounceY)) {
-      instance.body.setBounce(bounceX, bounceY)
+      instance.body.setBounce(bounceX || 0, bounceY || 0)
     }
   }
   $: shouldApplyProps(collideWorldBounds) &&
@@ -102,7 +102,7 @@
     if (shouldApplyProps(drag)) {
       instance.body.setDrag(drag)
     } else if (shouldApplyProps(dragX, dragY)) {
-      instance.body.setDrag(dragX, dragY)
+      instance.body.setDrag(dragX || 0, dragY || 0)
     }
   }
   $: shouldApplyProps(damping) && instance.body.setDamping(damping)
@@ -110,14 +110,14 @@
     if (shouldApplyProps(friction)) {
       instance.body.setFriction(friction)
     } else if (shouldApplyProps(frictionX, frictionY)) {
-      instance.body.setFriction(frictionX, frictionY)
+      instance.body.setFriction(frictionX || 0, frictionY || 0)
     }
   }
   $: {
     if (shouldApplyProps(gravity)) {
       instance.body.setGravity(gravity)
     } else if (shouldApplyProps(gravityX, gravityY)) {
-      instance.body.setGravity(gravityX, gravityY)
+      instance.body.setGravity(gravityX || 0, gravityY || 0)
     }
   }
   $: shouldApplyProps(immovable) && (instance.body.immovable = immovable)
@@ -127,21 +127,21 @@
   $: shouldApplyProps(circle) &&
     instance.body.setCircle(circle.radius, circle.offsetX, circle.offsetY)
   $: shouldApplyProps(offsetX, offsetY) &&
-    instance.body.setOffset(offsetX, offsetY)
+    instance.body.setOffset(offsetX || 0, offsetY || 0)
   $: shouldApplyProps(onWorldBounds) &&
     (instance.body.onWorldBounds = onWorldBounds)
   $: {
     if (shouldApplyProps(maxVelocity)) {
       instance.body.setMaxVelocity(maxVelocity)
     } else if (shouldApplyProps(maxVelocityX, maxVelocityY)) {
-      instance.body.setMaxVelocity(maxVelocityX, maxVelocityY)
+      instance.body.setMaxVelocity(maxVelocityX || 0, maxVelocityY || 0)
     }
   }
   $: {
     if (shouldApplyProps(velocity)) {
       instance.body.setVelocity(velocity)
     } else if (shouldApplyProps(velocityX, velocityY)) {
-      instance.body.setVelocityX(velocityX, velocityY)
+      instance.body.setVelocity(velocityX || 0, velocityY || 0)
     }
   }
 </script>

@@ -1,9 +1,10 @@
 <script>
-  import { getContext, onMount } from 'svelte'
-  import { Sprite, ArcadePhysics } from 'svelte-phaser'
+  import { onMount } from 'svelte'
+  import { Sprite, ArcadePhysics, getScene, Spawner } from 'svelte-phaser'
   import Background from './Background.svelte'
+  import Player from './Player.svelte'
 
-  const scene = getContext('phaser/scene')
+  const scene = getScene()
 
   let enemyVelocityX = 40
   let enemyY = 16
@@ -31,9 +32,15 @@
   })
 </script>
 
-<Background />
-{#each array as item, i}
-  <Sprite x={100 + item.x} y={70 + item.y + enemyY} animation="anims/enemy/fly">
-    <ArcadePhysics velocityX={enemyVelocityX} collideWorldBounds />
-  </Sprite>
-{/each}
+<Spawner>
+  <Background />
+  <Player x={300} y={500} />
+  {#each array as item, i}
+    <Sprite
+      x={100 + item.x}
+      y={70 + item.y + enemyY}
+      animation="anims/enemy/fly">
+      <ArcadePhysics velocityX={enemyVelocityX} collideWorldBounds />
+    </Sprite>
+  {/each}
+</Spawner>

@@ -1,11 +1,13 @@
 <script>
-  import Phaser from 'phaser'
   import { Game, Scene, Text } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
   import Invaders from './Invaders.svelte'
 
   let game
 
+  $: {
+    window.game = game
+  }
   function preload(scene) {
     scene.load.image('textures/starfield', 'assets/starfield.png')
     scene.load.spritesheet('textures/enemy', 'assets/invader.png', {
@@ -16,7 +18,7 @@
       frameWidth: 128,
       frameHeight: 128,
     })
-    scene.load.image('textures/player', 'assets/player.png')
+    scene.load.image('textures/player', 'assets/ship.png')
     scene.load.image('textures/player/bullet', 'assets/bullet.png')
     scene.load.image('textures/enemy/bullet', 'assets/enemy-bullet.png')
   }
