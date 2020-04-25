@@ -8,7 +8,7 @@
     getSpawner,
     onGameEvent,
   } from 'svelte-phaser'
-  import PlayerBullet from './PlayerBullet.svelte'
+  import Bullet from './Bullet.svelte'
   import { lives } from './store'
 
   export let x
@@ -41,7 +41,11 @@
     }
 
     if (Phaser.Input.Keyboard.JustDown(keys.shoot)) {
-      spawn(PlayerBullet, {
+      spawn(Bullet, {
+        name: 'playerBullet',
+        texture: 'textures/player/bullet',
+        target: 'enemy',
+        depth: 10,
         x: instance.x,
         y: instance.y - 8,
         velocityY: -300,

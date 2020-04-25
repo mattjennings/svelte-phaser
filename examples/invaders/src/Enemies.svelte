@@ -5,15 +5,16 @@
   import { score, gameStatus, enemiesDefeated } from './store'
 
   import Enemy from './Enemy.svelte'
-  import EnemyBullet from './EnemyBullet.svelte'
+  import Bullet from './Bullet.svelte'
 
   const scene = getScene()
   const { spawn } = getSpawner()
 
   let enemies = []
   let enemyVelocityX = 40
-  let enemyY = 16
+  let enemyY = 0
 
+  // change direction every 3 seconds
   const moveTimer = scene.time.addEvent({
     callback: () => {
       if ($gameStatus === 'playing') {
@@ -25,6 +26,7 @@
     delay: 3500,
   })
 
+  // shoot bullet at player every 2 seconds from random enemy
   const enemyShootTimer = scene.time.addEvent({
     callback: () => {
       if ($gameStatus === 'playing') {
@@ -44,7 +46,10 @@
 
           const velocity = scene.physics.velocityFromAngle(angle, 180)
 
-          spawn(EnemyBullet, {
+          spawn(Bullet, {
+            name: 'enemyBullet',
+            texture: 'textures/enemy/bullet',
+            target: 'player',
             x: enemy.x,
             y: enemy.y,
             angle,
@@ -58,12 +63,15 @@
     delay: 2000,
   })
 
+  // cleanup timers
   onMount(() => () => {
     moveTimer.destroy()
     enemyShootTimer()
   })
 
-  function createEnemies() {
+  // create enemies on to start or on game reset
+  $: if ($gameStatus === 'playing') {
+    enemyY = 0
     enemies = Array.from({ length: 40 }).map((_, index) => {
       const columns = 10
       const column = index % columns
@@ -72,14 +80,11 @@
       return {
         x: column * 52,
         y: row * 32,
-        key: index,
+        // we add Date.now() so that all keys are changed between game resets
+        // (if you're curious, remove Date.now() and see what happens when you reset the game)
+        key: index + Date.now(),
       }
     })
-  }
-
-  // setup
-  $: if ($gameStatus === 'playing') {
-    createEnemies()
   }
 
   // player wins

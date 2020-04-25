@@ -3,8 +3,13 @@
   import { Image, ArcadePhysics, ArcadeCollider, getScene } from 'svelte-phaser'
   import Explosion from './Explosion.svelte'
 
+  export let name
+  export let target
+  export let texture
+  export let depth
   export let x
   export let y
+  export let velocityX
   export let velocityY
   export let onDestroy
 
@@ -32,21 +37,14 @@
     y={destroyedPosition.y - 32}
     onAnimationComplete={() => onDestroy()} />
 {:else}
-  <Image
-    bind:instance
-    depth={10}
-    name="playerBullet"
-    texture="textures/player/bullet"
-    {x}
-    {y}>
+  <Image bind:instance {depth} {name} {texture} {x} {y}>
     <ArcadeCollider
-      with="enemy"
+      with={target}
       overlapOnly
       on:collide={() => {
-        velocityY = 0
         destroyed = true
         destroyedPosition = { x: instance.x, y: instance.y }
       }} />
-    <ArcadePhysics {velocityY} />
+    <ArcadePhysics {velocityY} {velocityX} />
   </Image>
 {/if}
