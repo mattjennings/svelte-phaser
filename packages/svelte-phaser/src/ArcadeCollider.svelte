@@ -8,15 +8,24 @@
 
   // `with` is a reserved keyword
   let _with
+
+  export let overlapOnly
   export { _with as with }
 
   const scene = getContext('phaser/scene')
-  const collider = scene.physics.add.collider(
-    [gameObject],
-    createObjectsArray(scene, _with),
-    (self, other) => dispatch('collide', { self, other }),
-    (self, other) => dispatch('process', { self, other })
-  )
+  const collider = overlapOnly
+    ? scene.physics.add.overlap(
+        [gameObject],
+        createObjectsArray(scene, _with),
+        (self, other) => dispatch('collide', { self, other }),
+        (self, other) => dispatch('process', { self, other })
+      )
+    : scene.physics.add.collider(
+        [gameObject],
+        createObjectsArray(scene, _with),
+        (self, other) => dispatch('collide', { self, other }),
+        (self, other) => dispatch('process', { self, other })
+      )
 
   onMount(() => () => collider.destroy())
 
@@ -31,9 +40,8 @@
     }
   })
 
-  $: {
-    collider.object2 = createObjectsArray(scene, _with)
-  }
+  $: collider.object2 = createObjectsArray(scene, _with)
+  $: collider.overlapOnly = overlapOnly
 
   function createObjectsArray(scene, objects) {
     return toArray(objects).reduce((total, object) => {

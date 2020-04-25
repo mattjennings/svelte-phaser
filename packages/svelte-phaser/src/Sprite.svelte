@@ -1,8 +1,15 @@
 <script>
   import Phaser from 'phaser'
-  import { onMount, getContext, setContext } from 'svelte'
+  import {
+    onMount,
+    getContext,
+    setContext,
+    createEventDispatcher,
+  } from 'svelte'
   import { addInstance, shouldApplyProps } from './util'
   import { applyAlpha, applyScale, applyTint } from './props/index'
+
+  const dispatch = createEventDispatcher()
 
   export let accumulator = undefined
   export let active = undefined
@@ -82,6 +89,14 @@
 
   if (!scene.children.exists(instance)) {
     addInstance(instance)
+
+    const createEventHandler = event =>
+      instance.on(event, (...args) => dispatch(event, args))
+
+    createEventHandler('animationstart')
+    createEventHandler('animationcomplete')
+    createEventHandler('animationrestart')
+    createEventHandler('animationrepeat')
     onMount(() => () => instance.destroy())
   }
 

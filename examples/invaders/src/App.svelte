@@ -48,7 +48,7 @@
   bind:instance={game}
   width={800}
   height={600}
-  physics={{ default: 'arcade', arcade: { debug: true } }}>
+  physics={{ default: 'arcade' }}>
   <Scene key="main" {preload} {create}>
     <template use:fragment slot="loading" let:progress>
       <Text

@@ -3,6 +3,7 @@
   import { Sprite, ArcadePhysics, getScene, Spawner } from 'svelte-phaser'
   import Background from './Background.svelte'
   import Player from './Player.svelte'
+  import Enemy from './Enemy.svelte'
 
   const scene = getScene()
 
@@ -19,7 +20,7 @@
 
   onMount(() => () => moveTimer.destroy())
 
-  let array = Array.from({ length: 40 }).map((_, index) => {
+  let enemies = Array.from({ length: 40 }).map((_, index) => {
     const columns = 10
     const column = index % columns
     const row = Math.floor(index / columns)
@@ -35,12 +36,13 @@
 <Spawner>
   <Background />
   <Player x={300} y={500} />
-  {#each array as item, i}
-    <Sprite
-      x={100 + item.x}
-      y={70 + item.y + enemyY}
-      animation="anims/enemy/fly">
-      <ArcadePhysics velocityX={enemyVelocityX} collideWorldBounds />
-    </Sprite>
+  {#each enemies as enemy (enemy.key)}
+    <Enemy
+      x={100 + enemy.x}
+      y={70 + enemy.y + enemyY}
+      velocityX={enemyVelocityX}
+      onDie={() => {
+        enemies = enemies.filter(e => e !== enemy)
+      }} />
   {/each}
 </Spawner>
