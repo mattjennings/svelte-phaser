@@ -8,8 +8,8 @@
   }
 </script>
 
-<Game bind:instance={game}>
+<Game bind:instance={game} width={400} height={400}>
   <Scene key="main">
-    <Text x={400} y={300} text="Hello World!" style={{ color: 'white' }} />
+    <Text x={100} y={100} text="hello world" color="white" />
   </Scene>
 </Game>
