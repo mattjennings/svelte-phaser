@@ -12,7 +12,7 @@
 <Game
   width={800}
   height={800}
-  physics={{ default: 'arcade', arcade: { debug: true } }}
+  physics={{ default: 'arcade' }}
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main" {preload}>
     <template use:fragment slot="loading" let:progress>
