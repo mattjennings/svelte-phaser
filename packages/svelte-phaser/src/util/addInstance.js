@@ -1,13 +1,13 @@
-import getParentContainer from './getParentContainer'
+import { getContext } from 'svelte'
 
 /**
  * Adds an instance to the parent scene
  */
 export function addInstance(self) {
-  const parent = getParentContainer()
+  const scene = getContext('phaser/scene')
 
   if (parent) {
-    parent.add.existing(self)
+    scene.add.existing(self)
   } else {
     throw new Error('Unable to find Scene for instance')
   }

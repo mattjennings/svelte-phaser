@@ -1,3 +1,5 @@
 export * from './removeUndefined'
 export * from './addInstance'
 export * from './shouldApplyProps'
+export * from './toArray'
+export * from './findGameObjectsByName'

@@ -120,7 +120,7 @@
       instance.body.setGravity(gravityX, gravityY)
     }
   }
-  $: shouldApplyProps(immovable) && instance.body.setImmovable(immovable)
+  $: shouldApplyProps(immovable) && (instance.body.immovable = immovable)
   $: shouldApplyProps(mass) && instance.body.setImmovable(mass)
   $: shouldApplyProps(size) &&
     instance.body.setSize(size.width, size.height, size.center)
