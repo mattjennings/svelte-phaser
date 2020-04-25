@@ -1,6 +1,7 @@
 <script>
   import { getContext, onMount, createEventDispatcher } from 'svelte'
   import { toArray, findGameObjectsByName } from './util'
+  import { onSceneEvent } from './onSceneEvent'
 
   const dispatch = createEventDispatcher()
   const gameObject = getContext('phaser/game-object')
@@ -18,6 +19,17 @@
   )
 
   onMount(() => () => collider.destroy())
+
+  // update gameobject references by string when a child is added to the scene
+  onSceneEvent('CHILD_ADDED', object => {
+    if (object.name) {
+      const withStrings = toArray(_with).filter(obj => typeof obj === 'string')
+
+      if (withStrings.includes(object.name)) {
+        collider.object2 = [...collider.object2, object]
+      }
+    }
+  })
 
   $: {
     collider.object2 = createObjectsArray(scene, _with)

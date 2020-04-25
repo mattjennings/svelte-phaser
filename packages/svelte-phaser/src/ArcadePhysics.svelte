@@ -3,29 +3,28 @@
   import { onMount, getContext } from 'svelte'
   import { shouldApplyProps } from './util'
 
-  export let allowGravity = undefined
-  export let allowDrag = undefined
-  export let allowRotation = undefined
-  export let onWorldBounds = undefined
-  export let bodyType = 'dynamic'
-
   export let acceleration = undefined
   export let accelerationX = undefined
   export let accelerationY = undefined
+  export let allowDrag = undefined
+  export let allowGravity = undefined
+  export let allowRotation = undefined
   export let angularAcceleration = undefined
   export let angularDrag = undefined
   export let angularVelocity = undefined
+  export let bodyType = 'dynamic'
   export let bounce = undefined
   export let bounceX = undefined
   export let bounceY = undefined
+  export let circle = undefined
   export let collideWorldBounds = undefined
+  export let damping = undefined
   export let debugBodyColor = undefined
   export let debugShowBody = undefined
   export let debugShowVelocity = undefined
   export let drag = undefined
   export let dragX = undefined
   export let dragY = undefined
-  export let damping = undefined
   export let friction = undefined
   export let frictionX = undefined
   export let frictionY = undefined
@@ -34,14 +33,13 @@
   export let gravityY = undefined
   export let immovable = undefined
   export let mass = undefined
-  export let size = undefined
-  export let circle = undefined
-  export let offsetX = undefined
-  export let offsetY = undefined
-
   export let maxVelocity = undefined
   export let maxVelocityX = undefined
   export let maxVelocityY = undefined
+  export let offsetX = undefined
+  export let offsetY = undefined
+  export let onWorldBounds = undefined
+  export let size = undefined
   export let velocity = undefined
   export let velocityX = undefined
   export let velocityY = undefined
