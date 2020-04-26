@@ -4,4 +4,3 @@
   - [Scene](components/scene)
   - [Text](components/text)
   - [Sprite](components/sprite)
-- [Github](https://github.com/alexxnb/svelte-docs)
