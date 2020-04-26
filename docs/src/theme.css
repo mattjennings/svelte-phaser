@@ -1,0 +1,5 @@
+/* Theme tunning: for full list ov variables visit the https://alexxnb.github.io/svelte-docs/theming */
+
+:root {
+  --hl-keyword: #3ca7b9;
+}

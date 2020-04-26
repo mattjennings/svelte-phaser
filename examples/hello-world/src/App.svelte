@@ -9,7 +9,7 @@
   }
 </script>
 
-<Game bind:instance={game} width={400} height={400}>
+<Game bind:instance={game} autoFocus width={400} height={400}>
   <Scene key="main">
     <Text x={100} y={100} text="hello world" color="white" />
   </Scene>

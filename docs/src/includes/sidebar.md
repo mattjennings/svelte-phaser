@@ -1,0 +1,6 @@
+- [Getting Started](getting-started)
+- Components
+  - [Game](components/game)
+  - [Scene](components/scene)
+  - [Text](components/text)
+  - [Sprite](components/sprite)

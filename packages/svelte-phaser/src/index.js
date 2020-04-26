@@ -1,7 +1,6 @@
 export { default as Game } from './Game.svelte'
 export { default as Scene } from './Scene.svelte'
 export { default as Text } from './Text.svelte'
-export { default as Image } from './Image.svelte'
 export { default as Sprite } from './Sprite.svelte'
 export { default as Spawner } from './Spawner.svelte'
 export { default as TileSprite } from './TileSprite.svelte'

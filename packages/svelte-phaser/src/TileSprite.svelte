@@ -34,6 +34,22 @@
   export let flipY = undefined
   export let frame = undefined
   export let height = undefined
+
+  /**
+   * Whether or not the game object should react to input from the pointer. This is true by default,
+   * and is required to emit pointer events.
+   *
+   * If you wish to customize the hit area, you can provide an object containing "shape", "callback", and "dropZone" which
+   * will get passed into Phaser's underlying `setInteractive` method.
+   *
+   * See Phaser's documentation for more information:
+   *
+   * https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html#setInteractive__anchor
+   *
+   * @type {boolean | object}
+   */
+  export let interactive = true
+
   export let mask = undefined
   export let name = undefined
   export let originX = undefined
@@ -93,6 +109,17 @@
     })
   }
 
+  $: if (interactive === true) {
+    instance.setInteractive()
+  } else if (!interactive) {
+    instance.removeInteractive()
+  } else {
+    instance.setInteractive(
+      interactive.shape,
+      interactive.callback,
+      interactive.dropzone
+    )
+  }
   $: shouldApplyProps(texture) && instance.setTexture(texture)
   $: shouldApplyProps(frame) && instance.setFrame(frame)
   $: shouldApplyProps(active) && instance.setActive(active)
