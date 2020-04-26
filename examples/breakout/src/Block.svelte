@@ -1,5 +1,5 @@
 <script>
-  import { Image, ArcadePhysics, ArcadeCollider } from 'svelte-phaser'
+  import { Sprite, ArcadePhysics, ArcadeCollider } from 'svelte-phaser'
 
   export let x
   export let y
@@ -7,7 +7,7 @@
   export let onBallHit
 </script>
 
-<Image name="block" {x} {y} texture="assets" {frame}>
+<Sprite name="block" {x} {y} texture="assets" {frame}>
   <ArcadePhysics immovable bodyType="static" />
   <ArcadeCollider with="ball" on:collide={onBallHit} />
-</Image>
+</Sprite>

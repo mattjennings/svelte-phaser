@@ -1,5 +1,5 @@
 <script>
-  import { Image, ArcadePhysics, ArcadeCollider } from 'svelte-phaser'
+  import { Sprite, ArcadePhysics, ArcadeCollider } from 'svelte-phaser'
 
   export let instance = undefined
 
@@ -18,7 +18,7 @@
   }
 </script>
 
-<Image bind:instance name="ball" texture="assets" frame="ball1">
+<Sprite bind:instance name="ball" texture="assets" frame="ball1">
   <ArcadePhysics collideWorldBounds bounce={1} />
   <ArcadeCollider with="paddle" on:collide={handlePaddleCollide} />
-</Image>
+</Sprite>
