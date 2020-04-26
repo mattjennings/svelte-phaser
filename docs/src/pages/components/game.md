@@ -1,6 +1,6 @@
 # Game
 
-Creates a Phaser.Game instance. Only [Scene](/components/scene) components can be children of Game.
+Creates a Phaser.Game instance. Only [Scene](/svelte-phaser/components/scene/) components can be children of Game.
 
 ## Usage
 

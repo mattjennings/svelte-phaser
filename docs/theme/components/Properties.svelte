@@ -56,12 +56,40 @@
 
     const typeValue = type => {
       if (!type) return ''
-      if (typeof type === 'string') return type
+      if (typeof type === 'string') {
+        if (type.startsWith('Phaser.Types')) {
+          return getPhaserDocsPathForType(type)
+        }
 
-      return type.map(v => `<i>${v}</i>`).join(',')
+        return type
+      }
+
+      return type
+        .map(v => {
+          if (type.startsWith('Phaser.Types')) {
+            return `<i>${getPhaserDocsPathForType(v)}</i>`
+          }
+
+          return `<i>${v}</i>`
+        })
+        .join(',')
     }
 
-    return types.map(type => `<dfn>${typeValue(type)}</dfn>`).join('')
+    return types.map(type => `<dfn>${typeValue(type.trim())}</dfn>`).join('')
+  }
+
+  /**
+   * Return a link to the phaser 3 docs page for the Phaser class
+   */
+  function getPhaserDocsPathForType(type) {
+    const sanitizedType = type.replace(/\[\]/gi, '')
+    // phaser docs isn't the most consistent with url paths,
+    // but this should catch most
+    const split = sanitizedType.split('.')
+    const anchor = split.pop() // last word is the #anchor on the page
+    const path = split.join('.') // up to to the last . is the url path
+
+    return `<a href="https://photonstorm.github.io/phaser3-docs/${path}.html#${anchor}__anchor">${type}</a>`
   }
 </script>
 
