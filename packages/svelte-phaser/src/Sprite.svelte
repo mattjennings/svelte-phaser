@@ -94,20 +94,6 @@
   export let blendMode = undefined
 
   /**
-   * Sets an animation to be played immediately after the current one completes.
-   *
-   * The current animation must enter a 'completed' state for this to happen, i.e. finish all of its repeats, delays, etc, or be stopped.
-   *
-   * An animation set to repeat forever will never enter a completed state.
-   *
-   * You can chain a new animation at any point, including before the current one starts playing, during it, or when it ends (via its animationcomplete callback).
-   * Chained animations are specific to a Game Object, meaning different Game Objects can have different chained animations without impacting the global animation they're playing.
-   *
-   * @type {string}
-   */
-  export let chain = undefined
-
-  /**
    * A Data Manager. It allows you to store, query and get key/value paired information specific to this Game Object. null by default.
    * @type {any}
    */
@@ -219,6 +205,21 @@
    * @type {number}
    */
   export let height = undefined
+
+  /**
+   * Whether or not the game object should react to input from the pointer. This is true by default,
+   * and is required to emit pointer events.
+   *
+   * If you wish to customize the hit area, you can provide an object containing "shape", "callback", and "dropZone" which
+   * will get passed into Phaser's underlying `setInteractive` method.
+   *
+   * See Phaser's documentation for more information:
+   *
+   * https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html#setInteractive__anchor
+   *
+   * @type {boolean | object}
+   */
+  export let interactive = true
 
   /**
    * The Mask this Game Object is using during render.
@@ -378,8 +379,7 @@
 
   /**
    * Whether or not the animation is stopped. The difference to `pause` is it will
-   * dispatch an `animationcomplete` event, and start playing the next animation
-   * from `chain`
+   * dispatch an `animationcomplete` event.
    *
    * @type {boolean}
    */
@@ -536,6 +536,18 @@
     })
   }
 
+  $: if (interactive === true) {
+    instance.setInteractive()
+  } else if (!interactive) {
+    instance.removeInteractive()
+  } else {
+    instance.setInteractive(
+      interactive.shape,
+      interactive.callback,
+      interactive.dropzone
+    )
+  }
+
   $: shouldApplyProps(texture) && instance.setTexture(texture)
   $: shouldApplyProps(frame) && instance.setFrame(frame)
   $: {
@@ -619,6 +631,20 @@
       instance.anims.play(animation, ignoreIfPlaying, 0)
     }
   }
+  $: {
+    if (shouldApplyProps(stopped)) {
+      if (stopped) {
+        instance.anims.stop()
+      } else {
+        const ignoreIfPlaying =
+          instance.anims.currentAnim &&
+          instance.anims.currentAnim.key === animation
+
+        instance.anims.play(animation, ignoreIfPlaying, 0)
+      }
+    }
+  }
+  $: shouldApplyProps(paused) && instance.anims.pause(paused)
   $: shouldApplyProps(delay) && instance.setDelay(delay)
   $: shouldApplyProps(duration) && (instance.anims.duration = duration)
   $: shouldApplyProps(forward) && (instance.anims.forward = forward)

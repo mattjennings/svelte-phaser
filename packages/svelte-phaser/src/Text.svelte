@@ -248,6 +248,19 @@
   export let height = undefined
 
   /**
+   * If you want the Text to be reactive to pointer events you will need to provide
+   * an object containing "shape", "callback", and "dropZone". This gets
+   * passed into Phaser's underlying `setInteractive` method.
+   *
+   * See Phaser's documentation for more information:
+   *
+   * https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html#setInteractive__anchor
+   *
+   * @type {boolean | object}
+   */
+  export let interactive = undefined
+
+  /**
    * The line spacing value. This value is added to the font height to calculate the overall line height.
    * Only has an effect if this Text object contains multiple lines of text.
    * @type {number}
@@ -558,6 +571,17 @@
     })
   }
 
+  $: if (interactive === true) {
+    instance.setInteractive()
+  } else if (!interactive) {
+    instance.removeInteractive()
+  } else {
+    instance.setInteractive(
+      interactive.shape,
+      interactive.callback,
+      interactive.dropzone
+    )
+  }
   $: shouldApplyProps(active) && instance.setActive(active)
   $: shouldApplyProps(align) && instance.setAlign(align)
   $: {

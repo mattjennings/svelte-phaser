@@ -11,7 +11,6 @@ export function applyGameObjectEventDispatchers(
     return () => instance.off(event, callback)
   }
 
-  instance.setInteractive()
   const listeners = [
     createEventHandler('drag'),
     createEventHandler('dragend'),
