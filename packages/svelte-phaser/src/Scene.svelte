@@ -119,14 +119,14 @@
   const game = getContext('phaser/game')
   setContext('phaser/scene', instance)
 
+  let loading = !!preload
+  let loadingProgress = 0
+
   instance.preload = preload ? () => preload(instance) : null
   instance.create = create ? () => create(instance) : null
   instance.init = init ? () => init(instance) : null
 
   game.scene.add(key, instance, true)
-
-  let loading = !!preload
-  let loadingProgress = 0
 
   let listeners = [
     instance.load.on('progress', progress => {

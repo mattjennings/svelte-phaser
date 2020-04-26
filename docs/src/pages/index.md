@@ -27,10 +27,6 @@ title: false
         margin-top: 100px;
     }
 
-    .banner img{
-        width: 300px;
-    }
-
     .banner p{
         font-size: 1.5em;
         text-align: center;

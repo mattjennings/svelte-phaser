@@ -1,7 +1,7 @@
 <script>
   import Phaser from 'phaser'
   import {
-    Image,
+    Sprite,
     ArcadePhysics,
     ArcadeCollider,
     getScene,
@@ -54,10 +54,16 @@
   })
 </script>
 
-<Image bind:instance depth={10} name="player" texture="textures/player" {x} {y}>
+<Sprite
+  bind:instance
+  depth={10}
+  name="player"
+  texture="textures/player"
+  {x}
+  {y}>
   <ArcadeCollider
     with={['enemies', 'enemyBullet']}
     overlapOnly
     on:collide={() => lives.update(prev => prev - 1)} />
   <ArcadePhysics {velocityX} collideWorldBounds />
-</Image>
+</Sprite>

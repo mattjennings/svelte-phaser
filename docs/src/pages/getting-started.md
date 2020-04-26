@@ -1,12 +1,28 @@
-## Installation
+# Getting Started
+
+### Creating a new project
+
+The easiest way to get started is to create a new project using the blank template:
 
 ```shell
-$ npm install -D svelte-phaser
+$ npx degit mattjennings/svelte-phaser/templates/blank my-first-game
+$ npm install
+$ npm run dev
 ```
 
-Then you can import it in your projects:
+If a blank project is too boring, feel free to look through the [examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples).
 
-```example
+### Adding to an existing project
+
+If you have an existing svelte project you can just install `svelte-phaser`:
+
+```shell
+$ npm install svelte-phaser
+```
+
+and then import it:
+
+```svelte
 <script>
   import { Game, Scene, Text } from 'svelte-phaser'
 </script>

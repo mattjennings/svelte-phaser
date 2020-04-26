@@ -4,3 +4,4 @@
   - [Scene](components/scene)
   - [Text](components/text)
   - [Sprite](components/sprite)
+- [Examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples)

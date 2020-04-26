@@ -1,6 +1,11 @@
 <script>
   import { onMount } from 'svelte'
-  import { Image, ArcadePhysics, ArcadeCollider, getScene } from 'svelte-phaser'
+  import {
+    Sprite,
+    ArcadePhysics,
+    ArcadeCollider,
+    getScene,
+  } from 'svelte-phaser'
   import Explosion from './Explosion.svelte'
 
   export let name
@@ -37,7 +42,7 @@
     y={destroyedPosition.y - 32}
     onAnimationComplete={() => onDestroy()} />
 {:else}
-  <Image bind:instance {depth} {name} {texture} {x} {y}>
+  <Sprite bind:instance {depth} {name} {texture} {x} {y}>
     <ArcadeCollider
       with={target}
       overlapOnly
@@ -46,5 +51,5 @@
         destroyedPosition = { x: instance.x, y: instance.y }
       }} />
     <ArcadePhysics {velocityY} {velocityX} />
-  </Image>
+  </Sprite>
 {/if}
