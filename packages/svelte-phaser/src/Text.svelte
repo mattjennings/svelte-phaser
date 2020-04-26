@@ -1,8 +1,18 @@
 <script>
   import Phaser from 'phaser'
-  import { onMount, getContext, setContext } from 'svelte'
+  import {
+    onMount,
+    getContext,
+    setContext,
+    createEventDispatcher,
+  } from 'svelte'
   import { addInstance, shouldApplyProps } from './util'
-  import { applyAlpha, applyScale, applyTint } from './props/index'
+  import {
+    applyAlpha,
+    applyScale,
+    applyTint,
+    applyGameObjectEventDispatchers,
+  } from './props/index'
 
   export let active = undefined
   export let align = undefined
@@ -74,6 +84,7 @@
   export let y = undefined
   export let z = undefined
 
+  const dispatch = createEventDispatcher()
   const scene = getContext('phaser/scene')
 
   export let instance = new Phaser.GameObjects.Text(scene, x, y, text, style)
@@ -82,7 +93,14 @@
 
   if (!scene.children.exists(instance)) {
     addInstance(instance)
-    onMount(() => () => instance.destroy())
+    const cleanupDispatchers = applyGameObjectEventDispatchers(
+      instance,
+      dispatch
+    )
+    onMount(() => () => {
+      cleanupDispatchers()
+      instance.destroy()
+    })
   }
 
   $: shouldApplyProps(active) && instance.setActive(active)

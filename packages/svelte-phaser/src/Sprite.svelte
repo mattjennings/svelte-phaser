@@ -7,9 +7,12 @@
     createEventDispatcher,
   } from 'svelte'
   import { addInstance, shouldApplyProps } from './util'
-  import { applyAlpha, applyScale, applyTint } from './props/index'
-
-  const dispatch = createEventDispatcher()
+  import {
+    applyAlpha,
+    applyScale,
+    applyTint,
+    applyGameObjectEventDispatchers,
+  } from './props/index'
 
   export let accumulator = undefined
   export let active = undefined
@@ -75,6 +78,7 @@
   export let yoyo = undefined
   export let z = undefined
 
+  const dispatch = createEventDispatcher()
   const scene = getContext('phaser/scene')
 
   export let instance = new Phaser.GameObjects.Sprite(
@@ -90,14 +94,21 @@
   if (!scene.children.exists(instance)) {
     addInstance(instance)
 
-    const createEventHandler = event =>
-      instance.on(event, (...args) => dispatch(event, args))
+    const cleanupDispatchers = applyGameObjectEventDispatchers(
+      instance,
+      dispatch,
+      [
+        'animationstart',
+        'animationcomplete',
+        'animationrestart',
+        'animationrepeat',
+      ]
+    )
 
-    createEventHandler('animationstart')
-    createEventHandler('animationcomplete')
-    createEventHandler('animationrestart')
-    createEventHandler('animationrepeat')
-    onMount(() => () => instance.destroy())
+    onMount(() => () => {
+      cleanupDispatchers()
+      instance.destroy()
+    })
   }
 
   $: shouldApplyProps(texture) && instance.setTexture(texture)

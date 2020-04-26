@@ -1,4 +1,5 @@
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, Text } from 'svelte-phaser'
 
   let game
