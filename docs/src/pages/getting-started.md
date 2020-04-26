@@ -5,9 +5,9 @@
 The easiest way to get started is to create a new project using the blank template:
 
 ```shell
-$ npx degit mattjennings/svelte-phaser/templates/blank my-first-game
-$ npm install
-$ npm run dev
+npx degit mattjennings/svelte-phaser/templates/blank my-first-game
+npm install
+npm run dev
 ```
 
 If a blank project is too boring, feel free to look through the [examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples).
