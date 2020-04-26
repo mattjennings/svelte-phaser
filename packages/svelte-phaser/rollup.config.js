@@ -10,8 +10,8 @@ const name = pkg.name
 export default {
   input: 'src/index.js',
   output: [
-    { file: pkg.module, format: 'es' },
-    { file: pkg.main, format: 'umd', name },
+    { file: pkg.module, format: 'es', globals: { phaser: 'Phaser' } },
+    { file: pkg.main, format: 'umd', name, globals: { phaser: 'Phaser' } },
   ],
   plugins: [svelte(), resolve()],
   external: ['phaser'],
