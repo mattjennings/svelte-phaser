@@ -2,4 +2,5 @@
 - Components
   - [Game](components/game)
   - [Scene](components/scene)
+  - [Text](components/text)
 - [Github](https://github.com/alexxnb/svelte-docs)

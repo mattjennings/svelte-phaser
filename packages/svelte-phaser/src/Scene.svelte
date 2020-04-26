@@ -3,8 +3,10 @@
   import { getContext, setContext, onMount, tick } from 'svelte'
   import { removeUndefined } from './util'
 
-  /** __REQUIRED__
+  /**
    * The unique key of this Scene. Must be unique within the entire Game instance.
+   *
+   * #required
    * @type {string}
    */
   export let key = undefined

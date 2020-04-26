@@ -35,7 +35,19 @@
     ]
   },
   "jsdoc": {
-    "prefix": "jsd",
+    "prefix": "/**",
     "body": ["/**", " * $1", " * @type {$2}", " */"]
+  },
+  "jsdoc number": {
+    "prefix": "/**n",
+    "body": ["/**", " * $1", " * @type {number}", " */"]
+  },
+  "jsdoc string": {
+    "prefix": "/**s",
+    "body": ["/**", " * $1", " * @type {string}", " */"]
+  },
+  "jsdoc boolean": {
+    "prefix": "/**b",
+    "body": ["/**", " * $1", " * @type {boolean}", " */"]
   }
 }

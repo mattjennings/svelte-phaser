@@ -12,29 +12,36 @@
 
   /**
    * Automatically call window.focus() when the game boots. Usually necessary to capture input events if the game is in a separate frame.
+   *
+   * #phaserDefault false
    * @type {boolean}
    */
-  export let autoFocus = false
+  export let autoFocus = undefined
 
   /**
    * The background color of the game canvas. The default is black.
+   *
+   * #phaserDefault 0x000000
    * @type {string|number}
    */
-  export let backgroundColor = 0x000000
+  export let backgroundColor = undefined
 
   /**
    * Configuration for the banner printed in the browser console when the game starts.
+   *
+   * #phaserDefault false
    * @type {boolean|Phaser.Types.Core.BannerConfig}
-   * @required
    */
-  export let banner = false
+  export let banner = undefined
 
   /**
    * Provide your own Canvas element for Phaser to use instead of creating one.
    * You will also need to set the type to Phaser.CANVAS
+   *
+   * #phaserDefault null
    * @type {HTMLCanvasElement}
    */
-  export let canvas = null
+  export let canvas = undefined
 
   /**
    * Provide your own Canvas Context for Phaser to use, instead of creating one.
@@ -46,15 +53,19 @@
    * Is Phaser running under a custom (non-native web) environment?
    * If so, set this to true to skip internal Feature detection.
    * If true the renderType cannot be left as AUTO.
+   *
+   * #phaserDefault false
    * @type {boolean}
    */
-  export let customEnvironment = false
+  export let customEnvironment = undefined
 
   /**
    * Disable the browser's default 'contextmenu' event (usually triggered by a right-button mouse click).
+   *
+   * #phaserDefault false
    * @type {boolean}
    */
-  export let disableContextMenu = false
+  export let disableContextMenu = undefined
 
   /**
    * Game loop configuration.
@@ -64,9 +75,11 @@
 
   /**
    * The height of the game, in game pixels.
+   *
+   * #phaserDefault 1024
    * @type {number}
    */
-  export let height = 1024
+  export let height = undefined
 
   /**
    * Images configuration
@@ -100,15 +113,19 @@
 
   /**
    * The size of each game pixel, in canvas pixels. Values larger than 1 are "high" resolution.
+   *
+   * #phaserDefault 1
    * @type {number}
    */
-  export let resolution = 1
+  export let resolution = undefined
 
   /**
    * Scale configuration
+   *
+   * #phaserDefault 1
    * @type {Phaser.Types.Core.ScaleConfig}
    */
-  export let scale = 1
+  export let scale = undefined
 
   /**
    * Seed for the random number generator.
@@ -124,13 +141,17 @@
 
   /**
    *  Whether the game canvas will have a transparent background
+   *
+   * #phaserDefault false
    * @type {boolean}
    */
-  export let transparent = false
+  export let transparent = undefined
 
   /**
    * Which renderer to use. Phaser.AUTO, Phaser.CANVAS, Phaser.HEADLESS,
    * or Phaser.WEBGL. AUTO picks WEBGL if available, otherwise CANVAS.
+   *
+   * #phaserDefault Phaser.AUTO
    * @type {number}
    */
   export let type = Phaser.AUTO
@@ -149,19 +170,24 @@
 
   /**
    * The width of the game, in game pixels.
+   *
+   * #phaserDefault 1024
    * @type {number}
    */
-  export let width = 1024
+  export let width = undefined
 
   /**
    * Simple scale applied to the game canvas. 2 is double size, 0.5 is half size, etc.
+   *
+   * #phaserDefault 1
    * @type {number}
    */
-  export let zoom = 1
+  export let zoom = undefined
 
   /**
    * If you have an existing Phaser.Game instnace you can pass it in here.
-   * @type {}
+   *
+   * @type {Phaser.Game}
    */
   export let instance = new Phaser.Game(
     removeUndefined({
