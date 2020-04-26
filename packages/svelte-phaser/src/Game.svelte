@@ -197,7 +197,7 @@
     })
   )
 
-  let booting = !instance.isBooted
+  let booting = !instance.isRunning
 
   instance.events.on('ready', () => {
     booting = false
