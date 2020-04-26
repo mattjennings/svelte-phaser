@@ -64,8 +64,9 @@
   export let plugins = undefined
 
   /**
-   * Use this callback to load assets. This method is called by the Scene Manager,
-   * after init() and before create(), only if the Scene has a LoaderPlugin.
+   * Use this callback to load assets.
+   *
+   * This method is called by the Scene Manager, after init() and before create(), only if the Scene has a LoaderPlugin.
    * After this method completes, if the LoaderPlugin's queue isn't empty,
    * the LoaderPlugin will start automatically.
    *
@@ -76,6 +77,7 @@
 
   /**
    * Use this callback to create any other assets needed by the scene (animations, etc).
+   *
    * This method is called by the Scene Manager when the scene starts, after init() and preload().
    * If the LoaderPlugin started after preload(), then this method is called only after loading is complete.
    *
