@@ -70,11 +70,3 @@ but we can make use of the `svelte-fragment` package to render a custom loading 
 ```properties
 ./../packages/svelte-phaser/src/Scene.svelte
 ```
-
-## Events
-
-<!--
-```properties
-on:preBoot | Called at the start of the boot sequence. | function
-on:postBoot | Called at the end of the boot sequence. At this point, all the game systems have started and plugins have been loaded. | function
-``` -->
