@@ -1,0 +1,5 @@
+- [Getting Started](getting-started)
+- Components
+  - [Game](components/game)
+  - [Scene](components/scene)
+- [Github](https://github.com/alexxnb/svelte-docs)
