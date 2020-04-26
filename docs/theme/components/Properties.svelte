@@ -27,9 +27,6 @@
         !prop.attr.default &&
         (prop.description && prop.description.match(/__REQUIRED__\n/))
 
-      if (required) {
-        console.log(prop)
-      }
       // and then we'll remove the __REQUIRED__ from the description
       const description =
         prop.description && prop.description.replace(/__REQUIRED__\n\s?/, '')
