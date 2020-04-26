@@ -17,3 +17,10 @@ Creates a Phaser.Game instance. Only [Scene](/components/scene) components can b
 ```properties
 ./../packages/svelte-phaser/src/Game.svelte
 ```
+
+## Events
+
+```properties
+on:preBoot | Called at the start of the boot sequence. | function
+on:postBoot | Called at the end of the boot sequence. At this point, all the game systems have started and plugins have been loaded. | function
+```

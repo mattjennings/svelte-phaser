@@ -1,7 +1,8 @@
 <script>
   import Phaser from 'phaser'
-  import { setContext } from 'svelte'
+  import { setContext, createEventDispatcher } from 'svelte'
   import { removeUndefined } from './util'
+  const dispatch = createEventDispatcher()
 
   /**
    * Audio configuration
@@ -159,7 +160,7 @@
   export let zoom = 1
 
   /**
-   * If yo have an existing Phaser.Game instnace you can pass it in here.
+   * If you have an existing Phaser.Game instnace you can pass it in here.
    * @type {}
    */
   export let instance = new Phaser.Game(
@@ -189,6 +190,10 @@
       plugins,
       scale,
       audio,
+      callbacks: {
+        preBoot: (...args) => dispatch('preBoot'),
+        postBoot: (...args) => dispatch('postBoot'),
+      },
     })
   )
 
