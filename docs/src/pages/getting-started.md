@@ -1,5 +1,7 @@
 # Getting Started
 
+This is still very much a work in progress! Many features of Phaser are still missing. Please be aware that breaking changes **will** happen during these early stages, but don't let that scare you from giving it a try.
+
 ### Creating a new project
 
 The easiest way to get started is to create a new project using the blank template:
