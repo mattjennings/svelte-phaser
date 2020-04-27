@@ -6,6 +6,7 @@ The easiest way to get started is to create a new project using the blank templa
 
 ```shell
 npx degit mattjennings/svelte-phaser/templates/blank my-first-game
+cd my-first-game
 npm install
 npm run dev
 ```
