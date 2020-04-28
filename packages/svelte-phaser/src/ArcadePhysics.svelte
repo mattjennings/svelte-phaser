@@ -2,6 +2,7 @@
   import Phaser from 'phaser'
   import { onMount, getContext } from 'svelte'
   import { shouldApplyProps } from './util'
+  import { onGameEvent } from './onGameEvent'
 
   export let acceleration = undefined
   export let accelerationX = undefined
@@ -63,10 +64,10 @@
   })
 
   $: shouldApplyProps(allowGravity) &&
-    instance.body.setAllowGravity(allowGravity)
-  $: shouldApplyProps(allowDrag) && instance.body.setAllowDrag(allowDrag)
+    (instance.body.allowGravity = allowGravity)
+  $: shouldApplyProps(allowDrag) && (instance.body.allowDrag = allowDrag)
   $: shouldApplyProps(allowRotation) &&
-    instance.body.allowRotation(allowRotation)
+    (instance.body.allowRotation = allowRotation)
 
   $: shouldApplyProps(acceleration) &&
     instance.body.setAcceleration(acceleration)
@@ -122,15 +123,72 @@
   $: shouldApplyProps(onWorldBounds) &&
     (instance.body.onWorldBounds = onWorldBounds)
 
-  $: if (shouldApplyProps(maxVelocity)) {
-    instance.body.setMaxVelocity(maxVelocity)
-  } else if (shouldApplyProps(maxVelocityX, maxVelocityY)) {
+  $: if (shouldApplyProps(maxVelocityX, maxVelocityY)) {
     instance.body.setMaxVelocity(maxVelocityX || 0, maxVelocityY || 0)
+  } else if (shouldApplyProps(maxVelocity)) {
+    instance.body.setMaxVelocity(maxVelocity)
   }
 
-  $: shouldApplyProps(velocity) && instance.body.setVelocity(velocity)
   $: shouldApplyProps(velocityX) && instance.body.setVelocityX(velocityX)
   $: shouldApplyProps(velocityY) && instance.body.setVelocityY(velocityY)
+  $: shouldApplyProps(velocity) && instance.body.setVelocity(velocity)
+
+  onGameEvent('prestep', () => {
+    accelerationX = instance.body.acceleration.x
+    accelerationY = instance.body.acceleration.y
+    allowDrag = instance.body.allowDrag
+    allowRotation = instance.body.allowRotation
+    allowGravity = instance.body.allowGravity
+    angularAcceleration = instance.body.angularAcceleration
+    angularDrag = instance.body.angularDrag
+    angularVelocity = instance.body.angularVelocity
+    bounceX = instance.body.bounce.x
+    bounceY = instance.body.bounce.y
+    circle = instance.body.circle
+    collideWorldBounds = instance.body.collideWorldBounds
+    damping = instance.body.damping
+    dragX = instance.body.drag.x
+    dragY = instance.body.drag.y
+    frictionX = instance.body.friction.x
+    frictionY = instance.body.friction.y
+    gravityX = instance.body.gravity.x
+    gravityY = instance.body.gravity.y
+    immovable = instance.body.immovable
+    mass = instance.body.mass
+    maxVelocityX = instance.body.maxVelocity.x
+    maxVelocityY = instance.body.maxVelocity.y
+    offsetX = instance.body.offset.x
+    offsetX = instance.body.offset.y
+    onWorldBounds = instance.body.onWorldBounds
+    size = instance.body.size
+    velocityX = instance.body.velocity.x
+    velocityY = instance.body.velocity.y
+
+    // conditionally bind to the "helper" props for Vector2 only if they were provided
+    // (otherwise, it would cause them to be used on the next step and override the specific x/y prop)
+    if (shouldApplyProps(acceleration)) {
+      acceleration =
+        instance.body.acceleration.x || instance.body.acceleration.y
+    }
+    if (shouldApplyProps(bounce)) {
+      bounce = instance.body.bounce.x || instance.body.bounce.y
+    }
+    if (shouldApplyProps(drag)) {
+      drag = instance.body.drag.x || instance.body.drag.y
+    }
+    if (shouldApplyProps(friction)) {
+      friction = instance.body.friction.x || instance.body.friction.y
+    }
+    if (shouldApplyProps(gravity)) {
+      gravity = instance.body.gravity.x || instance.body.gravity.y
+    }
+    if (shouldApplyProps(gravity)) {
+      maxVelocity = instance.body.maxVelocity.x || instance.body.maxVelocity.y
+    }
+    if (shouldApplyProps(velocity)) {
+      velocity = instance.body.velocity.x || instance.body.velocity.y
+    }
+  })
 </script>
 
 <slot />
