@@ -2,17 +2,38 @@ import { shouldApplyProps } from '../util/shouldApplyProps'
 
 export function applyTint(
   instance,
-  { tint, tintTopLeft, tintTopRight, tintBottomLeft, tintBottomRight, tintFill }
+  { tintTopLeft, tintTopRight, tintBottomLeft, tintBottomRight, tintFill }
 ) {
-  if (shouldApplyProps(tint)) {
-    instance.setTint(tint)
-  } else if (
-    shouldApplyProps(tintTopLeft, tintTopRight, tintBottomLeft, tintBottomRight)
+  if (
+    shouldApplyProps(
+      tintTopLeft,
+      tintTopRight,
+      tintBottomLeft,
+      tintBottomRight,
+      tintFill
+    )
   ) {
-    instance.setTint(tintTopLeft, tintTopRight, tintBottomLeft, tintBottomRight)
-  }
-
-  if (shouldApplyProps(tintFill)) {
-    instance.setTintFill(tintFill)
+    if (
+      tintTopLeft !== instance.tintTopLeft ||
+      tintTopRight !== instance.tintTopRight ||
+      tintBottomLeft !== instance.tintBottomLeft ||
+      tintBottomRight !== instance.tintBottomRight
+    ) {
+      if (tintFill) {
+        instance.setTintFill(
+          tintTopLeft,
+          tintTopRight,
+          tintBottomLeft,
+          tintBottomRight
+        )
+      } else {
+        instance.setTint(
+          tintTopLeft,
+          tintTopRight,
+          tintBottomLeft,
+          tintBottomRight
+        )
+      }
+    }
   }
 }
