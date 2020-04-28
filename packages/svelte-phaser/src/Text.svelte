@@ -795,7 +795,16 @@
   $: shouldApplyProps(z) && z !== instance.z && instance.setZ(z)
   $: shouldApplyProps(text) && text !== instance.text && instance.setText(text)
 
+  // position values will conflict with velocity if they're
+  // in the prestep event. it seems fine in prerender...
   onGameEvent('prerender', () => {
+    w = instance.w
+    x = instance.x
+    y = instance.y
+    z = instance.z
+  })
+
+  onGameEvent('prestep', () => {
     active = instance.active
     align = instance.align
     alpha = instance.alpha
@@ -861,13 +870,9 @@
     tintFill = instance.tintFill
 
     visible = instance.visible
-    w = instance.w
     width = instance.width
     wordWrap = instance.style.wordWrapWidth
     useAdvancedWordWrap = instance.style.wordWrapUseAdvanced
-    x = instance.x
-    y = instance.y
-    z = instance.z
   })
 </script>
 

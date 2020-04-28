@@ -40,8 +40,7 @@
         start: 14,
         end: 21,
       }),
-      frameRate: 10,
-      repeat: 0,
+      frameRate: 20,
     })
     scene.anims.create({
       key: 'anims/player/fall',

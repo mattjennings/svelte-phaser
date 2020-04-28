@@ -28,23 +28,40 @@
       (keys.left.isDown && keys.right.isDown)
     ) {
       velocityX = 0
-      animation = 'idle'
     } else if (keys.left.isDown) {
       velocityX = -X_SPEED
       flipX = true
-      animation = 'run'
     } else if (keys.right.isDown) {
       flipX = false
-      animation = 'run'
       velocityX = X_SPEED
     }
 
     if (Phaser.Input.Keyboard.JustDown(keys.jump)) {
-      velocityY = -300
+      velocityY = -200
     } else if (Phaser.Input.Keyboard.JustUp(keys.jump) && velocityY < 0) {
-      velocityY = 0
+      velocityY = 1
     }
   })
+
+  $: if (velocityY === 0) {
+    if (velocityX !== 0) {
+      animation = 'run'
+    } else {
+      animation = 'idle'
+    }
+  }
+
+  $: if (velocityY < 0 && animation !== 'fall') {
+    animation = 'jump'
+  } else if (velocityY > 0) {
+    animation = 'fall'
+  }
+
+  function onAnimationComplete({ detail }) {
+    if (detail.animation.key === 'anims/player/jump') {
+      animation = 'fall'
+    }
+  }
 </script>
 
 <Sprite
@@ -52,6 +69,7 @@
   bind:x
   bind:y
   animation={`anims/player/${animation}`}
+  on:animationcomplete={onAnimationComplete}
   {flipX}>
   <ArcadePhysics immovable collideWorldBounds bind:velocityX bind:velocityY />
 </Sprite>

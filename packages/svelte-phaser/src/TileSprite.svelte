@@ -567,7 +567,16 @@
   $: shouldApplyProps(tileScaleX) && (instance.tileScaleX = tileScaleX)
   $: shouldApplyProps(tileScaleY) && (instance.tileScaleY = tileScaleY)
 
+  // position values will conflict with velocity if they're
+  // in the prestep event. it seems fine in prerender...
   onGameEvent('prerender', () => {
+    w = instance.w
+    x = instance.x
+    y = instance.y
+    z = instance.z
+  })
+
+  onGameEvent('prestep', () => {
     active = instance.active
     alpha = instance.alpha
     alphaBottomLeft = instance.alphaBottomLeft
@@ -601,14 +610,8 @@
     tintTopLeft = instance.tintTopLeft
     tintTopRight = instance.tintTopRight
     tintFill = instance.tintFill
-
     visible = instance.visible
-    w = instance.w
     width = instance.width
-    x = instance.x
-    y = instance.y
-    z = instance.z
-
     texture = instance.texture.key
     tilePositionX = instance.tilePositionX
     tilePositionY = instance.tilePositionY

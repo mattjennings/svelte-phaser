@@ -1,31 +1,141 @@
-export function applyGameObjectEventDispatchers(
-  instance,
-  dispatch,
-  extraEvents = []
-) {
-  const createEventHandler = event => {
-    const callback = (...args) => dispatch(event, args)
+import { createPhaserEventDispatcher } from '../util'
 
-    instance.on(event, callback)
-
-    return () => instance.off(event, callback)
-  }
-
+export function applyGameObjectEventDispatchers(instance, dispatch) {
   const listeners = [
-    createEventHandler('drag'),
-    createEventHandler('dragend'),
-    createEventHandler('dragenter'),
-    createEventHandler('dragleave'),
-    createEventHandler('dragover'),
-    createEventHandler('dragstart'),
-    createEventHandler('drop'),
-    createEventHandler('pointerdown'),
-    createEventHandler('pointermove'),
-    createEventHandler('pointerout'),
-    createEventHandler('pointerover'),
-    createEventHandler('pointerup'),
-    createEventHandler('pointerwheel'),
-    ...extraEvents.map(ev => createEventHandler(ev)),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'drag',
+      (pointer, gameObject, dragX, dragY) => ({
+        pointer,
+        gameObject,
+        dragX,
+        dragY,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'dragend',
+      (pointer, gameObject) => ({
+        pointer,
+        gameObject,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'dragenter',
+      (pointer, gameObject, target) => ({
+        pointer,
+        gameObject,
+        target,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'dragleave',
+      (pointer, gameObject, target) => ({
+        pointer,
+        gameObject,
+        target,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'dragover',
+      (pointer, gameObject, target) => ({
+        pointer,
+        gameObject,
+        target,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'dragstart',
+      (pointer, gameObject) => ({
+        pointer,
+        gameObject,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'drop',
+      (pointer, gameObject, target) => ({
+        pointer,
+        gameObject,
+        target,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'pointerdown',
+      (pointer, localX, localY, event) => ({
+        pointer,
+        localX,
+        localY,
+        event,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'pointermove',
+      (pointer, localX, localY, event) => ({
+        pointer,
+        localX,
+        localY,
+        event,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'pointerout',
+      (pointer, event) => ({
+        pointer,
+        event,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'pointerover',
+      (pointer, localX, localY, event) => ({
+        pointer,
+        localX,
+        localY,
+        event,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'pointerup',
+      (pointer, localX, localY, event) => ({
+        pointer,
+        localX,
+        localY,
+        event,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance,
+      dispatch,
+      'pointerwheel',
+      (pointer, deltaX, deltaY, deltaZ, event) => ({
+        pointer,
+        deltaX,
+        deltaY,
+        deltaZ,
+        event,
+      })
+    ),
   ]
 
   // is this necessary? do gameobjects clean this up when they destroy?

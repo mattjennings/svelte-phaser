@@ -6,7 +6,11 @@
     setContext,
     createEventDispatcher,
   } from 'svelte'
-  import { addInstance, shouldApplyProps } from './util'
+  import {
+    addInstance,
+    shouldApplyProps,
+    createPhaserEventDispatcher,
+  } from './util'
   import {
     applyAlpha,
     applyScale,
@@ -259,14 +263,6 @@
   export let originY = undefined
 
   /**
-   * Whether or not the animation is paused. If a frame key is provided,
-   * it will pause at that frame.
-   *
-   * @type {boolean|string}
-   */
-  export let paused = undefined
-
-  /**
    * Takes a value between 0 and 1 and uses it to set how far this animation is through playback. Does not factor in repeats or yoyos, but does handle playing forwards or backwards.
    * @type {number}
    */
@@ -375,12 +371,11 @@
   export let skipMissedFrames = undefined
 
   /**
-   * Whether or not the animation is stopped. The difference to `pause` is it will
-   * dispatch an `animationcomplete` event.
+   * Whether or not the animation is playing
    *
    * @type {boolean}
    */
-  export let stopped = undefined
+  export let isPlaying = undefined
 
   /**
    * Stops the current animation from playing after the specified time delay, given in milliseconds.
@@ -514,19 +509,55 @@
   if (!scene.children.exists(instance)) {
     addInstance(instance)
 
-    const cleanupDispatchers = applyGameObjectEventDispatchers(
+    const cleanupGameObjectDispatchers = applyGameObjectEventDispatchers(
       instance,
-      dispatch,
-      [
-        'animationstart',
-        'animationcomplete',
-        'animationrestart',
-        'animationrepeat',
-      ]
+      dispatch
     )
 
+    const spriteEventListeners = [
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'animationcomplete',
+        (animation, frame, gameObject) => ({
+          animation,
+          frame,
+          gameObject,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'animationrepeat',
+        (animation, frame) => ({
+          animation,
+          frame,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'animationrestart',
+        (animation, frame, gameObject) => ({
+          animation,
+          frame,
+          gameObject,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'animationstart',
+        (animation, frame, gameObject) => ({
+          animation,
+          frame,
+          gameObject,
+        })
+      ),
+    ]
     onMount(() => () => {
-      cleanupDispatchers()
+      cleanupGameObjectDispatchers()
+      spriteEventListeners.forEach(listener => listener())
       instance.destroy()
     })
   }
@@ -681,21 +712,15 @@
     (!instance.anims.currentAnim ||
       instance.anims.currentAnim.key !== animation)
   ) {
-    instance.anims.play(animation, false, 0)
+    instance.anims.play(animation, true)
   }
 
-  // if stopped is true, and isPlaying is true, we want to stop it and vice-versa
-  $: if (shouldApplyProps(stopped) && stopped === instance.anims.isPlaying) {
-    if (stopped) {
-      instance.anims.stop()
-    } else {
-      instance.anims.play(animation, false, 0)
+  $: if (shouldApplyProps(isPlaying)) {
+    if (isPlaying !== instance.anims.isPlaying) {
+      console.log(isPlaying, instance.anims.isPlaying)
     }
+    instance.anims.isPlaying = isPlaying
   }
-
-  $: shouldApplyProps(paused) &&
-    paused !== instance.anims.isPaused &&
-    instance.anims.pause(paused)
 
   $: shouldApplyProps(delay) &&
     delay !== instance.anims.getDelay() &&
@@ -734,7 +759,16 @@
     yoyo !== instance.anims.getYoyo() &&
     instance.anims.setYoyo(yoyo)
 
+  // position values will conflict with velocity if they're
+  // in the prestep event. it seems fine in prerender...
   onGameEvent('prerender', () => {
+    w = instance.w
+    x = instance.x
+    y = instance.y
+    z = instance.z
+  })
+
+  onGameEvent('prestep', () => {
     active = instance.active
     alpha = instance.alpha
     alphaBottomLeft = instance.alphaBottomLeft
@@ -769,12 +803,7 @@
     tintTopRight = instance.tintTopRight
     tintFill = instance.tintFill
     visible = instance.visible
-    w = instance.w
     width = instance.width
-
-    x = instance.x
-    y = instance.y
-    z = instance.z
 
     if (instance.texture) {
       texture = instance.texture.key
@@ -784,9 +813,7 @@
       if (instance.anims.currentAnim && instance.anims.currentAnim.key) {
         animation = instance.anims.currentAnim.key
       }
-
-      stopped = !instance.anims.isPlaying && !instance.anims.isPaused
-      paused = instance.anims.isPaused
+      isPlaying = instance.anims.isPlaying
       delay = instance.anims.getDelay()
       duration = instance.anims.duration
       forward = instance.anims.forward
