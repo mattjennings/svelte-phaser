@@ -94,12 +94,6 @@
   export let data = undefined
 
   /**
-   * The initial WebGL pipeline of this Game Object.
-   * @type {Phaser.Renderer.WebGL.WebGLPipeline}
-   */
-  export let defaultPipeline = undefined
-
-  /**
    * The depth of this Game Object within the Scene.
    * The depth is also known as the 'z-index' in some environments, and allows you to change the rendering order of Game Objects, without actually moving their position in the display list.
    * The depth starts from zero (the default value) and increases from that point. A Game Object with a higher depth value will always render in front of one with a lower value.
@@ -471,9 +465,6 @@
 
   $: shouldApplyProps(data) && instance.setData(data)
 
-  $: shouldApplyProps(defaultPipeline) &&
-    (instance.defaultPipeline = defaultPipeline)
-
   $: shouldApplyProps(depth) &&
     depth !== instance.depth &&
     instance.setDepth(depth)
@@ -568,7 +559,7 @@
   $: shouldApplyProps(tileScaleX) && (instance.tileScaleX = tileScaleX)
   $: shouldApplyProps(tileScaleY) && (instance.tileScaleY = tileScaleY)
 
-  onGameEvent('prestep', () => {
+  onGameEvent('poststep', () => {
     active = instance.active
     alpha = instance.alpha
     alphaBottomLeft = instance.alphaBottomLeft
@@ -577,8 +568,9 @@
     alphaTopRight = instance.alphaTopRight
     angle = instance.angle
     blendMode = instance.blendMode
-    data = instance.data && instance.data.get()
-    defaultPipeline = instance.defaultPipeline
+    if (instance.data) {
+      data = instance.data.get()
+    }
     displayOriginX = instance.displayOriginX
     displayOriginY = instance.displayOriginY
     flipX = instance.flipX

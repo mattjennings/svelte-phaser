@@ -13,6 +13,7 @@
     applyTint,
     applyGameObjectEventDispatchers,
   } from './props/index'
+  import { onGameEvent } from './onGameEvent'
 
   /**
    * The active state of this Game Object. A Game Object with an active state of true is processed by the
@@ -98,12 +99,6 @@
    * @type {any}
    */
   export let data = undefined
-
-  /**
-   * The initial WebGL pipeline of this Game Object.
-   * @type {Phaser.Renderer.WebGL.WebGLPipeline}
-   */
-  export let defaultPipeline = undefined
 
   /**
    * Sets the amount of time, in milliseconds, that the animation will be delayed before starting playback.
@@ -212,6 +207,8 @@
    *
    * If you wish to customize the hit area, you can provide an object containing "shape", "callback", and "dropZone" which
    * will get passed into Phaser's underlying `setInteractive` method.
+   *
+   * This property is not bindable.
    *
    * See Phaser's documentation for more information:
    *
@@ -384,14 +381,19 @@
    * @type {boolean}
    */
   export let stopped = undefined
+
   /**
    * Stops the current animation from playing after the specified time delay, given in milliseconds.
+   *
+   * This property is not bindable
    * @type {number}
    */
   export let stopAfterDelay = undefined
 
   /**
    * Stops the current animation from playing when it next sets the given frame. If this frame doesn't exist within the animation it will not stop it from playing.
+   *
+   * This property is not bindable
    * @type {Phaser.Animations.AnimationFrame}
    */
   export let stopOnFrame = undefined
@@ -548,118 +550,257 @@
     )
   }
 
-  $: shouldApplyProps(texture) && instance.setTexture(texture)
-  $: shouldApplyProps(frame) && instance.setFrame(frame)
-  $: {
-    if (shouldApplyProps(animation)) {
-      const ignoreIfPlaying =
-        instance.anims.currentAnim &&
-        instance.anims.currentAnim.key === animation
-      instance.anims.play(animation, ignoreIfPlaying, 0)
-    }
+  $: if (interactive === true) {
+    instance.setInteractive()
+  } else if (!interactive) {
+    instance.removeInteractive()
+  } else {
+    instance.setInteractive(
+      interactive.shape,
+      interactive.callback,
+      interactive.dropzone
+    )
   }
-  $: shouldApplyProps(active) && instance.setActive(active)
-  $: {
-    applyAlpha(instance, {
-      alpha,
-      alphaBottomLeft,
-      alphaBottomRight,
-      alphaTopLeft,
-      alphaTopRight,
-    })
-  }
-  $: shouldApplyProps(angle) && instance.setAngle(angle)
-  $: shouldApplyProps(blendMode) && instance.setBlendMode(blendMode)
+
+  $: shouldApplyProps(active) &&
+    active !== instance.active &&
+    instance.setActive(active)
+
+  $: applyAlpha(instance, {
+    alpha,
+    alphaBottomLeft,
+    alphaBottomRight,
+    alphaTopLeft,
+    alphaTopRight,
+  })
+
+  $: shouldApplyProps(angle) &&
+    angle !== instance.angle &&
+    instance.setAngle(angle)
+
+  $: shouldApplyProps(blendMode) &&
+    blendMode !== instance.blendMode &&
+    instance.setBlendMode(blendMode)
+
   $: shouldApplyProps(data) && instance.setData(data)
-  $: shouldApplyProps(defaultPipeline) &&
-    (instance.defaultPipeline = defaultPipeline)
-  $: shouldApplyProps(depth) && instance.setDepth(depth)
-  $: {
-    if (shouldApplyProps(displayHeight) || shouldApplyProps(displayWidth)) {
+
+  $: shouldApplyProps(depth) &&
+    depth !== instance.depth &&
+    instance.setDepth(depth)
+
+  $: if (shouldApplyProps(displayHeight) || shouldApplyProps(displayWidth)) {
+    if (
+      displayWidth !== instance.displayWidth ||
+      displayHeight !== instance.displayHeight
+    ) {
       instance.setDisplaySize(displayWidth, displayHeight)
     }
   }
+
   $: {
     if (shouldApplyProps(displayOriginX) || shouldApplyProps(displayOriginY)) {
-      instance.setDisplayOrigin(displayOriginX, displayOriginY)
+      if (
+        displayOriginX !== instance.displayOriginX ||
+        displayOriginY !== instance.displayOriginY
+      ) {
+        instance.setDisplayOrigin(displayOriginX, displayOriginY)
+      }
     }
   }
-  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
-  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
+
+  $: shouldApplyProps(flipX) &&
+    flipX !== instance.flipX &&
+    instance.setFlipX(flipX)
+
+  $: shouldApplyProps(flipY) &&
+    flipY !== instance.flipY &&
+    instance.setFlipY(flipY)
+
   $: shouldApplyProps(frame) && (instance.frame = frame)
-  $: {
-    if (shouldApplyProps(height) || shouldApplyProps(width)) {
+
+  $: if (shouldApplyProps(height) || shouldApplyProps(width)) {
+    if (width !== instance.width || height !== instance.height) {
       instance.setSize(width, height)
     }
   }
-  $: shouldApplyProps(mask) && instance.setMask(mask)
-  $: shouldApplyProps(name) && instance.setName(name)
-  $: {
-    if (shouldApplyProps(originX) || shouldApplyProps(originY)) {
+
+  $: shouldApplyProps(mask) && mask !== instance.mask && instance.setMask(mask)
+
+  $: shouldApplyProps(name) && name !== instance.name && instance.setName(name)
+
+  $: if (shouldApplyProps(originX) || shouldApplyProps(originY)) {
+    if (originX !== instance.originX || originY !== instance.originY) {
       instance.setOrigin(originX, originY)
     }
   }
+
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
-  $: shouldApplyProps(rotation) && instance.setRotation(rotation)
+
+  $: shouldApplyProps(rotation) &&
+    rotation !== instance.rotation &&
+    instance.setRotation(rotation)
+
   $: applyScale(instance, { scale, scaleX, scaleY })
-  $: {
-    if (shouldApplyProps(scrollFactorX) || shouldApplyProps(scrollFactorY)) {
+
+  $: if (shouldApplyProps(scrollFactorX) || shouldApplyProps(scrollFactorY)) {
+    if (
+      scrollFactorX !== instance.scrollFactorX ||
+      scrollFactorY !== instance.scrollFactorY
+    ) {
       instance.setScrollFactor(scrollFactorX, scrollFactorY)
     }
   }
+
   $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
+
   $: applyTint(instance, {
-    tint,
     tintBottomLeft,
     tintBottomRight,
     tintTopLeft,
     tintTopRight,
     tintFill,
   })
-  $: shouldApplyProps(visible) && instance.setVisible(visible)
-  $: shouldApplyProps(w) && instance.setW(w)
-  $: shouldApplyProps(x) && instance.setX(x)
-  $: shouldApplyProps(y) && instance.setY(y)
-  $: shouldApplyProps(z) && instance.setZ(z)
+
+  $: shouldApplyProps(visible) &&
+    visible !== instance.visible &&
+    instance.setVisible(visible)
+
+  $: shouldApplyProps(w) && w !== instance.w && instance.setW(w)
+  $: shouldApplyProps(x) && x !== instance.x && instance.setX(x)
+  $: shouldApplyProps(y) && y !== instance.y && instance.setY(y)
+  $: shouldApplyProps(z) && z !== instance.z && instance.setZ(z)
+
+  $: shouldApplyProps(texture) &&
+    (instance.texture && instance.texture.key !== texture) &&
+    instance.setTexture(texture)
 
   // animation props
-  $: {
-    if (shouldApplyProps(animation)) {
-      const ignoreIfPlaying =
-        instance.anims.currentAnim &&
-        instance.anims.currentAnim.key === animation
-      instance.anims.play(animation, ignoreIfPlaying, 0)
-    }
+  $: if (
+    shouldApplyProps(animation) &&
+    (!instance.anims.currentAnim ||
+      instance.anims.currentAnim.key !== animation)
+  ) {
+    instance.anims.play(animation, false, 0)
   }
-  $: {
-    if (shouldApplyProps(stopped)) {
-      if (stopped) {
-        instance.anims.stop()
-      } else {
-        const ignoreIfPlaying =
-          instance.anims.currentAnim &&
-          instance.anims.currentAnim.key === animation
 
-        instance.anims.play(animation, ignoreIfPlaying, 0)
-      }
+  // if stopped is true, and isPlaying is true, we want to stop it and vice-versa
+  $: if (shouldApplyProps(stopped) && stopped === instance.anims.isPlaying) {
+    if (stopped) {
+      instance.anims.stop()
+    } else {
+      instance.anims.play(animation, false, 0)
     }
   }
-  $: shouldApplyProps(paused) && instance.anims.pause(paused)
-  $: shouldApplyProps(delay) && instance.setDelay(delay)
+
+  $: shouldApplyProps(paused) &&
+    paused !== instance.anims.isPaused &&
+    instance.anims.pause(paused)
+
+  $: shouldApplyProps(delay) &&
+    delay !== instance.anims.getDelay() &&
+    instance.setDelay(delay)
+
   $: shouldApplyProps(duration) && (instance.anims.duration = duration)
   $: shouldApplyProps(forward) && (instance.anims.forward = forward)
   $: shouldApplyProps(frameRate) && (instance.anims.frameRate = frameRate)
   $: shouldApplyProps(msPerFrame) && (instance.anims.msPerFrame = msPerFrame)
+
   $: shouldApplyProps(skipMissedFrames) &&
     (instance.anims.skipMissedFrames = skipMissedFrames)
-  $: shouldApplyProps(progress) && instance.anims.setProgress(progress)
+
+  $: shouldApplyProps(progress) &&
+    progress !== instance.anims.getProgress() &&
+    instance.anims.setProgress(progress)
+
   $: shouldApplyProps(stopOnFrame) && instance.anims.stopOnFrame(stopOnFrame)
+
   $: shouldApplyProps(stopAfterDelay) &&
     instance.anims.stopAfterDelay(stopAfterDelay)
-  $: shouldApplyProps(repeat) && instance.anims.setRepeat(repeat)
-  $: shouldApplyProps(repeatDelay) && instance.anims.setRepeatDelay(repeatDelay)
-  $: shouldApplyProps(timeScale) && instance.anims.setTimeScale(timeScale)
-  $: shouldApplyProps(yoyo) && instance.anims.setYoyo(yoyo)
+
+  $: shouldApplyProps(repeat) &&
+    repeat !== instance.anims.getRepeat() &&
+    instance.anims.setRepeat(repeat)
+
+  $: shouldApplyProps(repeatDelay) &&
+    repeat !== instance.anims.getRepeatDelay() &&
+    instance.anims.setRepeatDelay(repeatDelay)
+
+  $: shouldApplyProps(timeScale) &&
+    timeScale !== instance.anims.getTimeScale() &&
+    instance.anims.setTimeScale(timeScale)
+
+  $: shouldApplyProps(yoyo) &&
+    yoyo !== instance.anims.getYoyo() &&
+    instance.anims.setYoyo(yoyo)
+
+  onGameEvent('poststep', () => {
+    active = instance.active
+    alpha = instance.alpha
+    alphaBottomLeft = instance.alphaBottomLeft
+    alphaBottomRight = instance.alphaBottomRight
+    alphaTopLeft = instance.alphatTopLeft
+    alphaTopRight = instance.alphaTopRight
+    angle = instance.angle
+    blendMode = instance.blendMode
+    if (instance.data) {
+      data = instance.data.get()
+    }
+    displayOriginX = instance.displayOriginX
+    displayOriginY = instance.displayOriginY
+    flipX = instance.flipX
+    flipY = instance.flipY
+    height = instance.height
+    mask = instance.mask
+    name = instance.name
+    originX = instance.originX
+    originY = instance.originY
+    renderFlags = instance.renderFlags
+    rotation = instance.rotation
+    scale = instance.scale
+    scaleX = instance.scaleX
+    scaleY = instance.scaleY
+    scrollFactorX = instance.scrollFactorX
+    scrollFactorY = instance.scrollFactorY
+    tabIndex = instance.tabIndex
+    tintBottomLeft = instance.tintBottomLeft
+    tintBottomRight = instance.tintBottomRight
+    tintTopLeft = instance.tintTopLeft
+    tintTopRight = instance.tintTopRight
+    tintFill = instance.tintFill
+    visible = instance.visible
+    w = instance.w
+    width = instance.width
+
+    x = instance.x
+    y = instance.y
+    z = instance.z
+
+    if (instance.texture) {
+      texture = instance.texture.key
+    }
+
+    if (instance.anims) {
+      if (instance.anims.currentAnim && instance.anims.currentAnim.key) {
+        animation = instance.anims.currentAnim.key
+      }
+
+      stopped = !instance.anims.isPlaying && !instance.anims.isPaused
+      paused = instance.anims.isPaused
+      delay = instance.anims.getDelay()
+      duration = instance.anims.duration
+      forward = instance.anims.forward
+      frameRate = instance.anims.frameRate
+      msPerFrame = instance.anims.msPerFrame
+      skipMissedFrames = instance.anims.skipMissedFrames
+      if (instance.anims.currentFrame) {
+        progress = instance.anims.getProgress()
+      }
+      repeat = instance.anims.getRepeat()
+      repeatDelay = instance.anims.getRepeatDelay()
+      timeScale = instance.anims.getTimeScale()
+      yoyo = instance.anims.getYoyo()
+    }
+  })
 </script>
 
 <slot />

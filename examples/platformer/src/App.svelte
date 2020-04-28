@@ -59,7 +59,7 @@
   bind:instance={game}
   width={256}
   height={224}
-  physics={{ default: 'arcade', arcade: { gravity: { y: 200 } } }}
+  physics={{ default: 'arcade', arcade: { gravity: { y: 800 } } }}
   render={{ pixelArt: true }}
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main" {preload} {create}>

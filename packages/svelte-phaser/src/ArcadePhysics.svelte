@@ -249,7 +249,7 @@
     velocityY !== instance.body.velocityY &&
     instance.body.setVelocityY(velocityY)
 
-  onGameEvent('prestep', () => {
+  onGameEvent('poststep', () => {
     accelerationX = instance.body.acceleration.x
     accelerationY = instance.body.acceleration.y
     allowDrag = instance.body.allowDrag

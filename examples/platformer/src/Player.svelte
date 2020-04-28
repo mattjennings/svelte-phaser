@@ -1,4 +1,5 @@
 <script>
+  import Phaser from 'phaser'
   import { Sprite, ArcadePhysics, getScene, onGameEvent } from 'svelte-phaser'
 
   export let x
@@ -37,9 +38,15 @@
       animation = 'run'
       velocityX = X_SPEED
     }
+
+    if (Phaser.Input.Keyboard.JustDown(keys.jump)) {
+      velocityY = -200
+    } else if (Phaser.Input.Keyboard.JustUp(keys.jump) && velocityY < 0) {
+      velocityY = 0
+    }
   })
 </script>
 
 <Sprite bind:instance {x} {y} animation={`anims/player/${animation}`} {flipX}>
-  <ArcadePhysics immovable collideWorldBounds {velocityX} {velocityY} />
+  <ArcadePhysics immovable collideWorldBounds bind:velocityX bind:velocityY />
 </Sprite>

@@ -34,6 +34,10 @@
       ""
     ]
   },
+  "update instance": {
+    "prefix": "ui",
+    "body": ["$1 !== instance.anims.$1 &&"]
+  },
   "jsdoc": {
     "prefix": "/**",
     "body": ["/**", " * $1", " * @type {$2}", " */"]
