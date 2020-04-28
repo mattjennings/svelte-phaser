@@ -13,6 +13,7 @@
     applyTint,
     applyGameObjectEventDispatchers,
   } from './props/index'
+  import { onGameEvent } from './onGameEvent'
 
   /**
    * The active state of this Game Object. A Game Object with an active state of true is processed by the
@@ -179,6 +180,8 @@
    * If you wish to customize the hit area, you can provide an object containing "shape", "callback", and "dropZone" which
    * will get passed into Phaser's underlying `setInteractive` method.
    *
+   * This property is not bindable.
+   *
    * See Phaser's documentation for more information:
    *
    * https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html#setInteractive__anchor
@@ -314,13 +317,6 @@
   export let texture = undefined
 
   /**
-   * The tint value being applied to the whole of the Game Object.
-   * This property is a setter-only. Use the properties tintTopLeft etc to read the current tint value.
-   * @type {number}
-   */
-  export let tint = undefined
-
-  /**
    * The tint value being applied to the bottom-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
@@ -452,77 +448,173 @@
       interactive.dropzone
     )
   }
-  $: shouldApplyProps(texture) && instance.setTexture(texture)
-  $: shouldApplyProps(frame) && instance.setFrame(frame)
-  $: shouldApplyProps(active) && instance.setActive(active)
-  $: {
-    applyAlpha(instance, {
-      alpha,
-      alphaBottomLeft,
-      alphaBottomRight,
-      alphaTopLeft,
-      alphaTopRight,
-    })
-  }
-  $: shouldApplyProps(angle) && instance.setAngle(angle)
-  $: shouldApplyProps(blendMode) && instance.setBlendMode(blendMode)
+
+  $: shouldApplyProps(active) &&
+    active !== instance.active &&
+    instance.setActive(active)
+
+  $: applyAlpha(instance, {
+    alpha,
+    alphaBottomLeft,
+    alphaBottomRight,
+    alphaTopLeft,
+    alphaTopRight,
+  })
+
+  $: shouldApplyProps(angle) &&
+    angle !== instance.angle &&
+    instance.setAngle(angle)
+
+  $: shouldApplyProps(blendMode) &&
+    blendMode !== instance.blendMode &&
+    instance.setBlendMode(blendMode)
+
   $: shouldApplyProps(data) && instance.setData(data)
+
   $: shouldApplyProps(defaultPipeline) &&
     (instance.defaultPipeline = defaultPipeline)
-  $: shouldApplyProps(depth) && instance.setDepth(depth)
-  $: {
-    if (shouldApplyProps(displayHeight) || shouldApplyProps(displayWidth)) {
+
+  $: shouldApplyProps(depth) &&
+    depth !== instance.depth &&
+    instance.setDepth(depth)
+
+  $: if (shouldApplyProps(displayHeight) || shouldApplyProps(displayWidth)) {
+    if (
+      displayWidth !== instance.displayWidth ||
+      displayHeight !== instance.displayHeight
+    ) {
       instance.setDisplaySize(displayWidth, displayHeight)
     }
   }
+
   $: {
     if (shouldApplyProps(displayOriginX) || shouldApplyProps(displayOriginY)) {
-      instance.setDisplayOrigin(displayOriginX, displayOriginY)
+      if (
+        displayOriginX !== instance.displayOriginX ||
+        displayOriginY !== instance.displayOriginY
+      ) {
+        instance.setDisplayOrigin(displayOriginX, displayOriginY)
+      }
     }
   }
-  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
-  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
+
+  $: shouldApplyProps(flipX) &&
+    flipX !== instance.flipX &&
+    instance.setFlipX(flipX)
+
+  $: shouldApplyProps(flipY) &&
+    flipY !== instance.flipY &&
+    instance.setFlipY(flipY)
+
   $: shouldApplyProps(frame) && (instance.frame = frame)
-  $: {
-    if (shouldApplyProps(height) || shouldApplyProps(width)) {
+
+  $: if (shouldApplyProps(height) || shouldApplyProps(width)) {
+    if (width !== instance.width || height !== instance.height) {
       instance.setSize(width, height)
     }
   }
-  $: shouldApplyProps(mask) && instance.setMask(mask)
-  $: shouldApplyProps(name) && instance.setName(name)
-  $: {
-    if (shouldApplyProps(originX) || shouldApplyProps(originY)) {
+
+  $: shouldApplyProps(mask) && mask !== instance.mask && instance.setMask(mask)
+
+  $: shouldApplyProps(name) && name !== instance.name && instance.setName(name)
+
+  $: if (shouldApplyProps(originX) || shouldApplyProps(originY)) {
+    if (originX !== instance.originX || originY !== instance.originY) {
       instance.setOrigin(originX, originY)
     }
   }
+
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
-  $: shouldApplyProps(rotation) && instance.setRotation(rotation)
+
+  $: shouldApplyProps(rotation) &&
+    rotation !== instance.rotation &&
+    instance.setRotation(rotation)
+
   $: applyScale(instance, { scale, scaleX, scaleY })
-  $: {
-    if (shouldApplyProps(scrollFactorX) || shouldApplyProps(scrollFactorY)) {
+
+  $: if (shouldApplyProps(scrollFactorX) || shouldApplyProps(scrollFactorY)) {
+    if (
+      scrollFactorX !== instance.scrollFactorX ||
+      scrollFactorY !== instance.scrollFactorY
+    ) {
       instance.setScrollFactor(scrollFactorX, scrollFactorY)
     }
   }
+
   $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
-  $: shouldApplyProps(tilePositionX) && (instance.tilePositionX = tilePositionX)
-  $: shouldApplyProps(tilePositionY) && (instance.tilePositionY = tilePositionY)
-  $: shouldApplyProps(tileScaleX) && (instance.tileScaleX = tileScaleX)
-  $: shouldApplyProps(tileScaleY) && (instance.tileScaleY = tileScaleY)
 
   $: applyTint(instance, {
-    tint,
     tintBottomLeft,
     tintBottomRight,
     tintTopLeft,
     tintTopRight,
     tintFill,
   })
-  $: shouldApplyProps(visible) && instance.setVisible(visible)
-  $: shouldApplyProps(w) && instance.setW(w)
 
-  $: shouldApplyProps(x) && instance.setX(x)
-  $: shouldApplyProps(y) && instance.setY(y)
-  $: shouldApplyProps(z) && instance.setZ(z)
+  $: shouldApplyProps(visible) &&
+    visible !== instance.visible &&
+    instance.setVisible(visible)
+
+  $: shouldApplyProps(w) && w !== instance.w && instance.setW(w)
+  $: shouldApplyProps(x) && x !== instance.x && instance.setX(x)
+  $: shouldApplyProps(y) && y !== instance.y && instance.setY(y)
+  $: shouldApplyProps(z) && z !== instance.z && instance.setZ(z)
+
+  $: shouldApplyProps(texture) &&
+    (instance.texture && instance.texture.key !== texture) &&
+    instance.setTexture(texture)
+  $: shouldApplyProps(tilePositionX) && (instance.tilePositionX = tilePositionX)
+  $: shouldApplyProps(tilePositionY) && (instance.tilePositionY = tilePositionY)
+  $: shouldApplyProps(tileScaleX) && (instance.tileScaleX = tileScaleX)
+  $: shouldApplyProps(tileScaleY) && (instance.tileScaleY = tileScaleY)
+
+  onGameEvent('prestep', () => {
+    active = instance.active
+    alpha = instance.alpha
+    alphaBottomLeft = instance.alphaBottomLeft
+    alphaBottomRight = instance.alphaBottomRight
+    alphaTopLeft = instance.alphatTopLeft
+    alphaTopRight = instance.alphaTopRight
+    angle = instance.angle
+    blendMode = instance.blendMode
+    data = instance.data && instance.data.get()
+    defaultPipeline = instance.defaultPipeline
+    displayOriginX = instance.displayOriginX
+    displayOriginY = instance.displayOriginY
+    flipX = instance.flipX
+    flipY = instance.flipY
+    height = instance.height
+    mask = instance.mask
+    name = instance.name
+    originX = instance.originX
+    originY = instance.originY
+    renderFlags = instance.renderFlags
+    rotation = instance.rotation
+    scale = instance.scale
+    scaleX = instance.scaleX
+    scaleY = instance.scaleY
+    scrollFactorX = instance.scrollFactorX
+    scrollFactorY = instance.scrollFactorY
+    tabIndex = instance.tabIndex
+    tintBottomLeft = instance.tintBottomLeft
+    tintBottomRight = instance.tintBottomRight
+    tintTopLeft = instance.tintTopLeft
+    tintTopRight = instance.tintTopRight
+    tintFill = instance.tintFill
+
+    visible = instance.visible
+    w = instance.w
+    width = instance.width
+    x = instance.x
+    y = instance.y
+    z = instance.z
+
+    texture = instance.texture.key
+    tilePositionX = instance.tilePositionX
+    tilePositionY = instance.tilePositionY
+    tileScaleX = instance.tileScaleX
+    tileScaleY = instance.tileScaleY
+  })
 </script>
 
 <slot />
