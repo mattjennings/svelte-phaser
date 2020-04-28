@@ -497,7 +497,15 @@
     flipY !== instance.flipY &&
     instance.setFlipY(flipY)
 
-  $: shouldApplyProps(frame) && (instance.frame = frame)
+  $: if (shouldApplyProps(frame)) {
+    if (
+      !instance.frame ||
+      !instance.frame.texture ||
+      frame !== instance.frame.name
+    ) {
+      instance.setFrame(frame)
+    }
+  }
 
   $: if (shouldApplyProps(height) || shouldApplyProps(width)) {
     if (width !== instance.width || height !== instance.height) {
@@ -559,7 +567,7 @@
   $: shouldApplyProps(tileScaleX) && (instance.tileScaleX = tileScaleX)
   $: shouldApplyProps(tileScaleY) && (instance.tileScaleY = tileScaleY)
 
-  onGameEvent('poststep', () => {
+  onGameEvent('prerender', () => {
     active = instance.active
     alpha = instance.alpha
     alphaBottomLeft = instance.alphaBottomLeft

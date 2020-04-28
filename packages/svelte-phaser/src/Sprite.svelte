@@ -421,13 +421,6 @@
   export let timeScale = undefined
 
   /**
-   * The tint value being applied to the whole of the Game Object.
-   * This property is a setter-only. Use the properties tintTopLeft etc to read the current tint value.
-   * @type {number}
-   */
-  export let tint = undefined
-
-  /**
    * The tint value being applied to the bottom-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
@@ -616,7 +609,15 @@
     flipY !== instance.flipY &&
     instance.setFlipY(flipY)
 
-  $: shouldApplyProps(frame) && (instance.frame = frame)
+  $: if (shouldApplyProps(frame)) {
+    if (
+      !instance.frame ||
+      !instance.frame.texture ||
+      frame !== instance.frame.name
+    ) {
+      instance.setFrame(frame)
+    }
+  }
 
   $: if (shouldApplyProps(height) || shouldApplyProps(width)) {
     if (width !== instance.width || height !== instance.height) {
@@ -733,7 +734,7 @@
     yoyo !== instance.anims.getYoyo() &&
     instance.anims.setYoyo(yoyo)
 
-  onGameEvent('poststep', () => {
+  onGameEvent('prerender', () => {
     active = instance.active
     alpha = instance.alpha
     alphaBottomLeft = instance.alphaBottomLeft

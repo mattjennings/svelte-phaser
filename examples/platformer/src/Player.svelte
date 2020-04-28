@@ -40,13 +40,18 @@
     }
 
     if (Phaser.Input.Keyboard.JustDown(keys.jump)) {
-      velocityY = -200
+      velocityY = -300
     } else if (Phaser.Input.Keyboard.JustUp(keys.jump) && velocityY < 0) {
       velocityY = 0
     }
   })
 </script>
 
-<Sprite bind:instance {x} {y} animation={`anims/player/${animation}`} {flipX}>
+<Sprite
+  bind:instance
+  bind:x
+  bind:y
+  animation={`anims/player/${animation}`}
+  {flipX}>
   <ArcadePhysics immovable collideWorldBounds bind:velocityX bind:velocityY />
 </Sprite>

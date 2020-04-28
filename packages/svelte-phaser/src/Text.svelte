@@ -671,7 +671,15 @@
     fontStyle !== instance.style.fontStyle &&
     instance.setFontStyle(fontStyle)
 
-  $: shouldApplyProps(frame) && (instance.frame = frame)
+  $: if (shouldApplyProps(frame)) {
+    if (
+      !instance.frame ||
+      !instance.frame.texture ||
+      frame !== instance.frame.name
+    ) {
+      instance.setFrame(frame)
+    }
+  }
 
   $: if (shouldApplyProps(height) || shouldApplyProps(width)) {
     if (width !== instance.width || height !== instance.height) {
@@ -787,7 +795,7 @@
   $: shouldApplyProps(z) && z !== instance.z && instance.setZ(z)
   $: shouldApplyProps(text) && text !== instance.text && instance.setText(text)
 
-  onGameEvent('poststep', () => {
+  onGameEvent('prerender', () => {
     active = instance.active
     align = instance.align
     alpha = instance.alpha

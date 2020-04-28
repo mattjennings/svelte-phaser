@@ -10,6 +10,6 @@
   })
 </script>
 
-<Sprite bind:instance name="paddle" {x} {y} texture="assets" frame="paddle1">
+<Sprite bind:instance name="paddle" bind:x {y} texture="assets" frame="paddle1">
   <ArcadePhysics immovable />
 </Sprite>
