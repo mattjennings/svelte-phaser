@@ -11,11 +11,11 @@
   export let name
   export let target
   export let texture
-  export let depth
+  export let depth = 0
   export let x
   export let y
-  export let velocityX
-  export let velocityY
+  export let velocityX = 0
+  export let velocityY = 0
   export let onDestroy
 
   let instance

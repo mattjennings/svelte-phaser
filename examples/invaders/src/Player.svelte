@@ -13,7 +13,7 @@
 
   export let x
   export let y
-  export let instance
+  export let instance = undefined
 
   const { spawn } = getSpawner()
   const scene = getScene()

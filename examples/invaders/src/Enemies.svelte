@@ -52,7 +52,6 @@
             target: 'player',
             x: enemy.x,
             y: enemy.y,
-            angle,
             velocityX: velocity.x,
             velocityY: velocity.y,
           })
