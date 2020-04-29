@@ -2,11 +2,14 @@
 - Components
   - [Game](components/game)
   - [Scene](components/scene)
-  - [Text](components/text)
-  - [Sprite](components/sprite)
-  - [TileSprite](components/tile-sprite)
   - [Camera](components/camera)
-  - [ArcadePhysics](components/arcade-physics)
-  - [ArcadeCollider](components/arcade-collider)
+  - GameObjects
+    - [Text](components/text)
+    - [Sprite](components/sprite)
+    - [TileSprite](components/tile-sprite)
+  - Physics
+    - [ArcadePhysics](components/arcade-physics)
+    - [ArcadeCollider](components/arcade-collider)
+
 - [Roadmap](/roadmap)
 - [Examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples)
