@@ -65,6 +65,7 @@
 </script>
 
 <Sprite
+  name="player"
   bind:instance
   bind:x
   bind:y
