@@ -7,4 +7,5 @@
   - [TileSprite](components/tile-sprite)
   - [ArcadePhysics](components/arcade-physics)
   - [ArcadeCollider](components/arcade-collider)
+- [Roadmap](/roadmap)
 - [Examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples)
