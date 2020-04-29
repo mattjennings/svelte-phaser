@@ -1,5 +1,6 @@
 - [Getting Started](getting-started)
 - Components
+
   - [Game](components/game)
   - [Scene](components/scene)
   - [Camera](components/camera)
@@ -11,5 +12,5 @@
     - [ArcadePhysics](components/arcade-physics)
     - [ArcadeCollider](components/arcade-collider)
 
-- [Roadmap](/roadmap)
+- [Roadmap](roadmap)
 - [Examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples)

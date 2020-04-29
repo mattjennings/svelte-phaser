@@ -29,7 +29,6 @@ I have no timelines for anything. I am slowly chipping away at making components
 - Mesh
 - Quad
 - Tilemap / Tileset
-- Camera
 
 I have not used a lot of these Phaser game objects personally, so it will take me some time
 to understand them and then figure out how they might work as Svelte components.
