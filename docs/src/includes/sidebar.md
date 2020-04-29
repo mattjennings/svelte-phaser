@@ -5,4 +5,5 @@
   - [Text](components/text)
   - [Sprite](components/sprite)
   - [TileSprite](components/tile-sprite)
+  - [ArcadePhysics](components/arcade-physics)
 - [Examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples)
