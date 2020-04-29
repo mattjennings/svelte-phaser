@@ -5,6 +5,7 @@
   - [Text](components/text)
   - [Sprite](components/sprite)
   - [TileSprite](components/tile-sprite)
+  - [Camera](components/camera)
   - [ArcadePhysics](components/arcade-physics)
   - [ArcadeCollider](components/arcade-collider)
 - [Roadmap](/roadmap)
