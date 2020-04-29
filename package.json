@@ -34,7 +34,7 @@
   "devDependencies": {
     "svelte": "^3.21.0",
     "phaser": "^3.22.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.5",
     "eslint": "6.8.0",
     "eslint-plugin-svelte3": "^2.7.3"
   },
