@@ -6,4 +6,5 @@
   - [Sprite](components/sprite)
   - [TileSprite](components/tile-sprite)
   - [ArcadePhysics](components/arcade-physics)
+  - [ArcadeCollider](components/arcade-collider)
 - [Examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples)

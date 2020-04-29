@@ -270,6 +270,10 @@
   /**
    * Whether the simulation emits a worldbounds event when this Body collides with the world boundary
    * (and collideWorldBounds is also true).
+   *
+   * The event is emitted on the physics.world. You can access it with
+   * `onArcadePhysicsEvent` from svelte-phaser.
+   *
    * @type {boolean}
    */
   export let onWorldBounds = true

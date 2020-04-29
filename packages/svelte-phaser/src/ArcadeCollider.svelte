@@ -10,6 +10,8 @@
   let _with
 
   export let overlapOnly
+  export let allowCollision
+
   export { _with as with }
 
   const scene = getContext('phaser/scene')
@@ -18,13 +20,17 @@
         [gameObject],
         createObjectsArray(scene, _with),
         (self, other) => dispatch('collide', { self, other }),
-        (self, other) => dispatch('process', { self, other })
+        allowCollision
+          ? (self, other) => allowCollision({ self, other })
+          : undefined
       )
     : scene.physics.add.collider(
         [gameObject],
         createObjectsArray(scene, _with),
         (self, other) => dispatch('collide', { self, other }),
-        (self, other) => dispatch('process', { self, other })
+        allowCollision
+          ? (self, other) => allowCollision({ self, other })
+          : undefined
       )
 
   onMount(() => () => collider.destroy())
