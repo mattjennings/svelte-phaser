@@ -21,7 +21,10 @@
   },
   "apply prop": {
     "prefix": "ap",
-    "body": ["$: shouldApplyProps($1) && (instance$2)", ""]
+    "body": [
+      "$: shouldApplyProps($1) && $1 !== instance.$1 && (instance.$2)",
+      ""
+    ]
   },
   "apply prop if": {
     "prefix": "apif",
@@ -36,7 +39,7 @@
   },
   "update instance": {
     "prefix": "ui",
-    "body": ["$1 !== instance.anims.$1 &&"]
+    "body": ["$1 = instance.$1"]
   },
   "jsdoc": {
     "prefix": "/**",

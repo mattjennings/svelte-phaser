@@ -1,6 +1,6 @@
 <script>
   import Phaser from 'phaser'
-  import { Game, Scene, Text } from 'svelte-phaser'
+  import { Game, Scene, Text, Sprite, Camera } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
   import Player from './Player.svelte'
 
@@ -9,6 +9,7 @@
   $: window.game = game
 
   function preload(scene) {
+    scene.load.image('textures/bg', '/assets/level.png')
     scene.load.spritesheet('textures/player', '/assets/adventurer.png', {
       frameWidth: 50,
       frameHeight: 37,
@@ -61,7 +62,11 @@
   physics={{ default: 'arcade', arcade: { gravity: { y: 800 } } }}
   render={{ pixelArt: true }}
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
-  <Scene key="main" {preload} {create}>
+  <Scene
+    key="main"
+    physics={{ arcade: { width: 512, height: 256 } }}
+    {preload}
+    {create}>
     <template use:fragment slot="loading" let:progress>
       <Text
         x={100}
@@ -70,6 +75,16 @@
         color="white" />
     </template>
 
-    <Player x={124} y={124} />
+    <Camera
+      x={0}
+      y={0}
+      width={256}
+      height={224}
+      follow="player"
+      roundPixels
+      bounds={{ x: 0, y: 0, width: 512, height: 256 }}>
+      <Sprite texture="textures/bg" x={0} y={0} originX={0} originY={0} />
+      <Player x={124} y={124} />
+    </Camera>
   </Scene>
 </Game>
