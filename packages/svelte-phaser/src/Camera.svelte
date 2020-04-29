@@ -449,8 +449,8 @@
 
   $: if (shouldApplyProps(follow)) {
     const target =
-      typeof follow.target === 'string'
-        ? findGameObjectsByName(scene, follow.target)[0]
+      typeof follow === 'string'
+        ? findGameObjectsByName(scene, follow)[0]
         : target
 
     if (target) {

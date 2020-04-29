@@ -80,8 +80,9 @@
       y={0}
       width={256}
       height={224}
-      bounds={{ x: 0, y: 0, width: 512, height: 256 }}
-      follow={{ target: 'player', roundPixels: true }}>
+      follow="player"
+      roundPixels
+      bounds={{ x: 0, y: 0, width: 512, height: 256 }}>
       <Sprite texture="textures/bg" x={0} y={0} originX={0} originY={0} />
       <Player x={124} y={124} />
     </Camera>
