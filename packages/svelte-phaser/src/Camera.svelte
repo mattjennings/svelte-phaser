@@ -501,7 +501,7 @@
 
   $: shouldApplyProps(panEffect) && (instance.panEffect = panEffect)
 
-  $: shouldApplyProps(roundPixels) && instance.roundPixels
+  $: shouldApplyProps(roundPixels) && (instance.roundPixels = roundPixels)
 
   $: if (shouldApplyProps(scrollX, scrollY)) {
     if (scrollX !== instance.scrollX || scrollY !== instance.scrollY) {
