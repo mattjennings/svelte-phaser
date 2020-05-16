@@ -22,7 +22,6 @@
     "babel-jest": "^26.0.1",
     "canvas": "^2.6.1",
     "datauri": "^3.0.0",
-    "eslint-plugin-jest": "^23.11.0",
     "jest": "^26.0.1",
     "jsdom": "^16.2.2",
     "rollup": "^1.20.0",
