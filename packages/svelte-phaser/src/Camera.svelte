@@ -1,6 +1,4 @@
 <script>
-  // import * as Phaser from 'phaser'
-  import Phaser from 'phaser'
   import { getScene } from './getScene'
   import { setContext } from 'svelte'
   import { shouldApplyProps, findGameObjectsByName } from './util'

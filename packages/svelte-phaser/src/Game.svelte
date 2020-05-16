@@ -1,5 +1,4 @@
 <script>
-  import Phaser from 'phaser'
   import { setContext, createEventDispatcher } from 'svelte'
   import { removeUndefined } from './util'
   const dispatch = createEventDispatcher()

@@ -1,4 +1,5 @@
 <script>
+  import 'phaser'
   import { Game, Scene, Text, Spawner } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
 
@@ -9,9 +10,7 @@
   import { lives } from './store'
   let game
 
-  $: {
-    window.game = game
-  }
+  $: window.game = game
 
   function preload(scene) {
     scene.load.image('textures/starfield', 'assets/starfield.png')
