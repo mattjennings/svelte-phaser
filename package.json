@@ -7,7 +7,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "clean:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +"
+    "clean:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
+    "test": "cd packages/svelte-phaser && yarn test",
+    "lint": "yarn lint:packages && yarn lint:examples && yarn lint:docs",
+    "lint:packages": "eslint packages --ext .js,.svelte --ignore-pattern node_modules",
+    "lint:examples": "eslint examples --ext .js,.svelte --ignore-pattern node_modules",
+    "lint:docs": "eslint docs --ext .js,.svelte --ignore-pattern node_modules"
   },
   "workspaces": {
     "packages": [
@@ -32,11 +37,11 @@
     "svelte": "^3.21.0"
   },
   "devDependencies": {
-    "svelte": "^3.21.0",
+    "eslint": "6.8.0",
+    "eslint-plugin-svelte3": "^2.7.3",
     "phaser": "^3.23.0",
     "prettier": "^2.0.5",
-    "eslint": "6.8.0",
-    "eslint-plugin-svelte3": "^2.7.3"
+    "svelte": "^3.21.0"
   },
   "keywords": [
     "svelte",

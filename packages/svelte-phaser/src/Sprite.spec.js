@@ -23,7 +23,7 @@ beforeAll(async () => {
 
 test('alpha props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Sprite, {
     alphaBottomLeft: 0.1,
     alphaBottomRight: 0.2,
@@ -73,7 +73,7 @@ test('animation props', async () => {
 
 test('blendMode props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Sprite, {
     blendMode: Phaser.BlendModes.COLOR,
   })
@@ -83,7 +83,7 @@ test('blendMode props', async () => {
 
 test('depth props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Sprite, {
     depth: 10,
   })
@@ -93,7 +93,7 @@ test('depth props', async () => {
 
 test('flip props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Sprite, {
     flipX: true,
     flipY: true,
@@ -108,7 +108,7 @@ test('mask props', async () => {
   const mask = new Phaser.Display.Masks.BitmapMask(getContext('phaser/scene'))
 
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Sprite, {
     mask,
   })
@@ -119,7 +119,7 @@ test('mask props', async () => {
 describe('origin', () => {
   test('origin props', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(Sprite, {
       originX: 0.5,
       originY: 0.75,
@@ -131,7 +131,7 @@ describe('origin', () => {
 
   test('displayOrigin props', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(Sprite, {
       displayOriginX: 50,
       displayOriginY: 75,
@@ -144,7 +144,7 @@ describe('origin', () => {
 
 test('scrollFactor props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Sprite, {
     scrollFactorX: 0.5,
     scrollFactorY: 0.75,
@@ -157,7 +157,7 @@ test('scrollFactor props', async () => {
 describe('size', () => {
   test('width/height', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(Sprite, {
       width: 10,
       height: 10,
@@ -169,7 +169,7 @@ describe('size', () => {
 
   test('display width/height', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(Sprite, {
       displayHeight: 100,
       displayWidth: 100,
@@ -241,7 +241,7 @@ test('transform props', async () => {
 
 test('visible props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Sprite, {
     visible: false,
   })

@@ -13,6 +13,6 @@ global.URL.createObjectURL = function (blob) {
   }
 }
 //@ts-ignore
-global.URL.revokeObjectURL = function (objectURL) {
+global.URL.revokeObjectURL = function () {
   // Do nothing at the moment
 }

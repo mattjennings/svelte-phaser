@@ -23,7 +23,7 @@ beforeAll(async () => {
 
 test('alpha props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Text, {
     text: 'test',
     alphaBottomLeft: 0.1,
@@ -40,7 +40,7 @@ test('alpha props', async () => {
 
 test('blendMode props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Text, {
     text: 'test',
     blendMode: Phaser.BlendModes.COLOR,
@@ -51,7 +51,7 @@ test('blendMode props', async () => {
 
 test('depth props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Text, {
     text: 'test',
     depth: 10,
@@ -62,7 +62,7 @@ test('depth props', async () => {
 
 test('flip props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Text, {
     text: 'test',
     flipX: true,
@@ -78,7 +78,7 @@ test('mask props', async () => {
   const mask = new Phaser.Display.Masks.BitmapMask(getContext('phaser/scene'))
 
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Text, {
     text: 'test',
     mask,
@@ -90,7 +90,7 @@ test('mask props', async () => {
 describe('origin', () => {
   test('origin props', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(Text, {
       text: 'test',
       originX: 0.5,
@@ -103,7 +103,7 @@ describe('origin', () => {
 
   test('displayOrigin props', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(Text, {
       text: 'test',
       displayOriginX: 50,
@@ -117,7 +117,7 @@ describe('origin', () => {
 
 test('scrollFactor props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Text, {
     text: 'test',
     scrollFactorX: 0.5,
@@ -131,7 +131,7 @@ test('scrollFactor props', async () => {
 describe('size', () => {
   test('width/height', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(Text, {
       text: 'test',
       width: 10,
@@ -144,7 +144,7 @@ describe('size', () => {
 
   test('display width/height', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(Text, {
       text: 'test',
       displayHeight: 100,
@@ -158,7 +158,7 @@ describe('size', () => {
 
 test('style props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Text, {
     text: 'test',
     color: 'white',
@@ -201,7 +201,7 @@ test('style props', async () => {
 
 test('text prop', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Text, { text: 'test' })
 
   expect(instance.text).toEqual('test')
@@ -254,7 +254,7 @@ test('transform props', async () => {
 
 test('visible props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(Text, {
     text: 'test',
     visible: false,

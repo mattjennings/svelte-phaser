@@ -1,4 +1,4 @@
-import { getContext, onMount } from 'svelte'
+import { onMount } from 'svelte'
 import { getScene } from './getScene'
 
 export function onArcadePhysicsEvent(event, callback) {

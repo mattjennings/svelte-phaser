@@ -216,8 +216,8 @@
       scale,
       audio,
       callbacks: {
-        preBoot: (...args) => dispatch('preBoot'),
-        postBoot: (...args) => dispatch('postBoot'),
+        preBoot: game => dispatch('preBoot', game),
+        postBoot: game => dispatch('postBoot', game),
       },
     })
   )

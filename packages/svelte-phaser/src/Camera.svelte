@@ -2,12 +2,7 @@
   import { getScene } from './getScene'
   import { setContext } from 'svelte'
   import { shouldApplyProps, findGameObjectsByName } from './util'
-  import {
-    applyAlpha,
-    applyScale,
-    applyTint,
-    applyGameObjectEventDispatchers,
-  } from './props/index'
+  import { applyAlpha, applyTint } from './props/index'
   import { onSceneEvent } from './onSceneEvent'
   import { onGameEvent } from './onGameEvent'
 

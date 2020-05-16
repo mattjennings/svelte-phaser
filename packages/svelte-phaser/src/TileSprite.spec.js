@@ -23,7 +23,7 @@ beforeAll(async () => {
 
 test('alpha props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(TileSprite, {
     alphaBottomLeft: 0.1,
     alphaBottomRight: 0.2,
@@ -39,7 +39,7 @@ test('alpha props', async () => {
 
 test('blendMode props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(TileSprite, {
     blendMode: Phaser.BlendModes.COLOR,
   })
@@ -49,7 +49,7 @@ test('blendMode props', async () => {
 
 test('depth props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(TileSprite, {
     depth: 10,
   })
@@ -59,7 +59,7 @@ test('depth props', async () => {
 
 test('flip props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(TileSprite, {
     flipX: true,
     flipY: true,
@@ -74,7 +74,7 @@ test('mask props', async () => {
   const mask = new Phaser.Display.Masks.BitmapMask(getContext('phaser/scene'))
 
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(TileSprite, {
     mask,
   })
@@ -85,7 +85,7 @@ test('mask props', async () => {
 describe('origin', () => {
   test('origin props', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(TileSprite, {
       originX: 0.5,
       originY: 0.75,
@@ -97,7 +97,7 @@ describe('origin', () => {
 
   test('displayOrigin props', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(TileSprite, {
       displayOriginX: 50,
       displayOriginY: 75,
@@ -110,7 +110,7 @@ describe('origin', () => {
 
 test('scrollFactor props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(TileSprite, {
     scrollFactorX: 0.5,
     scrollFactorY: 0.75,
@@ -123,7 +123,7 @@ test('scrollFactor props', async () => {
 describe('size', () => {
   test('width/height', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(TileSprite, {
       width: 10,
       height: 10,
@@ -135,7 +135,7 @@ describe('size', () => {
 
   test('display width/height', async () => {
     const {
-      component: { instance, $set },
+      component: { instance },
     } = render(TileSprite, {
       displayHeight: 100,
       displayWidth: 100,
@@ -207,12 +207,12 @@ test('transform props', async () => {
 
 test('tile props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(TileSprite, {
     tilePositionX: 10,
     tilePositionY: 20,
     tileScaleX: 1,
-    tileScaleY: 2
+    tileScaleY: 2,
   })
 
   expect(instance.tilePositionX).toEqual(10)
@@ -223,7 +223,7 @@ test('tile props', async () => {
 
 test('visible props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance },
   } = render(TileSprite, {
     visible: false,
   })
