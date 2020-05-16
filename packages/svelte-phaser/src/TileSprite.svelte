@@ -502,7 +502,7 @@
       !instance.frame.texture ||
       frame !== instance.frame.name
     ) {
-      instance.setFrame(frame)
+      instance.setFrame(frame, true, true)
     }
   }
 
