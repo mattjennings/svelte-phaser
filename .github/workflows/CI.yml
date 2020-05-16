@@ -13,19 +13,23 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-      # ESLint and Prettier must be in `package.json`
-      - name: Install Node.js dependencies
-        run: npm install
+      - name: yarn install
+        run: yarn
 
       - name: Run linters
         uses: samuelmeuli/lint-action@v1
         with:
           github_token: ${{ secrets.github_token }}
-          # Enable linters
           eslint: true
           prettier: true
-  test:
+          auto_fix: true
+
+  run-tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
