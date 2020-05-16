@@ -1,8 +1,30 @@
-name: CI
+name: Test
 
 on: [push, pull_request]
 
 jobs:
+  run-linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      # ESLint and Prettier must be in `package.json`
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Run linters
+        uses: samuelmeuli/lint-action@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          # Enable linters
+          eslint: true
+          prettier: true
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -10,7 +32,8 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Check out Git repository
+        uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -18,6 +41,6 @@ jobs:
       - name: yarn install
         run: yarn
       - name: run tests
-        run: cd packages/svelte-phaser && yarn test
+        run: yarn test
         env:
           CI: true
