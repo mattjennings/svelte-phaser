@@ -1,15 +1,8 @@
 <script>
-  // import * as Phaser from 'phaser'
-  import Phaser from 'phaser'
   import { getScene } from './getScene'
   import { setContext } from 'svelte'
   import { shouldApplyProps, findGameObjectsByName } from './util'
-  import {
-    applyAlpha,
-    applyScale,
-    applyTint,
-    applyGameObjectEventDispatchers,
-  } from './props/index'
+  import { applyAlpha, applyTint } from './props/index'
   import { onSceneEvent } from './onSceneEvent'
   import { onGameEvent } from './onGameEvent'
 
@@ -106,13 +99,13 @@
   export let displayWidth = undefined
 
   /**
-   * The Camera Fade effect handler. To fade this camera see the Camera.fade methods.
+   * The Camera Fade effect handler.
    * @type {Phaser.Cameras.Scene2D.Effects.Fade}
    */
   export let fadeEffect = undefined
 
   /**
-   * The Camera Flash effect handler. To flash this camera see the Camera.flash method.
+   * The Camera Flash effect handler.
    * @type {Phaser.Cameras.Scene2D.Effects.Flash}
    */
   export let flashEffect = undefined
@@ -145,7 +138,7 @@
    *
    * @type {string|Phaser.GameObject.Game}
    */
-  export let follow
+  export let follow = undefined
 
   /**
    * The horizontal offset while following the target
@@ -451,7 +444,7 @@
     const target =
       typeof follow === 'string'
         ? findGameObjectsByName(scene, follow)[0]
-        : target
+        : follow
 
     if (target) {
       instance.startFollow(target)

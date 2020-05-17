@@ -52,7 +52,7 @@ let port = process.env.PORT || 5000
 let hostname = process.env.HOST || '0.0.0.0'
 
 const mw = sirv(DIR, {
-  setHeaders: res => {
+  setHeaders: (res) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader(
       'Access-Control-Allow-Headers',
@@ -70,7 +70,7 @@ const mw = sirv(DIR, {
     : undefined,
 })
 
-createServer(mw).listen(port, hostname, err => {
+createServer(mw).listen(port, hostname, (err) => {
   if (err) throw err
 
   const srv = DEV

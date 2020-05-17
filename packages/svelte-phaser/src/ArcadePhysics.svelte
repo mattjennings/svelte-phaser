@@ -1,5 +1,4 @@
 <script>
-  import Phaser from 'phaser'
   import { onMount, getContext } from 'svelte'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
@@ -459,8 +458,8 @@
   $: shouldApplyProps(immovable) && (instance.body.immovable = immovable)
 
   $: shouldApplyProps(mass) &&
-    immovable !== instance.body.immovable &&
-    instance.body.setImmovable(mass)
+    mass !== instance.body.mass &&
+    instance.body.setMass(mass)
 
   $: if (shouldApplyProps(offsetX, offsetY)) {
     if (

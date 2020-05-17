@@ -139,5 +139,5 @@ export function applyGameObjectEventDispatchers(instance, dispatch) {
   ]
 
   // is this necessary? do gameobjects clean this up when they destroy?
-  return () => listeners.forEach(listener => listener())
+  return () => listeners.forEach((listener) => listener())
 }

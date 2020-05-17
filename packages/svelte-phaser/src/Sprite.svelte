@@ -1,5 +1,4 @@
 <script>
-  import Phaser from 'phaser'
   import {
     onMount,
     getContext,
@@ -621,14 +620,12 @@
     }
   }
 
-  $: {
-    if (shouldApplyProps(displayOriginX) || shouldApplyProps(displayOriginY)) {
-      if (
-        displayOriginX !== instance.displayOriginX ||
-        displayOriginY !== instance.displayOriginY
-      ) {
-        instance.setDisplayOrigin(displayOriginX, displayOriginY)
-      }
+  $: if (shouldApplyProps(displayOriginX) || shouldApplyProps(displayOriginY)) {
+    if (
+      displayOriginX !== instance.displayOriginX ||
+      displayOriginY !== instance.displayOriginY
+    ) {
+      instance.setDisplayOrigin(displayOriginX, displayOriginY)
     }
   }
 
@@ -646,7 +643,7 @@
       !instance.frame.texture ||
       frame !== instance.frame.name
     ) {
-      instance.setFrame(frame)
+      instance.setFrame(frame, true, true)
     }
   }
 
@@ -724,7 +721,7 @@
 
   $: shouldApplyProps(delay) &&
     delay !== instance.anims.getDelay() &&
-    instance.setDelay(delay)
+    instance.anims.setDelay(delay)
 
   $: shouldApplyProps(duration) && (instance.anims.duration = duration)
   $: shouldApplyProps(forward) && (instance.anims.forward = forward)
