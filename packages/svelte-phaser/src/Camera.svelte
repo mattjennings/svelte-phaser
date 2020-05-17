@@ -99,13 +99,13 @@
   export let displayWidth = undefined
 
   /**
-   * The Camera Fade effect handler. To fade this camera see the Camera.fade methods.
+   * The Camera Fade effect handler.
    * @type {Phaser.Cameras.Scene2D.Effects.Fade}
    */
   export let fadeEffect = undefined
 
   /**
-   * The Camera Flash effect handler. To flash this camera see the Camera.flash method.
+   * The Camera Flash effect handler.
    * @type {Phaser.Cameras.Scene2D.Effects.Flash}
    */
   export let flashEffect = undefined
@@ -138,7 +138,7 @@
    *
    * @type {string|Phaser.GameObject.Game}
    */
-  export let follow
+  export let follow = undefined
 
   /**
    * The horizontal offset while following the target
@@ -444,7 +444,7 @@
     const target =
       typeof follow === 'string'
         ? findGameObjectsByName(scene, follow)[0]
-        : target
+        : follow
 
     if (target) {
       instance.startFollow(target)
@@ -494,7 +494,7 @@
 
   $: shouldApplyProps(panEffect) && (instance.panEffect = panEffect)
 
-  $: shouldApplyProps(roundPixels) && instance.roundPixels
+  $: shouldApplyProps(roundPixels) && (instance.roundPixels = roundPixels)
 
   $: if (shouldApplyProps(scrollX, scrollY)) {
     if (scrollX !== instance.scrollX || scrollY !== instance.scrollY) {
