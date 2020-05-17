@@ -1,4 +1,5 @@
 <script>
+  import Phaser from './phaser.js'
   import {
     onMount,
     getContext,

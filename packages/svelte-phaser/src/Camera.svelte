@@ -1,4 +1,5 @@
 <script>
+  import Phaser from './phaser.js'
   import { getScene } from './getScene'
   import { setContext } from 'svelte'
   import { shouldApplyProps, findGameObjectsByName } from './util'
