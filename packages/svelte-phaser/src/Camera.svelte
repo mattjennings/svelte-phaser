@@ -451,7 +451,7 @@
     }
   }
 
-  $: if (shouldApplyProps(displayHeight) || shouldApplyProps(displayWidth)) {
+  $: if (shouldApplyProps(displayHeight, displayWidth)) {
     if (
       displayWidth !== instance.displayWidth ||
       displayHeight !== instance.displayHeight
@@ -498,7 +498,7 @@
 
   $: shouldApplyProps(name) && name !== instance.name && instance.setName(name)
 
-  $: if (shouldApplyProps(originX) || shouldApplyProps(originY)) {
+  $: if (shouldApplyProps(originX, originY)) {
     if (originX !== instance.originX || originY !== instance.originY) {
       instance.setOrigin(originX, originY)
     }

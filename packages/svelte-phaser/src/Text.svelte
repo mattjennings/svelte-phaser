@@ -622,7 +622,7 @@
     depth !== instance.depth &&
     instance.setDepth(depth)
 
-  $: if (shouldApplyProps(displayHeight) || shouldApplyProps(displayWidth)) {
+  $: if (shouldApplyProps(displayHeight, displayWidth)) {
     if (
       displayWidth !== instance.displayWidth ||
       displayHeight !== instance.displayHeight
@@ -632,7 +632,7 @@
   }
 
   $: {
-    if (shouldApplyProps(displayOriginX) || shouldApplyProps(displayOriginY)) {
+    if (shouldApplyProps(displayOriginX, displayOriginY)) {
       if (
         displayOriginX !== instance.displayOriginX ||
         displayOriginY !== instance.displayOriginY
@@ -642,7 +642,7 @@
     }
   }
 
-  $: if (shouldApplyProps(fixedWidth) || shouldApplyProps(fixedHeight)) {
+  $: if (shouldApplyProps(fixedWidth, fixedHeight)) {
     if (
       fixedWidth !== instance.style.fixedWidth ||
       fixedHeight !== instance.style.fixedHeight
@@ -681,7 +681,7 @@
     }
   }
 
-  $: if (shouldApplyProps(height) || shouldApplyProps(width)) {
+  $: if (shouldApplyProps(height, width)) {
     if (width !== instance.width || height !== instance.height) {
       instance.setSize(width, height)
     }
@@ -699,7 +699,7 @@
 
   $: shouldApplyProps(name) && name !== instance.name && instance.setName(name)
 
-  $: if (shouldApplyProps(originX) || shouldApplyProps(originY)) {
+  $: if (shouldApplyProps(originX, originY)) {
     if (originX !== instance.originX || originY !== instance.originY) {
       instance.setOrigin(originX, originY)
     }
@@ -723,7 +723,7 @@
 
   $: applyScale(instance, { scale, scaleX, scaleY })
 
-  $: if (shouldApplyProps(scrollFactorX) || shouldApplyProps(scrollFactorY)) {
+  $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
     if (
       scrollFactorX !== instance.scrollFactorX ||
       scrollFactorY !== instance.scrollFactorY
@@ -754,7 +754,7 @@
 
   $: shouldApplyProps(splitRegExp) && (instance.splitRegExp = splitRegExp)
 
-  $: if (shouldApplyProps(stroke) || shouldApplyProps(strokeThickness)) {
+  $: if (shouldApplyProps(stroke, strokeThickness)) {
     if (
       stroke !== instance.style.stroke ||
       strokeThickness !== instance.style.strokeThickness
