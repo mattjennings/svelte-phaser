@@ -64,6 +64,15 @@
   }
 </script>
 
+<style>
+  :global(body) {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
 <Game
   bind:instance={game}
   width={256}

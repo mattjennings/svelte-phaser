@@ -1,5 +1,5 @@
 <script>
-  import 'phaser'
+  import Phaser from 'phaser'
   import { Game, Scene, Text, Spawner } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
 
@@ -48,11 +48,21 @@
   }
 </script>
 
+<style>
+  :global(body) {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
 <Game
   bind:instance={game}
   width={800}
   height={600}
-  physics={{ default: 'arcade' }}>
+  physics={{ default: 'arcade' }}
+  scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main" {preload} {create}>
     <template use:fragment slot="loading" let:progress>
       <Text

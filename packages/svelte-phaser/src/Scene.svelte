@@ -1,4 +1,5 @@
 <script>
+  import Phaser from './phaser.js'
   import { getContext, setContext, onMount, tick } from 'svelte'
   import { removeUndefined } from './util'
 

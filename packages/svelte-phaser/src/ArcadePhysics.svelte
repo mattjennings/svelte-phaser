@@ -1,4 +1,5 @@
 <script>
+  import Phaser from './phaser.js'
   import { onMount, getContext } from 'svelte'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'

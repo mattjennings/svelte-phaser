@@ -10,11 +10,10 @@
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build",
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@rollup/plugin-node-resolve": "^6.0.0",
     "@testing-library/jest-dom": "^5.7.0",
@@ -24,6 +23,7 @@
     "datauri": "^3.0.0",
     "jest": "^26.0.1",
     "jsdom": "^16.2.2",
+    "node-eval": "^2.0.0",
     "rollup": "^1.20.0",
     "rollup-plugin-svelte": "^5.0.0",
     "svelte": "^3.0.0",

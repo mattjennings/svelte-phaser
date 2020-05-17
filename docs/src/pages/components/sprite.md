@@ -17,7 +17,7 @@ They require a texture to be loaded first, so be sure to load them in the Scene'
   <Scene
     key="main"
     preload={(scene) => {
-      scene.load.image('mushroom', '/svelte-phaser/static/images/mushroom.png')
+      scene.load.image('mushroom', '/static/images/mushroom.png')
     }}
   >
     <Sprite x={200} y={200} texture="mushroom" />
@@ -38,7 +38,7 @@ They require a texture to be loaded first, so be sure to load them in the Scene'
     preload={(scene) => {
       scene.load.spritesheet(
         'adventurer',
-        '/svelte-phaser/static/images/adventurer-spritesheet.png',
+        '/static/images/adventurer-spritesheet.png',
         {
           frameWidth: 50,
           frameHeight: 37,

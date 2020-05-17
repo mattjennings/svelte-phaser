@@ -10,7 +10,7 @@ Enables collisions against another Arcade physics-enabled game object.
 </script>
 
 <Game width={400} height={400} physics={{ default: "arcade" }}>
-  <Scene key="main" preload={scene => scene.load.image('mushroom', '/svelte-phaser/static/images/mushroom.png')}>
+  <Scene key="main" preload={scene => scene.load.image('mushroom', '/static/images/mushroom.png')}>
     <Sprite name="mushroom" texture="mushroom" x={100} y={150}>
       <ArcadePhysics bounce={1} velocityX={150} collideWorldBounds/>
       <ArcadeCollider with="mushroom" />

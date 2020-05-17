@@ -1,0 +1,39 @@
+{
+  "builds": [
+    { "src": "/docs/package.json", "use": "@now/static-build" },
+    {
+      "src": "/examples/breakout/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "public" }
+    },
+    {
+      "src": "/examples/invaders/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "public" }
+    },
+    {
+      "src": "/examples/platformer/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "public" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/examples/breakout/(.*)",
+      "dest": "/examples/breakout/$1"
+    },
+    {
+      "src": "^/examples/invaders/(.*)",
+      "dest": "/examples/invaders/$1"
+    },
+    {
+      "src": "^/examples/platformer/(.*)",
+      "dest": "/examples/platformer/$1"
+    },
+    {
+      "src": "^/(.*)",
+
+      "dest": "/docs/$1"
+    }
+  ]
+}
