@@ -398,6 +398,28 @@
 
   scene.cameras.addExisting(instance, makeMain)
 
+  $: if (shouldApplyProps(follow)) {
+    const target =
+      typeof follow === 'string'
+        ? findGameObjectsByName(scene, follow)[0]
+        : follow
+
+    if (target) {
+      const _lerp = lerp || { x: lerpX, y: lerpY }
+
+      // we need to set roundPixels etc. in startFollow otherwise they get overwritten by defaults inside
+      // the startFollow method
+      instance.startFollow(
+        target,
+        roundPixels,
+        _lerp.x,
+        _lerp.y,
+        followOffsetX,
+        followOffsetY
+      )
+    }
+  }
+
   $: applyAlpha(instance, {
     alpha,
     alphaBottomLeft,
@@ -440,17 +462,6 @@
 
   $: shouldApplyProps(fadeEffect) && (instance.fadeEffect = fadeEffect)
   $: shouldApplyProps(flashEffect) && (instance.flashEffect = flashEffect)
-
-  $: if (shouldApplyProps(follow)) {
-    const target =
-      typeof follow === 'string'
-        ? findGameObjectsByName(scene, follow)[0]
-        : follow
-
-    if (target) {
-      instance.startFollow(target)
-    }
-  }
 
   $: shouldApplyProps(flipX) &&
     flipX !== instance.flipX &&
@@ -522,9 +533,14 @@
   $: shouldApplyProps(zoomEffect) && (instance.zoomEffect = zoomEffect)
 
   onSceneEvent('CHILD_ADDED', object => {
-    if (object.name && follow && follow.target === object.name) {
-      follow = {
-        ...follow,
+    if (object.name) {
+      if (typeof follow === 'string' && follow === object.name) {
+        // trigger reactive statements on follow
+        follow = follow
+      } else if (follow.target === object.name) {
+        follow = {
+          ...follow,
+        }
       }
     }
   })
@@ -544,8 +560,6 @@
 
     displayHeight = instance.displayHeight
     displayWidth = instance.displayWidth
-    fadeEffect = instance.fadeEffect
-    flashEffect = instance.flashEffect
     flipX = instance.flipX
     flipY = instance.flipY
     followOffsetX = instance.followOffset.x
@@ -558,11 +572,9 @@
     name = instance.name
     originX = instance.originX
     originY = instance.originY
-    panEffect = instance.panEffect
     roundPixels = instance.roundPixels
     scrollX = instance.scrollX
     scrollY = instance.scrollY
-    shakeEffect = instance.shakeEffect
     transparent = instance.transparent
     tintBottomLeft = instance.tintBottomLeft
     tintBottomRight = instance.tintBottomRight
@@ -572,7 +584,6 @@
     visible = instance.visible
     width = instance.width
     zoom = instance.zoom
-    zoomEffect = instance.zoomEffect
   })
 </script>
 
