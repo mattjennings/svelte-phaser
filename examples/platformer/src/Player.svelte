@@ -79,7 +79,15 @@
   animation={`anims/player/${animation}`}
   on:animationcomplete={onAnimationComplete}
   {flipX}>
-  <ArcadePhysics immovable collideWorldBounds bind:velocityX bind:velocityY />
+  <ArcadePhysics
+    immovable
+    collideWorldBounds
+    bind:velocityX
+    bind:velocityY
+    width={16}
+    height={32}
+    offsetX={16}
+    offsetY={4} />
   <ArcadeCollider with="ground" />
 
 </Sprite>

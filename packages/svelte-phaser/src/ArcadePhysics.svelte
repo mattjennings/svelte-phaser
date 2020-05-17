@@ -279,6 +279,27 @@
   export let onWorldBounds = true
 
   /**
+   * The width of the Body in pixels. Cannot be zero.
+   * If not given, and the parent Game Object has a frame, it will use the frame width.
+   * @type {number}
+   */
+  export let width
+
+  /**
+   * The height of the Body in pixels. Cannot be zero.
+   * If not given, and the parent Game Object has a frame, it will use the frame height.
+   *
+   * @type {number}
+   */
+  export let height
+
+  /**
+   * Modify the Body's offset, placing the Body's center on its Game Object's center.
+   * @type {boolean}
+   */
+  export let center = true
+
+  /**
    * If this Body is using drag for deceleration this property controls how the drag is applied.
    * If set to true drag will use a damping effect rather than a linear approach.
    * If you are creating a game where the Body moves freely at any angle (i.e. like the way the ship moves in the game Asteroids)
@@ -339,6 +360,13 @@
       circle.offsetY !== instance.body.offsetY
     ) {
       instance.body.setCircle(circle.radius, circle.offsetX, circle.offsetY)
+    }
+  }
+
+  // this should be before anything else
+  $: if (shouldApplyProps(width, height, center)) {
+    if (width !== instance.body.width || height !== instance.body.height) {
+      instance.body.setSize(width, height, center)
     }
   }
 
@@ -551,13 +579,16 @@
       }
       if (instance.body.offset) {
         offsetX = instance.body.offset.x
-        offsetX = instance.body.offset.y
+        offsetY = instance.body.offset.y
       }
       onWorldBounds = instance.body.onWorldBounds
       if (instance.body.velocity) {
         velocityX = instance.body.velocity.x
         velocityY = instance.body.velocity.y
       }
+
+      width = instance.body.width
+      height = instance.body.height
 
       // conditionally bind to the "helper" props for Vector2 only if they were provided
       // (otherwise, it would cause them to be used on the next step and override the specific x/y prop)

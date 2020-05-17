@@ -180,6 +180,16 @@ test('offset', async () => {
   expect(gameObject.body.offset).toEqual({ x: 5, y: 10 })
 })
 
+test('size', async () => {
+  render(ArcadePhysics, {
+    width: 16,
+    height: 32,
+  })
+
+  expect(gameObject.body.width).toEqual(16)
+  expect(gameObject.body.height).toEqual(32)
+})
+
 test('mass', async () => {
   render(ArcadePhysics, {
     mass: 123,
