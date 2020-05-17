@@ -50,7 +50,7 @@
         start: 14,
         end: 21,
       }),
-      frameRate: 20,
+      frameRate: 24,
     })
     scene.anims.create({
       key: 'anims/player/fall',
@@ -96,6 +96,7 @@
     <Tilemap
       name="tilemaps/castle"
       tilesets={[{ key: 'tilesets/castle', name: 'castle-tileset' }]}>
+      <TilemapStaticLayer id="bg" tileset="castle-tileset" />
       <TilemapStaticLayer id="ground" tileset="castle-tileset" />
     </Tilemap>
     <Camera

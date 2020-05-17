@@ -38,6 +38,7 @@
 
     if (Phaser.Input.Keyboard.JustDown(keys.jump)) {
       velocityY = -200
+      animation = 'jump'
     } else if (Phaser.Input.Keyboard.JustUp(keys.jump) && velocityY < 0) {
       velocityY = 1
     }
