@@ -19,21 +19,13 @@ export function applyTint(
       tintBottomLeft !== instance.tintBottomLeft ||
       tintBottomRight !== instance.tintBottomRight
     ) {
-      if (tintFill) {
-        instance.setTintFill(
-          tintTopLeft,
-          tintTopRight,
-          tintBottomLeft,
-          tintBottomRight
-        )
-      } else {
-        instance.setTint(
-          tintTopLeft,
-          tintTopRight,
-          tintBottomLeft,
-          tintBottomRight
-        )
-      }
+      instance.setTint(
+        tintTopLeft,
+        tintTopRight,
+        tintBottomLeft,
+        tintBottomRight,
+        tintFill
+      )
     }
   }
 }

@@ -1,7 +1,8 @@
 ---
 layout: 'no_sidebar'
 ---
-# Page not found! #
+
+# Page not found!
 
 [Go to start page](/)
 

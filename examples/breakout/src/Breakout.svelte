@@ -1,5 +1,4 @@
 <script>
-  import Phaser from 'phaser'
   import { getContext } from 'svelte'
   import { onGameEvent, onInputEvent } from 'svelte-phaser'
   import Paddle from './Paddle.svelte'

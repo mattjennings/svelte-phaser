@@ -1,5 +1,4 @@
 <script>
-  import Phaser from 'phaser'
   import {
     onMount,
     getContext,
@@ -503,7 +502,7 @@
       !instance.frame.texture ||
       frame !== instance.frame.name
     ) {
-      instance.setFrame(frame)
+      instance.setFrame(frame, true, true)
     }
   }
 
