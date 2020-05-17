@@ -3,12 +3,12 @@
   import { onMount, setContext } from 'svelte'
   import { getScene } from './getScene'
 
-  export let name
+  export let key
   export let tilesets = []
 
   const scene = getScene()
 
-  export let instance = scene.make.tilemap({ key: name })
+  export let instance = scene.make.tilemap({ key })
 
   setContext('phaser/tilemap', instance)
   onMount(() => () => {

@@ -1,6 +1,12 @@
 <script>
   import Phaser from 'phaser'
-  import { Sprite, ArcadePhysics, getScene, onGameEvent } from 'svelte-phaser'
+  import {
+    Sprite,
+    ArcadePhysics,
+    getScene,
+    onGameEvent,
+    ArcadeCollider,
+  } from 'svelte-phaser'
 
   export let x
   export let y
@@ -74,4 +80,6 @@
   on:animationcomplete={onAnimationComplete}
   {flipX}>
   <ArcadePhysics immovable collideWorldBounds bind:velocityX bind:velocityY />
+  <ArcadeCollider with="ground" />
+
 </Sprite>

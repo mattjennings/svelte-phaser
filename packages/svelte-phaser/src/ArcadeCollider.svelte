@@ -4,7 +4,8 @@
   import { onSceneEvent } from './onSceneEvent'
 
   const dispatch = createEventDispatcher()
-  const gameObject = getContext('phaser/game-object')
+  const parent =
+    getContext('phaser/game-object') || getContext('phaser/tilemap-layer')
 
   // `with` is a reserved keyword
   let _with
@@ -17,7 +18,7 @@
   const scene = getContext('phaser/scene')
   const collider = overlapOnly
     ? scene.physics.add.overlap(
-        [gameObject],
+        [parent],
         createObjectsArray(scene, _with),
         (self, other) => dispatch('collide', { self, other }),
         allowCollision
@@ -25,7 +26,7 @@
           : undefined
       )
     : scene.physics.add.collider(
-        [gameObject],
+        [parent],
         createObjectsArray(scene, _with),
         (self, other) => dispatch('collide', { self, other }),
         allowCollision
