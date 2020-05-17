@@ -6,7 +6,7 @@ export { default as Sprite } from './Sprite.svelte'
 export { default as Spawner } from './Spawner.svelte'
 export { default as TileSprite } from './TileSprite.svelte'
 export { default as Tilemap } from './Tilemap.svelte'
-export { default as TilemapStaticLayer } from './TilemapStaticLayer.svelte'
+export { default as TilemapLayer } from './TilemapLayer.svelte'
 export { default as ArcadePhysics } from './ArcadePhysics.svelte'
 export { default as ArcadeCollider } from './ArcadeCollider.svelte'
 

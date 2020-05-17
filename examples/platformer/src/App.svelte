@@ -4,11 +4,9 @@
     Game,
     Scene,
     Text,
-    Sprite,
     Camera,
     Tilemap,
-    TilemapStaticLayer,
-    ArcadeCollider,
+    TilemapLayer,
   } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
   import Player from './Player.svelte'
@@ -78,7 +76,7 @@
   bind:instance={game}
   width={256}
   height={224}
-  physics={{ default: 'arcade', arcade: { gravity: { y: 800 }, debug: true } }}
+  physics={{ default: 'arcade', arcade: { gravity: { y: 800 } } }}
   render={{ pixelArt: true }}
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene
@@ -97,8 +95,8 @@
     <Tilemap
       key="tilemaps/castle"
       tilesets={[{ key: 'tilesets/castle', name: 'castle-tileset' }]}>
-      <TilemapStaticLayer id="bg" tileset="castle-tileset" />
-      <TilemapStaticLayer
+      <TilemapLayer id="bg" tileset="castle-tileset" />
+      <TilemapLayer
         id="ground"
         name="ground"
         tileset="castle-tileset"
