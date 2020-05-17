@@ -25,7 +25,7 @@ The texture can be scrolled and scaled independently of the TileSprite itself. T
   <Scene
     key="main"
     preload={(scene) => {
-      scene.load.image('starfield', '/svelte-phaser/static/images/starfield.png')
+      scene.load.image('starfield', '/static/images/starfield.png')
     }}
   >
     <TileSprite

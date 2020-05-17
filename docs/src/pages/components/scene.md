@@ -19,7 +19,7 @@ you can load them with the `preload` prop.
   <Scene
     key="main"
     preload={(scene) => {
-      scene.load.image('mushroom', '/svelte-phaser/static/images/mushroom.png')
+      scene.load.image('mushroom', '/static/images/mushroom.png')
     }}
   >
     <Sprite x={200} y={200} texture="mushroom" />
@@ -42,8 +42,8 @@ but we can make use of the `svelte-fragment` package to render a custom loading 
   <Scene
     key="main"
     preload={async (scene) => {
-      scene.load.image('mushroom', '/svelte-phaser/static/images/mushroom.png')
-      scene.load.image('mushroom2', '/svelte-phaser/static/images/mushroom2.png')
+      scene.load.image('mushroom', '/static/images/mushroom.png')
+      scene.load.image('mushroom2', '/static/images/mushroom2.png')
 
       // because we're only loading 2 assets the loading screen
       // will go by pretty quick. try throttling your network speed

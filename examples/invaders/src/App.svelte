@@ -1,5 +1,5 @@
 <script>
-  import 'phaser'
+  import Phaser from 'phaser'
   import { Game, Scene, Text, Spawner } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
 
