@@ -1,13 +1,13 @@
 {
   "name": "svelte-phaser-monorepo",
-  "version": "0.0.1",
-  "description": "Create pixi.js apps with svelte 3",
-  "repository": "https://github.com/mattjennings/svelte-pixi",
   "author": "Matt Jennings",
   "license": "MIT",
   "private": true,
   "scripts": {
     "clean:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
+    "build:netlify": "yarn build:docs && yarn build:examples",
+    "build:docs": "cd docs && yarn build",
+    "build:examples": "(cd examples/breakout && yarn build); (cd examples/invaders && yarn build)",
     "test": "cd packages/svelte-phaser && yarn test",
     "lint": "yarn lint:packages && yarn lint:examples && yarn lint:docs",
     "lint:packages": "eslint packages --ext .js,.svelte --ignore-pattern node_modules",
