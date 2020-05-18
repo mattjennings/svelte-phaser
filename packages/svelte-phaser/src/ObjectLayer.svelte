@@ -5,15 +5,19 @@
 
   /**
    * The mapping for components that this layer will render
+   *
+   * #required
    * @type {object}
    */
   export let components
 
   /**
    * The layer array index value, or the layer name from Tiled
+   *
+   * #required
    * @type {number|string}
    */
-  export let id = undefined
+  export let id
 
   /**
    * The depth of each component in this layer
