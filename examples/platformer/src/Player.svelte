@@ -1,6 +1,12 @@
 <script>
   import Phaser from 'phaser'
-  import { Sprite, ArcadePhysics, getScene, onGameEvent } from 'svelte-phaser'
+  import {
+    Sprite,
+    ArcadePhysics,
+    getScene,
+    onGameEvent,
+    ArcadeCollider,
+  } from 'svelte-phaser'
 
   export let x
   export let y
@@ -38,6 +44,7 @@
 
     if (Phaser.Input.Keyboard.JustDown(keys.jump)) {
       velocityY = -200
+      animation = 'jump'
     } else if (Phaser.Input.Keyboard.JustUp(keys.jump) && velocityY < 0) {
       velocityY = 1
     }
@@ -72,5 +79,14 @@
   animation={`anims/player/${animation}`}
   on:animationcomplete={onAnimationComplete}
   {flipX}>
-  <ArcadePhysics immovable collideWorldBounds bind:velocityX bind:velocityY />
+  <ArcadePhysics
+    collideWorldBounds
+    bind:velocityX
+    bind:velocityY
+    width={16}
+    height={32}
+    offsetX={16}
+    offsetY={4} />
+  <ArcadeCollider with="ground" />
+
 </Sprite>

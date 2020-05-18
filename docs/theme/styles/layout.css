@@ -202,7 +202,7 @@ main.mobile article {
 
 /*name*/
 .properties dt {
-  width: 10em;
+  width: 12em;
   font-weight: bold;
   padding-top: 0.5em;
 }
@@ -246,7 +246,7 @@ main.mobile article {
 .properties dt + dd + dd + dd {
   display: block;
   border-bottom: 1px solid var(--props-devider);
-  padding: 0 0.3em 0.3em 10em;
+  padding: 0 0.3em 0.3em 12em;
   margin-top: -1em;
 }
 

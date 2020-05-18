@@ -1,4 +1,3 @@
-
 # Documentation
 
 Check out the [documentation](https://mattjennings.github.io/svelte-phaser/)

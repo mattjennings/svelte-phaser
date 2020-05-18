@@ -26,6 +26,7 @@ module.exports = {
   },
 
   aliases: {
+    './Ball.svelte': './src/components/Ball.svelte',
     // Virtual packages
     // <virtual_package_name>: <local_path>,
     //

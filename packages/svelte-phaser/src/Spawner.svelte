@@ -6,7 +6,7 @@
   let nextId = 0
   let instances = []
 
-  function spawn(component, props) {
+  export function spawn(component, props) {
     instances = [
       ...instances,
       {
@@ -17,7 +17,7 @@
     ]
   }
 
-  function onDestroy(instance) {
+  export function onDestroy(instance) {
     instances = instances.filter(i => i !== instance)
   }
 </script>

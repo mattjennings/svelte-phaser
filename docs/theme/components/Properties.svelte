@@ -27,7 +27,8 @@
       // actually is required
       const required =
         !prop.attr.default &&
-        (prop.description && prop.description.match(requiredRegExp))
+        prop.description &&
+        prop.description.match(requiredRegExp)
 
       // we also still want to show the default values that phaser will use in our docs
       const phaserDefault =
