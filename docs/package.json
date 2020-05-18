@@ -17,8 +17,8 @@
     "phaser": "^3.23.0"
   },
   "scripts": {
-    "clean": "rm -rf __DOCS__ && rm -rf dist",
-    "build": "yarn clean && rollup -c node_modules/@svelte-docs/core/rollup.config.js && mv __DOCS__/dist dist",
+    "clean": "rm -rf __DOCS__",
+    "build": "yarn clean && rollup -c node_modules/@svelte-docs/core/rollup.config.js",
     "autobuild": "rollup -c node_modules/@svelte-docs/core/rollup.config.js -w",
     "dev": "run-p start:dev start:pagewatch autobuild",
     "start": "node node_modules/@svelte-docs/server",

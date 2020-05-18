@@ -15,8 +15,10 @@
     - [ArcadePhysics](components/arcade-physics)
     - [ArcadeCollider](components/arcade-collider)
 
-- [Roadmap](roadmap)
 - [Examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples)
-  - [Breakout](https://svelte-phaser.com/examples/breakout/)
-  - [Invaders](https://svelte-phaser.com/examples/invaders/)
-  - [Platformer (WIP)](https://svelte-phaser.com/examples/platformer/)
+
+  - [Breakout](examples/breakout)
+  - [Invaders](examples/invaders)
+  - [Platformer (WIP)](examples/platformer)
+
+- [Roadmap](roadmap)

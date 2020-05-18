@@ -1,0 +1,25 @@
+{
+  "builds": [
+    {
+      "src": "/breakout/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "public" }
+    },
+    {
+      "src": "/invaders/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "public" }
+    },
+    {
+      "src": "/platformer/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "public" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}

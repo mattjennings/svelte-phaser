@@ -3,3 +3,4 @@ node_modules
 **/*/public/build
 **/*/yarn.lock
 .now
+.vercel
