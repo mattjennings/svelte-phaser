@@ -1,6 +1,6 @@
 # Documentation
 
-Check out the [documentation](https://mattjennings.github.io/svelte-phaser/)
+Check out the [documentation](https://svelte-phaser.com)
 
 # Getting Started
 
