@@ -18,12 +18,14 @@
   },
   "scripts": {
     "clean": "rm -rf __DOCS__",
+    "copy-index-html": "cp src/index.html __DOCS__/dist",
     "build": "yarn clean && rollup -c node_modules/@svelte-docs/core/rollup.config.js",
     "autobuild": "rollup -c node_modules/@svelte-docs/core/rollup.config.js -w",
     "dev": "run-p start:dev start:pagewatch autobuild",
     "start": "node node_modules/@svelte-docs/server",
     "start:dev": "node ./server --dev --single --cors",
     "start:pagewatch": "node node_modules/@svelte-docs/core/watcher",
-    "deploy": "npm run build && node node_modules/@svelte-docs/publisher"
+    "deploy": "npm run build && node node_modules/@svelte-docs/publisher",
+    "post:build": "yarn copy-index-html"
   }
 }
