@@ -1,6 +1,6 @@
 {
   "name": "svelte-phaser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Create Phaser 3 games with Svelte 3",
   "repository": "https://github.com/mattjennings/svelte-phaser",
   "svelte": "src/index.js",
