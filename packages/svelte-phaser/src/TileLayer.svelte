@@ -196,8 +196,11 @@
   export let id
 
   /**
-   * The name of this Game Object. This is not used by Phaser, but some svelte-phaser components such as
-   * ArcadeCollider will make use of names to find the reference to the Game Object.
+   * The name of this Game Object. ArcadeCollider will make use of names to find the reference to the Game Object.
+   *
+   * Note: this is not the same as `id`. `id` must be the name of the layer in the tilemap, but
+   * the `name` prop can be anything you wish.
+   *
    * @type {string}
    */
   export let name = undefined
@@ -311,10 +314,10 @@
   export let type = 'static'
 
   /**
-   * The name of the tileset used for this layer in the tilemap
-   * @type {string}
+   * The names of the tilesets used for this layer in the tilemap
+   * @type {string[]}
    */
-  export let tileset
+  export let tilesets
 
   /**
    * The visible state of the Game Object. An invisible Game Object will skip rendering, but will still process update logic.
@@ -356,22 +359,26 @@
 
   const tilemap = getTilemap()
 
-  let tilesets = tilemap.tilesets
-
   export let instance =
     type === 'static'
       ? tilemap.createStaticLayer(
           id,
-          tilesets.find(ts => ts.name === tileset),
+          tilemap.tilesets.filter(ts => tilesets.includes(ts.name)),
           x,
           y
         )
       : tilemap.createDynamicLater(
           id,
-          tilesets.find(ts => ts.name === tileset),
+          tilemap.tilesets.filter(ts => tilesets.includes(ts.name)),
           x,
           y
         )
+
+  if (tilemap.useLayerOrder && typeof depth === 'undefined') {
+    depth =
+      tilemap.layerOrder.findIndex(layerName => layerName === id) +
+      tilemap.startingDepth
+  }
 
   setContext('phaser/tilemap-layer', instance)
 

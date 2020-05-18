@@ -6,11 +6,13 @@
     Text,
     Camera,
     Tilemap,
-    TilemapLayer,
+    TileLayer,
+    ObjectLayer,
+    Spawner,
   } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
   import Player from './Player.svelte'
-
+  import Ball from './Ball.svelte'
   let game
 
   $: window.game = game
@@ -18,6 +20,7 @@
   function preload(scene) {
     scene.load.tilemapTiledJSON('tilemaps/castle', '/assets/tilemap.json')
     scene.load.image('tilesets/castle', '/assets/castle-tileset.png')
+    scene.load.image('textures/ball', '/assets/ball.png')
     scene.load.spritesheet('textures/player', '/assets/adventurer.png', {
       frameWidth: 50,
       frameHeight: 37,
@@ -92,16 +95,19 @@
         color="white" />
     </template>
 
-    <Tilemap
-      key="tilemaps/castle"
-      tilesets={[{ key: 'tilesets/castle', name: 'castle-tileset' }]}>
-      <TilemapLayer id="bg" tileset="castle-tileset" />
-      <TilemapLayer
-        id="ground"
-        name="ground"
-        tileset="castle-tileset"
-        collisionTilesByProperty={{ collision: true }} />
-    </Tilemap>
+    <Spawner>
+      <Tilemap
+        key="tilemaps/castle"
+        tilesets={[{ key: 'tilesets/castle', name: 'castle-tileset' }]}>
+        <TileLayer
+          id="ground"
+          name="ground"
+          tilesets={['castle-tileset']}
+          collisionTilesByProperty={{ collision: true }} />
+        <TileLayer id="bg" tilesets={['castle-tileset']} />
+        <ObjectLayer id="enemies" components={{ Ball }} />
+      </Tilemap>
+    </Spawner>
     <Camera
       x={0}
       y={0}
@@ -111,6 +117,7 @@
       roundPixels
       bounds={{ x: 0, y: 0, width: 512, height: 256 }}>
       <Player x={124} y={124} />
+      <!-- <Ball x={124} y={80} /> -->
     </Camera>
   </Scene>
 </Game>
