@@ -121,7 +121,43 @@ describe('follow', () => {
 
     await tick()
 
-    expect(instance.startFollow).toHaveBeenCalledWith(target)
+    expect(instance.startFollow).toHaveBeenCalledWith(
+      target,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  })
+
+  test('follow with all parameters', async () => {
+    const target = { something: 'something' }
+
+    findGameObjectsByName.mockImplementation(() => [target])
+
+    const {
+      component: { instance, $set },
+    } = render(Camera, {
+      ...baseProps,
+    })
+
+    jest.spyOn(instance, 'startFollow')
+
+    $set({
+      follow: 'something',
+      roundPixels: true,
+      lerp: {
+        x: 1,
+        y: 2,
+      },
+      followOffsetX: 5,
+      followOffsetY: 6,
+    })
+
+    await tick()
+
+    expect(instance.startFollow).toHaveBeenCalledWith(target, true, 1, 2, 5, 6)
   })
 
   test('follow with string reference', async () => {
@@ -143,7 +179,14 @@ describe('follow', () => {
 
     await tick()
 
-    expect(instance.startFollow).toHaveBeenCalledWith(target)
+    expect(instance.startFollow).toHaveBeenCalledWith(
+      target,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
   })
 
   test('follow offset', async () => {
