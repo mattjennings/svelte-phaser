@@ -12,7 +12,7 @@
   } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
   import Player from './Player.svelte'
-  import Ball from './Ball.svelte'
+
   let game
 
   $: window.game = game
@@ -105,7 +105,7 @@
           tilesets={['castle-tileset']}
           collisionTilesByProperty={{ collision: true }} />
         <TileLayer id="bg" tilesets={['castle-tileset']} />
-        <ObjectLayer id="enemies" components={{ Ball }} />
+        <!-- <ObjectLayer id="enemies" components={{ }} /> -->
       </Tilemap>
     </Spawner>
     <Camera
