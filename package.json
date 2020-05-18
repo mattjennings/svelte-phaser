@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "clean:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
-    "deploy:site": "(vercel --prod); (cd examples && vercel --prod);",
+    "deploy:site:prod": "(vercel --prod); (cd examples && vercel --prod);",
     "deploy:site:staging": "(vercel); (cd examples && vercel)",
     "build": "yarn build:docs && yarn build:examples",
     "build:docs": "cd docs && yarn build",
