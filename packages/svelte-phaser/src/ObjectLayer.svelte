@@ -20,7 +20,7 @@
   export let id
 
   /**
-   * The depth of each component in this layer
+   * The depth for each component in this layer
    * @type {number}
    */
   export let depth = 0
