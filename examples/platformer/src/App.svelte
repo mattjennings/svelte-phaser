@@ -117,7 +117,6 @@
       roundPixels
       bounds={{ x: 0, y: 0, width: 512, height: 256 }}>
       <Player x={124} y={124} />
-      <!-- <Ball x={124} y={80} /> -->
     </Camera>
   </Scene>
 </Game>

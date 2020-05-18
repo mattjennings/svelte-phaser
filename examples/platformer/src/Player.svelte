@@ -80,7 +80,6 @@
   on:animationcomplete={onAnimationComplete}
   {flipX}>
   <ArcadePhysics
-    immovable
     collideWorldBounds
     bind:velocityX
     bind:velocityY

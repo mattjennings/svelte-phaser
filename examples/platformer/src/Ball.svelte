@@ -4,9 +4,12 @@
   export let x
   export let y
   export let depth
+  export let bounce = 1
 </script>
 
 <Sprite name="ball" {x} {y} {depth} texture="textures/ball">
-  <ArcadePhysics bounce={1} collideWorldBounds />
+  <ArcadePhysics {bounce} collideWorldBounds circle={{ radius: 15 }} />
   <ArcadeCollider with="ground" />
+  <ArcadeCollider with="player" />
+  <ArcadeCollider with="ball" />
 </Sprite>
