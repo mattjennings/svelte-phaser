@@ -42,3 +42,7 @@
   --hl-attr: #a18851;
   --hl-builtin: #505050;
 }
+
+article img {
+  max-height: 600px;
+}

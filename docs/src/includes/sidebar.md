@@ -4,10 +4,13 @@
   - [Game](components/game)
   - [Scene](components/scene)
   - [Camera](components/camera)
-  - GameObjects
-    - [Text](components/text)
-    - [Sprite](components/sprite)
-    - [TileSprite](components/tile-sprite)
+  - [Text](components/text)
+  - [Sprite](components/sprite)
+  - [TileSprite](components/tile-sprite)
+  - Tilemaps
+    - [Tilemap](components/tilemap)
+    - [TileLayer](components/tile-layer)
+    - [ObjectLayer](components/object-layer)
   - Physics
     - [ArcadePhysics](components/arcade-physics)
     - [ArcadeCollider](components/arcade-collider)

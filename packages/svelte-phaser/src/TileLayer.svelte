@@ -92,12 +92,11 @@
   /**
    * Sets collision on the tiles within a layer by checking tile properties.
    * If a tile has a property that matches the given properties object,
-   * its collision flag will be set. The collides parameter controls if collision will be
-   * enabled (true) or disabled (false). Passing in { collides: true } would update
-   * the collision flag on any tiles with a "collides" property that has a value of
-   * true. Any tile that doesn't have "collides" set to true will be ignored.
-   * You can also use an array of values, e.g. { types: ["stone", "lava", "sand" ] }.
-   * If a tile has a "types" property that matches any of those values, its collision flag will be updated.
+   * its collision flag will be set.
+   *
+   * Providing an object with a key of "collides" and a value of `true` would check
+   * for any tile with a "collides" property that equals `true`. You can also pass in
+   * an array for the property value, and it will check if the tile property value is any of those.
    *
    * @type {object}
    */
@@ -191,6 +190,8 @@
 
   /**
    * The layer array index value, or the layer name from Tiled
+   *
+   * #required
    * @type {number|string}
    */
   export let id
@@ -315,6 +316,8 @@
 
   /**
    * The names of the tilesets used for this layer in the tilemap
+   *
+   * #required
    * @type {string[]}
    */
   export let tilesets

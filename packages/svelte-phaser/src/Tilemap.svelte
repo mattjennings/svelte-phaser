@@ -5,16 +5,21 @@
   /**
    * The key of the tilemap asset. This should be preloaded in the Scene's preload.
    *
-   * See: https://photonstorm.github.io/phaser3-docs/Phaser.Loader.LoaderPlugin.html#tilemapTiledJSON__anchor
-   *
+   * #required
    * @type {string}
    */
   export let key
 
-  export let tilesets = []
+  /**
+   * A mapping of Phaser asset keys to tileset names in the tilemap data
+   *
+   * #required
+   * @type {object[]}
+   */
+  export let tilesets
 
   /**
-   * Renders the child TilemapLayer's in order of the layers in the tilemap
+   * TileLayers will be assigned `depth` values to reflect the layer order in the tilemap
    * @type {boolean}
    */
   export let useLayerOrder = true
