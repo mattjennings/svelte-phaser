@@ -353,7 +353,7 @@
   })
 
   // this should be before anything else
-  $: if (shouldApplyProps(circle)) {
+  $: if (!width && !height && shouldApplyProps(circle)) {
     if (
       circle.radius !== instance.body.radius ||
       circle.offsetX !== instance.body.offsetX ||
@@ -364,7 +364,7 @@
   }
 
   // this should be before anything else
-  $: if (shouldApplyProps(width, height, center)) {
+  $: if (!circle && shouldApplyProps(width, height, center)) {
     if (width !== instance.body.width || height !== instance.body.height) {
       instance.body.setSize(width, height, center)
     }
