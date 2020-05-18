@@ -1,3 +1,7 @@
+# Documentation
+
+Check out the [documentation](https://svelte-phaser.com)
+
 # Getting Started
 
 ### Creating a new project
@@ -34,7 +38,3 @@ and then import it:
   </Scene>
 </Game>
 ```
-
-# Documentation
-
-Check out the [documentation](https://svelte-phaser.com)
