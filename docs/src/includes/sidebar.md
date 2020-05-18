@@ -19,3 +19,4 @@
 - [Examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples)
   - [Breakout](https://svelte-phaser.com/examples/breakout/)
   - [Invaders](https://svelte-phaser.com/examples/invaders/)
+  - [Platformer (WIP)](https://svelte-phaser.com/examples/platformer/)
