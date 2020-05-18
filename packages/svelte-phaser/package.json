@@ -1,15 +1,11 @@
 {
   "name": "svelte-phaser",
-  "version": "0.0.1-alpha.9",
+  "version": "0.0.1-rc.0",
   "description": "Create Phaser 3 games with Svelte 3",
   "repository": "https://github.com/mattjennings/svelte-phaser",
   "svelte": "src/index.js",
   "module": "dist/svelte-phaser.mjs",
   "main": "dist/svelte-phaser.js",
-  "browser": "dist/svelte-phaser.js",
-  "exports": {
-    ".": "./dist/svelte-phaser.mjs"
-  },
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build",
