@@ -10,8 +10,8 @@
   // `with` is a reserved keyword
   let _with
 
-  export let overlapOnly
-  export let allowCollision
+  export let overlapOnly = undefined
+  export let allowCollision = undefined
 
   export { _with as with }
 

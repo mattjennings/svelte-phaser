@@ -393,13 +393,9 @@
     alphaTopRight,
   })
 
-  $: shouldApplyProps(angle) &&
-    angle !== instance.angle &&
-    instance.setAngle(angle)
+  $: shouldApplyProps(angle) && instance.setAngle(angle)
 
-  $: shouldApplyProps(blendMode) &&
-    blendMode !== instance.blendMode &&
-    instance.setBlendMode(blendMode)
+  $: shouldApplyProps(blendMode) && instance.setBlendMode(blendMode)
 
   $: shouldApplyProps(collisionTiles) &&
     instance.setCollisionTiles(collisionTiles)
@@ -422,17 +418,10 @@
     }
   }
 
-  $: shouldApplyProps(depth) &&
-    depth !== instance.depth &&
-    instance.setDepth(depth)
+  $: shouldApplyProps(depth) && instance.setDepth(depth)
 
   $: if (shouldApplyProps(displayHeight, displayWidth)) {
-    if (
-      displayWidth !== instance.displayWidth ||
-      displayHeight !== instance.displayHeight
-    ) {
-      instance.setDisplaySize(displayWidth, displayHeight)
-    }
+    instance.setDisplaySize(displayWidth, displayHeight)
   }
 
   $: if (shouldApplyProps(displayOriginX, displayOriginY)) {
@@ -444,26 +433,18 @@
     }
   }
 
-  $: shouldApplyProps(flipX) &&
-    flipX !== instance.flipX &&
-    instance.setFlipX(flipX)
+  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
 
-  $: shouldApplyProps(flipY) &&
-    flipY !== instance.flipY &&
-    instance.setFlipY(flipY)
+  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
 
   $: if (shouldApplyProps(height, width)) {
-    if (width !== instance.width || height !== instance.height) {
-      instance.setSize(width, height)
-    }
+    instance.setSize(width, height)
   }
 
-  $: shouldApplyProps(name) && name !== instance.name && instance.setName(name)
+  $: shouldApplyProps(name) && instance.setName(name)
 
   $: if (shouldApplyProps(originX, originY)) {
-    if (originX !== instance.originX || originY !== instance.originY) {
-      instance.setOrigin(originX, originY)
-    }
+    instance.setOrigin(originX, originY)
   }
 
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
@@ -471,24 +452,17 @@
   $: applyScale(instance, { scale, scaleX, scaleY })
 
   $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
-    if (
-      scrollFactorX !== instance.scrollFactorX ||
-      scrollFactorY !== instance.scrollFactorY
-    ) {
-      instance.setScrollFactor(scrollFactorX, scrollFactorY)
-    }
+    instance.setScrollFactor(scrollFactorX, scrollFactorY)
   }
 
   $: shouldApplyProps(skipCull) && (instance.skipCull = skipCull)
 
-  $: shouldApplyProps(visible) &&
-    visible !== instance.visible &&
-    instance.setVisible(visible)
+  $: shouldApplyProps(visible) && instance.setVisible(visible)
 
-  $: shouldApplyProps(w) && w !== instance.w && instance.setW(w)
-  $: shouldApplyProps(x) && x !== instance.x && instance.setX(x)
-  $: shouldApplyProps(y) && y !== instance.y && instance.setY(y)
-  $: shouldApplyProps(z) && z !== instance.z && instance.setZ(z)
+  $: shouldApplyProps(w) && instance.setW(w)
+  $: shouldApplyProps(x) && instance.setX(x)
+  $: shouldApplyProps(y) && instance.setY(y)
+  $: shouldApplyProps(z) && instance.setZ(z)
 
   onGameEvent('prerender', () => {
     w = instance.w

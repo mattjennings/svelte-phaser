@@ -574,13 +574,9 @@
     )
   }
 
-  $: shouldApplyProps(active) &&
-    active !== instance.active &&
-    instance.setActive(active)
+  $: shouldApplyProps(active) && instance.setActive(active)
 
-  $: shouldApplyProps(align) &&
-    align !== instance.align &&
-    instance.setAlign(align)
+  $: shouldApplyProps(align) && instance.setAlign(align)
 
   $: applyAlpha(instance, {
     alpha,
@@ -590,177 +586,100 @@
     alphaTopRight,
   })
 
-  $: shouldApplyProps(angle) &&
-    angle !== instance.angle &&
-    instance.setAngle(angle)
+  $: shouldApplyProps(angle) && instance.setAngle(angle)
 
   $: shouldApplyProps(autoRound) && (instance.autoRound = autoRound)
 
   $: shouldApplyProps(backgroundColor) &&
-    backgroundColor !== instance.backgroundColor &&
     instance.setBackgroundColor(backgroundColor)
 
-  $: shouldApplyProps(baselineX) &&
-    baselineX !== instance.style.baselineX &&
-    (instance.style.baselineX = baselineX)
+  $: shouldApplyProps(baselineX) && (instance.style.baselineX = baselineX)
 
-  $: shouldApplyProps(baselineY) &&
-    instance !== instance.style.instance &&
-    (instance.style.baselineY = baselineY)
+  $: shouldApplyProps(baselineY) && (instance.style.baselineY = baselineY)
 
-  $: shouldApplyProps(blendMode) &&
-    blendMode !== instance.blendMode &&
-    instance.setBlendMode(blendMode)
+  $: shouldApplyProps(blendMode) && instance.setBlendMode(blendMode)
 
-  $: shouldApplyProps(color) &&
-    color !== instance.style.color &&
-    instance.setColor(color)
+  $: shouldApplyProps(color) && instance.setColor(color)
 
   $: shouldApplyProps(data) && instance.setData(data)
 
-  $: shouldApplyProps(depth) &&
-    depth !== instance.depth &&
-    instance.setDepth(depth)
+  $: shouldApplyProps(depth) && instance.setDepth(depth)
 
   $: if (shouldApplyProps(displayHeight, displayWidth)) {
-    if (
-      displayWidth !== instance.displayWidth ||
-      displayHeight !== instance.displayHeight
-    ) {
-      instance.setDisplaySize(displayWidth, displayHeight)
-    }
+    instance.setDisplaySize(displayWidth, displayHeight)
   }
 
   $: {
     if (shouldApplyProps(displayOriginX, displayOriginY)) {
-      if (
-        displayOriginX !== instance.displayOriginX ||
-        displayOriginY !== instance.displayOriginY
-      ) {
-        instance.setDisplayOrigin(displayOriginX, displayOriginY)
-      }
+      instance.setDisplayOrigin(displayOriginX, displayOriginY)
     }
   }
 
   $: if (shouldApplyProps(fixedWidth, fixedHeight)) {
-    if (
-      fixedWidth !== instance.style.fixedWidth ||
-      fixedHeight !== instance.style.fixedHeight
-    ) {
-      instance.setFixedSize(fixedWidth, fixedHeight)
-    }
+    instance.setFixedSize(fixedWidth, fixedHeight)
   }
 
-  $: shouldApplyProps(flipX) &&
-    flipX !== instance.flipX &&
-    instance.setFlipX(flipX)
+  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
 
-  $: shouldApplyProps(flipY) &&
-    flipY !== instance.flipY &&
-    instance.setFlipY(flipY)
+  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
 
-  $: shouldApplyProps(fontFamily) &&
-    fontFamily !== instance.style.fontFamily &&
-    instance.setFontFamily(fontFamily)
+  $: shouldApplyProps(fontFamily) && instance.setFontFamily(fontFamily)
 
-  $: shouldApplyProps(fontSize) &&
-    fontSize !== instance.style.fontSize &&
-    instance.setFontSize(fontSize)
+  $: shouldApplyProps(fontSize) && instance.setFontSize(fontSize)
 
-  $: shouldApplyProps(fontStyle) &&
-    fontStyle !== instance.style.fontStyle &&
-    instance.setFontStyle(fontStyle)
+  $: shouldApplyProps(fontStyle) && instance.setFontStyle(fontStyle)
 
   $: if (shouldApplyProps(frame)) {
-    if (
-      !instance.frame ||
-      !instance.frame.texture ||
-      frame !== instance.frame.name
-    ) {
-      instance.setFrame(frame)
-    }
+    instance.setFrame(frame)
   }
 
   $: if (shouldApplyProps(height, width)) {
-    if (width !== instance.width || height !== instance.height) {
-      instance.setSize(width, height)
-    }
+    instance.setSize(width, height)
   }
 
-  $: shouldApplyProps(lineSpacing) &&
-    lineSpacing !== instance.lineSpacing &&
-    instance.setLineSpacing(lineSpacing)
+  $: shouldApplyProps(lineSpacing) && instance.setLineSpacing(lineSpacing)
 
-  $: shouldApplyProps(mask) && mask !== instance.mask && instance.setMask(mask)
+  $: shouldApplyProps(mask) && instance.setMask(mask)
 
-  $: shouldApplyProps(maxLines) &&
-    maxLines !== instance.style.maxLines &&
-    instance.setMaxLines(maxLines)
+  $: shouldApplyProps(maxLines) && instance.setMaxLines(maxLines)
 
-  $: shouldApplyProps(name) && name !== instance.name && instance.setName(name)
+  $: shouldApplyProps(name) && instance.setName(name)
 
   $: if (shouldApplyProps(originX, originY)) {
-    if (originX !== instance.originX || originY !== instance.originY) {
-      instance.setOrigin(originX, originY)
-    }
+    instance.setOrigin(originX, originY)
   }
 
-  $: shouldApplyProps(padding) &&
-    padding !== instance.padding &&
-    instance.setPadding(padding)
+  $: shouldApplyProps(padding) && instance.setPadding(padding)
 
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
 
-  $: shouldApplyProps(resolution) &&
-    resolution !== instance.resolution &&
-    instance.setResolution(resolution)
+  $: shouldApplyProps(resolution) && instance.setResolution(resolution)
 
-  $: shouldApplyProps(rotation) &&
-    rotation !== instance.rotation &&
-    instance.setRotation(rotation)
+  $: shouldApplyProps(rotation) && instance.setRotation(rotation)
 
   $: shouldApplyProps(rtl) && (instance.style.rtl = rtl)
 
   $: applyScale(instance, { scale, scaleX, scaleY })
 
   $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
-    if (
-      scrollFactorX !== instance.scrollFactorX ||
-      scrollFactorY !== instance.scrollFactorY
-    ) {
-      instance.setScrollFactor(scrollFactorX, scrollFactorY)
-    }
+    instance.setScrollFactor(scrollFactorX, scrollFactorY)
   }
 
   $: if (shouldApplyProps(shadow)) {
-    if (
-      shadow.offsetX !== instance.style.shadowOffsetX ||
-      shadow.offsetY !== instance.style.shadowOffsetY ||
-      shadow.color !== instance.style.shadowColor ||
-      shadow.blur !== instance.style.shadowBlur ||
-      shadow.stroke !== instance.style.shadowStroke ||
-      shadow.fill !== instance.style.shadowFill
-    ) {
-      instance.setShadow(
-        shadow.x,
-        shadow.y,
-        shadow.color,
-        shadow.blur,
-        shadow.stroke,
-        shadow.fill
-      )
-    }
+    instance.setShadow(
+      shadow.x,
+      shadow.y,
+      shadow.color,
+      shadow.blur,
+      shadow.stroke,
+      shadow.fill
+    )
   }
 
   $: shouldApplyProps(splitRegExp) && (instance.splitRegExp = splitRegExp)
 
   $: if (shouldApplyProps(stroke, strokeThickness)) {
-    if (
-      stroke !== instance.style.stroke ||
-      strokeThickness !== instance.style.strokeThickness
-    ) {
-      instance.setStroke(stroke, strokeThickness)
-    }
+    instance.setStroke(stroke, strokeThickness)
   }
 
   $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
@@ -775,25 +694,18 @@
     tintFill,
   })
 
-  $: shouldApplyProps(visible) &&
-    visible !== instance.visible &&
-    instance.setVisible(visible)
+  $: shouldApplyProps(visible) && instance.setVisible(visible)
 
-  $: shouldApplyProps(w) && w !== instance.w && instance.setW(w)
+  $: shouldApplyProps(w) && instance.setW(w)
 
   $: if (shouldApplyProps(wordWrap, useAdvancedWordWrap)) {
-    if (
-      wordWrap !== instance.style.wordWrapWidth ||
-      useAdvancedWordWrap !== instance.style.wordWrapUseAdvanced
-    ) {
-      instance.setWordWrapWidth(wordWrap, useAdvancedWordWrap)
-    }
+    instance.setWordWrapWidth(wordWrap, useAdvancedWordWrap)
   }
 
-  $: shouldApplyProps(x) && x !== instance.x && instance.setX(x)
-  $: shouldApplyProps(y) && y !== instance.y && instance.setY(y)
-  $: shouldApplyProps(z) && z !== instance.z && instance.setZ(z)
-  $: shouldApplyProps(text) && text !== instance.text && instance.setText(text)
+  $: shouldApplyProps(x) && instance.setX(x)
+  $: shouldApplyProps(y) && instance.setY(y)
+  $: shouldApplyProps(z) && instance.setZ(z)
+  $: shouldApplyProps(text) && instance.setText(text)
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...
@@ -848,13 +760,23 @@
     scrollFactorX = instance.scrollFactorX
     scrollFactorY = instance.scrollFactorY
 
-    shadow = {
-      offsetX: instance.style.shadowOffsetX,
-      offsetY: instance.style.shadowOffsetY,
-      color: instance.style.shadowColor,
-      blur: instance.style.shadowBlur,
-      stroke: instance.style.shadowStroke,
-      fill: instance.style.fill,
+    if (
+      shadow &&
+      (shadow.offsetX !== instance.style.shadowOffsetX ||
+        shadow.offsetY !== instance.style.shadowOffsetY ||
+        shadow.color !== instance.style.shadowColor ||
+        shadow.blur !== instance.style.shadowBlur ||
+        shadow.stroke !== instance.style.shadowStroke ||
+        shadow.fill !== instance.style.shadowFill)
+    ) {
+      shadow = {
+        offsetX: instance.style.shadowOffsetX,
+        offsetY: instance.style.shadowOffsetY,
+        color: instance.style.shadowColor,
+        blur: instance.style.shadowBlur,
+        stroke: instance.style.shadowStroke,
+        fill: instance.style.fill,
+      }
     }
 
     splitRegExp = instance.splitRegExp
@@ -876,4 +798,5 @@
   })
 </script>
 
+<svelte:options immutable />
 <slot />
