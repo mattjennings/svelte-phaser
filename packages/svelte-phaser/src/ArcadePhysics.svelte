@@ -492,10 +492,13 @@
 
   $: if (shouldApplyProps(offsetX, offsetY)) {
     if (
-      offsetX !== instance.body.offsetX ||
-      offsetY !== instance.body.offsetY
+      offsetX !== instance.body.offset.x ||
+      offsetY !== instance.body.offset.y
     ) {
-      instance.body.setOffset(offsetX || 0, offsetY || 0)
+      instance.body.setOffset(
+        offsetX || instance.body.offset.x,
+        offsetY || instance.body.offset.y
+      )
     }
   }
 

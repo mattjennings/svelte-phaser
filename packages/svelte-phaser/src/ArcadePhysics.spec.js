@@ -172,12 +172,19 @@ test('immovable', async () => {
 })
 
 test('offset', async () => {
-  render(ArcadePhysics, {
+  const {
+    component: { $set },
+  } = render(ArcadePhysics, {
     offsetX: 5,
     offsetY: 10,
   })
 
   expect(gameObject.body.offset).toEqual({ x: 5, y: 10 })
+
+  $set({ offsetY: 15 })
+  await tick()
+
+  expect(gameObject.body.offset).toEqual({ x: 5, y: 15 })
 })
 
 test('size', async () => {
