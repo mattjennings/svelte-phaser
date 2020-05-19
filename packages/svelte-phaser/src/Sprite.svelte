@@ -743,6 +743,10 @@
       texture = instance.texture.key
     }
 
+    if (instance.frame) {
+      frame = instance.frame.key
+    }
+
     if (instance.anims) {
       if (instance.anims.currentAnim && instance.anims.currentAnim.key) {
         animation = instance.anims.currentAnim.key
