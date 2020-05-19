@@ -6,6 +6,8 @@
   "svelte": "src/index.mjs",
   "main": "src/index.mjs",
   "scripts": {
+    "publish": "yarn publish --tag latest",
+    "publish:next": "yarn publish --tag next",
     "prepublishOnly": "npm run test",
     "test": "NODE_ENV=test jest",
     "test:watch": "npm run test -- --watch"
