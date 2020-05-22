@@ -156,6 +156,12 @@
   export let duration = undefined
 
   /**
+   * Enables the firing of drag events
+   * @type {boolean}
+   */
+  export let draggable = false
+
+  /**
    * The horizontally flipped state of the Game Object.
    * A Game Object that is flipped horizontally will render inversed on the horizontal axis.
    * Flipping always takes place from the middle of the texture and does not impact the scale value.
@@ -586,9 +592,7 @@
     )
   }
 
-  $: shouldApplyProps(active) &&
-    active !== instance.active &&
-    instance.setActive(active)
+  $: shouldApplyProps(active) && instance.setActive(active)
 
   $: applyAlpha(instance, {
     alpha,
@@ -598,87 +602,46 @@
     alphaTopRight,
   })
 
-  $: shouldApplyProps(angle) &&
-    angle !== instance.angle &&
-    instance.setAngle(angle)
+  $: shouldApplyProps(angle) && instance.setAngle(angle)
 
-  $: shouldApplyProps(blendMode) &&
-    blendMode !== instance.blendMode &&
-    instance.setBlendMode(blendMode)
+  $: shouldApplyProps(blendMode) && instance.setBlendMode(blendMode)
 
   $: shouldApplyProps(data) && instance.setData(data)
 
-  $: shouldApplyProps(depth) &&
-    depth !== instance.depth &&
-    instance.setDepth(depth)
+  $: shouldApplyProps(depth) && instance.setDepth(depth)
 
   $: if (shouldApplyProps(displayHeight, displayWidth)) {
-    if (
-      displayWidth !== instance.displayWidth ||
-      displayHeight !== instance.displayHeight
-    ) {
-      instance.setDisplaySize(displayWidth, displayHeight)
-    }
+    instance.setDisplaySize(displayWidth, displayHeight)
   }
 
   $: if (shouldApplyProps(displayOriginX, displayOriginY)) {
-    if (
-      displayOriginX !== instance.displayOriginX ||
-      displayOriginY !== instance.displayOriginY
-    ) {
-      instance.setDisplayOrigin(displayOriginX, displayOriginY)
-    }
+    instance.setDisplayOrigin(displayOriginX, displayOriginY)
   }
 
-  $: shouldApplyProps(flipX) &&
-    flipX !== instance.flipX &&
-    instance.setFlipX(flipX)
+  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
 
-  $: shouldApplyProps(flipY) &&
-    flipY !== instance.flipY &&
-    instance.setFlipY(flipY)
-
-  $: if (shouldApplyProps(frame)) {
-    if (
-      !instance.frame ||
-      !instance.frame.texture ||
-      frame !== instance.frame.name
-    ) {
-      instance.setFrame(frame, true, true)
-    }
-  }
+  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
 
   $: if (shouldApplyProps(height, width)) {
-    if (width !== instance.width || height !== instance.height) {
-      instance.setSize(width, height)
-    }
+    instance.setSize(width, height)
   }
 
-  $: shouldApplyProps(mask) && mask !== instance.mask && instance.setMask(mask)
+  $: shouldApplyProps(mask) && instance.setMask(mask)
 
-  $: shouldApplyProps(name) && name !== instance.name && instance.setName(name)
+  $: shouldApplyProps(name) && instance.setName(name)
 
   $: if (shouldApplyProps(originX, originY)) {
-    if (originX !== instance.originX || originY !== instance.originY) {
-      instance.setOrigin(originX, originY)
-    }
+    instance.setOrigin(originX, originY)
   }
 
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
 
-  $: shouldApplyProps(rotation) &&
-    rotation !== instance.rotation &&
-    instance.setRotation(rotation)
+  $: shouldApplyProps(rotation) && instance.setRotation(rotation)
 
   $: applyScale(instance, { scale, scaleX, scaleY })
 
   $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
-    if (
-      scrollFactorX !== instance.scrollFactorX ||
-      scrollFactorY !== instance.scrollFactorY
-    ) {
-      instance.setScrollFactor(scrollFactorX, scrollFactorY)
-    }
+    instance.setScrollFactor(scrollFactorX, scrollFactorY)
   }
 
   $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
@@ -691,38 +654,27 @@
     tintFill,
   })
 
-  $: shouldApplyProps(visible) &&
-    visible !== instance.visible &&
-    instance.setVisible(visible)
+  $: shouldApplyProps(visible) && instance.setVisible(visible)
 
-  $: shouldApplyProps(w) && w !== instance.w && instance.setW(w)
-  $: shouldApplyProps(x) && x !== instance.x && instance.setX(x)
-  $: shouldApplyProps(y) && y !== instance.y && instance.setY(y)
-  $: shouldApplyProps(z) && z !== instance.z && instance.setZ(z)
+  $: shouldApplyProps(w) && instance.setW(w)
+  $: shouldApplyProps(x) && instance.setX(x)
+  $: shouldApplyProps(y) && instance.setY(y)
+  $: shouldApplyProps(z) && instance.setZ(z)
 
-  $: shouldApplyProps(texture) &&
-    (instance.texture && instance.texture.key !== texture) &&
-    instance.setTexture(texture)
+  $: if (shouldApplyProps(texture, frame)) {
+    instance.setTexture(texture, frame)
+  }
 
   // animation props
-  $: if (
-    shouldApplyProps(animation) &&
-    (!instance.anims.currentAnim ||
-      instance.anims.currentAnim.key !== animation)
-  ) {
+  $: if (shouldApplyProps(animation)) {
     instance.anims.play(animation, true)
   }
 
   $: if (shouldApplyProps(isPlaying)) {
-    if (isPlaying !== instance.anims.isPlaying) {
-      console.log(isPlaying, instance.anims.isPlaying)
-    }
     instance.anims.isPlaying = isPlaying
   }
 
-  $: shouldApplyProps(delay) &&
-    delay !== instance.anims.getDelay() &&
-    instance.anims.setDelay(delay)
+  $: shouldApplyProps(delay) && instance.anims.setDelay(delay)
 
   $: shouldApplyProps(duration) && (instance.anims.duration = duration)
   $: shouldApplyProps(forward) && (instance.anims.forward = forward)
@@ -732,30 +684,23 @@
   $: shouldApplyProps(skipMissedFrames) &&
     (instance.anims.skipMissedFrames = skipMissedFrames)
 
-  $: shouldApplyProps(progress) &&
-    progress !== instance.anims.getProgress() &&
-    instance.anims.setProgress(progress)
+  $: shouldApplyProps(progress) && instance.anims.setProgress(progress)
 
   $: shouldApplyProps(stopOnFrame) && instance.anims.stopOnFrame(stopOnFrame)
 
   $: shouldApplyProps(stopAfterDelay) &&
     instance.anims.stopAfterDelay(stopAfterDelay)
 
-  $: shouldApplyProps(repeat) &&
-    repeat !== instance.anims.getRepeat() &&
-    instance.anims.setRepeat(repeat)
+  $: shouldApplyProps(repeat) && instance.anims.setRepeat(repeat)
 
-  $: shouldApplyProps(repeatDelay) &&
-    repeat !== instance.anims.getRepeatDelay() &&
-    instance.anims.setRepeatDelay(repeatDelay)
+  $: shouldApplyProps(repeatDelay) && instance.anims.setRepeatDelay(repeatDelay)
 
-  $: shouldApplyProps(timeScale) &&
-    timeScale !== instance.anims.getTimeScale() &&
-    instance.anims.setTimeScale(timeScale)
+  $: shouldApplyProps(timeScale) && instance.anims.setTimeScale(timeScale)
 
-  $: shouldApplyProps(yoyo) &&
-    yoyo !== instance.anims.getYoyo() &&
-    instance.anims.setYoyo(yoyo)
+  $: shouldApplyProps(yoyo) && instance.anims.setYoyo(yoyo)
+
+  $: shouldApplyProps(draggable) &&
+    scene.input.setDraggable(instance, draggable)
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...
@@ -807,6 +752,10 @@
       texture = instance.texture.key
     }
 
+    if (instance.frame) {
+      frame = instance.frame.key
+    }
+
     if (instance.anims) {
       if (instance.anims.currentAnim && instance.anims.currentAnim.key) {
         animation = instance.anims.currentAnim.key
@@ -829,4 +778,5 @@
   })
 </script>
 
+<svelte:options immutable />
 <slot />

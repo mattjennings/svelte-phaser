@@ -22,7 +22,7 @@ If a blank project is too boring, feel free to look through the [examples](https
 If you have an existing svelte project you can just install `svelte-phaser`:
 
 ```shell
-npm install svelte-phaser
+npm install phaser svelte-phaser
 ```
 
 and then import it:

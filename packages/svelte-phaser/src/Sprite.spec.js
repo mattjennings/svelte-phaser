@@ -8,9 +8,14 @@ jest.mock('svelte', () => ({
   getContext: jest.fn(),
 }))
 
-beforeAll(async () => {
-  const { game, scene } = await createGame()
+let scene
+let game
 
+beforeAll(async () => {
+  const setup = await createGame()
+
+  game = setup.game
+  scene = setup.scene
   getContext.mockImplementation((name) => {
     switch (name) {
       case 'phaser/scene':
@@ -89,6 +94,22 @@ test('depth props', async () => {
   })
 
   expect(instance.depth).toEqual(10)
+})
+
+test('draggable props', async () => {
+  const {
+    component: { instance, $set },
+  } = render(Sprite, {})
+
+  jest.spyOn(scene.input, 'setDraggable')
+  $set({ draggable: true })
+  await tick()
+
+  expect(scene.input.setDraggable).toHaveBeenCalledWith(instance, true)
+  $set({ draggable: false })
+  await tick()
+
+  expect(scene.input.setDraggable).toHaveBeenCalledWith(instance, false)
 })
 
 test('flip props', async () => {
@@ -186,13 +207,11 @@ test('texture props', async () => {
   } = render(Sprite)
 
   const setTexture = jest.spyOn(instance, 'setTexture')
-  const setFrame = jest.spyOn(instance, 'setFrame')
 
   $set({ texture: 't', frame: 'f' })
   await tick()
 
-  expect(setTexture).toHaveBeenCalledWith('t')
-  expect(setFrame).toHaveBeenCalledWith('f', true, true)
+  expect(setTexture).toHaveBeenCalledWith('t', 'f')
 })
 
 test('tint props', async () => {

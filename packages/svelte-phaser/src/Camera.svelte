@@ -75,31 +75,6 @@
   export let bounds
 
   /**
-   * The displayed height of the camera viewport, factoring in the camera zoom level.
-   *
-   * If a camera has a viewport height of 600 and a zoom of 0.5 then its display height
-   * would be 1200, as it's displaying twice as many pixels as zoom level 1.
-   *
-   * Equally, a camera with a height of 600 and zoom of 2 would have a display height of 300 pixels.
-   *
-   * @type {number}
-   */
-  export let displayHeight = undefined
-
-  /**
-   * The displayed width of the camera viewport, factoring in the
-   * camera zoom level.
-   *
-   * If a camera has a viewport width of 800 and a zoom of 0.5 then its
-   * display width would be 1600, as it's displaying twice as many pixels as zoom level 1.
-   *
-   * Equally, a camera with a width of 800 and zoom of 2 would have a display
-   * width of 400 pixels.
-   * @type {number}
-   */
-  export let displayWidth = undefined
-
-  /**
    * The Camera Fade effect handler.
    * @type {Phaser.Cameras.Scene2D.Effects.Fade}
    */
@@ -429,79 +404,43 @@
   })
 
   $: shouldApplyProps(backgroundColor) &&
-    backgroundColor !== instance.backgroundColor &&
     instance.setBackgroundColor(backgroundColor)
 
   $: if (shouldApplyProps(bounds)) {
-    const oldBounds = instance.getBounds()
-    if (
-      bounds.x !== oldBounds.x ||
-      bounds.y !== oldBounds.y ||
-      bounds.width !== oldBounds.width ||
-      bounds.height !== oldBounds.height ||
-      bounds.centerOn !== oldBounds.centerOn
-    ) {
-      instance.setBounds(
-        bounds.x,
-        bounds.y,
-        bounds.width,
-        bounds.height,
-        bounds.centerOn
-      )
-    }
-  }
-
-  $: if (shouldApplyProps(displayHeight, displayWidth)) {
-    if (
-      displayWidth !== instance.displayWidth ||
-      displayHeight !== instance.displayHeight
-    ) {
-      instance.setDisplaySize(displayWidth, displayHeight)
-    }
+    instance.setBounds(
+      bounds.x,
+      bounds.y,
+      bounds.width,
+      bounds.height,
+      bounds.centerOn
+    )
   }
 
   $: shouldApplyProps(fadeEffect) && (instance.fadeEffect = fadeEffect)
   $: shouldApplyProps(flashEffect) && (instance.flashEffect = flashEffect)
 
-  $: shouldApplyProps(flipX) &&
-    flipX !== instance.flipX &&
-    instance.setFlipX(flipX)
+  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
 
-  $: shouldApplyProps(flipY) &&
-    flipY !== instance.flipY &&
-    instance.setFlipY(flipY)
+  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
 
   $: if (shouldApplyProps(followOffsetX, followOffsetY)) {
-    if (
-      followOffsetX !== instance.followOffset.x ||
-      followOffsetY !== instance.followOffset.y
-    ) {
-      instance.setFollowOffset(followOffsetX, followOffsetY)
-    }
+    instance.setFollowOffset(followOffsetX, followOffsetY)
   }
 
-  $: shouldApplyProps(height) &&
-    height !== instance.height &&
-    (instance.height = height)
+  $: shouldApplyProps(height) && (instance.height = height)
 
-  $: shouldApplyProps(inputEnabled) &&
-    inputEnabled !== instance.inputEnabled &&
-    (instance.inputEnabled = inputEnabled)
+  $: shouldApplyProps(inputEnabled) && (instance.inputEnabled = inputEnabled)
 
   $: if (shouldApplyProps(lerp)) {
-    if (lerp !== instance.lerp.x || lerp !== instance.lerp.y) {
-      instance.setLerp(lerp, lerp)
-    }
+    instance.setLerp(lerp, lerp)
   } else if (shouldApplyProps(lerpX, lerpY)) {
     instance.setLerp(lerpX, lerpY)
   }
 
-  $: shouldApplyProps(name) && name !== instance.name && instance.setName(name)
+  $: shouldApplyProps(name) && instance.setName(name)
 
   $: if (shouldApplyProps(originX, originY)) {
-    if (originX !== instance.originX || originY !== instance.originY) {
-      instance.setOrigin(originX, originY)
-    }
+    instance.setOrigin(originX, originY)
   }
 
   $: shouldApplyProps(panEffect) && (instance.panEffect = panEffect)
@@ -509,9 +448,7 @@
   $: shouldApplyProps(roundPixels) && (instance.roundPixels = roundPixels)
 
   $: if (shouldApplyProps(scrollX, scrollY)) {
-    if (scrollX !== instance.scrollX || scrollY !== instance.scrollY) {
-      instance.setScroll(scrollX, scrollY)
-    }
+    instance.setScroll(scrollX, scrollY)
   }
 
   $: shouldApplyProps(shakeEffect) && (instance.shakeEffect = shakeEffect)
@@ -525,11 +462,9 @@
   })
 
   $: shouldApplyProps(transparent) && (instance.transparent = transparent)
-  $: shouldApplyProps(visible) &&
-    visible !== instance.visible &&
-    instance.setVisible(visible)
+  $: shouldApplyProps(visible) && instance.setVisible(visible)
 
-  $: shouldApplyProps(zoom) && zoom !== instance.zoom && instance.setZoom(zoom)
+  $: shouldApplyProps(zoom) && instance.setZoom(zoom)
   $: shouldApplyProps(zoomEffect) && (instance.zoomEffect = zoomEffect)
 
   onSceneEvent('CHILD_ADDED', object => {
@@ -552,14 +487,6 @@
     backgroundColor = instance.backgroundColor
     alphaTopLeft = instance.alphatTopLeft
     alphaTopRight = instance.alphaTopRight
-
-    bounds = {
-      ...instance.getBounds(),
-      centerOn: bounds ? bounds.centerOn : false,
-    }
-
-    displayHeight = instance.displayHeight
-    displayWidth = instance.displayWidth
     flipX = instance.flipX
     flipY = instance.flipY
     followOffsetX = instance.followOffset.x
@@ -587,4 +514,5 @@
   })
 </script>
 
+<svelte:options immutable />
 <slot />

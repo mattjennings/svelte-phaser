@@ -8,9 +8,14 @@ jest.mock('svelte', () => ({
   getContext: jest.fn(),
 }))
 
-beforeAll(async () => {
-  const { game, scene } = await createGame()
+let scene
+let game
 
+beforeAll(async () => {
+  const setup = await createGame()
+
+  game = setup.game
+  scene = setup.scene
   getContext.mockImplementation((name) => {
     switch (name) {
       case 'phaser/scene':
@@ -20,7 +25,6 @@ beforeAll(async () => {
     }
   })
 })
-
 test('alpha props', async () => {
   const {
     component: { instance },
@@ -58,6 +62,25 @@ test('depth props', async () => {
   })
 
   expect(instance.depth).toEqual(10)
+})
+
+test('draggable props', async () => {
+  const {
+    component: { instance, $set },
+  } = render(Text, {
+    text: 'test',
+    interactive: new Phaser.Geom.Rectangle(0, 0, 10, 10),
+  })
+
+  jest.spyOn(scene.input, 'setDraggable')
+  $set({ draggable: true })
+  await tick()
+
+  expect(scene.input.setDraggable).toHaveBeenCalledWith(instance, true)
+  $set({ draggable: false })
+  await tick()
+
+  expect(scene.input.setDraggable).toHaveBeenCalledWith(instance, false)
 })
 
 test('flip props', async () => {

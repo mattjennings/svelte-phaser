@@ -15,6 +15,10 @@
     - [ArcadePhysics](components/arcade-physics)
     - [ArcadeCollider](components/arcade-collider)
 
+- Animation
+
+  - [svelte/motion](animation/svelte-motion)
+
 - [Examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples)
 
   - [Breakout](examples/breakout)

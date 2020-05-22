@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "prepare": "snowpack",
+    "start": "snowpack dev",
+    "build": "snowpack build"
+  },
+  "webDependencies": {},
+  "devDependencies": {
+    "@snowpack/app-scripts-svelte": "^0.6.1",
+    "phaser": "^3.23.0",
+    "rollup-plugin-svelte": "^5.2.2",
+    "snowpack": "^2.0.0-0",
+    "svelte": "^3.0.0",
+    "svelte-fragment": "^1.0.1",
+    "svelte-phaser": "0.0.3"
+  }
+}

@@ -6,29 +6,21 @@ export function applyGameObjectEventDispatchers(instance, dispatch) {
       instance,
       dispatch,
       'drag',
-      (pointer, gameObject, dragX, dragY) => ({
+      (pointer, dragX, dragY) => ({
         pointer,
-        gameObject,
         dragX,
         dragY,
       })
     ),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'dragend',
-      (pointer, gameObject) => ({
-        pointer,
-        gameObject,
-      })
-    ),
+    createPhaserEventDispatcher(instance, dispatch, 'dragend', (pointer) => ({
+      pointer,
+    })),
     createPhaserEventDispatcher(
       instance,
       dispatch,
       'dragenter',
-      (pointer, gameObject, target) => ({
+      (pointer, target) => ({
         pointer,
-        gameObject,
         target,
       })
     ),
@@ -36,9 +28,8 @@ export function applyGameObjectEventDispatchers(instance, dispatch) {
       instance,
       dispatch,
       'dragleave',
-      (pointer, gameObject, target) => ({
+      (pointer, target) => ({
         pointer,
-        gameObject,
         target,
       })
     ),
@@ -46,28 +37,21 @@ export function applyGameObjectEventDispatchers(instance, dispatch) {
       instance,
       dispatch,
       'dragover',
-      (pointer, gameObject, target) => ({
+      (pointer, target) => ({
         pointer,
-        gameObject,
         target,
       })
     ),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'dragstart',
-      (pointer, gameObject) => ({
-        pointer,
-        gameObject,
-      })
-    ),
+    createPhaserEventDispatcher(instance, dispatch, 'dragstart', (pointer) => ({
+      pointer,
+    })),
     createPhaserEventDispatcher(
       instance,
       dispatch,
       'drop',
-      (pointer, gameObject, target) => ({
+      (pointer, target) => ({
         pointer,
-        gameObject,
+
         target,
       })
     ),
