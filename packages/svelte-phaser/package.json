@@ -1,12 +1,11 @@
 {
   "name": "svelte-phaser",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Create Phaser 3 games with Svelte 3",
   "repository": "https://github.com/mattjennings/svelte-phaser",
   "svelte": "src/index.mjs",
   "main": "src/index.mjs",
   "scripts": {
-    "publish": "echo \"use publish:prod or publish:next\" && exit 1",
     "publish:prod": "npm publish --tag latest",
     "publish:next": "npm publish --tag next",
     "prepublishOnly": "npm run test",
