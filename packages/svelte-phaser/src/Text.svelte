@@ -177,6 +177,14 @@
   export let displayWidth = undefined
 
   /**
+   * Enables the firing of drag events. `interactive` prop must be provided for Text
+   * to know its bounds
+   *
+   * @type {boolean}
+   */
+  export let draggable = false
+
+  /**
    * Force the Text object to have the exact height specified in this property. Leave as zero for it to change accordingly to content.
    *
    * #phaserDefault 0
@@ -706,6 +714,10 @@
   $: shouldApplyProps(y) && instance.setY(y)
   $: shouldApplyProps(z) && instance.setZ(z)
   $: shouldApplyProps(text) && instance.setText(text)
+
+  $: shouldApplyProps(draggable) &&
+    interactive &&
+    scene.input.setDraggable(instance, draggable)
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...

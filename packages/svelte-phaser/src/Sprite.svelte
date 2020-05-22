@@ -156,6 +156,12 @@
   export let duration = undefined
 
   /**
+   * Enables the firing of drag events
+   * @type {boolean}
+   */
+  export let draggable = false
+
+  /**
    * The horizontally flipped state of the Game Object.
    * A Game Object that is flipped horizontally will render inversed on the horizontal axis.
    * Flipping always takes place from the middle of the texture and does not impact the scale value.
@@ -692,6 +698,9 @@
   $: shouldApplyProps(timeScale) && instance.anims.setTimeScale(timeScale)
 
   $: shouldApplyProps(yoyo) && instance.anims.setYoyo(yoyo)
+
+  $: shouldApplyProps(draggable) &&
+    scene.input.setDraggable(instance, draggable)
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...
