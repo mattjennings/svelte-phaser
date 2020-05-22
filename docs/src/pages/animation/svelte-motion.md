@@ -2,12 +2,13 @@
 
 You can use `svelte/motion` for animations just as you would in other Svelte applications.
 
+This is a recreation of an example from [a svelte.dev tutorial](https://svelte.dev/tutorial/actions)
+
 ```example
 <script>
   import { Game, Scene, Text, Sprite } from 'svelte-phaser'
   import { spring } from 'svelte/motion'
 
-  const scale = spring(1)
   const coords = spring(
     { x: 200, y: 200 },
     {
@@ -16,16 +17,9 @@ You can use `svelte/motion` for animations just as you would in other Svelte app
     }
   )
 
-  function handlePointerDown() {
-    scale.set(1.5)
-  }
-
-  function handlePointerUp() {
-    scale.set(1)
-  }
-
   function handleDragStart() {
-    coords.stiffness = coords.damping = 1
+    coords.stiffness = 1
+    coords.damping = 1
   }
 
   function handleDrag(event) {
@@ -57,9 +51,6 @@ You can use `svelte/motion` for animations just as you would in other Svelte app
       x={$coords.x}
       y={$coords.y}
       rotation={$coords.x * 0.0314}
-      on:pointerdown={handlePointerDown}
-      on:pointerout={handlePointerUp}
-      on:pointerup={handlePointerUp}
       on:drag={handleDrag}
       on:dragend={handleDragEnd}
       on:dragstart={handleDragStart} />
