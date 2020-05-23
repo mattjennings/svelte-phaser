@@ -1,7 +1,7 @@
 import { render } from '@testing-library/svelte'
 import { tick, getContext } from 'svelte'
 import Graphics from './Graphics.svelte'
-import { createGame } from './test-utils'
+import { createGame } from '../test-utils'
 
 jest.mock('svelte', () => ({
   ...jest.requireActual('svelte'),
