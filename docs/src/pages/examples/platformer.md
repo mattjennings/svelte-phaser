@@ -6,4 +6,4 @@ Arrow keys to move, spacebar to jump
 
 [View the source](https://github.com/mattjennings/svelte-phaser/tree/master/examples/platformer)
 
-<IFrameExample url="https://examples.svelte-phaser.com/platformer/"/>
+<IFrameExample url="https://examples.svelte-phaser.com/platformer/" width={256*3} height={224*3}/>

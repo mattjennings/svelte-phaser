@@ -741,7 +741,7 @@
     }
 
     if (instance.frame) {
-      frame = instance.frame.key
+      frame = instance.frame.name
     }
 
     if (instance.anims) {
