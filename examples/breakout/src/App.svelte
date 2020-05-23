@@ -3,10 +3,13 @@
   import fragment from 'svelte-fragment'
   import { Game, Scene, Text } from 'svelte-phaser'
   import Breakout from './Breakout.svelte'
+  import LoadingBar from './LoadingBar.svelte'
 
   function preload(scene) {
     scene.load.atlas('assets', 'assets/breakout.png', 'assets/breakout.json')
   }
+
+  Phaser.Math.Clamp()
 </script>
 
 <style>
@@ -25,13 +28,8 @@
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main" {preload}>
     <template use:fragment slot="loading" let:progress>
-      <Text
-        x={100}
-        y={100}
-        text={`Loading... ${progress * 100}%`}
-        color="white" />
+      <LoadingBar x={100} y={100} {progress} />
     </template>
-
     <Breakout />
   </Scene>
 </Game>
