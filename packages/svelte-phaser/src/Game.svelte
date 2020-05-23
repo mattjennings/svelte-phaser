@@ -1,6 +1,6 @@
 <script>
   import Phaser from './phaser.js'
-  import { setContext, createEventDispatcher } from 'svelte'
+  import { onMount, setContext, createEventDispatcher } from 'svelte'
   import { removeUndefined } from './util'
   const dispatch = createEventDispatcher()
 
@@ -230,6 +230,12 @@
   })
 
   setContext('phaser/game', instance)
+
+  onMount(() => {
+    return () => {
+      instance.destroy(true)
+    }
+  })
 </script>
 
 {#if booting}
