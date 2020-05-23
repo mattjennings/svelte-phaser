@@ -1,5 +1,6 @@
 <script>
   import Graphics from './Graphics.svelte'
+  import { shouldApplyProps } from '../util'
 
   /**
    * The x coordinate
@@ -40,26 +41,81 @@
   export let cornerRadius = 0
 
   /**
-   * Whether the shape is filled or outline only
+   * The default fill alpha for shapes rendered by this Graphics object.
    *
-   * @type {"fill" | "stroke"}
+   * #phaserDefault 1
+   * @type {number}
    */
-  export let type = 'fill'
+  export let fillAlpha = undefined
+
+  /**
+   * The default fill color for shapes rendered by this Graphics object.
+   *
+   * The color should be a hex value. ex. red would be 0xff0000
+   *
+   * #phaserDefault -1
+   * @type {number}
+   */
+  export let fillColor = undefined
+
+  /**
+   * The default stroke alpha for shapes rendered by this Graphics object.
+   *
+   * #phaserDefault 1
+   * @type {number}
+   */
+  export let strokeAlpha = undefined
+
+  /**
+   * The default stroke color for shapes rendered by this Graphics object.
+   *
+   * The color should be a hex value. ex. red would be 0xff0000
+   *
+   * #phaserDefault -1
+   * @type {number}
+   */
+  export let strokeColor = undefined
+
+  /**
+   * The default stroke width for shapes rendered by this Graphics object.
+   *
+   * #phaserDefault 1
+   * @type {number}
+   */
+  export let strokeWidth = undefined
 
   export let instance = undefined
 
-  $: if (instance) {
+  $: if (instance && shouldApplyProps(fillColor, fillAlpha)) {
     instance.clear()
-    type === 'fill'
-      ? cornerRadius
-        ? instance.fillRoundedRect(x, y, width, height, cornerRadius)
-        : instance.fillRect(x, y, width, height)
-      : cornerRadius
-      ? instance.strokeRoundedRect(x, y, width, height, cornerRadius)
-      : instance.strokeRect(x, y, width, height)
+
+    if (cornerRadius) {
+      instance.fillRoundedRect(x, y, width, height, cornerRadius)
+    } else {
+      instance.fillRect(x, y, width, height)
+    }
+  }
+
+  $: if (instance && shouldApplyProps(strokeWidth, strokeAlpha, strokeColor)) {
+    instance.clear()
+
+    if (cornerRadius) {
+      instance.strokeRoundedRect(x, y, width, height, cornerRadius)
+    } else {
+      instance.strokeRect(x, y, width, height)
+    }
   }
 </script>
 
-<Graphics bind:instance bind:x bind:y {...$$restProps}>
+<Graphics
+  bind:instance
+  bind:x
+  bind:y
+  bind:fillColor
+  bind:fillAlpha
+  bind:strokeColor
+  bind:strokeWidth
+  bind:strokeAlpha
+  {...$$restProps}>
   <slot />
 </Graphics>

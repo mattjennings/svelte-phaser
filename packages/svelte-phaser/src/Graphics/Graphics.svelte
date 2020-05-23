@@ -236,6 +236,7 @@
   /**
    * The default fill alpha for shapes rendered by this Graphics object.
    *
+   * #phaserDefault 1
    * @type {number}
    */
   export let fillAlpha = undefined
@@ -245,12 +246,15 @@
    *
    * The color should be a hex value. ex. red would be 0xff0000
    *
+   * #phaserDefault -1
    * @type {number}
    */
   export let fillColor = undefined
 
   /**
    * The default stroke alpha for shapes rendered by this Graphics object.
+   *
+   * #phaserDefault 1
    * @type {number}
    */
   export let strokeAlpha = undefined
@@ -260,12 +264,15 @@
    *
    * The color should be a hex value. ex. red would be 0xff0000
    *
+   * #phaserDefault -1
    * @type {number}
    */
   export let strokeColor = undefined
 
   /**
    * The default stroke width for shapes rendered by this Graphics object.
+   *
+   * #phaserDefault 1
    * @type {number}
    */
   export let strokeWidth = undefined
@@ -355,13 +362,13 @@
   ) &&
     instance.setDefaultStyles({
       fillStyle: {
-        alpha: fillAlpha,
+        alpha: typeof fillAlpha !== 'undefined' ? fillAlpha : 1,
         color: fillColor,
       },
       lineStyle: {
-        alpha: strokeAlpha,
+        alpha: typeof strokeAlpha !== 'undefined' ? strokeAlpha : 1,
         color: strokeColor,
-        width: strokeWidth,
+        width: typeof strokeWidth !== 'undefined' ? strokeWidth : 1,
       },
     })
 
