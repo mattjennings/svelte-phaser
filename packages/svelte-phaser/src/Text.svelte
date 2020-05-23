@@ -252,7 +252,7 @@
 
   /**
    * If you want the Text to be reactive to pointer events you will need to provide
-   * an object containing "shape", "callback", and "dropZone". This gets
+   * an object containing "shape" and optionally "callback" or "dropZone". This gets
    * passed into Phaser's underlying `setInteractive` method.
    *
    * This property is not bindable.
@@ -261,7 +261,7 @@
    *
    * https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html#setInteractive__anchor
    *
-   * @type {boolean | object}
+   * @type {object}
    */
   export let interactive = undefined
 
@@ -570,16 +570,16 @@
     })
   }
 
-  $: if (interactive === true) {
-    instance.setInteractive()
-  } else if (!interactive) {
-    instance.removeInteractive()
-  } else {
-    instance.setInteractive(
-      interactive.shape,
-      interactive.callback,
-      interactive.dropzone
-    )
+  $: if (shouldApplyProps(interactive)) {
+    if (interactive) {
+      instance.setInteractive(
+        interactive.shape,
+        interactive.callback,
+        interactive.dropzone
+      )
+    } else {
+      instance.removeInteractive()
+    }
   }
 
   $: shouldApplyProps(active) && instance.setActive(active)
@@ -734,7 +734,7 @@
     alpha = instance.alpha
     alphaBottomLeft = instance.alphaBottomLeft
     alphaBottomRight = instance.alphaBottomRight
-    alphaTopLeft = instance.alphatTopLeft
+    alphaTopLeft = instance.alphaTopLeft
     alphaTopRight = instance.alphaTopRight
     angle = instance.angle
     autoRound = instance.autoRound

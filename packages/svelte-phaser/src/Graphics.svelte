@@ -1,5 +1,6 @@
 <script>
-  import Phaser from './phaser.js'
+  // import Phaser from './phaser.js'
+  import * as Phaser from 'phaser'
   import {
     onMount,
     getContext,
@@ -7,12 +8,7 @@
     createEventDispatcher,
   } from 'svelte'
   import { addInstance, shouldApplyProps } from './util'
-  import {
-    applyAlpha,
-    applyScale,
-    applyTint,
-    applyGameObjectEventDispatchers,
-  } from './props/index'
+  import { applyScale, applyGameObjectEventDispatchers } from './props/index'
   import { onGameEvent } from './onGameEvent'
 
   /**
@@ -28,34 +24,6 @@
    * @type {number}
    */
   export let alpha = undefined
-
-  /**
-   * The alpha value starting from the bottom-left of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let alphaBottomLeft = undefined
-
-  /**
-   * The alpha value starting from the bottom-right of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {string}
-   */
-  export let alphaBottomRight = undefined
-
-  /**
-   * The alpha value starting from the top-left of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {string}
-   */
-  export let alphaTopLeft = undefined
-
-  /**
-   * The alpha value starting from the top-right of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let alphaTopRight = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.
@@ -103,62 +71,10 @@
   export let depth = undefined
 
   /**
-   * The displayed height of this Game Object.
-   * This value takes into account the scale factor.
-   * Setting this value will adjust the Game Object's scale property.
-   * @type {number}
-   */
-  export let displayHeight = undefined
-
-  /**
-   * The horizontal display origin of this Game Object. The origin is a normalized value between 0 and 1.
-   * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
-   * @type {number}
-   */
-  export let displayOriginX = undefined
-
-  /**
-   * The vertical display origin of this Game Object. The origin is a normalized value between 0 and 1.
-   * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
-   * @type {number}
-   */
-  export let displayOriginY = undefined
-
-  /**
-   * The displayed width of this Game Object.
-   * This value takes into account the scale factor.
-   * Setting this value will adjust the Game Object's scale property.
-   * @type {number}
-   */
-  export let displayWidth = undefined
-
-  /**
    * Enables the firing of drag events
    * @type {boolean}
    */
   export let draggable = false
-
-  /**
-   * The horizontally flipped state of the Game Object.
-   * A Game Object that is flipped horizontally will render inversed on the horizontal axis.
-   * Flipping always takes place from the middle of the texture and does not impact the scale value.
-   * If this Game Object has a physics body, it will not change the body. This is a rendering toggle only.
-   *
-   * #phaserDefault false
-   * @type {boolean}
-   */
-  export let flipX = undefined
-
-  /**
-   * The vertically flipped state of the Game Object.
-   * A Game Object that is flipped vertically will render inversed on the vertical axis (i.e. upside down).
-   * Flipping always takes place from the middle of the texture and does not impact the scale value.
-   * If this Game Object has a physics body, it will not change the body. This is a rendering toggle only.
-   *
-   * #phaserDefault false
-   * @type {boolean}
-   */
-  export let flipY = undefined
 
   /**
    * The Texture Frame this Game Object is using to render with.
@@ -167,18 +83,9 @@
   export let frame = undefined
 
   /**
-   * The height of this Text object.
-   * #phaserDefault 1
-   * @type {number}
-   */
-  export let height = undefined
-
-  /**
-   * Whether or not the game object should react to input from the pointer. This is true by default,
-   * and is required to emit pointer events.
-   *
-   * If you wish to customize the hit area, you can provide an object containing "shape", "callback", and "dropZone" which
-   * will get passed into Phaser's underlying `setInteractive` method.
+   * If you want Graphics to be reactive to pointer events you will need to provide
+   * an object containing "shape" and optionally "callback" or "dropZone". This gets
+   * passed into Phaser's underlying `setInteractive` method.
    *
    * This property is not bindable.
    *
@@ -186,9 +93,9 @@
    *
    * https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html#setInteractive__anchor
    *
-   * @type {boolean | object}
+   * @type {object}
    */
-  export let interactive = true
+  export let interactive = undefined
 
   /**
    * The Mask this Game Object is using during render.
@@ -202,27 +109,6 @@
    * @type {string}
    */
   export let name = undefined
-
-  /**
-   * The horizontal origin of this Game Object.
-   * The origin maps the relationship between the size and position of the Game Object.
-   * The default value is 0.5, meaning all Game Objects are positioned based on their center.
-   * Setting the value to 0 means the position now relates to the left of the Game Object.
-   *
-   * #phaserDefault 0.5
-   * @type {number}
-   */
-  export let originX = undefined
-
-  /**
-   * The vertical origin of this Game Object. The origin maps the relationship between the size and position of the Game Object.
-   * The default value is 0.5, meaning all Game Objects are positioned based on their center.
-   * Setting the value to 0 means the position now relates to the top of the Game Object.
-   *
-   * #phaserDefault 0.5
-   * @type {number}
-   */
-  export let originY = undefined
 
   /**
    * The flags that are compared against RENDER_MASK to determine if this Game Object will render or not.
@@ -317,38 +203,6 @@
   export let texture = undefined
 
   /**
-   * The tint value being applied to the bottom-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintBottomLeft = undefined
-
-  /**
-   * The tint value being applied to the bottom-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintBottomRight = undefined
-
-  /**
-   * Fill or additive?
-   *
-   * #phaserDefault false
-   * @type {boolean}
-   */
-  export let tintFill = undefined
-
-  /**
-   * The tint value being applied to the top-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintTopLeft = undefined
-
-  /**
-   * The tint value being applied to the top-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintTopRight = undefined
-
-  /**
    * The visible state of the Game Object. An invisible Game Object will skip rendering, but will still process update logic.
    * @type {boolean}
    */
@@ -359,12 +213,6 @@
    * @type {number}
    */
   export let w = undefined
-
-  /**
-   * The width of this Game object.
-   * @type {number}
-   */
-  export let width = undefined
 
   /**
    * The x position of this Game Object.
@@ -387,77 +235,71 @@
   export let z = undefined
 
   /**
-   * The horizontal scroll position of the Tile Sprite.
+   * The default fill alpha for shapes rendered by this Graphics object.
    * @type {number}
    */
-  export let tilePositionX = undefined
+  export let fillAlpha = undefined
 
   /**
-   * The vertical scroll position of the Tile Sprite.
+   * The default fill color for shapes rendered by this Graphics object.
    * @type {number}
    */
-  export let tilePositionY = undefined
+  export let fillColor = undefined
 
   /**
-   * The horizontal scale of the Tile Sprite texture.
-   * @type {string}
-   */
-  export let tileScaleX = undefined
-
-  /**
-   * The vertical scale of the Tile Sprite texture.
+   * The default stroke alpha for shapes rendered by this Graphics object.
    * @type {number}
    */
-  export let tileScaleY = undefined
+  export let strokeAlpha = undefined
+
+  /**
+   * The default stroke color for shapes rendered by this Graphics object.
+   * @type {number}
+   */
+  export let strokeColor = undefined
+
+  /**
+   * The default stroke width for shapes rendered by this Graphics object.
+   * @type {number}
+   */
+  export let strokeWidth = undefined
 
   const dispatch = createEventDispatcher()
   const scene = getContext('phaser/scene')
 
-  export let instance = new Phaser.GameObjects.TileSprite(
-    scene,
-    x,
-    y,
-    width,
-    height,
-    texture,
-    frame
-  )
+  export let instance = new Phaser.GameObjects.Graphics(scene, { x, y })
 
   setContext('phaser/game-object', instance)
 
   if (!scene.children.exists(instance)) {
     addInstance(instance)
-    const cleanupDispatchers = applyGameObjectEventDispatchers(
+
+    const cleanupGameObjectDispatchers = applyGameObjectEventDispatchers(
       instance,
       dispatch
     )
+
     onMount(() => () => {
-      cleanupDispatchers()
+      cleanupGameObjectDispatchers()
       instance.destroy()
     })
   }
 
-  $: if (interactive === true) {
-    instance.setInteractive()
-  } else if (!interactive) {
-    instance.removeInteractive()
-  } else {
-    instance.setInteractive(
-      interactive.shape,
-      interactive.callback,
-      interactive.dropzone
-    )
+  $: if (shouldApplyProps(interactive)) {
+    if (interactive) {
+      instance.setInteractive(
+        interactive.shape,
+        interactive.callback,
+        interactive.dropzone
+      )
+    } else {
+      instance.removeInteractive()
+    }
   }
 
   $: shouldApplyProps(active) && instance.setActive(active)
 
-  $: applyAlpha(instance, {
-    alpha,
-    alphaBottomLeft,
-    alphaBottomRight,
-    alphaTopLeft,
-    alphaTopRight,
-  })
+  $: shouldApplyProps(alpha) && instance.setAlpha(alpha)
 
   $: shouldApplyProps(angle) && instance.setAngle(angle)
 
@@ -467,29 +309,9 @@
 
   $: shouldApplyProps(depth) && instance.setDepth(depth)
 
-  $: if (shouldApplyProps(displayHeight, displayWidth)) {
-    instance.setDisplaySize(displayWidth, displayHeight)
-  }
-
-  $: if (shouldApplyProps(displayOriginX, displayOriginY)) {
-    instance.setDisplayOrigin(displayOriginX, displayOriginY)
-  }
-
-  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
-
-  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
-
-  $: if (shouldApplyProps(height, width)) {
-    instance.setSize(width, height)
-  }
-
   $: shouldApplyProps(mask) && instance.setMask(mask)
 
   $: shouldApplyProps(name) && instance.setName(name)
-
-  $: if (shouldApplyProps(originX, originY)) {
-    instance.setOrigin(originX, originY)
-  }
 
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
 
@@ -503,14 +325,6 @@
 
   $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
 
-  $: applyTint(instance, {
-    tintBottomLeft,
-    tintBottomRight,
-    tintTopLeft,
-    tintTopRight,
-    tintFill,
-  })
-
   $: shouldApplyProps(visible) && instance.setVisible(visible)
 
   $: shouldApplyProps(w) && instance.setW(w)
@@ -519,15 +333,31 @@
   $: shouldApplyProps(z) && instance.setZ(z)
 
   $: if (shouldApplyProps(texture, frame)) {
-    instance.setTexture(texture, frame)
+    instance.setTexture(texture, frame, instance.blendMode)
   }
-  $: shouldApplyProps(tilePositionX) && (instance.tilePositionX = tilePositionX)
-  $: shouldApplyProps(tilePositionY) && (instance.tilePositionY = tilePositionY)
-  $: shouldApplyProps(tileScaleX) && (instance.tileScaleX = tileScaleX)
-  $: shouldApplyProps(tileScaleY) && (instance.tileScaleY = tileScaleY)
 
-  $: shouldApplyProps(draggable, scene.input) &&
+  $: shouldApplyProps(draggable) &&
+    interactive &&
     scene.input.setDraggable(instance, draggable)
+
+  $: shouldApplyProps(
+    fillAlpha,
+    fillColor,
+    strokeAlpha,
+    strokeColor,
+    strokeWidth
+  ) &&
+    instance.setDefaultStyles({
+      fillStyle: {
+        alpha: fillAlpha,
+        color: fillColor,
+      },
+      lineStyle: {
+        alpha: strokeAlpha,
+        color: strokeColor,
+        width: strokeWidth,
+      },
+    })
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...
@@ -541,24 +371,13 @@
   onGameEvent('prestep', () => {
     active = instance.active
     alpha = instance.alpha
-    alphaBottomLeft = instance.alphaBottomLeft
-    alphaBottomRight = instance.alphaBottomRight
-    alphaTopLeft = instance.alphaTopLeft
-    alphaTopRight = instance.alphaTopRight
     angle = instance.angle
     blendMode = instance.blendMode
     if (instance.data) {
       data = instance.data.get()
     }
-    displayOriginX = instance.displayOriginX
-    displayOriginY = instance.displayOriginY
-    flipX = instance.flipX
-    flipY = instance.flipY
-    height = instance.height
     mask = instance.mask
     name = instance.name
-    originX = instance.originX
-    originY = instance.originY
     renderFlags = instance.renderFlags
     rotation = instance.rotation
     scale = instance.scale
@@ -567,21 +386,15 @@
     scrollFactorX = instance.scrollFactorX
     scrollFactorY = instance.scrollFactorY
     tabIndex = instance.tabIndex
-    tintBottomLeft = instance.tintBottomLeft
-    tintBottomRight = instance.tintBottomRight
-    tintTopLeft = instance.tintTopLeft
-    tintTopRight = instance.tintTopRight
-    tintFill = instance.tintFill
     visible = instance.visible
-    width = instance.width
 
-    // texture.key is null? phaser@3.23.0
-    // texture = instance.texture.key
+    if (instance.texture) {
+      texture = instance.texture.key
+    }
 
-    tilePositionX = instance.tilePositionX
-    tilePositionY = instance.tilePositionY
-    tileScaleX = instance.tileScaleX
-    tileScaleY = instance.tileScaleY
+    if (instance.frame) {
+      frame = instance.frame.key
+    }
   })
 </script>
 

@@ -69,7 +69,7 @@ test('draggable props', async () => {
     component: { instance, $set },
   } = render(Text, {
     text: 'test',
-    interactive: new Phaser.Geom.Rectangle(0, 0, 10, 10),
+    interactive: { shape: new Phaser.Geom.Rectangle(0, 0, 10, 10) },
   })
 
   jest.spyOn(scene.input, 'setDraggable')
