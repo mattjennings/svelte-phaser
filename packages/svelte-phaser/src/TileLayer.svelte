@@ -475,7 +475,7 @@
     alpha = instance.alpha
     alphaBottomLeft = instance.alphaBottomLeft
     alphaBottomRight = instance.alphaBottomRight
-    alphaTopLeft = instance.alphatTopLeft
+    alphaTopLeft = instance.alphaTopLeft
     alphaTopRight = instance.alphaTopRight
     angle = instance.angle
     blendMode = instance.blendMode

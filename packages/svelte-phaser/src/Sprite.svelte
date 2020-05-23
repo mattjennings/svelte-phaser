@@ -580,18 +580,6 @@
     )
   }
 
-  $: if (interactive === true) {
-    instance.setInteractive()
-  } else if (!interactive) {
-    instance.removeInteractive()
-  } else {
-    instance.setInteractive(
-      interactive.shape,
-      interactive.callback,
-      interactive.dropzone
-    )
-  }
-
   $: shouldApplyProps(active) && instance.setActive(active)
 
   $: applyAlpha(instance, {
@@ -716,7 +704,7 @@
     alpha = instance.alpha
     alphaBottomLeft = instance.alphaBottomLeft
     alphaBottomRight = instance.alphaBottomRight
-    alphaTopLeft = instance.alphatTopLeft
+    alphaTopLeft = instance.alphaTopLeft
     alphaTopRight = instance.alphaTopRight
     angle = instance.angle
     blendMode = instance.blendMode

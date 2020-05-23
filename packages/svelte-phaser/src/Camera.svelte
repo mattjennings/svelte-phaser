@@ -485,7 +485,7 @@
     alphaBottomLeft = instance.alphaBottomLeft
     alphaBottomRight = instance.alphaBottomRight
     backgroundColor = instance.backgroundColor
-    alphaTopLeft = instance.alphatTopLeft
+    alphaTopLeft = instance.alphaTopLeft
     alphaTopRight = instance.alphaTopRight
     flipX = instance.flipX
     flipY = instance.flipY
