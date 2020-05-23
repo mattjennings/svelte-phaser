@@ -98,6 +98,8 @@ nav a {
 nav ul {
   display: block;
   padding: 0 0.5em 0 2em;
+  /* add a bit of extra padding for scrolling */
+  padding-bottom: 25vh;
   text-transform: uppercase;
   font-weight: 600;
 }

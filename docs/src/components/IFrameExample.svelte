@@ -13,9 +13,11 @@
 
   iframe {
     border: none;
+    border-radius: 5px;
+    overflow: hidden;
   }
 </style>
 
 <div>
-  <iframe src={url} title="example" {width} {height} />
+  <iframe src={url} title="example" {width} {height} scrolling="no" />
 </div>
