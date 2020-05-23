@@ -1,7 +1,7 @@
 export { default as Camera } from './Camera.svelte'
 export { default as Game } from './Game.svelte'
 export { default as Graphics } from './Graphics/Graphics.svelte'
-export { default as Rectangle } from './Graphics/Rectangle.svelte'
+export { default as Rectangle } from './Rectangle.svelte'
 export { default as Circle } from './Graphics/Circle.svelte'
 export { default as Ellipse } from './Graphics/Ellipse.svelte'
 export { default as Triangle } from './Graphics/Triangle.svelte'

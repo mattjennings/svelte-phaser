@@ -1,22 +1,14 @@
 <script>
   import Phaser from './phaser.js'
+  // import * as Phaser from 'phaser'
   import {
     onMount,
     getContext,
     setContext,
     createEventDispatcher,
   } from 'svelte'
-  import {
-    addInstance,
-    shouldApplyProps,
-    createPhaserEventDispatcher,
-  } from './util'
-  import {
-    applyAlpha,
-    applyScale,
-    applyTint,
-    applyGameObjectEventDispatchers,
-  } from './props/index'
+  import { addInstance, shouldApplyProps } from './util'
+  import { applyScale, applyGameObjectEventDispatchers } from './props/index'
   import { onGameEvent } from './onGameEvent'
 
   /**
@@ -34,47 +26,12 @@
   export let alpha = undefined
 
   /**
-   * The alpha value starting from the bottom-left of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let alphaBottomLeft = undefined
-
-  /**
-   * The alpha value starting from the bottom-right of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {string}
-   */
-  export let alphaBottomRight = undefined
-
-  /**
-   * The alpha value starting from the top-left of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {string}
-   */
-  export let alphaTopLeft = undefined
-
-  /**
-   * The alpha value starting from the top-right of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let alphaTopRight = undefined
-
-  /**
    * The angle of this Game Object as expressed in degrees.
    * Phaser uses a right-hand clockwise rotation system, where 0 is right, 90 is down, 180/-180 is left and -90 is up.
    * If you prefer to work in radians, see the rotation property instead.
    * @type {number}
    */
   export let angle = undefined
-
-  /**
-   * The key of the animation to play. Animations should be created via `scene.anims.create`,
-   * ideally in the `create` method of a Scene component.
-   * @type {string}
-   */
-  export let animation = undefined
 
   /**
    * Sets the Blend Mode being used by this Game Object.
@@ -103,12 +60,6 @@
    * @type {any}
    */
   export let data = undefined
-
-  /**
-   * Sets the amount of time, in milliseconds, that the animation will be delayed before starting playback.
-   * @type {number}
-   */
-  export let delay = undefined
 
   /**
    * The depth of this Game Object within the Scene.
@@ -150,59 +101,10 @@
   export let displayWidth = undefined
 
   /**
-   * How long the animation should play for, in milliseconds. If the frameRate property has been set then it overrides this value, otherwise the frameRate is derived from duration.
-   * @type {number}
-   */
-  export let duration = undefined
-
-  /**
    * Enables the firing of drag events
    * @type {boolean}
    */
   export let draggable = false
-
-  /**
-   * The horizontally flipped state of the Game Object.
-   * A Game Object that is flipped horizontally will render inversed on the horizontal axis.
-   * Flipping always takes place from the middle of the texture and does not impact the scale value.
-   * If this Game Object has a physics body, it will not change the body. This is a rendering toggle only.
-   *
-   * #phaserDefault false
-   * @type {boolean}
-   */
-  export let flipX = undefined
-
-  /**
-   * The vertically flipped state of the Game Object.
-   * A Game Object that is flipped vertically will render inversed on the vertical axis (i.e. upside down).
-   * Flipping always takes place from the middle of the texture and does not impact the scale value.
-   * If this Game Object has a physics body, it will not change the body. This is a rendering toggle only.
-   *
-   * #phaserDefault false
-   * @type {boolean}
-   */
-  export let flipY = undefined
-
-  /**
-   * Will the playhead move forwards (true) or in reverse (false).
-   *
-   * #phaserDefault true
-   * @type {boolean}
-   */
-  export let forward = undefined
-
-  /**
-   * The Texture Frame this Game Object is using to render with.
-   * @type {Phaser.Textures.Frame}
-   */
-  export let frame = undefined
-
-  /**
-   * The frame rate of playback in frames per second. The default is 24 if the duration property is null.
-   *
-   * @type {number}
-   */
-  export let frameRate = undefined
 
   /**
    * The height of this Text object.
@@ -234,12 +136,6 @@
   export let mask = undefined
 
   /**
-   * ms per frame, not including frame specific modifiers that may be present in the Animation data.
-   * @type {number}
-   */
-  export let msPerFrame = undefined
-
-  /**
    * The name of this Game Object. This is not used by Phaser, but some svelte-phaser components such as
    * ArcadeCollider will make use of names to find the reference to the Game Object.
    * @type {string}
@@ -268,12 +164,6 @@
   export let originY = undefined
 
   /**
-   * Takes a value between 0 and 1 and uses it to set how far this animation is through playback. Does not factor in repeats or yoyos, but does handle playing forwards or backwards.
-   * @type {number}
-   */
-  export let progress = undefined
-
-  /**
    * The flags that are compared against RENDER_MASK to determine if this Game Object will render or not.
    * The bits are 0001 | 0010 | 0100 | 1000 set by the components Visible, Alpha, Transform and Texture respectively.
    * If those components are not used by your custom class then you can use this bitmask as you wish.
@@ -282,23 +172,6 @@
    * @type {number}
    */
   export let renderFlags = undefined
-
-  /**
-   * The number of times that the animation should repeat after its first iteration.
-   * For example, if repeat is 1, the animation will play a total of twice (the initial play plus 1 repeat).
-   * To repeat indefinitely, use -1. repeat should always be an integer.
-   * @type {number}
-   */
-  export let repeat = undefined
-
-  /**
-   * Sets the amount of time in seconds between repeats.
-   * For example, if repeat is 2 and repeatDelay is 10, the animation will play initially,
-   * then wait for 10 seconds before repeating, then play again,
-   * then wait another 10 seconds before doing its final repeat.
-   * @type {number}
-   */
-  export let repeatDelay = undefined
 
   /**
    * The angle of this Game Object in radians. Phaser uses a right-hand clockwise rotation system, where 0 is right, 90 is down, 180/-180 is left and -90 is up.
@@ -368,89 +241,12 @@
   export let scrollFactorY = undefined
 
   /**
-   * Skip frames if the time lags, or always advanced anyway?
-   *
-   * #phaserDefault true
-   * @type {boolean}
-   */
-  export let skipMissedFrames = undefined
-
-  /**
-   * Whether or not the animation is playing
-   *
-   * @type {boolean}
-   */
-  export let isPlaying = undefined
-
-  /**
-   * Stops the current animation from playing after the specified time delay, given in milliseconds.
-   *
-   * This property is not bindable
-   * @type {number}
-   */
-  export let stopAfterDelay = undefined
-
-  /**
-   * Stops the current animation from playing when it next sets the given frame. If this frame doesn't exist within the animation it will not stop it from playing.
-   *
-   * This property is not bindable
-   * @type {Phaser.Animations.AnimationFrame}
-   */
-  export let stopOnFrame = undefined
-
-  /**
    * The Tab Index of the Game Object. Reserved for future use by plugins and the Input Manager.
    *
    * #phaserDefault -1
    * @type {number}
    */
   export let tabIndex = undefined
-
-  /**
-   * The Texture this Game Object is using to render with. It is not required if you are
-   * assigning an `animation`.
-   * @type {string}
-   */
-  export let texture = undefined
-
-  /**
-   * Sets the Time Scale factor, allowing you to make the animation go go faster or slower than default.
-   * Where 1 = normal speed (the default), 0.5 = half speed, 2 = double speed, etc.
-   * @type {number}
-   */
-  export let timeScale = undefined
-
-  /**
-   * The tint value being applied to the bottom-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintBottomLeft = undefined
-
-  /**
-   * The tint value being applied to the bottom-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintBottomRight = undefined
-
-  /**
-   * Fill or additive?
-   *
-   * #phaserDefault false
-   * @type {boolean}
-   */
-  export let tintFill = undefined
-
-  /**
-   * The tint value being applied to the top-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintTopLeft = undefined
-
-  /**
-   * The tint value being applied to the top-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintTopRight = undefined
 
   /**
    * The visible state of the Game Object. An invisible Game Object will skip rendering, but will still process update logic.
@@ -491,22 +287,59 @@
   export let z = undefined
 
   /**
-   * Sets if the current Animation will yoyo when it reaches the end.
-   * A yoyo'ing animation will play through consecutively,
-   * and then reverse-play back to the start again.
-   * @type {boolean}
+   * The default fill alpha for shapes rendered by this Graphics object.
+   *
+   * #phaserDefault 1
+   * @type {number}
    */
-  export let yoyo = undefined
+  export let fillAlpha = undefined
+
+  /**
+   * The default fill color for shapes rendered by this Graphics object.
+   *
+   * The color should be a hex value. ex. red would be 0xff0000
+   *
+   * #phaserDefault -1
+   * @type {number}
+   */
+  export let fillColor = undefined
+
+  /**
+   * The default stroke alpha for shapes rendered by this Graphics object.
+   *
+   * #phaserDefault 1
+   * @type {number}
+   */
+  export let strokeAlpha = undefined
+
+  /**
+   * The default stroke color for shapes rendered by this Graphics object.
+   *
+   * The color should be a hex value. ex. red would be 0xff0000
+   *
+   * #phaserDefault -1
+   * @type {number}
+   */
+  export let strokeColor = undefined
+
+  /**
+   * The stroke line width
+   *
+   * @type {number}
+   */
+  export let strokeWidth = undefined
 
   const dispatch = createEventDispatcher()
   const scene = getContext('phaser/scene')
 
-  export let instance = new Phaser.GameObjects.Sprite(
+  export let instance = new Phaser.GameObjects.Rectangle(
     scene,
     x,
     y,
-    texture,
-    frame
+    width,
+    height,
+    fillColor,
+    fillAlpha
   )
 
   setContext('phaser/game-object', instance)
@@ -519,75 +352,31 @@
       dispatch
     )
 
-    const spriteEventListeners = [
-      createPhaserEventDispatcher(
-        instance,
-        dispatch,
-        'animationcomplete',
-        (animation, frame, gameObject) => ({
-          animation,
-          frame,
-          gameObject,
-        })
-      ),
-      createPhaserEventDispatcher(
-        instance,
-        dispatch,
-        'animationrepeat',
-        (animation, frame) => ({
-          animation,
-          frame,
-        })
-      ),
-      createPhaserEventDispatcher(
-        instance,
-        dispatch,
-        'animationrestart',
-        (animation, frame, gameObject) => ({
-          animation,
-          frame,
-          gameObject,
-        })
-      ),
-      createPhaserEventDispatcher(
-        instance,
-        dispatch,
-        'animationstart',
-        (animation, frame, gameObject) => ({
-          animation,
-          frame,
-          gameObject,
-        })
-      ),
-    ]
     onMount(() => () => {
       cleanupGameObjectDispatchers()
-      spriteEventListeners.forEach(listener => listener())
       instance.destroy()
     })
   }
 
-  $: if (interactive === true) {
-    instance.setInteractive()
-  } else if (!interactive) {
-    instance.removeInteractive()
-  } else {
-    instance.setInteractive(
-      interactive.shape,
-      interactive.callback,
-      interactive.dropzone
-    )
+  $: if (shouldApplyProps(interactive)) {
+    if (interactive) {
+      if (interactive === true) {
+        instance.setInteractive()
+      } else {
+        instance.setInteractive(
+          interactive.shape,
+          interactive.callback,
+          interactive.dropzone
+        )
+      }
+    } else {
+      instance.removeInteractive()
+    }
   }
 
   $: shouldApplyProps(active) && instance.setActive(active)
 
-  $: applyAlpha(instance, {
-    alpha,
-    alphaBottomLeft,
-    alphaBottomRight,
-    alphaTopLeft,
-    alphaTopRight,
-  })
+  $: shouldApplyProps(alpha) && instance.setAlpha(alpha)
 
   $: shouldApplyProps(angle) && instance.setAngle(angle)
 
@@ -597,29 +386,17 @@
 
   $: shouldApplyProps(depth) && instance.setDepth(depth)
 
-  $: if (shouldApplyProps(displayHeight, displayWidth)) {
+  $: shouldApplyProps(displayHeight, displayWidth) &&
     instance.setDisplaySize(displayWidth, displayHeight)
-  }
 
-  $: if (shouldApplyProps(displayOriginX, displayOriginY)) {
+  $: shouldApplyProps(displayOriginX, displayOriginY) &&
     instance.setDisplayOrigin(displayOriginX, displayOriginY)
-  }
-
-  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
-
-  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
-
-  $: if (shouldApplyProps(height, width)) {
-    instance.setSize(width, height)
-  }
 
   $: shouldApplyProps(mask) && instance.setMask(mask)
 
   $: shouldApplyProps(name) && instance.setName(name)
 
-  $: if (shouldApplyProps(originX, originY)) {
-    instance.setOrigin(originX, originY)
-  }
+  $: shouldApplyProps(originX, originY) && instance.setOrigin(originX, originY)
 
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
 
@@ -627,19 +404,10 @@
 
   $: applyScale(instance, { scale, scaleX, scaleY })
 
-  $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
+  $: shouldApplyProps(scrollFactorX, scrollFactorY) &&
     instance.setScrollFactor(scrollFactorX, scrollFactorY)
-  }
 
   $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
-
-  $: applyTint(instance, {
-    tintBottomLeft,
-    tintBottomRight,
-    tintTopLeft,
-    tintTopRight,
-    tintFill,
-  })
 
   $: shouldApplyProps(visible) && instance.setVisible(visible)
 
@@ -648,46 +416,17 @@
   $: shouldApplyProps(y) && instance.setY(y)
   $: shouldApplyProps(z) && instance.setZ(z)
 
-  $: if (shouldApplyProps(texture, frame)) {
-    instance.setTexture(texture, frame)
-  }
-
-  // animation props
-  $: if (shouldApplyProps(animation)) {
-    instance.anims.play(animation, true)
-  }
-
-  $: if (shouldApplyProps(isPlaying)) {
-    instance.anims.isPlaying = isPlaying
-  }
-
-  $: shouldApplyProps(delay) && instance.anims.setDelay(delay)
-
-  $: shouldApplyProps(duration) && (instance.anims.duration = duration)
-  $: shouldApplyProps(forward) && (instance.anims.forward = forward)
-  $: shouldApplyProps(frameRate) && (instance.anims.frameRate = frameRate)
-  $: shouldApplyProps(msPerFrame) && (instance.anims.msPerFrame = msPerFrame)
-
-  $: shouldApplyProps(skipMissedFrames) &&
-    (instance.anims.skipMissedFrames = skipMissedFrames)
-
-  $: shouldApplyProps(progress) && instance.anims.setProgress(progress)
-
-  $: shouldApplyProps(stopOnFrame) && instance.anims.stopOnFrame(stopOnFrame)
-
-  $: shouldApplyProps(stopAfterDelay) &&
-    instance.anims.stopAfterDelay(stopAfterDelay)
-
-  $: shouldApplyProps(repeat) && instance.anims.setRepeat(repeat)
-
-  $: shouldApplyProps(repeatDelay) && instance.anims.setRepeatDelay(repeatDelay)
-
-  $: shouldApplyProps(timeScale) && instance.anims.setTimeScale(timeScale)
-
-  $: shouldApplyProps(yoyo) && instance.anims.setYoyo(yoyo)
+  $: shouldApplyProps(height, width) && instance.setSize(width, height)
 
   $: shouldApplyProps(draggable) &&
+    interactive &&
     scene.input.setDraggable(instance, draggable)
+
+  $: shouldApplyProps(fillColor, fillAlpha) &&
+    instance.setFillStyle(fillColor, fillAlpha)
+
+  $: shouldApplyProps(strokeColor, strokeWidth, fillAlpha) &&
+    instance.setStrokeStyle(strokeWidth, strokeColor, strokeAlpha)
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...
@@ -699,22 +438,17 @@
   })
 
   onGameEvent('prestep', () => {
-    active = instance.active
-    alpha = instance.alpha
-    alphaBottomLeft = instance.alphaBottomLeft
-    alphaBottomRight = instance.alphaBottomRight
-    alphaTopLeft = instance.alphaTopLeft
-    alphaTopRight = instance.alphaTopRight
-    angle = instance.angle
-    blendMode = instance.blendMode
     if (instance.data) {
       data = instance.data.get()
     }
+    active = instance.active
+    alpha = instance.alpha
+    angle = instance.angle
+    blendMode = instance.blendMode
     displayOriginX = instance.displayOriginX
     displayOriginY = instance.displayOriginY
-    flipX = instance.flipX
-    flipY = instance.flipY
     height = instance.height
+    width = instance.width
     mask = instance.mask
     name = instance.name
     originX = instance.originX
@@ -727,41 +461,13 @@
     scrollFactorX = instance.scrollFactorX
     scrollFactorY = instance.scrollFactorY
     tabIndex = instance.tabIndex
-    tintBottomLeft = instance.tintBottomLeft
-    tintBottomRight = instance.tintBottomRight
-    tintTopLeft = instance.tintTopLeft
-    tintTopRight = instance.tintTopRight
-    tintFill = instance.tintFill
     visible = instance.visible
-    width = instance.width
 
-    if (instance.texture) {
-      texture = instance.texture.key
-    }
-
-    if (instance.frame) {
-      frame = instance.frame.name
-    }
-
-    if (instance.anims) {
-      if (instance.anims.currentAnim && instance.anims.currentAnim.key) {
-        animation = instance.anims.currentAnim.key
-      }
-      isPlaying = instance.anims.isPlaying
-      delay = instance.anims.getDelay()
-      duration = instance.anims.duration
-      forward = instance.anims.forward
-      frameRate = instance.anims.frameRate
-      msPerFrame = instance.anims.msPerFrame
-      skipMissedFrames = instance.anims.skipMissedFrames
-      if (instance.anims.currentFrame) {
-        progress = instance.anims.getProgress()
-      }
-      repeat = instance.anims.getRepeat()
-      repeatDelay = instance.anims.getRepeatDelay()
-      timeScale = instance.anims.getTimeScale()
-      yoyo = instance.anims.getYoyo()
-    }
+    fillColor = instance.fillColor
+    fillAlpha = instance.fillAlpha
+    strokeAlpha = instance.strokeAlpha
+    strokeColor = instance.strokeColor
+    strokeWidth = instance.lineWidth
   })
 </script>
 

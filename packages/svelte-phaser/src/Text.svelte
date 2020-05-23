@@ -252,7 +252,7 @@
 
   /**
    * If you want the Text to be reactive to pointer events you will need to provide
-   * an object containing "shape" and optionally "callback" or "dropZone". This gets
+   * an object containing "shape", "callback", and optionally "dropZone". This gets
    * passed into Phaser's underlying `setInteractive` method.
    *
    * This property is not bindable.
