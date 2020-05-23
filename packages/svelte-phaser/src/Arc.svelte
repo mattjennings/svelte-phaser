@@ -328,17 +328,49 @@
    */
   export let strokeWidth = undefined
 
+  /**
+   * The radius of the arc.
+   *
+   * #phaserDefault 128
+   * @type {number}
+   */
+  export let radius = undefined
+
+  /**
+   * The start angle of the arc, in degrees.
+   *
+   * #phaserDefault 0
+   * @type {number}
+   */
+  export let startAngle = undefined
+
+  /**
+   * The end angle of the arc, in degrees.
+   *
+   * #phaserDefault 360
+   * @type {number}
+   */
+  export let endAngle = undefined
+
+  /**
+   * The winding order of the start and end angles.
+   *
+   * #phaserDefault false
+   * @type {number}
+   */
+  export let counterClockwise = undefined
+
   const dispatch = createEventDispatcher()
   const scene = getContext('phaser/scene')
 
-  export let instance = new Phaser.GameObjects.Rectangle(
+  export let instance = new Phaser.GameObjects.Arc(
     scene,
     x,
     y,
-    width,
-    height,
-    fillColor,
-    fillAlpha
+    radius,
+    startAngle,
+    endAngle,
+    counterClockwise
   )
 
   setContext('phaser/game-object', instance)
@@ -426,6 +458,12 @@
 
   $: shouldApplyProps(strokeColor, strokeWidth, fillAlpha) &&
     instance.setStrokeStyle(strokeWidth, strokeColor, strokeAlpha)
+
+  $: shouldApplyProps(radius) && instance.setRadius(radius)
+  $: shouldApplyProps(startAngle) && instance.setStartAngle(startAngle)
+  $: shouldApplyProps(endAngle) && instance.setEndAngle(endAngle)
+  $: shouldApplyProps(counterClockwise) &&
+    (instance.anticlockwise = counterClockwise)
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...
