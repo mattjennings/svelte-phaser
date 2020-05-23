@@ -1,15 +1,14 @@
 <script>
-  // import Phaser from './phaser.js'
-  import * as Phaser from 'phaser'
+  import Phaser from '../phaser.js'
   import {
     onMount,
     getContext,
     setContext,
     createEventDispatcher,
   } from 'svelte'
-  import { addInstance, shouldApplyProps } from './util'
-  import { applyScale, applyGameObjectEventDispatchers } from './props/index'
-  import { onGameEvent } from './onGameEvent'
+  import { addInstance, shouldApplyProps } from '../util'
+  import { applyScale, applyGameObjectEventDispatchers } from '../props/index'
+  import { onGameEvent } from '../onGameEvent'
 
   /**
    * The active state of this Game Object. A Game Object with an active state of true is processed by the
