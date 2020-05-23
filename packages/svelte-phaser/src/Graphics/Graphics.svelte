@@ -235,12 +235,16 @@
 
   /**
    * The default fill alpha for shapes rendered by this Graphics object.
+   *
    * @type {number}
    */
   export let fillAlpha = undefined
 
   /**
    * The default fill color for shapes rendered by this Graphics object.
+   *
+   * The color should be a hex value. ex. red would be 0xff0000
+   *
    * @type {number}
    */
   export let fillColor = undefined
@@ -253,6 +257,9 @@
 
   /**
    * The default stroke color for shapes rendered by this Graphics object.
+   *
+   * The color should be a hex value. ex. red would be 0xff0000
+   *
    * @type {number}
    */
   export let strokeColor = undefined

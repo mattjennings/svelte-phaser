@@ -1,10 +1,42 @@
 <script>
   import Graphics from './Graphics.svelte'
 
+  /**
+   * The x coordinate
+   *
+   * #required
+   * @type {number}
+   */
   export let x
+
+  /**
+   * The y coordinate
+   *
+   * #required
+   * @type {number}
+   */
   export let y
+
+  /**
+   * The width
+   *
+   * #required
+   * @type {number}
+   */
   export let width
+
+  /**
+   * The height
+   *
+   * #required
+   * @type {number}
+   */
   export let height
+
+  /**
+   * Rounds the corners of the rectangle by this value in px
+   * @type {number}
+   */
   export let cornerRadius = 0
 
   export let instance = undefined
