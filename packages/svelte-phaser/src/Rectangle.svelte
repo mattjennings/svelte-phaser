@@ -424,7 +424,7 @@
   $: shouldApplyProps(fillColor, fillAlpha) &&
     instance.setFillStyle(fillColor, fillAlpha)
 
-  $: shouldApplyProps(strokeColor, strokeWidth, fillAlpha) &&
+  $: shouldApplyProps(strokeColor, strokeWidth, strokeAlpha) &&
     instance.setStrokeStyle(strokeWidth, strokeColor, strokeAlpha)
 
   // position values will conflict with velocity if they're

@@ -286,24 +286,6 @@
   export let z = undefined
 
   /**
-   * The default fill alpha for shapes rendered by this Graphics object.
-   *
-   * #phaserDefault 1
-   * @type {number}
-   */
-  export let fillAlpha = undefined
-
-  /**
-   * The default fill color for shapes rendered by this Graphics object.
-   *
-   * The color should be a hex value. ex. red would be 0xff0000
-   *
-   * #phaserDefault -1
-   * @type {number}
-   */
-  export let fillColor = undefined
-
-  /**
    * The default stroke alpha for shapes rendered by this Graphics object.
    *
    * #phaserDefault 1
@@ -326,53 +308,45 @@
    *
    * @type {number}
    */
-  export let strokeWidth = undefined
+  export let strokeWidth = 0
 
   /**
-   * 	The width of one cell in the grid.
-   *
-   * #phaserDefault 32
+   * The horizontal position of the start of the line.
    * @type {number}
    */
-  export let cellWidth = undefined
+  export let x1 = undefined
 
   /**
-   * 	The height of one cell in the grid.
-   *
-   * #phaserDefault 32
+   * The horizontal position of the end of the line.
    * @type {number}
    */
-  export let cellHeight = undefined
+  export let x2 = undefined
 
   /**
-   * The color of the lines between the grid cells.
-   *
+   * The vertical position of the start of the line.
    * @type {number}
    */
-  export let outlineFillColor = undefined
+  export let y1 = undefined
 
   /**
-   * The alpha of the lines between the grid cells.
-   *
+   * The vertical position of the end of the line.
    * @type {number}
    */
-  export let outlineFillAlpha = undefined
+  export let y2 = undefined
 
   const dispatch = createEventDispatcher()
   const scene = getContext('phaser/scene')
 
-  export let instance = new Phaser.GameObjects.Grid(
+  export let instance = new Phaser.GameObjects.Line(
     scene,
     x,
     y,
-    width,
-    height,
-    cellWidth,
-    cellHeight,
-    fillColor,
-    fillAlpha,
-    outlineFillColor,
-    outlineFillAlpha
+    x1,
+    y1,
+    x2,
+    y2,
+    strokeColor,
+    strokeAlpha
   )
 
   setContext('phaser/game-object', instance)
@@ -455,17 +429,10 @@
     interactive &&
     scene.input.setDraggable(instance, draggable)
 
-  $: shouldApplyProps(fillColor, fillAlpha) &&
-    instance.setFillStyle(fillColor, fillAlpha)
-
   $: shouldApplyProps(strokeColor, strokeWidth, strokeAlpha) &&
     instance.setStrokeStyle(strokeWidth, strokeColor, strokeAlpha)
 
-  $: shouldApplyProps(outlineFillColor, outlineFillAlpha) &&
-    instance.setOutlineStyle(outlineFillColor, outlineFillAlpha)
-
-  $: shouldApplyProps(cellWidth) && (instance.cellWidth = cellWidth)
-  $: shouldApplyProps(cellHeight) && (instance.cellHeight = cellHeight)
+  $: shouldApplyProps(x1, y1, x2, y2) && instance.geom.setTo(x1, y1, x2, y2)
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...
@@ -501,22 +468,15 @@
     scrollFactorY = instance.scrollFactorY
     tabIndex = instance.tabIndex
     visible = instance.visible
-    outlineFillColor = instance.outlineFillColor
-    outlineFillAlpha = instance.outlineFillAlpha
-    cellWidth = instance.cellWidth
-    cellHeight = instance.cellHeight
 
-    // check if filled or stroked because these values get defaulted by phaser
-    // and would cause them to be set
-    if (instance.isFilled) {
-      fillColor = instance.fillColor
-      fillAlpha = instance.fillAlpha
-    }
-    if (instance.iStroked) {
-      strokeAlpha = instance.strokeAlpha
-      strokeColor = instance.strokeColor
-      strokeWidth = instance.lineWidth
-    }
+    strokeAlpha = instance.strokeAlpha
+    strokeColor = instance.strokeColor
+    strokeWidth = instance.lineWidth
+
+    x1 = instance.geom.x1
+    x2 = instance.geom.x2
+    y1 = instance.geom.y1
+    y2 = instance.geom.y2
   })
 </script>
 
