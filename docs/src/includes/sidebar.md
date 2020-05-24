@@ -3,6 +3,7 @@
 
   - [Arc](components/arc)
   - [Camera](components/camera)
+  - [Curve](components/curve)
   - [Game](components/game)
   - [Rectangle](components/rectangle)
   - [Scene](components/scene)

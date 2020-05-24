@@ -12,7 +12,6 @@ I have no timelines for anything. I am slowly chipping away at making components
 - Sprite3D
 - Video
 - Zone
-- Curve
 - Ellipse
 - Grid
 - IsoBox

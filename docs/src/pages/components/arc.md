@@ -1,6 +1,6 @@
 # Arc
 
-Creates an "arc" shape. This can be used for circles or semi-circles.
+Renders an "arc" shape. This can be used for circles or semi-circles.
 
 # Usage
 

@@ -1,6 +1,6 @@
 # Rectangle
 
-Creates a rectangle shape
+Renders a rectangle.
 
 # Usage
 
