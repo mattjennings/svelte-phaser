@@ -4,6 +4,7 @@
   - [Arc](components/arc)
   - [Camera](components/camera)
   - [Curve](components/curve)
+  - [Ellipse](components/ellipse)
   - [Game](components/game)
   - [Rectangle](components/rectangle)
   - [Scene](components/scene)
