@@ -65,7 +65,7 @@
     }
   }
 
-  onGameEvent('step', () => {
+  onGameEvent('prestep', () => {
     alpha = instance.alpha
     alphaBottomLeft = instance.alphaBottomLeft
     alphaBottomRight = instance.alphaBottomRight
