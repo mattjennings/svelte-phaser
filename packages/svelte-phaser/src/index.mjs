@@ -1,6 +1,5 @@
 export { default as Camera } from './Camera.svelte'
 export { default as Game } from './Game.svelte'
-export { default as Graphics } from './Graphics/Graphics.svelte'
 export { default as Arc } from './Arc.svelte'
 export { default as Rectangle } from './Rectangle.svelte'
 export { default as Scene } from './Scene.svelte'

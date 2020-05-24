@@ -1,5 +1,7 @@
 # Rectangle
 
+Creates a rectangle shape
+
 # Usage
 
 ```example
@@ -10,14 +12,14 @@
 <Game width={400} height={400}>
   <Scene key="main">
     <Rectangle
-      x={45}
-      y={75}
+      x={100}
+      y={200}
       width={100}
       height={100}
       fillColor={0xff0000} />
     <Rectangle
-      x={125}
-      y={75}
+      x={300}
+      y={200}
       width={100}
       height={100}
       strokeWidth={5}
@@ -29,8 +31,6 @@
 
 ## Properties
 
-It also receives the same props as [Graphics](components/graphics)
-
 ```properties
-./../packages/svelte-phaser/src/Graphics/Rectangle.svelte
+./../packages/svelte-phaser/src/Rectangle.svelte
 ```

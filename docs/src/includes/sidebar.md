@@ -1,13 +1,10 @@
 - [Getting Started](getting-started)
 - Components
 
+  - [Arc](components/arc)
   - [Camera](components/camera)
   - [Game](components/game)
-  - [Graphics](components/graphics)
-    - [Circle](components/graphics/circle)
-    - [Ellipse](components/graphics/ellipse)
-    - [Rectangle](components/graphics/rectangle)
-    - [Triangle](components/graphics/triangle)
+  - [Rectangle](components/rectangle)
   - [Scene](components/scene)
   - [Sprite](components/sprite)
   - [Text](components/text)
