@@ -6835,6 +6835,11 @@ svelte-jester@^1.0.5:
   dependencies:
     cosmiconfig "^6.0.0"
 
+svelte-phaser@latest:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/svelte-phaser/-/svelte-phaser-0.0.4.tgz#6bd13c618977f49c7a7a7c280452e51d49ed0c31"
+  integrity sha512-a391YTqrpO5Aw3SiYfw2cRSsAyEnZZZgBunL+XCV7qqS1M/OR097mO0fPpVf67JJGYvTk4cw1pi2JG7IGxDKLA==
+
 svelte-preprocess-markdown@^2.7.0:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/svelte-preprocess-markdown/-/svelte-preprocess-markdown-2.7.1.tgz#dea6feebe01cc68d1efc2572e833acc8cacb3ded"
