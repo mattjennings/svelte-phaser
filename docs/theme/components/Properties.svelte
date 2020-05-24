@@ -96,15 +96,15 @@
    * Return a link to the phaser 3 docs page for the Phaser class
    */
   function getPhaserDocsPathForType(type) {
-    if (type.startsWith('Phaser.Types')) {
-      const sanitizedType = type.replace(/\[\]/gi, '')
+    const sanitizedType = type.replace(/\[\]/gi, '')
+    if (sanitizedType.startsWith('Phaser.Types')) {
       const split = sanitizedType.split('.')
       const anchor = split.pop() // last word is the #anchor on the page
       const path = split.join('.') // up to to the last . is the url path
 
       return `<a href="https://photonstorm.github.io/phaser3-docs/${path}.html#.${anchor}__anchor">${type}</a>`
     } else {
-      return `<a href="https://photonstorm.github.io/phaser3-docs/${type}.html">${type}</a>`
+      return `<a href="https://photonstorm.github.io/phaser3-docs/${sanitizedType}.html">${type}</a>`
     }
   }
 </script>
