@@ -286,7 +286,7 @@
   export let z = undefined
 
   /**
-   * The default fill alpha for shapes rendered by this Graphics object.
+   * The default fill alpha.
    *
    * #phaserDefault 1
    * @type {number}
@@ -294,7 +294,7 @@
   export let fillAlpha = undefined
 
   /**
-   * The default fill color for shapes rendered by this Graphics object.
+   * The default fill color.
    *
    * The color should be a hex value. ex. red would be 0xff0000
    *
@@ -304,7 +304,7 @@
   export let fillColor = undefined
 
   /**
-   * The default stroke alpha for shapes rendered by this Graphics object.
+   * The default stroke alpha.
    *
    * #phaserDefault 1
    * @type {number}
@@ -312,7 +312,7 @@
   export let strokeAlpha = undefined
 
   /**
-   * The default stroke color for shapes rendered by this Graphics object.
+   * The default stroke color.
    *
    * The color should be a hex value. ex. red would be 0xff0000
    *
