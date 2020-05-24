@@ -205,8 +205,7 @@
   export let frameRate = undefined
 
   /**
-   * The height of this Text object.
-   * #phaserDefault 1
+   * The height of this object.
    * @type {number}
    */
   export let height = undefined

@@ -7,12 +7,7 @@
     createEventDispatcher,
   } from 'svelte'
   import { addInstance, shouldApplyProps } from './util'
-  import {
-    applyAlpha,
-    applyScale,
-    applyTint,
-    applyGameObjectEventDispatchers,
-  } from './props/index'
+  import { applyScale, applyGameObjectEventDispatchers } from './props/index'
   import { onGameEvent } from './onGameEvent'
 
   /**
@@ -28,34 +23,6 @@
    * @type {number}
    */
   export let alpha = undefined
-
-  /**
-   * The alpha value starting from the bottom-left of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let alphaBottomLeft = undefined
-
-  /**
-   * The alpha value starting from the bottom-right of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {string}
-   */
-  export let alphaBottomRight = undefined
-
-  /**
-   * The alpha value starting from the top-left of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {string}
-   */
-  export let alphaTopLeft = undefined
-
-  /**
-   * The alpha value starting from the top-right of the Game Object.
-   * This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let alphaTopRight = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.
@@ -139,36 +106,7 @@
   export let draggable = false
 
   /**
-   * The horizontally flipped state of the Game Object.
-   * A Game Object that is flipped horizontally will render inversed on the horizontal axis.
-   * Flipping always takes place from the middle of the texture and does not impact the scale value.
-   * If this Game Object has a physics body, it will not change the body. This is a rendering toggle only.
-   *
-   * #phaserDefault false
-   * @type {boolean}
-   */
-  export let flipX = undefined
-
-  /**
-   * The vertically flipped state of the Game Object.
-   * A Game Object that is flipped vertically will render inversed on the vertical axis (i.e. upside down).
-   * Flipping always takes place from the middle of the texture and does not impact the scale value.
-   * If this Game Object has a physics body, it will not change the body. This is a rendering toggle only.
-   *
-   * #phaserDefault false
-   * @type {boolean}
-   */
-  export let flipY = undefined
-
-  /**
-   * The Texture Frame this Game Object is using to render with.
-   * @type {Phaser.Textures.Frame}
-   */
-  export let frame = undefined
-
-  /**
-   * The height of this object.
-   * #phaserDefault 1
+   * The height of ths object.
    * @type {number}
    */
   export let height = undefined
@@ -310,45 +248,6 @@
   export let tabIndex = undefined
 
   /**
-   * The Texture this Game Object is using to render with. It is not required if you are
-   * assigning an `animation`.
-   * @type {string}
-   */
-  export let texture = undefined
-
-  /**
-   * The tint value being applied to the bottom-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintBottomLeft = undefined
-
-  /**
-   * The tint value being applied to the bottom-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintBottomRight = undefined
-
-  /**
-   * Fill or additive?
-   *
-   * #phaserDefault false
-   * @type {boolean}
-   */
-  export let tintFill = undefined
-
-  /**
-   * The tint value being applied to the top-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintTopLeft = undefined
-
-  /**
-   * The tint value being applied to the top-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
-   * @type {number}
-   */
-  export let tintTopRight = undefined
-
-  /**
    * The visible state of the Game Object. An invisible Game Object will skip rendering, but will still process update logic.
    * @type {boolean}
    */
@@ -387,77 +286,128 @@
   export let z = undefined
 
   /**
-   * The horizontal scroll position of the Tile Sprite.
+   * The default fill alpha.
+   *
+   * #phaserDefault 1
    * @type {number}
    */
-  export let tilePositionX = undefined
+  export let fillAlpha = undefined
 
   /**
-   * The vertical scroll position of the Tile Sprite.
+   * The default fill color.
+   *
+   * The color should be a hex value. ex. red would be 0xff0000
+   *
+   * #phaserDefault -1
    * @type {number}
    */
-  export let tilePositionY = undefined
+  export let fillColor = undefined
 
   /**
-   * The horizontal scale of the Tile Sprite texture.
-   * @type {string}
-   */
-  export let tileScaleX = undefined
-
-  /**
-   * The vertical scale of the Tile Sprite texture.
+   * The default stroke alpha.
+   *
+   * #phaserDefault 1
    * @type {number}
    */
-  export let tileScaleY = undefined
+  export let strokeAlpha = undefined
+
+  /**
+   * The default stroke color.
+   *
+   * The color should be a hex value. ex. red would be 0xff0000
+   *
+   * #phaserDefault -1
+   * @type {number}
+   */
+  export let strokeColor = undefined
+
+  /**
+   * The stroke line width
+   *
+   * @type {number}
+   */
+  export let strokeWidth = undefined
+
+  /**
+   * The radius of the arc.
+   *
+   * #phaserDefault 128
+   * @type {number}
+   */
+  export let radius = undefined
+
+  /**
+   * The start angle of the arc, in degrees.
+   *
+   * #phaserDefault 0
+   * @type {number}
+   */
+  export let startAngle = undefined
+
+  /**
+   * The end angle of the arc, in degrees.
+   *
+   * #phaserDefault 360
+   * @type {number}
+   */
+  export let endAngle = undefined
+
+  /**
+   * The winding order of the start and end angles.
+   *
+   * #phaserDefault false
+   * @type {number}
+   */
+  export let counterClockwise = undefined
 
   const dispatch = createEventDispatcher()
   const scene = getContext('phaser/scene')
 
-  export let instance = new Phaser.GameObjects.TileSprite(
+  export let instance = new Phaser.GameObjects.Arc(
     scene,
     x,
     y,
-    width,
-    height,
-    texture,
-    frame
+    radius,
+    startAngle,
+    endAngle,
+    counterClockwise
   )
 
   setContext('phaser/game-object', instance)
 
   if (!scene.children.exists(instance)) {
     addInstance(instance)
-    const cleanupDispatchers = applyGameObjectEventDispatchers(
+
+    const cleanupGameObjectDispatchers = applyGameObjectEventDispatchers(
       instance,
       dispatch
     )
+
     onMount(() => () => {
-      cleanupDispatchers()
+      cleanupGameObjectDispatchers()
       instance.destroy()
     })
   }
 
-  $: if (interactive === true) {
-    instance.setInteractive()
-  } else if (!interactive) {
-    instance.removeInteractive()
-  } else {
-    instance.setInteractive(
-      interactive.shape,
-      interactive.callback,
-      interactive.dropzone
-    )
+  $: if (shouldApplyProps(interactive)) {
+    if (interactive) {
+      if (interactive === true) {
+        instance.setInteractive()
+      } else {
+        instance.setInteractive(
+          interactive.shape,
+          interactive.callback,
+          interactive.dropzone
+        )
+      }
+    } else {
+      instance.removeInteractive()
+    }
   }
 
   $: shouldApplyProps(active) && instance.setActive(active)
 
-  $: applyAlpha(instance, {
-    alpha,
-    alphaBottomLeft,
-    alphaBottomRight,
-    alphaTopLeft,
-    alphaTopRight,
-  })
+  $: shouldApplyProps(alpha) && instance.setAlpha(alpha)
 
   $: shouldApplyProps(angle) && instance.setAngle(angle)
 
@@ -467,29 +417,17 @@
 
   $: shouldApplyProps(depth) && instance.setDepth(depth)
 
-  $: if (shouldApplyProps(displayHeight, displayWidth)) {
+  $: shouldApplyProps(displayHeight, displayWidth) &&
     instance.setDisplaySize(displayWidth, displayHeight)
-  }
 
-  $: if (shouldApplyProps(displayOriginX, displayOriginY)) {
+  $: shouldApplyProps(displayOriginX, displayOriginY) &&
     instance.setDisplayOrigin(displayOriginX, displayOriginY)
-  }
-
-  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
-
-  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
-
-  $: if (shouldApplyProps(height, width)) {
-    instance.setSize(width, height)
-  }
 
   $: shouldApplyProps(mask) && instance.setMask(mask)
 
   $: shouldApplyProps(name) && instance.setName(name)
 
-  $: if (shouldApplyProps(originX, originY)) {
-    instance.setOrigin(originX, originY)
-  }
+  $: shouldApplyProps(originX, originY) && instance.setOrigin(originX, originY)
 
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
 
@@ -497,19 +435,10 @@
 
   $: applyScale(instance, { scale, scaleX, scaleY })
 
-  $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
+  $: shouldApplyProps(scrollFactorX, scrollFactorY) &&
     instance.setScrollFactor(scrollFactorX, scrollFactorY)
-  }
 
   $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
-
-  $: applyTint(instance, {
-    tintBottomLeft,
-    tintBottomRight,
-    tintTopLeft,
-    tintTopRight,
-    tintFill,
-  })
 
   $: shouldApplyProps(visible) && instance.setVisible(visible)
 
@@ -518,16 +447,25 @@
   $: shouldApplyProps(y) && instance.setY(y)
   $: shouldApplyProps(z) && instance.setZ(z)
 
-  $: if (shouldApplyProps(texture, frame)) {
-    instance.setTexture(texture, frame)
-  }
-  $: shouldApplyProps(tilePositionX) && (instance.tilePositionX = tilePositionX)
-  $: shouldApplyProps(tilePositionY) && (instance.tilePositionY = tilePositionY)
-  $: shouldApplyProps(tileScaleX) && (instance.tileScaleX = tileScaleX)
-  $: shouldApplyProps(tileScaleY) && (instance.tileScaleY = tileScaleY)
+  $: shouldApplyProps(height, width) && instance.setSize(width, height)
 
-  $: shouldApplyProps(draggable, scene.input) &&
+  $: shouldApplyProps(draggable) &&
+    interactive &&
     scene.input.setDraggable(instance, draggable)
+
+  $: if (shouldApplyProps(fillColor, fillAlpha)) {
+    instance.setFillStyle(fillColor, fillAlpha)
+  }
+
+  $: if (shouldApplyProps(strokeColor, strokeWidth, strokeAlpha)) {
+    instance.setStrokeStyle(strokeWidth, strokeColor, strokeAlpha)
+  }
+
+  $: shouldApplyProps(radius) && instance.setRadius(radius)
+  $: shouldApplyProps(startAngle) && instance.setStartAngle(startAngle)
+  $: shouldApplyProps(endAngle) && instance.setEndAngle(endAngle)
+  $: shouldApplyProps(counterClockwise) &&
+    (instance.anticlockwise = counterClockwise)
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...
@@ -539,22 +477,17 @@
   })
 
   onGameEvent('prestep', () => {
-    active = instance.active
-    alpha = instance.alpha
-    alphaBottomLeft = instance.alphaBottomLeft
-    alphaBottomRight = instance.alphaBottomRight
-    alphaTopLeft = instance.alphaTopLeft
-    alphaTopRight = instance.alphaTopRight
-    angle = instance.angle
-    blendMode = instance.blendMode
     if (instance.data) {
       data = instance.data.get()
     }
+    active = instance.active
+    alpha = instance.alpha
+    angle = instance.angle
+    blendMode = instance.blendMode
     displayOriginX = instance.displayOriginX
     displayOriginY = instance.displayOriginY
-    flipX = instance.flipX
-    flipY = instance.flipY
     height = instance.height
+    width = instance.width
     mask = instance.mask
     name = instance.name
     originX = instance.originX
@@ -567,21 +500,19 @@
     scrollFactorX = instance.scrollFactorX
     scrollFactorY = instance.scrollFactorY
     tabIndex = instance.tabIndex
-    tintBottomLeft = instance.tintBottomLeft
-    tintBottomRight = instance.tintBottomRight
-    tintTopLeft = instance.tintTopLeft
-    tintTopRight = instance.tintTopRight
-    tintFill = instance.tintFill
     visible = instance.visible
-    width = instance.width
 
-    // texture.key is null? phaser@3.23.0
-    // texture = instance.texture.key
-
-    tilePositionX = instance.tilePositionX
-    tilePositionY = instance.tilePositionY
-    tileScaleX = instance.tileScaleX
-    tileScaleY = instance.tileScaleY
+    // check if filled or stroked because these values get defaulted by phaser
+    // and would cause them to be set
+    if (instance.isFilled) {
+      fillColor = instance.fillColor
+      fillAlpha = instance.fillAlpha
+    }
+    if (instance.iStroked) {
+      strokeAlpha = instance.strokeAlpha
+      strokeColor = instance.strokeColor
+      strokeWidth = instance.lineWidth
+    }
   })
 </script>
 

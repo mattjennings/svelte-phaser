@@ -1,14 +1,14 @@
 <script>
-  import Phaser from '../phaser.js'
+  import Phaser from './phaser.js'
   import {
     onMount,
     getContext,
     setContext,
     createEventDispatcher,
   } from 'svelte'
-  import { addInstance, shouldApplyProps } from '../util'
-  import { applyScale, applyGameObjectEventDispatchers } from '../props/index'
-  import { onGameEvent } from '../onGameEvent'
+  import { addInstance, shouldApplyProps } from './util'
+  import { applyScale, applyGameObjectEventDispatchers } from './props/index'
+  import { onGameEvent } from './onGameEvent'
 
   /**
    * The active state of this Game Object. A Game Object with an active state of true is processed by the
@@ -70,21 +70,53 @@
   export let depth = undefined
 
   /**
+   * The displayed height of this Game Object.
+   * This value takes into account the scale factor.
+   * Setting this value will adjust the Game Object's scale property.
+   * @type {number}
+   */
+  export let displayHeight = undefined
+
+  /**
+   * The horizontal display origin of this Game Object. The origin is a normalized value between 0 and 1.
+   * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
+   * @type {number}
+   */
+  export let displayOriginX = undefined
+
+  /**
+   * The vertical display origin of this Game Object. The origin is a normalized value between 0 and 1.
+   * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
+   * @type {number}
+   */
+  export let displayOriginY = undefined
+
+  /**
+   * The displayed width of this Game Object.
+   * This value takes into account the scale factor.
+   * Setting this value will adjust the Game Object's scale property.
+   * @type {number}
+   */
+  export let displayWidth = undefined
+
+  /**
    * Enables the firing of drag events
    * @type {boolean}
    */
   export let draggable = false
 
   /**
-   * The Texture Frame this Game Object is using to render with.
-   * @type {Phaser.Textures.Frame}
+   * The height of this object.
+   * @type {number}
    */
-  export let frame = undefined
+  export let height = undefined
 
   /**
-   * If you want Graphics to be reactive to pointer events you will need to provide
-   * an object containing "shape" and optionally "callback" or "dropZone". This gets
-   * passed into Phaser's underlying `setInteractive` method.
+   * Whether or not the game object should react to input from the pointer. This is true by default,
+   * and is required to emit pointer events.
+   *
+   * If you wish to customize the hit area, you can provide an object containing "shape", "callback", and "dropZone" which
+   * will get passed into Phaser's underlying `setInteractive` method.
    *
    * This property is not bindable.
    *
@@ -92,9 +124,9 @@
    *
    * https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html#setInteractive__anchor
    *
-   * @type {object}
+   * @type {boolean | object}
    */
-  export let interactive = undefined
+  export let interactive = true
 
   /**
    * The Mask this Game Object is using during render.
@@ -108,6 +140,27 @@
    * @type {string}
    */
   export let name = undefined
+
+  /**
+   * The horizontal origin of this Game Object.
+   * The origin maps the relationship between the size and position of the Game Object.
+   * The default value is 0.5, meaning all Game Objects are positioned based on their center.
+   * Setting the value to 0 means the position now relates to the left of the Game Object.
+   *
+   * #phaserDefault 0.5
+   * @type {number}
+   */
+  export let originX = undefined
+
+  /**
+   * The vertical origin of this Game Object. The origin maps the relationship between the size and position of the Game Object.
+   * The default value is 0.5, meaning all Game Objects are positioned based on their center.
+   * Setting the value to 0 means the position now relates to the top of the Game Object.
+   *
+   * #phaserDefault 0.5
+   * @type {number}
+   */
+  export let originY = undefined
 
   /**
    * The flags that are compared against RENDER_MASK to determine if this Game Object will render or not.
@@ -195,13 +248,6 @@
   export let tabIndex = undefined
 
   /**
-   * The Texture this Game Object is using to render with. It is not required if you are
-   * assigning an `animation`.
-   * @type {string}
-   */
-  export let texture = undefined
-
-  /**
    * The visible state of the Game Object. An invisible Game Object will skip rendering, but will still process update logic.
    * @type {boolean}
    */
@@ -212,6 +258,12 @@
    * @type {number}
    */
   export let w = undefined
+
+  /**
+   * The width of this Game object.
+   * @type {number}
+   */
+  export let width = undefined
 
   /**
    * The x position of this Game Object.
@@ -234,7 +286,7 @@
   export let z = undefined
 
   /**
-   * The default fill alpha for shapes rendered by this Graphics object.
+   * The default fill alpha.
    *
    * #phaserDefault 1
    * @type {number}
@@ -242,7 +294,7 @@
   export let fillAlpha = undefined
 
   /**
-   * The default fill color for shapes rendered by this Graphics object.
+   * The default fill color.
    *
    * The color should be a hex value. ex. red would be 0xff0000
    *
@@ -252,7 +304,7 @@
   export let fillColor = undefined
 
   /**
-   * The default stroke alpha for shapes rendered by this Graphics object.
+   * The default stroke alpha.
    *
    * #phaserDefault 1
    * @type {number}
@@ -260,7 +312,7 @@
   export let strokeAlpha = undefined
 
   /**
-   * The default stroke color for shapes rendered by this Graphics object.
+   * The default stroke color.
    *
    * The color should be a hex value. ex. red would be 0xff0000
    *
@@ -270,17 +322,44 @@
   export let strokeColor = undefined
 
   /**
-   * The default stroke width for shapes rendered by this Graphics object.
+   * The stroke line width
    *
-   * #phaserDefault 1
    * @type {number}
    */
   export let strokeWidth = undefined
 
+  /**
+   * The number of points on the star.
+   *
+   * @type {number}
+   */
+  export let points = 5
+
+  /**
+   * The inner radius of the star.
+   * @type {number}
+   */
+  export let innerRadius = 32
+
+  /**
+   * The outer radius of the star.
+   * @type {number}
+   */
+  export let outerRadius = 64
+
   const dispatch = createEventDispatcher()
   const scene = getContext('phaser/scene')
 
-  export let instance = new Phaser.GameObjects.Graphics(scene, { x, y })
+  export let instance = new Phaser.GameObjects.Star(
+    scene,
+    x,
+    y,
+    points,
+    innerRadius,
+    outerRadius,
+    fillColor,
+    fillAlpha
+  )
 
   setContext('phaser/game-object', instance)
 
@@ -300,11 +379,15 @@
 
   $: if (shouldApplyProps(interactive)) {
     if (interactive) {
-      instance.setInteractive(
-        interactive.shape,
-        interactive.callback,
-        interactive.dropzone
-      )
+      if (interactive === true) {
+        instance.setInteractive()
+      } else {
+        instance.setInteractive(
+          interactive.shape,
+          interactive.callback,
+          interactive.dropzone
+        )
+      }
     } else {
       instance.removeInteractive()
     }
@@ -322,9 +405,17 @@
 
   $: shouldApplyProps(depth) && instance.setDepth(depth)
 
+  $: shouldApplyProps(displayHeight, displayWidth) &&
+    instance.setDisplaySize(displayWidth, displayHeight)
+
+  $: shouldApplyProps(displayOriginX, displayOriginY) &&
+    instance.setDisplayOrigin(displayOriginX, displayOriginY)
+
   $: shouldApplyProps(mask) && instance.setMask(mask)
 
   $: shouldApplyProps(name) && instance.setName(name)
+
+  $: shouldApplyProps(originX, originY) && instance.setOrigin(originX, originY)
 
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
 
@@ -332,9 +423,8 @@
 
   $: applyScale(instance, { scale, scaleX, scaleY })
 
-  $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
+  $: shouldApplyProps(scrollFactorX, scrollFactorY) &&
     instance.setScrollFactor(scrollFactorX, scrollFactorY)
-  }
 
   $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
 
@@ -345,32 +435,19 @@
   $: shouldApplyProps(y) && instance.setY(y)
   $: shouldApplyProps(z) && instance.setZ(z)
 
-  $: if (shouldApplyProps(texture, frame)) {
-    instance.setTexture(texture, frame, instance.blendMode)
-  }
+  $: shouldApplyProps(height, width) && instance.setSize(width, height)
 
   $: shouldApplyProps(draggable) &&
     interactive &&
     scene.input.setDraggable(instance, draggable)
 
-  $: shouldApplyProps(
-    fillAlpha,
-    fillColor,
-    strokeAlpha,
-    strokeColor,
-    strokeWidth
-  ) &&
-    instance.setDefaultStyles({
-      fillStyle: {
-        alpha: typeof fillAlpha !== 'undefined' ? fillAlpha : 1,
-        color: fillColor,
-      },
-      lineStyle: {
-        alpha: typeof strokeAlpha !== 'undefined' ? strokeAlpha : 1,
-        color: strokeColor,
-        width: typeof strokeWidth !== 'undefined' ? strokeWidth : 1,
-      },
-    })
+  $: shouldApplyProps(fillColor, fillAlpha) &&
+    instance.setFillStyle(fillColor, fillAlpha)
+
+  $: shouldApplyProps(strokeColor, strokeWidth, strokeAlpha) &&
+    instance.setStrokeStyle(strokeWidth, strokeColor, strokeAlpha)
+
+  $: shouldApplyProps(points) && instance.setPoints(points)
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...
@@ -382,15 +459,21 @@
   })
 
   onGameEvent('prestep', () => {
+    if (instance.data) {
+      data = instance.data.get()
+    }
     active = instance.active
     alpha = instance.alpha
     angle = instance.angle
     blendMode = instance.blendMode
-    if (instance.data) {
-      data = instance.data.get()
-    }
+    displayOriginX = instance.displayOriginX
+    displayOriginY = instance.displayOriginY
+    height = instance.height
+    width = instance.width
     mask = instance.mask
     name = instance.name
+    originX = instance.originX
+    originY = instance.originY
     renderFlags = instance.renderFlags
     rotation = instance.rotation
     scale = instance.scale
@@ -401,13 +484,21 @@
     tabIndex = instance.tabIndex
     visible = instance.visible
 
-    if (instance.texture) {
-      texture = instance.texture.key
+    // check if filled or stroked because these values get defaulted by phaser
+    // and would cause them to be set
+    if (instance.isFilled) {
+      fillColor = instance.fillColor
+      fillAlpha = instance.fillAlpha
+    }
+    if (instance.iStroked) {
+      strokeAlpha = instance.strokeAlpha
+      strokeColor = instance.strokeColor
+      strokeWidth = instance.lineWidth
     }
 
-    if (instance.frame) {
-      frame = instance.frame.key
-    }
+    points = instance._points
+    innerRadius = instance._innerRadius
+    outerRadius = instance._outerRadius
   })
 </script>
 

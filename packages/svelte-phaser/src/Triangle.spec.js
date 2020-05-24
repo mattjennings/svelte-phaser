@@ -1,7 +1,7 @@
 import { render } from '@testing-library/svelte'
 import { tick, getContext } from 'svelte'
-import Graphics from './Graphics.svelte'
-import { createGame } from '../test-utils'
+import Triangle from './Triangle.svelte'
+import { createGame } from './test-utils'
 
 jest.mock('svelte', () => ({
   ...jest.requireActual('svelte'),
@@ -29,35 +29,17 @@ beforeAll(async () => {
 test('alpha props', async () => {
   const {
     component: { instance },
-  } = render(Graphics, {
-    alpha: 0.5,
+  } = render(Triangle, {
+    alpha: 1,
   })
 
-  expect(instance.alpha).toEqual(0.5)
-})
-
-test('default style props', async () => {
-  const {
-    component: { instance },
-  } = render(Graphics, {
-    fillAlpha: 0.5,
-    fillColor: 2,
-    strokeAlpha: 3,
-    strokeColor: 4,
-    strokeWidth: 5,
-  })
-
-  expect(instance.defaultFillAlpha).toEqual(0.5)
-  expect(instance.defaultFillColor).toEqual(2)
-  expect(instance.defaultStrokeAlpha).toEqual(3)
-  expect(instance.defaultStrokeColor).toEqual(4)
-  expect(instance.defaultStrokeWidth).toEqual(5)
+  expect(instance.alpha).toEqual(1)
 })
 
 test('blendMode props', async () => {
   const {
     component: { instance },
-  } = render(Graphics, {
+  } = render(Triangle, {
     blendMode: Phaser.BlendModes.COLOR,
   })
 
@@ -67,7 +49,7 @@ test('blendMode props', async () => {
 test('depth props', async () => {
   const {
     component: { instance },
-  } = render(Graphics, {
+  } = render(Triangle, {
     depth: 10,
   })
 
@@ -77,9 +59,7 @@ test('depth props', async () => {
 test('draggable props', async () => {
   const {
     component: { instance, $set },
-  } = render(Graphics, {
-    interactive: { shape: new Phaser.Geom.Rectangle(0, 0, 10, 10) },
-  })
+  } = render(Triangle, {})
 
   jest.spyOn(scene.input, 'setDraggable')
   $set({ draggable: true })
@@ -98,17 +78,43 @@ test('mask props', async () => {
 
   const {
     component: { instance },
-  } = render(Graphics, {
+  } = render(Triangle, {
     mask,
   })
 
   expect(instance.mask).toEqual(mask)
 })
 
+describe('origin', () => {
+  test('origin props', async () => {
+    const {
+      component: { instance },
+    } = render(Triangle, {
+      originX: 0.5,
+      originY: 0.75,
+    })
+
+    expect(instance.originX).toEqual(0.5)
+    expect(instance.originY).toEqual(0.75)
+  })
+
+  test('displayOrigin props', async () => {
+    const {
+      component: { instance },
+    } = render(Triangle, {
+      displayOriginX: 50,
+      displayOriginY: 75,
+    })
+
+    expect(instance.displayOriginX).toEqual(50)
+    expect(instance.displayOriginY).toEqual(75)
+  })
+})
+
 test('scrollFactor props', async () => {
   const {
     component: { instance },
-  } = render(Graphics, {
+  } = render(Triangle, {
     scrollFactorX: 0.5,
     scrollFactorY: 0.75,
   })
@@ -117,23 +123,36 @@ test('scrollFactor props', async () => {
   expect(instance.scrollFactorY).toEqual(0.75)
 })
 
-test('texture props', async () => {
-  const {
-    component: { instance, $set },
-  } = render(Graphics)
+describe('size', () => {
+  test('width/height', async () => {
+    const {
+      component: { instance },
+    } = render(Triangle, {
+      width: 10,
+      height: 10,
+    })
 
-  const setTexture = jest.spyOn(instance, 'setTexture')
+    expect(instance.width).toEqual(10)
+    expect(instance.height).toEqual(10)
+  })
 
-  $set({ texture: 't', frame: 'f', blendMode: 1 })
-  await tick()
+  test('display width/height', async () => {
+    const {
+      component: { instance },
+    } = render(Triangle, {
+      displayHeight: 100,
+      displayWidth: 100,
+    })
 
-  expect(setTexture).toHaveBeenCalledWith('t', 'f', 1)
+    expect(instance.displayHeight).toEqual(100)
+    expect(instance.displayWidth).toEqual(100)
+  })
 })
 
 test('transform props', async () => {
   const {
     component: { instance, $set },
-  } = render(Graphics, {
+  } = render(Triangle, {
     x: 100,
     y: 100,
     angle: 100,
@@ -158,9 +177,47 @@ test('transform props', async () => {
 test('visible props', async () => {
   const {
     component: { instance },
-  } = render(Graphics, {
+  } = render(Triangle, {
     visible: false,
   })
 
   expect(instance.visible).toEqual(false)
+})
+
+test('style props', () => {
+  const {
+    component: { instance },
+  } = render(Triangle, {
+    fillAlpha: 0.5,
+    fillColor: 2,
+    strokeAlpha: 3,
+    strokeColor: 4,
+    strokeWidth: 5,
+  })
+
+  expect(instance.fillAlpha).toEqual(0.5)
+  expect(instance.fillColor).toEqual(2)
+  expect(instance.strokeAlpha).toEqual(3)
+  expect(instance.strokeColor).toEqual(4)
+  expect(instance.lineWidth).toEqual(5)
+})
+
+test('points', () => {
+  const {
+    component: { instance },
+  } = render(Triangle, {
+    x1: 1,
+    y1: 2,
+    x2: 3,
+    y2: 4,
+    x3: 5,
+    y3: 6,
+  })
+
+  expect(instance.geom.x1).toEqual(1)
+  expect(instance.geom.y1).toEqual(2)
+  expect(instance.geom.x2).toEqual(3)
+  expect(instance.geom.y2).toEqual(4)
+  expect(instance.geom.x3).toEqual(5)
+  expect(instance.geom.y3).toEqual(6)
 })
