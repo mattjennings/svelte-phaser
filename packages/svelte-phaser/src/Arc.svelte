@@ -453,11 +453,13 @@
     interactive &&
     scene.input.setDraggable(instance, draggable)
 
-  $: shouldApplyProps(fillColor, fillAlpha) &&
+  $: if (shouldApplyProps(fillColor, fillAlpha)) {
     instance.setFillStyle(fillColor, fillAlpha)
+  }
 
-  $: shouldApplyProps(strokeColor, strokeWidth, fillAlpha) &&
+  $: if (shouldApplyProps(strokeColor, strokeWidth, strokeAlpha)) {
     instance.setStrokeStyle(strokeWidth, strokeColor, strokeAlpha)
+  }
 
   $: shouldApplyProps(radius) && instance.setRadius(radius)
   $: shouldApplyProps(startAngle) && instance.setStartAngle(startAngle)
@@ -500,11 +502,17 @@
     tabIndex = instance.tabIndex
     visible = instance.visible
 
-    fillColor = instance.fillColor
-    fillAlpha = instance.fillAlpha
-    strokeAlpha = instance.strokeAlpha
-    strokeColor = instance.strokeColor
-    strokeWidth = instance.lineWidth
+    // check if filled or stroked because these values get defaulted by phaser
+    // and would cause them to be set
+    if (instance.isFilled) {
+      fillColor = instance.fillColor
+      fillAlpha = instance.fillAlpha
+    }
+    if (instance.iStroked) {
+      strokeAlpha = instance.strokeAlpha
+      strokeColor = instance.strokeColor
+      strokeWidth = instance.lineWidth
+    }
   })
 </script>
 
