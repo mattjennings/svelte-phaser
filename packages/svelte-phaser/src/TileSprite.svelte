@@ -167,7 +167,7 @@
   export let frame = undefined
 
   /**
-   * The height of this Text object.
+   * The height of this object.
    * #phaserDefault 1
    * @type {number}
    */

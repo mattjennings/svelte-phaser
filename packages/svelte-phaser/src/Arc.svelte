@@ -106,7 +106,7 @@
   export let draggable = false
 
   /**
-   * The height of this Text object.
+   * The height of ths object.
    * @type {number}
    */
   export let height = undefined
