@@ -10,7 +10,7 @@
    * Setting the depth will queue a depth sort event within the Scene.
    * @type {number}
    */
-  export let depth
+  export let depth = undefined
 
   const instance = getGameObject()
 

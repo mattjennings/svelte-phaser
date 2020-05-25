@@ -1,7 +1,11 @@
 <script>
   import { getScene } from '../getScene'
   import { onGameEvent } from '../onGameEvent'
-  import { shouldApplyProps, createPhaserEventDispatcher } from '../util'
+  import {
+    shouldApplyProps,
+    createPhaserEventDispatcher,
+    addInstance,
+  } from '../util'
   import { onMount, createEventDispatcher, setContext } from 'svelte'
 
   /**
@@ -72,131 +76,135 @@
   const dispatch = createEventDispatcher()
   const scene = getScene()
 
-  const listeners = [
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'drag',
-      (pointer, dragX, dragY) => ({
-        pointer,
-        dragX,
-        dragY,
-      })
-    ),
-    createPhaserEventDispatcher(instance, dispatch, 'dragend', pointer => ({
-      pointer,
-    })),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'dragenter',
-      (pointer, target) => ({
-        pointer,
-        target,
-      })
-    ),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'dragleave',
-      (pointer, target) => ({
-        pointer,
-        target,
-      })
-    ),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'dragover',
-      (pointer, target) => ({
-        pointer,
-        target,
-      })
-    ),
-    createPhaserEventDispatcher(instance, dispatch, 'dragstart', pointer => ({
-      pointer,
-    })),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'drop',
-      (pointer, target) => ({
-        pointer,
+  if (!scene.children.exists(instance)) {
+    addInstance(instance)
 
-        target,
-      })
-    ),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'pointerdown',
-      (pointer, localX, localY, event) => ({
+    const listeners = [
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'drag',
+        (pointer, dragX, dragY) => ({
+          pointer,
+          dragX,
+          dragY,
+        })
+      ),
+      createPhaserEventDispatcher(instance, dispatch, 'dragend', pointer => ({
         pointer,
-        localX,
-        localY,
-        event,
-      })
-    ),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'pointermove',
-      (pointer, localX, localY, event) => ({
+      })),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'dragenter',
+        (pointer, target) => ({
+          pointer,
+          target,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'dragleave',
+        (pointer, target) => ({
+          pointer,
+          target,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'dragover',
+        (pointer, target) => ({
+          pointer,
+          target,
+        })
+      ),
+      createPhaserEventDispatcher(instance, dispatch, 'dragstart', pointer => ({
         pointer,
-        localX,
-        localY,
-        event,
-      })
-    ),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'pointerout',
-      (pointer, event) => ({
-        pointer,
-        event,
-      })
-    ),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'pointerover',
-      (pointer, localX, localY, event) => ({
-        pointer,
-        localX,
-        localY,
-        event,
-      })
-    ),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'pointerup',
-      (pointer, localX, localY, event) => ({
-        pointer,
-        localX,
-        localY,
-        event,
-      })
-    ),
-    createPhaserEventDispatcher(
-      instance,
-      dispatch,
-      'pointerwheel',
-      (pointer, deltaX, deltaY, deltaZ, event) => ({
-        pointer,
-        deltaX,
-        deltaY,
-        deltaZ,
-        event,
-      })
-    ),
-  ]
+      })),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'drop',
+        (pointer, target) => ({
+          pointer,
 
-  onMount(() => () => {
-    listeners.forEach(listener => listener())
-    instance.destroy()
-  })
+          target,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'pointerdown',
+        (pointer, localX, localY, event) => ({
+          pointer,
+          localX,
+          localY,
+          event,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'pointermove',
+        (pointer, localX, localY, event) => ({
+          pointer,
+          localX,
+          localY,
+          event,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'pointerout',
+        (pointer, event) => ({
+          pointer,
+          event,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'pointerover',
+        (pointer, localX, localY, event) => ({
+          pointer,
+          localX,
+          localY,
+          event,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'pointerup',
+        (pointer, localX, localY, event) => ({
+          pointer,
+          localX,
+          localY,
+          event,
+        })
+      ),
+      createPhaserEventDispatcher(
+        instance,
+        dispatch,
+        'pointerwheel',
+        (pointer, deltaX, deltaY, deltaZ, event) => ({
+          pointer,
+          deltaX,
+          deltaY,
+          deltaZ,
+          event,
+        })
+      ),
+    ]
+
+    onMount(() => () => {
+      listeners.forEach(listener => listener())
+      instance.destroy()
+    })
+  }
 
   $: shouldApplyProps(active) && instance.setActive(active)
   $: shouldApplyProps(name) && instance.setName(name)
