@@ -1,19 +1,22 @@
 <script>
   import Phaser from './phaser.js'
-  import {
-    onMount,
-    getContext,
-    setContext,
-    createEventDispatcher,
-  } from 'svelte'
-  import { addInstance, shouldApplyProps } from './util'
-  import {
-    applyAlpha,
-    applyScale,
-    applyTint,
-    applyGameObjectEventDispatchers,
-  } from './props/index'
+  import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
+  import { getScene } from './getScene'
+
+  import Alpha from './phaser-components/Alpha.svelte'
+  import BlendMode from './phaser-components/BlendMode.svelte'
+  import Depth from './phaser-components/Depth.svelte'
+  import Flip from './phaser-components/Flip.svelte'
+  import GameObject from './phaser-components/GameObject.svelte'
+  import Mask from './phaser-components/Mask.svelte'
+  import Origin from './phaser-components/Origin.svelte'
+  import Pipeline from './phaser-components/Pipeline.svelte'
+  import ScrollFactor from './phaser-components/ScrollFactor.svelte'
+  import Size from './phaser-components/Size.svelte'
+  import Tint from './phaser-components/Tint.svelte'
+  import Transform from './phaser-components/Transform.svelte'
+  import Visible from './phaser-components/Visible.svelte'
 
   /**
    * The active state of this Game Object. A Game Object with an active state of true is processed by the
@@ -238,12 +241,6 @@
   export let fontStyle = undefined
 
   /**
-   * The Texture Frame this Game Object is using to render with.
-   * @type {Phaser.Textures.Frame}
-   */
-  export let frame = undefined
-
-  /**
    * The height of this Text object.
    * #phaserDefault 1
    * @type {number}
@@ -350,6 +347,12 @@
    * @type {boolean}
    */
   export let rtl = false
+
+  /**
+   * Sets the active WebGL Pipeline of this Game Object.
+   * @type {string}
+   */
+  export let pipeline = undefined
 
   /**
    * This is a special setter that allows you to set both the horizontal and vertical scale of this Game Object to the same value, at the same time.
@@ -551,50 +554,11 @@
    */
   export let z = undefined
 
-  const dispatch = createEventDispatcher()
-  const scene = getContext('phaser/scene')
+  const scene = getScene()
 
   export let instance = new Phaser.GameObjects.Text(scene, x, y, text, {})
 
-  setContext('phaser/game-object', instance)
-
-  if (!scene.children.exists(instance)) {
-    addInstance(instance)
-    const cleanupDispatchers = applyGameObjectEventDispatchers(
-      instance,
-      dispatch
-    )
-    onMount(() => () => {
-      cleanupDispatchers()
-      instance.destroy()
-    })
-  }
-
-  $: if (shouldApplyProps(interactive)) {
-    if (interactive) {
-      instance.setInteractive(
-        interactive.shape,
-        interactive.callback,
-        interactive.dropzone
-      )
-    } else {
-      instance.removeInteractive()
-    }
-  }
-
-  $: shouldApplyProps(active) && instance.setActive(active)
-
   $: shouldApplyProps(align) && instance.setAlign(align)
-
-  $: applyAlpha(instance, {
-    alpha,
-    alphaBottomLeft,
-    alphaBottomRight,
-    alphaTopLeft,
-    alphaTopRight,
-  })
-
-  $: shouldApplyProps(angle) && instance.setAngle(angle)
 
   $: shouldApplyProps(autoRound) && (instance.autoRound = autoRound)
 
@@ -605,73 +569,25 @@
 
   $: shouldApplyProps(baselineY) && (instance.style.baselineY = baselineY)
 
-  $: shouldApplyProps(blendMode) && instance.setBlendMode(blendMode)
-
   $: shouldApplyProps(color) && instance.setColor(color)
-
-  $: shouldApplyProps(data) && instance.setData(data)
-
-  $: shouldApplyProps(depth) && instance.setDepth(depth)
-
-  $: if (shouldApplyProps(displayHeight, displayWidth)) {
-    instance.setDisplaySize(displayWidth, displayHeight)
-  }
-
-  $: {
-    if (shouldApplyProps(displayOriginX, displayOriginY)) {
-      instance.setDisplayOrigin(displayOriginX, displayOriginY)
-    }
-  }
 
   $: if (shouldApplyProps(fixedWidth, fixedHeight)) {
     instance.setFixedSize(fixedWidth, fixedHeight)
   }
 
-  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
-
-  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
-
   $: shouldApplyProps(fontFamily) && instance.setFontFamily(fontFamily)
-
   $: shouldApplyProps(fontSize) && instance.setFontSize(fontSize)
-
   $: shouldApplyProps(fontStyle) && instance.setFontStyle(fontStyle)
-
-  $: if (shouldApplyProps(frame)) {
-    instance.setFrame(frame)
-  }
-
-  $: if (shouldApplyProps(height, width)) {
-    instance.setSize(width, height)
-  }
 
   $: shouldApplyProps(lineSpacing) && instance.setLineSpacing(lineSpacing)
 
-  $: shouldApplyProps(mask) && instance.setMask(mask)
-
   $: shouldApplyProps(maxLines) && instance.setMaxLines(maxLines)
-
-  $: shouldApplyProps(name) && instance.setName(name)
-
-  $: if (shouldApplyProps(originX, originY)) {
-    instance.setOrigin(originX, originY)
-  }
 
   $: shouldApplyProps(padding) && instance.setPadding(padding)
 
-  $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
-
   $: shouldApplyProps(resolution) && instance.setResolution(resolution)
 
-  $: shouldApplyProps(rotation) && instance.setRotation(rotation)
-
   $: shouldApplyProps(rtl) && (instance.style.rtl = rtl)
-
-  $: applyScale(instance, { scale, scaleX, scaleY })
-
-  $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
-    instance.setScrollFactor(scrollFactorX, scrollFactorY)
-  }
 
   $: if (shouldApplyProps(shadow)) {
     instance.setShadow(
@@ -690,87 +606,29 @@
     instance.setStroke(stroke, strokeThickness)
   }
 
-  $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
-
   $: shouldApplyProps(testString) && (instance.testString = testString)
-
-  $: applyTint(instance, {
-    tintBottomLeft,
-    tintBottomRight,
-    tintTopLeft,
-    tintTopRight,
-    tintFill,
-  })
-
-  $: shouldApplyProps(visible) && instance.setVisible(visible)
-
-  $: shouldApplyProps(w) && instance.setW(w)
 
   $: if (shouldApplyProps(wordWrap, useAdvancedWordWrap)) {
     instance.setWordWrapWidth(wordWrap, useAdvancedWordWrap)
   }
-
-  $: shouldApplyProps(x) && instance.setX(x)
-  $: shouldApplyProps(y) && instance.setY(y)
-  $: shouldApplyProps(z) && instance.setZ(z)
   $: shouldApplyProps(text) && instance.setText(text)
 
-  $: shouldApplyProps(draggable) &&
-    interactive &&
-    scene.input.setDraggable(instance, draggable)
-
-  // position values will conflict with velocity if they're
-  // in the prestep event. it seems fine in prerender...
-  onGameEvent('prerender', () => {
-    w = instance.w
-    x = instance.x
-    y = instance.y
-    z = instance.z
-  })
-
   onGameEvent('prestep', () => {
-    active = instance.active
     align = instance.align
-    alpha = instance.alpha
-    alphaBottomLeft = instance.alphaBottomLeft
-    alphaBottomRight = instance.alphaBottomRight
-    alphaTopLeft = instance.alphaTopLeft
-    alphaTopRight = instance.alphaTopRight
-    angle = instance.angle
     autoRound = instance.autoRound
     backgroundColor = instance.style.backgroundColor
     baselineX = instance.style.baselineX
     baselineY = instance.style.baselineY
-    blendMode = instance.blendMode
-    if (instance.data) {
-      data = instance.data.get()
-    }
-    displayOriginX = instance.displayOriginX
-    displayOriginY = instance.displayOriginY
     fixedHeight = instance.style.fixedHeight
     fixedWidth = instance.style.fixedWidth
-    flipX = instance.flipX
-    flipY = instance.flipY
     fontFamily = instance.style.fontFamily
     fontSize = instance.style.fontSize
     fontStyle = instance.style.fontStyle
-    height = instance.height
     lineSpacing = instance.lineSpacing
-    mask = instance.mask
     maxLines = instance.style.maxLines
-    name = instance.name
-    originX = instance.originX
-    originY = instance.originY
-    padding = instance.padding
     renderFlags = instance.renderFlags
     resolution = instance.resolution
-    rotation = instance.rotation
     rtl = instance.style.rtl
-    scale = instance.scale
-    scaleX = instance.scaleX
-    scaleY = instance.scaleY
-    scrollFactorX = instance.scrollFactorX
-    scrollFactorY = instance.scrollFactorY
 
     if (
       shadow &&
@@ -794,21 +652,54 @@
     splitRegExp = instance.splitRegExp
     stroke = instance.style.stroke
     strokeThickness = instance.style.strokeThickness
-    tabIndex = instance.tabIndex
     testString = instance.style.testString
     text = instance.text
-    tintBottomLeft = instance.tintBottomLeft
-    tintBottomRight = instance.tintBottomRight
-    tintTopLeft = instance.tintTopLeft
-    tintTopRight = instance.tintTopRight
-    tintFill = instance.tintFill
-
-    visible = instance.visible
-    width = instance.width
     wordWrap = instance.style.wordWrapWidth
     useAdvancedWordWrap = instance.style.wordWrapUseAdvanced
   })
 </script>
 
 <svelte:options immutable />
-<slot />
+
+<GameObject
+  bind:instance
+  bind:active
+  bind:name
+  bind:tabIndex
+  bind:data
+  bind:renderFlags
+  bind:draggable
+  bind:interactive>
+  <Alpha
+    bind:alpha
+    bind:alphaTopLeft
+    bind:alphaTopRight
+    bind:alphaBottomLeft
+    bind:alphaBottomRight />
+  <BlendMode bind:blendMode />
+  <Depth bind:depth />
+  <Flip bind:flipX bind:flipY />
+  <Mask bind:mask />
+  <Origin bind:originX bind:originY bind:displayOriginX bind:displayOriginY />
+  <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
+  <Size bind:width bind:height bind:displayWidth bind:displayHeight />
+  <Pipeline bind:pipeline />
+  <Transform
+    bind:x
+    bind:y
+    bind:w
+    bind:z
+    bind:scale
+    bind:scaleX
+    bind:scaleY
+    bind:angle
+    bind:rotation />
+  <Tint
+    bind:tintTopLeft
+    bind:tintTopRight
+    bind:tintBottomLeft
+    bind:tintBottomRight
+    bind:tintFill />
+  <Visible bind:visible />
+  <slot />
+</GameObject>
