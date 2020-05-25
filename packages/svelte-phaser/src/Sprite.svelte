@@ -13,7 +13,6 @@
   import GameObject from './phaser-components/GameObject.svelte'
   import Mask from './phaser-components/Mask.svelte'
   import Origin from './phaser-components/Origin.svelte'
-  import PathFollower from './phaser-components/PathFollower.svelte'
   import Pipeline from './phaser-components/Pipeline.svelte'
   import ScrollFactor from './phaser-components/ScrollFactor.svelte'
   import Size from './phaser-components/Size.svelte'
@@ -100,6 +99,14 @@
    * @type {Phaser.BlendModes | string}
    */
   export let blendMode = undefined
+
+  /**
+   * Applies a crop to a texture based Game Object, such as a Sprite or Image.
+   *
+   * The object should contain x, y, width and height values.
+   * @type {object}
+   */
+  export let crop = undefined
 
   /**
    * A Data Manager. It allows you to store, query and get key/value paired information specific to this Game Object. null by default.
@@ -269,6 +276,12 @@
    * @type {number}
    */
   export let originY = undefined
+
+  /**
+   * Sets the active WebGL Pipeline of this Game Object.
+   * @type {string}
+   */
+  export let pipeline = undefined
 
   /**
    * Takes a value between 0 and 1 and uses it to set how far this animation is through playback. Does not factor in repeats or yoyos, but does handle playing forwards or backwards.
@@ -631,12 +644,14 @@
     bind:alphaBottomLeft
     bind:alphaBottomRight />
   <BlendMode bind:blendMode />
+  <Crop bind:crop />
   <Depth bind:depth />
   <Flip bind:flipX bind:flipY />
   <Mask bind:mask />
   <Origin bind:originX bind:originY bind:displayOriginX bind:displayOriginY />
   <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
   <Size bind:width bind:height bind:displayWidth bind:displayHeight />
+  <Pipeline bind:pipeline />
   <Texture bind:texture bind:frame />
   <Transform
     bind:x
