@@ -23,7 +23,7 @@
   }
 
   onGameEvent('prestep', () => {
-    if (instance.texture) {
+    if (instance.texture && instance.texture.key) {
       texture = instance.texture.key
     }
 
