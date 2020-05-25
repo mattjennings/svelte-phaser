@@ -4,11 +4,11 @@
   import { onGameEvent } from './onGameEvent'
   import { getScene } from './getScene'
 
+  import GameObject from './GameObject.svelte'
   import Alpha from './phaser-components/Alpha.svelte'
   import BlendMode from './phaser-components/BlendMode.svelte'
   import Depth from './phaser-components/Depth.svelte'
   import Flip from './phaser-components/Flip.svelte'
-  import GameObject from './phaser-components/GameObject.svelte'
   import Mask from './phaser-components/Mask.svelte'
   import Origin from './phaser-components/Origin.svelte'
   import Pipeline from './phaser-components/Pipeline.svelte'
