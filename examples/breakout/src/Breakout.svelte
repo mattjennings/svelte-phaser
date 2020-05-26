@@ -5,7 +5,7 @@
   import Ball from './Ball.svelte'
   import Block from './Block.svelte'
 
-  const scene = getContext('phaser/scene')
+  const scene = getScene()
 
   // set collisions on all edges of world except bottom
   scene.physics.world.setBoundsCollision(true, true, true, false)

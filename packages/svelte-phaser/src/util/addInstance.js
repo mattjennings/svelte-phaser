@@ -1,10 +1,10 @@
-import { getContext } from 'svelte'
+import { getScene } from '../getScene.js'
 
 /**
  * Adds an instance to the parent scene
  */
 export function addInstance(self) {
-  const scene = getContext('phaser/scene')
+  const scene = getScene()
 
   if (parent) {
     scene.add.existing(self)

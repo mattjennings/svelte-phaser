@@ -1,6 +1,7 @@
+import Phaser from 'phaser'
 import { render } from '@testing-library/svelte'
 import { tick, getContext } from 'svelte'
-import Star from './Star.svelte'
+import Shape from './Shape.svelte'
 import { createGame } from './test-utils'
 
 jest.mock('svelte', () => ({
@@ -26,36 +27,20 @@ beforeAll(async () => {
   })
 })
 
-const commonProps = {
-  points: [
-    {
-      x: 0,
-      y: 0,
-    },
-    {
-      x: 10,
-      y: 10,
-    },
-  ],
-}
-
-test('points', () => {
+test('stroke and fill', () => {
   const {
     component: { instance },
-  } = render(Star, {
-    points: 10,
+  } = render(Shape, {
+    fillAlpha: 0.5,
+    fillColor: 2,
+    strokeAlpha: 3,
+    strokeColor: 4,
+    strokeWidth: 5,
   })
 
-  expect(instance._points).toEqual(10)
-})
-test('radius', () => {
-  const {
-    component: { instance },
-  } = render(Star, {
-    innerRadius: 10,
-    outerRadius: 20,
-  })
-
-  expect(instance._innerRadius).toEqual(10)
-  expect(instance._outerRadius).toEqual(20)
+  expect(instance.fillAlpha).toEqual(0.5)
+  expect(instance.fillColor).toEqual(2)
+  expect(instance.strokeAlpha).toEqual(3)
+  expect(instance.strokeColor).toEqual(4)
+  expect(instance.lineWidth).toEqual(5)
 })

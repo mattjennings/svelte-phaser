@@ -1,9 +1,20 @@
 <script>
   import Phaser from './phaser.js'
+  import { getScene } from './getScene'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
-  import { getScene } from './getScene.js'
-  import Shape from './Shape.svelte'
+
+  import GameObject from './GameObject.svelte'
+  import Alpha from './phaser-components/Alpha.svelte'
+  import BlendMode from './phaser-components/BlendMode.svelte'
+  import Depth from './phaser-components/Depth.svelte'
+  import Mask from './phaser-components/Mask.svelte'
+  import Origin from './phaser-components/Origin.svelte'
+  import Pipeline from './phaser-components/Pipeline.svelte'
+  import ScrollFactor from './phaser-components/ScrollFactor.svelte'
+  import Size from './phaser-components/Size.svelte'
+  import Transform from './phaser-components/Transform.svelte'
+  import Visible from './phaser-components/Visible.svelte'
 
   /**
    * The active state of this Game Object. A Game Object with an active state of true is processed by the
@@ -101,10 +112,7 @@
   export let draggable = false
 
   /**
-   * The height of the iso box. The left and right faces will be this tall.
-   * The overall height of the isobox will be this value plus half the size value.
-   *
-   * #phaserDefault 32
+   * The height of this object.
    * @type {number}
    */
   export let height = undefined
@@ -258,6 +266,12 @@
   export let w = undefined
 
   /**
+   * The width of this Game object.
+   * @type {number}
+   */
+  export let width = undefined
+
+  /**
    * The x position of this Game Object.
    * @type {number}
    */
@@ -278,128 +292,118 @@
   export let z = undefined
 
   /**
-   * The fill color of the top face of the iso box.
+   * The default fill alpha.
    *
-   * #phaserDefault 0xeeeeee
+   * #phaserDefault 1
    * @type {number}
    */
-  export let fillTop = undefined
+  export let fillAlpha = undefined
 
   /**
-   * The fill color of the left face of the iso box.
+   * The default fill color.
    *
-   * #phaserDefault 0x999999
+   * The color should be a hex value. ex. red would be 0xff0000
+   *
+   * #phaserDefault -1
    * @type {number}
    */
-  export let fillLeft = undefined
+  export let fillColor = undefined
 
   /**
-   * The fill color of the right face of the iso box.
+   * The default stroke alpha.
    *
-   * #phaserDefault 0xcccccc
+   * #phaserDefault 1
    * @type {number}
    */
-  export let fillRight = undefined
+  export let strokeAlpha = undefined
 
   /**
-   * The width of the iso box in pixels. The left and right faces will be exactly half this value.
+   * The default stroke color.
    *
-   * #phaserDefault 48
+   * The color should be a hex value. ex. red would be 0xff0000
+   *
+   * #phaserDefault -1
    * @type {number}
    */
-  export let size = undefined
+  export let strokeColor = undefined
 
   /**
-   * Toggles rendering the top-face
-   * @type {boolean}
-   */
-  export let showTop = true
-
-  /**
-   * Toggles rendering the left-face
-   * @type {boolean}
-   */
-  export let showLeft = true
-
-  /**
-   * Toggles rendering the right-face
-   * @type {boolean}
-   */
-  export let showRight = true
-
-  /**
-   * Sets the projection level of the iso box.
-   * Change this to change the 'angle' at which you are looking at the box.
+   * The stroke line width
    *
    * @type {number}
    */
-  export let projection = 4
+  export let strokeWidth = undefined
+
+  /**
+   * Sets the active WebGL Pipeline of this Game Object.
+   * @type {string}
+   */
+  export let pipeline = undefined
 
   const scene = getScene()
 
-  export let instance = new Phaser.GameObjects.IsoBox(
+  export let instance = new Phaser.GameObjects.Rectangle(
     scene,
     x,
     y,
-    size,
+    width,
     height,
-    fillTop,
-    fillLeft,
-    fillRight
+    fillColor,
+    fillAlpha
   )
 
-  $: shouldApplyProps(size, height) && instance.setSize(size, height)
+  $: shouldApplyProps(fillColor, fillAlpha) &&
+    instance.setFillStyle(fillColor, fillAlpha)
 
-  $: shouldApplyProps(fillTop, fillLeft, fillRight) &&
-    instance.setFillStyle(fillTop, fillLeft, fillRight)
-  $: shouldApplyProps(showTop) && (instance.showTop = showTop)
-  $: shouldApplyProps(showLeft) && (instance.showLeft = showLeft)
-  $: shouldApplyProps(showRight) && (instance.showRight = showRight)
-
-  $: shouldApplyProps(projection) && instance.setProjection(projection)
+  $: shouldApplyProps(strokeColor, strokeWidth, strokeAlpha) &&
+    instance.setStrokeStyle(strokeWidth, strokeColor, strokeAlpha)
 
   onGameEvent('prestep', () => {
-    size = instance.width
-    fillTop = instance.fillTop
-    fillLeft = instance.fillLeft
-    fillRight = instance.fillRight
-    showTop = instance.showTop
-    showLeft = instance.showLeft
-    showRight = instance.showRight
-
-    projection = instance.projection
+    // if not an isometric shape
+    if (!instance.fillTop) {
+      // check if filled or stroked because these values get defaulted by phaser
+      // and would cause them to be set
+      if (instance.isFilled) {
+        fillColor = instance.fillColor
+        fillAlpha = instance.fillAlpha
+      }
+      if (instance.iStroked) {
+        strokeAlpha = instance.strokeAlpha
+        strokeColor = instance.strokeColor
+        strokeWidth = instance.lineWidth
+      }
+    }
   })
 </script>
 
 <svelte:options immutable />
-<Shape
+<GameObject
   bind:instance
   bind:active
-  bind:alpha
-  bind:angle
-  bind:blendMode
-  bind:data
-  bind:depth
-  bind:displayHeight
-  bind:displayWidth
-  bind:displayOriginX
-  bind:displayOriginY
-  bind:draggable
-  bind:interactive
-  bind:mask
   bind:name
-  bind:originX
-  bind:originY
-  bind:renderFlags
-  bind:rotation
-  bind:scale
-  bind:scaleX
-  bind:scaleY
-  bind:scrollFactorX
-  bind:scrollFactorY
   bind:tabIndex
-  bind:visible
-  bind:w
-  bind:x
-  bind:y
-  bind:z />
+  bind:data
+  bind:renderFlags
+  bind:draggable
+  bind:interactive>
+  <Alpha bind:alpha />
+  <BlendMode bind:blendMode />
+  <Depth bind:depth />
+  <Mask bind:mask />
+  <Origin bind:originX bind:originY bind:displayOriginX bind:displayOriginY />
+  <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
+  <Size bind:width bind:height bind:displayWidth bind:displayHeight />
+  <Pipeline bind:pipeline />
+  <Transform
+    bind:x
+    bind:y
+    bind:w
+    bind:z
+    bind:scale
+    bind:scaleX
+    bind:scaleY
+    bind:angle
+    bind:rotation />
+  <Visible bind:visible />
+  <slot />
+</GameObject>

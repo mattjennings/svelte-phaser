@@ -1,15 +1,9 @@
 <script>
   import Phaser from './phaser.js'
-  import {
-    onMount,
-    getContext,
-    setContext,
-    createEventDispatcher,
-  } from 'svelte'
-  import { addInstance, shouldApplyProps } from './util'
-  import { applyScale, applyGameObjectEventDispatchers } from './props/index'
+  import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
-
+  import { getScene } from './getScene.js'
+  import Shape from './Shape.svelte'
   /**
    * The active state of this Game Object. A Game Object with an active state of true is processed by the
    * Scenes UpdateList, if added to it. An active object is one which is having its logic and internal systems updated.
@@ -364,8 +358,7 @@
    */
   export let y3 = 128
 
-  const dispatch = createEventDispatcher()
-  const scene = getContext('phaser/scene')
+  const scene = getScene()
 
   export let instance = new Phaser.GameObjects.Triangle(
     scene,
@@ -381,143 +374,11 @@
     fillAlpha
   )
 
-  setContext('phaser/game-object', instance)
-
-  if (!scene.children.exists(instance)) {
-    addInstance(instance)
-
-    const cleanupGameObjectDispatchers = applyGameObjectEventDispatchers(
-      instance,
-      dispatch
-    )
-
-    onMount(() => () => {
-      cleanupGameObjectDispatchers()
-      instance.destroy()
-    })
-  }
-
-  $: if (shouldApplyProps(interactive)) {
-    if (interactive) {
-      if (interactive === true) {
-        instance.setInteractive()
-      } else {
-        instance.setInteractive(
-          interactive.shape,
-          interactive.callback,
-          interactive.dropzone
-        )
-      }
-    } else {
-      instance.removeInteractive()
-    }
-  }
-
-  $: shouldApplyProps(active) && instance.setActive(active)
-
-  $: shouldApplyProps(alpha) && instance.setAlpha(alpha)
-
-  $: shouldApplyProps(angle) && instance.setAngle(angle)
-
-  $: shouldApplyProps(blendMode) && instance.setBlendMode(blendMode)
-
-  $: shouldApplyProps(data) && instance.setData(data)
-
-  $: shouldApplyProps(depth) && instance.setDepth(depth)
-
-  $: shouldApplyProps(displayHeight, displayWidth) &&
-    instance.setDisplaySize(displayWidth, displayHeight)
-
-  $: shouldApplyProps(displayOriginX, displayOriginY) &&
-    instance.setDisplayOrigin(displayOriginX, displayOriginY)
-
-  $: shouldApplyProps(mask) && instance.setMask(mask)
-
-  $: shouldApplyProps(name) && instance.setName(name)
-
-  $: shouldApplyProps(originX, originY) && instance.setOrigin(originX, originY)
-
-  $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
-
-  $: shouldApplyProps(rotation) && instance.setRotation(rotation)
-
-  $: applyScale(instance, { scale, scaleX, scaleY })
-
-  $: shouldApplyProps(scrollFactorX, scrollFactorY) &&
-    instance.setScrollFactor(scrollFactorX, scrollFactorY)
-
-  $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
-
-  $: shouldApplyProps(visible) && instance.setVisible(visible)
-
-  $: shouldApplyProps(w) && instance.setW(w)
-  $: shouldApplyProps(x) && instance.setX(x)
-  $: shouldApplyProps(y) && instance.setY(y)
-  $: shouldApplyProps(z) && instance.setZ(z)
-
-  $: shouldApplyProps(height, width) && instance.setSize(width, height)
-
-  $: shouldApplyProps(draggable) &&
-    interactive &&
-    scene.input.setDraggable(instance, draggable)
-
-  $: shouldApplyProps(fillColor, fillAlpha) &&
-    instance.setFillStyle(fillColor, fillAlpha)
-
-  $: shouldApplyProps(strokeColor, strokeWidth, strokeAlpha) &&
-    instance.setStrokeStyle(strokeWidth, strokeColor, strokeAlpha)
-
   $: if (shouldApplyProps(x1, x2, x3, y1, y2, y3)) {
     instance.setTo(x1, y1, x2, y2, x3, y3)
   }
 
-  // position values will conflict with velocity if they're
-  // in the prestep event. it seems fine in prerender...
-  onGameEvent('prerender', () => {
-    w = instance.w
-    x = instance.x
-    y = instance.y
-    z = instance.z
-  })
-
   onGameEvent('prestep', () => {
-    if (instance.data) {
-      data = instance.data.get()
-    }
-    active = instance.active
-    alpha = instance.alpha
-    angle = instance.angle
-    blendMode = instance.blendMode
-    displayOriginX = instance.displayOriginX
-    displayOriginY = instance.displayOriginY
-    height = instance.height
-    width = instance.width
-    mask = instance.mask
-    name = instance.name
-    originX = instance.originX
-    originY = instance.originY
-    renderFlags = instance.renderFlags
-    rotation = instance.rotation
-    scale = instance.scale
-    scaleX = instance.scaleX
-    scaleY = instance.scaleY
-    scrollFactorX = instance.scrollFactorX
-    scrollFactorY = instance.scrollFactorY
-    tabIndex = instance.tabIndex
-    visible = instance.visible
-
-    // check if filled or stroked because these values get defaulted by phaser
-    // and would cause them to be set
-    if (instance.isFilled) {
-      fillColor = instance.fillColor
-      fillAlpha = instance.fillAlpha
-    }
-    if (instance.iStroked) {
-      strokeAlpha = instance.strokeAlpha
-      strokeColor = instance.strokeColor
-      strokeWidth = instance.lineWidth
-    }
-
     x1 = instance.geom.x1
     x2 = instance.geom.x2
     x3 = instance.geom.x3
@@ -528,4 +389,41 @@
 </script>
 
 <svelte:options immutable />
-<slot />
+<Shape
+  bind:instance
+  bind:active
+  bind:alpha
+  bind:angle
+  bind:blendMode
+  bind:data
+  bind:depth
+  bind:displayHeight
+  bind:displayWidth
+  bind:displayOriginX
+  bind:displayOriginY
+  bind:draggable
+  bind:height
+  bind:interactive
+  bind:mask
+  bind:name
+  bind:originX
+  bind:originY
+  bind:renderFlags
+  bind:rotation
+  bind:scale
+  bind:scaleX
+  bind:scaleY
+  bind:scrollFactorX
+  bind:scrollFactorY
+  bind:tabIndex
+  bind:visible
+  bind:w
+  bind:width
+  bind:x
+  bind:y
+  bind:z
+  bind:fillAlpha
+  bind:fillColor
+  bind:strokeAlpha
+  bind:strokeColor
+  bind:strokeWidth />
