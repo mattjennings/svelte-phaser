@@ -3,6 +3,7 @@
 
   - [Arc](components/arc)
   - [Camera](components/camera)
+  - [Container](components/container)
   - [Curve](components/curve)
   - [Ellipse](components/ellipse)
   - [Game](components/game)

@@ -7,8 +7,6 @@ I have no timelines for anything. I am slowly chipping away at making components
 - BitmapText
 - Blitter
 - Bob
-- Container
-- Path Follower
 - Sprite3D
 - Video
 - Zone
@@ -17,9 +15,6 @@ I have no timelines for anything. I am slowly chipping away at making components
 - Lights
 - Mesh
 - Quad
-
-I have not used a lot of these Phaser game objects personally, so it will take me some time
-to understand them and then figure out how they might work as Svelte components.
 
 ## Physics
 
