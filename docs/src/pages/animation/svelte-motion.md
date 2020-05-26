@@ -89,7 +89,6 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
   height={400}>
   <Scene key="main">
     <Rectangle
-      type="stroke"
       x={200}
       y={200}
       width={barWidth}
