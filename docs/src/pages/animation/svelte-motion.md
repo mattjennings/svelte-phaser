@@ -11,10 +11,10 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
   import { Game, Scene, Text, Sprite } from 'svelte-phaser'
   import { spring } from 'svelte/motion'
 
-  const position = { x: 300, y: 300 }
+  const startingPosition = { x: 300, y: 300 }
 
-  const coords = spring(
-    position,
+  const position = spring(
+    startingPosition,
     {
       stiffness: 0.2,
       damping: 0.4,
@@ -22,14 +22,14 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
   )
 
   function handleDrag(event) {
-    coords.update($coords => ({
+    position.update($position => ({
       x: event.detail.dragX,
       y: event.detail.dragY,
     }), { hard: true })
   }
 
   function handleDragEnd() {
-    coords.set(position, { soft: 0.2 })
+    position.set(startingPosition, { soft: 0.2 })
   }
 </script>
 
@@ -45,9 +45,9 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
     <Sprite
       texture="mushroom"
       draggable
-      x={$coords.x}
-      y={$coords.y}
-      rotation={($coords.x - position.x) * 0.02}
+      x={$position.x}
+      y={$position.y}
+      rotation={($position.x - startingPosition.x) * 0.02}
       on:drag={handleDrag}
       on:dragend={handleDragEnd} />
   </Scene>
