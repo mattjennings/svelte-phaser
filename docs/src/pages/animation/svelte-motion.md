@@ -63,7 +63,7 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
   import { tweened } from 'svelte/motion'
   import { cubicOut } from 'svelte/easing'
 
-  const barWidth = 360
+  const barWidth = 200
 
   const progress = tweened(barWidth / 5, {
     duration: 400,
@@ -90,21 +90,20 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
   <Scene key="main">
     <Rectangle
       type="stroke"
-      x={10}
-      y={50}
+      x={200}
+      y={200}
       width={barWidth}
       height={50}
       strokeWidth={5}
-      strokeColor={0xff0000}
-      cornerRadius={5}>
-      <Rectangle
-        x={10}
-        y={50}
-        width={$progress}
-        height={50}
-        fillColor={0xff0000}
-        cornerRadius={5} />
-      </Rectangle>
+      strokeColor={0xff0000} />
+    <Rectangle
+      x={100}
+      y={200}
+      originX={0}
+      originY={0.5}
+      width={$progress}
+      height={50}
+      fillColor={0xff0000} />
   </Scene>
 </Game>
 ```
