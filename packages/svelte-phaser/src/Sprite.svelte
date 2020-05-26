@@ -636,7 +636,18 @@
   bind:data
   bind:renderFlags
   bind:draggable
-  bind:interactive>
+  bind:interactive
+  on:drag
+  on:dragenter
+  on:dragleave
+  on:dragend
+  on:dragstart
+  on:drop
+  on:pointerdown
+  on:pointermove
+  on:pointerout
+  on:pointerup
+  on:pointerwheel>
   <Alpha
     bind:alpha
     bind:alphaTopLeft

@@ -480,7 +480,6 @@
 </script>
 
 <svelte:options immutable />
-<slot />
 
 <Alpha
   gameObject={instance}
@@ -499,3 +498,5 @@
   bind:tintFill />
 <Origin gameObject={instance} bind:originX bind:originY />
 <Visible gameObject={instance} bind:visible />
+
+<slot />

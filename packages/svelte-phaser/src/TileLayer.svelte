@@ -436,7 +436,15 @@
 
 <svelte:options immutable />
 
-<GameObject bind:instance bind:name bind:renderFlags>
+<GameObject
+  bind:instance
+  bind:name
+  bind:renderFlags
+  on:pointerdown
+  on:pointermove
+  on:pointerout
+  on:pointerup
+  on:pointerwheel>
   <Alpha
     bind:alpha
     bind:alphaTopLeft
