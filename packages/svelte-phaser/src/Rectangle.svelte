@@ -321,6 +321,12 @@
    */
   export let strokeWidth = undefined
 
+  /**
+   * Sets the active WebGL Pipeline of this Game Object.
+   * @type {string}
+   */
+  export let pipeline = undefined
+
   const scene = getScene()
 
   export let instance = new Phaser.GameObjects.Rectangle(
@@ -361,6 +367,7 @@
   bind:scaleY
   bind:scrollFactorX
   bind:scrollFactorY
+  bind:pipeline
   bind:tabIndex
   bind:visible
   bind:w
@@ -372,4 +379,6 @@
   bind:fillColor
   bind:strokeAlpha
   bind:strokeColor
-  bind:strokeWidth />
+  bind:strokeWidth>
+  <slot />
+</Shape>

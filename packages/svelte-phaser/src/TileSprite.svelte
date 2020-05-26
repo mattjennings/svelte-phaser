@@ -1,6 +1,5 @@
 <script>
   import Phaser from './phaser.js'
-  import { onMount, createEventDispatcher } from 'svelte'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
   import { getScene } from './getScene'
@@ -430,7 +429,6 @@
    */
   export let pipeline = undefined
 
-  const dispatch = createEventDispatcher()
   const scene = getScene()
 
   export let instance = new Phaser.GameObjects.TileSprite(

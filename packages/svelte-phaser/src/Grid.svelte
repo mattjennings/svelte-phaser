@@ -353,6 +353,12 @@
    */
   export let outlineFillAlpha = undefined
 
+  /**
+   * Sets the active WebGL Pipeline of this Game Object.
+   * @type {string}
+   */
+  export let pipeline = undefined
+
   const scene = getScene()
 
   export let instance = new Phaser.GameObjects.Grid(
@@ -421,4 +427,7 @@
   bind:fillColor
   bind:strokeAlpha
   bind:strokeColor
-  bind:strokeWidth />
+  bind:strokeWidth
+  bind:pipeline>
+  <slot />
+</Shape>
