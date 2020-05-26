@@ -13,11 +13,15 @@
    */
   export let visible = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
-  $: shouldApplyProps(visible) && instance.setVisible(visible)
+  $: shouldApplyProps(visible) && gameObject.setVisible(visible)
 
   onGameEvent('prestep', () => {
-    visible = instance.visible
+    visible = gameObject.visible
   })
 </script>

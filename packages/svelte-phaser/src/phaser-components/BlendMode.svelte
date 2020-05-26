@@ -25,11 +25,15 @@
    */
   export let blendMode = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
-  $: shouldApplyProps(blendMode) && instance.setBlendMode(blendMode)
+  $: shouldApplyProps(blendMode) && gameObject.setBlendMode(blendMode)
 
   onGameEvent('prestep', () => {
-    blendMode = instance.blendMode
+    blendMode = gameObject.blendMode
   })
 </script>

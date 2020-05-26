@@ -35,14 +35,18 @@
    */
   export let scrollFactorY = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
   $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
-    instance.setScrollFactor(scrollFactorX, scrollFactorY)
+    gameObject.setScrollFactor(scrollFactorX, scrollFactorY)
   }
 
   onGameEvent('prestep', () => {
-    scrollFactorX = instance.scrollFactorX
-    scrollFactorY = instance.scrollFactorY
+    scrollFactorX = gameObject.scrollFactorX
+    scrollFactorY = gameObject.scrollFactorY
   })
 </script>

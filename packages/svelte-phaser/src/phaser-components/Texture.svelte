@@ -16,19 +16,23 @@
    */
   export let frame = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
   $: if (shouldApplyProps(texture, frame)) {
-    instance.setTexture(texture, frame)
+    gameObject.setTexture(texture, frame)
   }
 
   onGameEvent('prestep', () => {
-    if (instance.texture && instance.texture.key) {
-      texture = instance.texture.key
+    if (gameObject.texture && gameObject.texture.key) {
+      texture = gameObject.texture.key
     }
 
-    if (instance.frame) {
-      frame = instance.frame.name
+    if (gameObject.frame) {
+      frame = gameObject.frame.name
     }
   })
 </script>

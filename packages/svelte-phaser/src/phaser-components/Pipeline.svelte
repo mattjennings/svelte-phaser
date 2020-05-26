@@ -9,11 +9,15 @@
    */
   export let pipeline = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
-  $: shouldApplyProps(pipeline) && instance.setPipeline(pipeline)
+  $: shouldApplyProps(pipeline) && gameObject.setPipeline(pipeline)
 
   onGameEvent('prestep', () => {
-    pipeline = instance.pipeline
+    pipeline = gameObject.pipeline
   })
 </script>

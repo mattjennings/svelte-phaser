@@ -1,11 +1,11 @@
 <script>
-  import { getScene } from '../getScene'
-  import { onGameEvent } from '../onGameEvent'
+  import { getScene } from './getScene'
+  import { onGameEvent } from './onGameEvent'
   import {
     shouldApplyProps,
     createPhaserEventDispatcher,
     addInstance,
-  } from '../util'
+  } from './util'
   import { onMount, createEventDispatcher, setContext } from 'svelte'
 
   /**

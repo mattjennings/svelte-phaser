@@ -7,6 +7,12 @@
   import { onSceneEvent } from './onSceneEvent'
   import { onGameEvent } from './onGameEvent'
 
+  import Alpha from './phaser-components/Alpha.svelte'
+  import Flip from './phaser-components/Flip.svelte'
+  import Tint from './phaser-components/Tint.svelte'
+  import Origin from './phaser-components/Origin.svelte'
+  import Visible from './phaser-components/Visible.svelte'
+
   /**
    * The Camera alpha value. Setting this property impacts every single object that this Camera renders.
    *
@@ -395,14 +401,6 @@
     }
   }
 
-  $: applyAlpha(instance, {
-    alpha,
-    alphaBottomLeft,
-    alphaBottomRight,
-    alphaTopLeft,
-    alphaTopRight,
-  })
-
   $: shouldApplyProps(backgroundColor) &&
     instance.setBackgroundColor(backgroundColor)
 
@@ -418,10 +416,6 @@
 
   $: shouldApplyProps(fadeEffect) && (instance.fadeEffect = fadeEffect)
   $: shouldApplyProps(flashEffect) && (instance.flashEffect = flashEffect)
-
-  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
-
-  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
 
   $: if (shouldApplyProps(followOffsetX, followOffsetY)) {
     instance.setFollowOffset(followOffsetX, followOffsetY)
@@ -439,10 +433,6 @@
 
   $: shouldApplyProps(name) && instance.setName(name)
 
-  $: if (shouldApplyProps(originX, originY)) {
-    instance.setOrigin(originX, originY)
-  }
-
   $: shouldApplyProps(panEffect) && (instance.panEffect = panEffect)
 
   $: shouldApplyProps(roundPixels) && (instance.roundPixels = roundPixels)
@@ -453,16 +443,7 @@
 
   $: shouldApplyProps(shakeEffect) && (instance.shakeEffect = shakeEffect)
 
-  $: applyTint(instance, {
-    tintBottomLeft,
-    tintBottomRight,
-    tintTopLeft,
-    tintTopRight,
-    tintFill,
-  })
-
   $: shouldApplyProps(transparent) && (instance.transparent = transparent)
-  $: shouldApplyProps(visible) && instance.setVisible(visible)
 
   $: shouldApplyProps(zoom) && instance.setZoom(zoom)
   $: shouldApplyProps(zoomEffect) && (instance.zoomEffect = zoomEffect)
@@ -481,14 +462,7 @@
   })
 
   onGameEvent('prestep', () => {
-    alpha = instance.alpha
-    alphaBottomLeft = instance.alphaBottomLeft
-    alphaBottomRight = instance.alphaBottomRight
     backgroundColor = instance.backgroundColor
-    alphaTopLeft = instance.alphaTopLeft
-    alphaTopRight = instance.alphaTopRight
-    flipX = instance.flipX
-    flipY = instance.flipY
     followOffsetX = instance.followOffset.x
     followOffsetY = instance.followOffset.y
     inputEnabled = instance.inputEnabled
@@ -497,18 +471,10 @@
     height = instance.height
     mask = instance.mask
     name = instance.name
-    originX = instance.originX
-    originY = instance.originY
     roundPixels = instance.roundPixels
     scrollX = instance.scrollX
     scrollY = instance.scrollY
     transparent = instance.transparent
-    tintBottomLeft = instance.tintBottomLeft
-    tintBottomRight = instance.tintBottomRight
-    tintTopLeft = instance.tintTopLeft
-    tintTopRight = instance.tintTopRight
-    tintFill = instance.tintFill
-    visible = instance.visible
     width = instance.width
     zoom = instance.zoom
   })
@@ -516,3 +482,21 @@
 
 <svelte:options immutable />
 <slot />
+
+<Alpha
+  gameObject={instance}
+  bind:alpha
+  bind:alphaTopLeft
+  bind:alphaTopRight
+  bind:alphaBottomLeft
+  bind:alphaBottomRight />
+<Flip gameObject={instance} bind:flipX bind:flipY />
+<Tint
+  gameObject={instance}
+  bind:tintTopLeft
+  bind:tintTopRight
+  bind:tintBottomLeft
+  bind:tintBottomRight
+  bind:tintFill />
+<Origin gameObject={instance} bind:originX bind:originY />
+<Visible gameObject={instance} bind:visible />

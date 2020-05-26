@@ -38,10 +38,14 @@
    */
   export let alphaTopRight = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
-  $: if (shouldApplyProps(alpha) && alpha !== instance.alpha) {
-    instance.setAlpha(alpha)
+  $: if (shouldApplyProps(alpha) && alpha !== gameObject.alpha) {
+    gameObject.setAlpha(alpha)
   } else if (
     shouldApplyProps(
       alphaTopLeft,
@@ -51,12 +55,12 @@
     )
   ) {
     if (
-      alphaTopLeft !== instance.alphaTopLeft ||
-      alphaTopRight !== instance.alphaTopRight ||
-      alphaBottomLeft !== instance.alphaBottomLeft ||
-      alphaBottomRight !== instance.alphaBottomRight
+      alphaTopLeft !== gameObject.alphaTopLeft ||
+      alphaTopRight !== gameObject.alphaTopRight ||
+      alphaBottomLeft !== gameObject.alphaBottomLeft ||
+      alphaBottomRight !== gameObject.alphaBottomRight
     ) {
-      instance.setAlpha(
+      gameObject.setAlpha(
         alphaTopLeft,
         alphaTopRight,
         alphaBottomLeft,
@@ -66,10 +70,10 @@
   }
 
   onGameEvent('prestep', () => {
-    alpha = instance.alpha
-    alphaBottomLeft = instance.alphaBottomLeft
-    alphaBottomRight = instance.alphaBottomRight
-    alphaTopLeft = instance.alphaTopLeft
-    alphaTopRight = instance.alphaTopRight
+    alpha = gameObject.alpha
+    alphaBottomLeft = gameObject.alphaBottomLeft
+    alphaBottomRight = gameObject.alphaBottomRight
+    alphaTopLeft = gameObject.alphaTopLeft
+    alphaTopRight = gameObject.alphaTopRight
   })
 </script>

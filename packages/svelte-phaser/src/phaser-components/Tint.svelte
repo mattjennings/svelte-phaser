@@ -35,7 +35,11 @@
    */
   export let tintTopRight = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
   $: if (
     shouldApplyProps(
@@ -47,12 +51,12 @@
     )
   ) {
     if (
-      tintTopLeft !== instance.tintTopLeft ||
-      tintTopRight !== instance.tintTopRight ||
-      tintBottomLeft !== instance.tintBottomLeft ||
-      tintBottomRight !== instance.tintBottomRight
+      tintTopLeft !== gameObject.tintTopLeft ||
+      tintTopRight !== gameObject.tintTopRight ||
+      tintBottomLeft !== gameObject.tintBottomLeft ||
+      tintBottomRight !== gameObject.tintBottomRight
     ) {
-      instance.setTint(
+      gameObject.setTint(
         tintTopLeft,
         tintTopRight,
         tintBottomLeft,
@@ -63,9 +67,9 @@
   }
 
   onGameEvent('prestep', () => {
-    tintBottomLeft = instance.tintBottomLeft
-    tintBottomRight = instance.tintBottomRight
-    tintTopLeft = instance.tintTopLeft
-    tintTopRight = instance.tintTopRight
+    tintBottomLeft = gameObject.tintBottomLeft
+    tintBottomRight = gameObject.tintBottomRight
+    tintTopLeft = gameObject.tintTopLeft
+    tintTopRight = gameObject.tintTopRight
   })
 </script>

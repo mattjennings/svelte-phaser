@@ -72,40 +72,44 @@
    */
   export let z = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
-  $: shouldApplyProps(angle) && instance.setAngle(angle)
+  $: shouldApplyProps(angle) && gameObject.setAngle(angle)
 
-  $: if (shouldApplyProps(scale) && scale !== instance.scale) {
-    instance.setScale(scale)
+  $: if (shouldApplyProps(scale) && scale !== gameObject.scale) {
+    gameObject.setScale(scale)
   } else if (
     shouldApplyProps(scaleX, scaleY) &&
-    (scaleX !== instance.scaleX || scaleY !== instance.scaleY)
+    (scaleX !== gameObject.scaleX || scaleY !== gameObject.scaleY)
   ) {
-    instance.setScale(scaleX, scaleY)
+    gameObject.setScale(scaleX, scaleY)
   }
 
-  $: shouldApplyProps(rotation) && instance.setRotation(rotation)
+  $: shouldApplyProps(rotation) && gameObject.setRotation(rotation)
 
-  $: shouldApplyProps(w) && instance.setW(w)
-  $: shouldApplyProps(x) && instance.setX(x)
-  $: shouldApplyProps(y) && instance.setY(y)
-  $: shouldApplyProps(z) && instance.setZ(z)
+  $: shouldApplyProps(w) && gameObject.setW(w)
+  $: shouldApplyProps(x) && gameObject.setX(x)
+  $: shouldApplyProps(y) && gameObject.setY(y)
+  $: shouldApplyProps(z) && gameObject.setZ(z)
 
   onGameEvent('prestep', () => {
-    angle = instance.angle
-    rotation = instance.rotation
-    scale = instance.scale
-    scaleX = instance.scaleX
-    scaleY = instance.scaleY
+    angle = gameObject.angle
+    rotation = gameObject.rotation
+    scale = gameObject.scale
+    scaleX = gameObject.scaleX
+    scaleY = gameObject.scaleY
   })
 
   // position values will conflict with velocity if they're
   // in the prestep event. it seems fine in prerender...
   onGameEvent('prerender', () => {
-    w = instance.w
-    x = instance.x
-    y = instance.y
-    z = instance.z
+    w = gameObject.w
+    x = gameObject.x
+    y = gameObject.y
+    z = gameObject.z
   })
 </script>

@@ -21,13 +21,17 @@
    */
   export let flipY = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
-  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
-  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
+  $: shouldApplyProps(flipX) && gameObject.setFlipX(flipX)
+  $: shouldApplyProps(flipY) && gameObject.setFlipY(flipY)
 
   onGameEvent('prestep', () => {
-    flipX = instance.flipX
-    flipY = instance.flipY
+    flipX = gameObject.flipX
+    flipY = gameObject.flipY
   })
 </script>

@@ -38,20 +38,24 @@
    */
   export let originY = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
   $: if (shouldApplyProps(displayOriginX, displayOriginY)) {
-    instance.setDisplayOrigin(displayOriginX, displayOriginY)
+    gameObject.setDisplayOrigin(displayOriginX, displayOriginY)
   }
 
   $: if (shouldApplyProps(originX, originY)) {
-    instance.setOrigin(originX, originY)
+    gameObject.setOrigin(originX, originY)
   }
 
   onGameEvent('prestep', () => {
-    originX = instance.originX
-    originY = instance.originY
-    displayOriginX = instance.displayOriginX
-    displayOriginY = instance.displayOriginY
+    originX = gameObject.originX
+    originY = gameObject.originY
+    displayOriginX = gameObject.displayOriginX
+    displayOriginY = gameObject.displayOriginY
   })
 </script>

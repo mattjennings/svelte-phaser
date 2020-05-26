@@ -12,11 +12,15 @@
    */
   export let depth = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
-  $: shouldApplyProps(depth) && instance.setDepth(depth)
+  $: shouldApplyProps(depth) && gameObject.setDepth(depth)
 
   onGameEvent('prestep', () => {
-    depth = instance.depth
+    depth = gameObject.depth
   })
 </script>

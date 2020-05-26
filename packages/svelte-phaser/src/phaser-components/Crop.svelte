@@ -10,8 +10,12 @@
    */
   export let crop = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
   $: shouldApplyProps(crop) &&
-    instance.setCrop(crop.x, crop.y, crop.width, crop.height)
+    gameObject.setCrop(crop.x, crop.y, crop.width, crop.height)
 </script>

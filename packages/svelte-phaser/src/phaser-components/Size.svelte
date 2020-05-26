@@ -32,22 +32,26 @@
    */
   export let width = undefined
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
   $: if (shouldApplyProps(displayHeight, displayWidth)) {
-    instance.setDisplaySize(displayWidth, displayHeight)
+    gameObject.setDisplaySize(displayWidth, displayHeight)
   }
 
   $: if (shouldApplyProps(height, width)) {
-    instance.setSize(width, height)
+    gameObject.setSize(width, height)
   }
 
   onGameEvent('prestep', () => {
     // may not be safe to bind? todo: test it
-    // displayHeight = instance.displayHeight
-    // displayWidth = instance.displayWidth
+    // displayHeight = gameObject.displayHeight
+    // displayWidth = gameObject.displayWidth
 
-    height = instance.height
-    width = instance.width
+    height = gameObject.height
+    width = gameObject.width
   })
 </script>

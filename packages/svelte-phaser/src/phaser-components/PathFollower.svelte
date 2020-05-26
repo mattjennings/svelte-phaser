@@ -22,24 +22,28 @@
    */
   export let rotateToPath = false
 
-  const instance = getGameObject()
+  /**
+   * Defaults to the parent game object in Svelte context. If you need to provide
+   * the instance yourself, you can do so here.
+   */
+  export let gameObject = getGameObject()
 
   // not sure if this is safe? we somehow need to give the instance PathFollower capabilities
-  Object.assign(instance, Phaser.GameObjects.Components.PathFollower)
+  Object.assign(gameObject, Phaser.GameObjects.Components.PathFollower)
 
   $: if (shouldApplyProps(path)) {
     if (path) {
-      instance.setPath(path, pathConfig)
-      instance.startFollow(pathConfig)
+      gameObject.setPath(path, pathConfig)
+      gameObject.startFollow(pathConfig)
     } else {
-      instance.stopFollow()
+      gameObject.stopFollow()
     }
   }
 
-  $: shouldApplyProps(rotateToPath) && instance.setRotateToPath(rotateToPath)
+  $: shouldApplyProps(rotateToPath) && gameObject.setRotateToPath(rotateToPath)
 
   onGameEvent('prestep', () => {
-    path = instance.path
-    rotateToPath = instance.rotateToPath
+    path = gameObject.path
+    rotateToPath = gameObject.rotateToPath
   })
 </script>
