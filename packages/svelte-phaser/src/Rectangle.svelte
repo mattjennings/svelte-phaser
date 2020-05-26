@@ -379,6 +379,17 @@
   bind:fillColor
   bind:strokeAlpha
   bind:strokeColor
-  bind:strokeWidth>
+  bind:strokeWidth
+  on:drag
+  on:dragenter
+  on:dragleave
+  on:dragend
+  on:dragstart
+  on:drop
+  on:pointerdown
+  on:pointermove
+  on:pointerout
+  on:pointerup
+  on:pointerwheel>
   <slot />
 </Shape>

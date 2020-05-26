@@ -409,6 +409,17 @@
   bind:x
   bind:y
   bind:z
-  bind:pipeline>
+  bind:pipeline
+  on:drag
+  on:dragenter
+  on:dragleave
+  on:dragend
+  on:dragstart
+  on:drop
+  on:pointerdown
+  on:pointermove
+  on:pointerout
+  on:pointerup
+  on:pointerwheel>
   <slot />
 </Shape>
