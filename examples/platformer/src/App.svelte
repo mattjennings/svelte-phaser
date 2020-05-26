@@ -3,14 +3,13 @@
   import {
     Game,
     Scene,
-    Text,
     Camera,
     Tilemap,
     TileLayer,
-    ObjectLayer,
     Spawner,
   } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
+  import LoadingBar from './LoadingBar.svelte'
   import Player from './Player.svelte'
 
   let game
@@ -87,11 +86,7 @@
     {preload}
     {create}>
     <template use:fragment slot="loading" let:progress>
-      <Text
-        x={100}
-        y={100}
-        text={`Loading... ${progress * 100}%`}
-        color="white" />
+      <LoadingBar x={128} y={112} {progress} />
     </template>
 
     <Spawner>

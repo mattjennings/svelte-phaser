@@ -4,7 +4,7 @@
   import { tweened } from 'svelte/motion'
   import { cubicOut } from 'svelte/easing'
 
-  const barWidth = 400
+  const barWidth = 100
 
   export let x
   export let y
@@ -22,7 +22,7 @@
   <!-- outer bar -->
   <Rectangle
     width={barWidth}
-    height={50}
+    height={10}
     fillColor={0x777777}
     {...$$restProps} />
   <!-- inner bar -->
@@ -31,6 +31,6 @@
     originX={0}
     originY={0.5}
     width={Phaser.Math.Clamp(barWidth * $tweenedProgress, 10, barWidth)}
-    height={50}
+    height={10}
     fillColor={0xbbbbbb} />
 </Container>

@@ -28,7 +28,7 @@
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main" {preload}>
     <template use:fragment slot="loading" let:progress>
-      <LoadingBar x={100} y={100} {progress} />
+      <LoadingBar x={400} y={400} {progress} />
     </template>
     <Breakout />
   </Scene>
