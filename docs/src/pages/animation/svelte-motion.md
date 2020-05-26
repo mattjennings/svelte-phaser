@@ -2,6 +2,8 @@
 
 You can use `svelte/motion` for animations just as you would in other Svelte applications.
 
+## Spring
+
 This is a recreation of an example from [a svelte.dev tutorial](https://svelte.dev/tutorial/actions)
 
 ```example
@@ -48,6 +50,61 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
       rotation={($position.x - startingPosition.x) * 0.02}
       on:drag={handleDrag}
       on:dragend={handleDragEnd} />
+  </Scene>
+</Game>
+```
+
+## Tween
+
+```example
+<script>
+  import { onMount} from 'svelte'
+  import { Game, Scene, Rectangle} from 'svelte-phaser'
+  import { tweened } from 'svelte/motion'
+  import { cubicOut } from 'svelte/easing'
+
+  const barWidth = 360
+
+  const progress = tweened(barWidth / 5, {
+    duration: 400,
+    easing: cubicOut
+  })
+
+
+  onMount(() => {
+    const interval = setInterval(() => {
+      if ($progress < barWidth) {
+      $progress += barWidth / 5
+      } else {
+        $progress = barWidth / 5
+      }
+    }, 1000)
+
+    return () => clearInterval(interval)
+  })
+</script>
+
+<Game
+  width={400}
+  height={400}>
+  <Scene key="main">
+    <Rectangle
+      type="stroke"
+      x={10}
+      y={50}
+      width={barWidth}
+      height={50}
+      strokeWidth={5}
+      strokeColor={0xff0000}
+      cornerRadius={5}>
+      <Rectangle
+        x={10}
+        y={50}
+        width={$progress}
+        height={50}
+        fillColor={0xff0000}
+        cornerRadius={5} />
+      </Rectangle>
   </Scene>
 </Game>
 ```

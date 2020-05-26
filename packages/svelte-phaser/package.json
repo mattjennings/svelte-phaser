@@ -1,16 +1,16 @@
 {
   "name": "svelte-phaser",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Create Phaser 3 games with Svelte 3",
   "repository": "https://github.com/mattjennings/svelte-phaser",
   "svelte": "src/index.mjs",
   "main": "src/index.mjs",
   "scripts": {
-    "publish:prod": "npm publish --tag latest",
-    "publish:next": "npm publish --tag next",
-    "prepublishOnly": "npm run test",
+    "publish:prod": "yarn publish --tag latest",
+    "publish:next": "yarn publish --tag next",
+    "prepublishOnly": "yarn test",
     "test": "NODE_ENV=test jest",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "yarn test -- --watch"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.9.6",

@@ -1,7 +1,8 @@
 import { getContext, onMount } from 'svelte'
+import { getScene } from './getScene.js'
 
 export function onInputEvent(event, callback) {
-  const scene = getContext('phaser/scene')
+  const scene = getScene()
 
   onMount(() => {
     scene.input.on(event, callback)

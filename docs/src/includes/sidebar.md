@@ -1,19 +1,31 @@
 - [Getting Started](getting-started)
 - Components
 
-  - [Game](components/game)
-  - [Scene](components/scene)
+  - [Arc](components/arc)
   - [Camera](components/camera)
-  - [Text](components/text)
+  - [Container](components/container)
+  - [Curve](components/curve)
+  - [Ellipse](components/ellipse)
+  - [Game](components/game)
+  - [Grid](components/grid)
+  - [IsoBox](components/iso-box)
+  - [IsoTriangle](components/iso-triangle)
+  - [Line](components/line)
+  - [Polygon](components/polygon)
+  - [Rectangle](components/rectangle)
+  - [Scene](components/scene)
   - [Sprite](components/sprite)
+  - [Star](components/star)
   - [TileSprite](components/tile-sprite)
+  - [Text](components/text)
+  - [Triangle](components/triangle)
+  - Physics
+    - [ArcadePhysics](components/physics/arcade-physics)
+    - [ArcadeCollider](components/physics/arcade-collider)
   - Tilemaps
     - [Tilemap](components/tilemap)
     - [TileLayer](components/tile-layer)
     - [ObjectLayer](components/object-layer)
-  - Physics
-    - [ArcadePhysics](components/arcade-physics)
-    - [ArcadeCollider](components/arcade-collider)
 
 - Animation
 

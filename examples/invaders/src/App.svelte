@@ -3,11 +3,13 @@
   import { Game, Scene, Text, Spawner } from 'svelte-phaser'
   import fragment from 'svelte-fragment'
 
+  import LoadingBar from './LoadingBar.svelte'
   import Background from './Background.svelte'
   import Player from './Player.svelte'
   import Enemies from './Enemies.svelte'
   import UI from './UI.svelte'
   import { lives } from './store'
+
   let game
 
   $: window.game = game
@@ -65,11 +67,7 @@
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main" {preload} {create}>
     <template use:fragment slot="loading" let:progress>
-      <Text
-        x={100}
-        y={100}
-        text={`Loading... ${progress * 100}%`}
-        color="white" />
+      <LoadingBar x={400} y={300} {progress} />
     </template>
 
     <Spawner>

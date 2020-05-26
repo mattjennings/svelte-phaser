@@ -1,11 +1,10 @@
 <script>
-  import { getContext } from 'svelte'
-  import { onGameEvent, onInputEvent } from 'svelte-phaser'
+  import { onGameEvent, onInputEvent, getScene } from 'svelte-phaser'
   import Paddle from './Paddle.svelte'
   import Ball from './Ball.svelte'
   import Block from './Block.svelte'
 
-  const scene = getContext('phaser/scene')
+  const scene = getScene()
 
   // set collisions on all edges of world except bottom
   scene.physics.world.setBoundsCollision(true, true, true, false)
