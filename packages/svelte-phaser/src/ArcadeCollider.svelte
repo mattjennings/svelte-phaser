@@ -2,6 +2,7 @@
   import { getContext, onMount, createEventDispatcher } from 'svelte'
   import { toArray, findGameObjectsByName } from './util'
   import { onSceneEvent } from './onSceneEvent'
+  import { getScene } from './getScene.js'
 
   const dispatch = createEventDispatcher()
   const parent =
@@ -15,7 +16,7 @@
 
   export { _with as with }
 
-  const scene = getContext('phaser/scene')
+  const scene = getScene()
   const collider = overlapOnly
     ? scene.physics.add.overlap(
         [parent],

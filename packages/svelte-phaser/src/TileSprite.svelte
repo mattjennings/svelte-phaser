@@ -1,19 +1,25 @@
 <script>
   import Phaser from './phaser.js'
-  import {
-    onMount,
-    getContext,
-    setContext,
-    createEventDispatcher,
-  } from 'svelte'
-  import { addInstance, shouldApplyProps } from './util'
-  import {
-    applyAlpha,
-    applyScale,
-    applyTint,
-    applyGameObjectEventDispatchers,
-  } from './props/index'
+  import { onMount, createEventDispatcher } from 'svelte'
+  import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
+  import { getScene } from './getScene'
+
+  import GameObject from './GameObject.svelte'
+  import Alpha from './phaser-components/Alpha.svelte'
+  import BlendMode from './phaser-components/BlendMode.svelte'
+  import Crop from './phaser-components/Crop.svelte'
+  import Depth from './phaser-components/Depth.svelte'
+  import Flip from './phaser-components/Flip.svelte'
+  import Mask from './phaser-components/Mask.svelte'
+  import Origin from './phaser-components/Origin.svelte'
+  import Pipeline from './phaser-components/Pipeline.svelte'
+  import ScrollFactor from './phaser-components/ScrollFactor.svelte'
+  import Size from './phaser-components/Size.svelte'
+  import Texture from './phaser-components/Texture.svelte'
+  import Tint from './phaser-components/Tint.svelte'
+  import Transform from './phaser-components/Transform.svelte'
+  import Visible from './phaser-components/Visible.svelte'
 
   /**
    * The active state of this Game Object. A Game Object with an active state of true is processed by the
@@ -86,6 +92,14 @@
    * @type {Phaser.BlendModes | string}
    */
   export let blendMode = undefined
+
+  /**
+   * Applies a crop to a texture based Game Object, such as a Sprite or Image.
+   *
+   * The object should contain x, y, width and height values.
+   * @type {object}
+   */
+  export let crop = undefined
 
   /**
    * A Data Manager. It allows you to store, query and get key/value paired information specific to this Game Object. null by default.
@@ -410,8 +424,14 @@
    */
   export let tileScaleY = undefined
 
+  /**
+   * Sets the active WebGL Pipeline of this Game Object.
+   * @type {string}
+   */
+  export let pipeline = undefined
+
   const dispatch = createEventDispatcher()
-  const scene = getContext('phaser/scene')
+  const scene = getScene()
 
   export let instance = new Phaser.GameObjects.TileSprite(
     scene,
@@ -423,161 +443,12 @@
     frame
   )
 
-  setContext('phaser/game-object', instance)
-
-  if (!scene.children.exists(instance)) {
-    addInstance(instance)
-    const cleanupDispatchers = applyGameObjectEventDispatchers(
-      instance,
-      dispatch
-    )
-    onMount(() => () => {
-      cleanupDispatchers()
-      instance.destroy()
-    })
-  }
-
-  $: if (interactive === true) {
-    instance.setInteractive()
-  } else if (!interactive) {
-    instance.removeInteractive()
-  } else {
-    instance.setInteractive(
-      interactive.shape,
-      interactive.callback,
-      interactive.dropzone
-    )
-  }
-
-  $: shouldApplyProps(active) && instance.setActive(active)
-
-  $: applyAlpha(instance, {
-    alpha,
-    alphaBottomLeft,
-    alphaBottomRight,
-    alphaTopLeft,
-    alphaTopRight,
-  })
-
-  $: shouldApplyProps(angle) && instance.setAngle(angle)
-
-  $: shouldApplyProps(blendMode) && instance.setBlendMode(blendMode)
-
-  $: shouldApplyProps(data) && instance.setData(data)
-
-  $: shouldApplyProps(depth) && instance.setDepth(depth)
-
-  $: if (shouldApplyProps(displayHeight, displayWidth)) {
-    instance.setDisplaySize(displayWidth, displayHeight)
-  }
-
-  $: if (shouldApplyProps(displayOriginX, displayOriginY)) {
-    instance.setDisplayOrigin(displayOriginX, displayOriginY)
-  }
-
-  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
-
-  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
-
-  $: if (shouldApplyProps(height, width)) {
-    instance.setSize(width, height)
-  }
-
-  $: shouldApplyProps(mask) && instance.setMask(mask)
-
-  $: shouldApplyProps(name) && instance.setName(name)
-
-  $: if (shouldApplyProps(originX, originY)) {
-    instance.setOrigin(originX, originY)
-  }
-
-  $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
-
-  $: shouldApplyProps(rotation) && instance.setRotation(rotation)
-
-  $: applyScale(instance, { scale, scaleX, scaleY })
-
-  $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
-    instance.setScrollFactor(scrollFactorX, scrollFactorY)
-  }
-
-  $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
-
-  $: applyTint(instance, {
-    tintBottomLeft,
-    tintBottomRight,
-    tintTopLeft,
-    tintTopRight,
-    tintFill,
-  })
-
-  $: shouldApplyProps(visible) && instance.setVisible(visible)
-
-  $: shouldApplyProps(w) && instance.setW(w)
-  $: shouldApplyProps(x) && instance.setX(x)
-  $: shouldApplyProps(y) && instance.setY(y)
-  $: shouldApplyProps(z) && instance.setZ(z)
-
-  $: if (shouldApplyProps(texture, frame)) {
-    instance.setTexture(texture, frame)
-  }
   $: shouldApplyProps(tilePositionX) && (instance.tilePositionX = tilePositionX)
   $: shouldApplyProps(tilePositionY) && (instance.tilePositionY = tilePositionY)
   $: shouldApplyProps(tileScaleX) && (instance.tileScaleX = tileScaleX)
   $: shouldApplyProps(tileScaleY) && (instance.tileScaleY = tileScaleY)
 
-  $: shouldApplyProps(draggable, scene.input) &&
-    scene.input.setDraggable(instance, draggable)
-
-  // position values will conflict with velocity if they're
-  // in the prestep event. it seems fine in prerender...
-  onGameEvent('prerender', () => {
-    w = instance.w
-    x = instance.x
-    y = instance.y
-    z = instance.z
-  })
-
   onGameEvent('prestep', () => {
-    active = instance.active
-    alpha = instance.alpha
-    alphaBottomLeft = instance.alphaBottomLeft
-    alphaBottomRight = instance.alphaBottomRight
-    alphaTopLeft = instance.alphaTopLeft
-    alphaTopRight = instance.alphaTopRight
-    angle = instance.angle
-    blendMode = instance.blendMode
-    if (instance.data) {
-      data = instance.data.get()
-    }
-    displayOriginX = instance.displayOriginX
-    displayOriginY = instance.displayOriginY
-    flipX = instance.flipX
-    flipY = instance.flipY
-    height = instance.height
-    mask = instance.mask
-    name = instance.name
-    originX = instance.originX
-    originY = instance.originY
-    renderFlags = instance.renderFlags
-    rotation = instance.rotation
-    scale = instance.scale
-    scaleX = instance.scaleX
-    scaleY = instance.scaleY
-    scrollFactorX = instance.scrollFactorX
-    scrollFactorY = instance.scrollFactorY
-    tabIndex = instance.tabIndex
-    tintBottomLeft = instance.tintBottomLeft
-    tintBottomRight = instance.tintBottomRight
-    tintTopLeft = instance.tintTopLeft
-    tintTopRight = instance.tintTopRight
-    tintFill = instance.tintFill
-    visible = instance.visible
-    width = instance.width
-
-    // texture.key is null? phaser@3.23.0
-    // texture = instance.texture.key
-
     tilePositionX = instance.tilePositionX
     tilePositionY = instance.tilePositionY
     tileScaleX = instance.tileScaleX
@@ -586,4 +457,48 @@
 </script>
 
 <svelte:options immutable />
-<slot />
+
+<GameObject
+  bind:instance
+  bind:active
+  bind:name
+  bind:tabIndex
+  bind:data
+  bind:renderFlags
+  bind:draggable
+  bind:interactive>
+  <Alpha
+    bind:alpha
+    bind:alphaTopLeft
+    bind:alphaTopRight
+    bind:alphaBottomLeft
+    bind:alphaBottomRight />
+  <BlendMode bind:blendMode />
+  <Crop bind:crop />
+  <Depth bind:depth />
+  <Flip bind:flipX bind:flipY />
+  <Mask bind:mask />
+  <Origin bind:originX bind:originY bind:displayOriginX bind:displayOriginY />
+  <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
+  <Size bind:width bind:height bind:displayWidth bind:displayHeight />
+  <Pipeline bind:pipeline />
+  <Texture bind:texture bind:frame />
+  <Transform
+    bind:x
+    bind:y
+    bind:w
+    bind:z
+    bind:scale
+    bind:scaleX
+    bind:scaleY
+    bind:angle
+    bind:rotation />
+  <Tint
+    bind:tintTopLeft
+    bind:tintTopRight
+    bind:tintBottomLeft
+    bind:tintBottomRight
+    bind:tintFill />
+  <Visible bind:visible />
+  <slot />
+</GameObject>

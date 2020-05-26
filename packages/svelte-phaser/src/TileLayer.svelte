@@ -2,8 +2,19 @@
   import { setContext } from 'svelte'
   import { getTilemap } from './getTilemap'
   import { shouldApplyProps } from './util'
-  import { applyAlpha, applyScale } from './props'
   import { onGameEvent } from './onGameEvent'
+
+  import GameObject from './GameObject.svelte'
+  import Alpha from './phaser-components/Alpha.svelte'
+  import BlendMode from './phaser-components/BlendMode.svelte'
+  import Depth from './phaser-components/Depth.svelte'
+  import Flip from './phaser-components/Flip.svelte'
+  import Origin from './phaser-components/Origin.svelte'
+  import Pipeline from './phaser-components/Pipeline.svelte'
+  import ScrollFactor from './phaser-components/ScrollFactor.svelte'
+  import Size from './phaser-components/Size.svelte'
+  import Transform from './phaser-components/Transform.svelte'
+  import Visible from './phaser-components/Visible.svelte'
 
   /**
    * The alpha value of the Game Object. This is a global value,
@@ -360,6 +371,12 @@
    */
   export let z = undefined
 
+  /**
+   * Sets the active WebGL Pipeline of this Game Object.
+   * @type {string}
+   */
+  export let pipeline = undefined
+
   const tilemap = getTilemap()
 
   export let instance =
@@ -385,18 +402,6 @@
 
   setContext('phaser/tilemap-layer', instance)
 
-  $: applyAlpha(instance, {
-    alpha,
-    alphaBottomLeft,
-    alphaBottomRight,
-    alphaTopLeft,
-    alphaTopRight,
-  })
-
-  $: shouldApplyProps(angle) && instance.setAngle(angle)
-
-  $: shouldApplyProps(blendMode) && instance.setBlendMode(blendMode)
-
   $: shouldApplyProps(collisionTiles) &&
     instance.setCollisionTiles(collisionTiles)
   $: shouldApplyProps(collisionTilesBetween) &&
@@ -418,87 +423,42 @@
     }
   }
 
-  $: shouldApplyProps(depth) && instance.setDepth(depth)
-
-  $: if (shouldApplyProps(displayHeight, displayWidth)) {
-    instance.setDisplaySize(displayWidth, displayHeight)
-  }
-
-  $: if (shouldApplyProps(displayOriginX, displayOriginY)) {
-    if (
-      displayOriginX !== instance.displayOriginX ||
-      displayOriginY !== instance.displayOriginY
-    ) {
-      instance.setDisplayOrigin(displayOriginX, displayOriginY)
-    }
-  }
-
-  $: shouldApplyProps(flipX) && instance.setFlipX(flipX)
-
-  $: shouldApplyProps(flipY) && instance.setFlipY(flipY)
-
-  $: if (shouldApplyProps(height, width)) {
-    instance.setSize(width, height)
-  }
-
-  $: shouldApplyProps(name) && instance.setName(name)
-
-  $: if (shouldApplyProps(originX, originY)) {
-    instance.setOrigin(originX, originY)
-  }
-
-  $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
-
-  $: applyScale(instance, { scale, scaleX, scaleY })
-
-  $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
-    instance.setScrollFactor(scrollFactorX, scrollFactorY)
-  }
-
   $: shouldApplyProps(skipCull) && (instance.skipCull = skipCull)
 
   $: shouldApplyProps(visible) && instance.setVisible(visible)
 
-  $: shouldApplyProps(w) && instance.setW(w)
-  $: shouldApplyProps(x) && instance.setX(x)
-  $: shouldApplyProps(y) && instance.setY(y)
-  $: shouldApplyProps(z) && instance.setZ(z)
-
-  onGameEvent('prerender', () => {
-    w = instance.w
-    x = instance.x
-    y = instance.y
-    z = instance.z
-  })
-
   onGameEvent('prestep', () => {
-    alpha = instance.alpha
-    alphaBottomLeft = instance.alphaBottomLeft
-    alphaBottomRight = instance.alphaBottomRight
-    alphaTopLeft = instance.alphaTopLeft
-    alphaTopRight = instance.alphaTopRight
-    angle = instance.angle
-    blendMode = instance.blendMode
     cullPaddingX = instance.cullPaddingX
     cullPaddingY = instance.cullPaddingY
-    displayOriginX = instance.displayOriginX
-    displayOriginY = instance.displayOriginY
-    flipX = instance.flipX
-    flipY = instance.flipY
-    height = instance.height
-    name = instance.name
-    originX = instance.originX
-    originY = instance.originY
-    renderFlags = instance.renderFlags
-    scale = instance.scale
-    scaleX = instance.scaleX
-    scaleY = instance.scaleY
     skipCull = instance.skipCull
-    scrollFactorX = instance.scrollFactorX
-    scrollFactorY = instance.scrollFactorY
-    visible = instance.visible
-    width = instance.width
   })
 </script>
 
-<slot />
+<svelte:options immutable />
+
+<GameObject bind:instance bind:name bind:renderFlags>
+  <Alpha
+    bind:alpha
+    bind:alphaTopLeft
+    bind:alphaTopRight
+    bind:alphaBottomLeft
+    bind:alphaBottomRight />
+  <BlendMode bind:blendMode />
+  <Depth bind:depth />
+  <Flip bind:flipX bind:flipY />
+  <Origin bind:originX bind:originY bind:displayOriginX bind:displayOriginY />
+  <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
+  <Size bind:width bind:height bind:displayWidth bind:displayHeight />
+  <Pipeline bind:pipeline />
+  <Transform
+    bind:x
+    bind:y
+    bind:w
+    bind:z
+    bind:scale
+    bind:scaleX
+    bind:scaleY
+    bind:angle />
+  <Visible bind:visible />
+  <slot />
+</GameObject>

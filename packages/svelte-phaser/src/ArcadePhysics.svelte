@@ -3,6 +3,7 @@
   import { onMount, getContext } from 'svelte'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
+  import { getScene } from './getScene.js'
 
   /**
    * Sets the body's horizontal and vertical acceleration.
@@ -334,7 +335,7 @@
    */
   export let velocityY = undefined
 
-  const scene = getContext('phaser/scene')
+  const scene = getScene()
   const instance = getContext('phaser/game-object')
 
   scene.physics.world.enable(
