@@ -514,6 +514,12 @@
    */
   export let yoyo = undefined
 
+  /**
+   * The current frame index of the animation
+   * @type {number}
+   */
+  export let frameIndex = 0
+
   const dispatch = createEventDispatcher()
   const scene = getScene()
 
@@ -574,7 +580,8 @@
     }
   })
 
-  $: shouldApplyProps(animation) && instance.anims.play(animation, true)
+  $: shouldApplyProps(animation) &&
+    instance.anims.play(animation, true, frameIndex)
 
   $: shouldApplyProps(isPlaying) && (instance.anims.isPlaying = isPlaying)
 
@@ -622,6 +629,7 @@
       repeatDelay = instance.anims.getRepeatDelay()
       timeScale = instance.anims.getTimeScale()
       yoyo = instance.anims.getYoyo()
+      frameIndex = instance.anims.currentFrame.index
     }
   })
 </script>
