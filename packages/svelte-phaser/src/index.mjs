@@ -34,3 +34,5 @@ export * from './onArcadePhysicsEvent'
 export * from './onGameEvent'
 export * from './onInputEvent'
 export * from './onSceneEvent'
+
+export { coroutine, findGameObjectsByName } from './util'
