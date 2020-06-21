@@ -57,5 +57,5 @@ test('animation props', async () => {
   jest.spyOn(instance.anims, 'play')
   $set({ animation: 'run' })
   await tick()
-  expect(instance.anims.play).toHaveBeenCalledWith('run', true)
+  expect(instance.anims.play).toHaveBeenCalledWith('run', false)
 })
