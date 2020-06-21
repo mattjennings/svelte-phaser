@@ -1,6 +1,7 @@
 <script>
   import Phaser from './phaser.js'
   import { getScene } from './getScene'
+  import { getTilemap } from './getTilemap'
   import { setContext } from 'svelte'
   import { shouldApplyProps, findGameObjectsByName } from './util'
   import { onSceneEvent } from './onSceneEvent'
@@ -11,6 +12,9 @@
   import Tint from './phaser-components/Tint.svelte'
   import Origin from './phaser-components/Origin.svelte'
   import Visible from './phaser-components/Visible.svelte'
+
+  const tilemap = getTilemap()
+  const scene = getScene()
 
   /**
    * The Camera alpha value. Setting this property impacts every single object that this Camera renders.
@@ -55,7 +59,8 @@
   export let backgroundColor = undefined
 
   /**
-   * Set the bounds of the Camera. The bounds are an axis-aligned rectangle.
+   * Set the bounds of the Camera. The bounds are an axis-aligned rectangle. If this Camera is inside of a
+   * <Tilemap />, it will default to the bounds of the tilemap.
    *
    * The Camera bounds controls where the Camera can scroll to, stopping it from scrolling off the e
    * dges and into blank space. It does not limit the placement of Game Objects, or where the Camera viewport can
@@ -77,7 +82,12 @@
    *  - centerOn: boolean (optional) - If true the Camera will automatically be centered on the new bounds.
    * @type {object}
    */
-  export let bounds
+  export let bounds = {
+    x: 0,
+    y: 0,
+    width: tilemap.widthInPixels,
+    height: tilemap.heightInPixels,
+  }
 
   /**
    * The Camera Fade effect handler.
@@ -365,7 +375,6 @@
 
   export let instance = new Phaser.Cameras.Scene2D.Camera(x, y, width, height)
 
-  const scene = getScene()
   setContext('phaser/camera', instance)
 
   // by using the Camera component we are opting-in to controlling the camera
