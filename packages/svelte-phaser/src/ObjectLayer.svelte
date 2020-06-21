@@ -23,12 +23,12 @@
    * The depth for each component in this layer
    * @type {number}
    */
-  export let depth = 0
+  export let depth
 
   const spawner = getSpawner()
 
   if (!spawner) {
-    // todo: warn about no spawner
+    throw new Error('ObjectLayer must be inside of a <Spawner /> component')
   }
 
   const tilemap = getTilemap()
@@ -42,15 +42,23 @@
   }
 
   onMount(() => {
+    if (!layer) {
+      throw new Error(`Unable to find layer of id "${id}"`)
+    }
+
     layer.objects.forEach(({ x, y, properties }) => {
       const { component, ...props } = properties.reduce(
         (total, prop) => ({ ...total, [prop.name]: prop.value }),
         {}
       )
       if (component && components[component]) {
-        spawner.spawn(components[component], {
+        // allow component map to include components imported via `import * as Component from 'Component.svelte'`
+        // by checking for .default
+        const c = components[component].default || components[component]
+        spawner.spawn(c, {
           x,
           y,
+          depth,
           ...props,
         })
       }
