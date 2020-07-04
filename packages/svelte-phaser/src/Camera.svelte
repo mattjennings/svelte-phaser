@@ -387,6 +387,12 @@
 
   scene.cameras.addExisting(instance, makeMain)
 
+  $: if (shouldApplyProps(lerp)) {
+    instance.setLerp(lerp, lerp)
+  } else if (shouldApplyProps(lerpX, lerpY)) {
+    instance.setLerp(lerpX, lerpY)
+  }
+
   $: if (shouldApplyProps(follow)) {
     const target =
       typeof follow === 'string'
@@ -432,12 +438,6 @@
   $: shouldApplyProps(height) && (instance.height = height)
 
   $: shouldApplyProps(inputEnabled) && (instance.inputEnabled = inputEnabled)
-
-  $: if (shouldApplyProps(lerp)) {
-    instance.setLerp(lerp, lerp)
-  } else if (shouldApplyProps(lerpX, lerpY)) {
-    instance.setLerp(lerpX, lerpY)
-  }
 
   $: shouldApplyProps(name) && instance.setName(name)
 

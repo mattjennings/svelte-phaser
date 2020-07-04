@@ -514,6 +514,8 @@
    */
   export let yoyo = undefined
 
+  export let frameIndex = undefined
+
   const dispatch = createEventDispatcher()
   const scene = getScene()
 
@@ -574,7 +576,13 @@
     }
   })
 
-  $: shouldApplyProps(animation) && instance.anims.play(animation, true, 0)
+  $: if (shouldApplyProps(animation)) {
+    //  check for instance.currentAnim otherwise Phaser will throw an error if it's undefined
+    const ignoreIfPlaying = !!instance.currentAnim
+
+    instance.anims.play(animation, ignoreIfPlaying, frameIndex || 0)
+  }
+
   $: shouldApplyProps(isPlaying) && (instance.anims.isPlaying = isPlaying)
 
   $: shouldApplyProps(delay) && instance.anims.setDelay(delay)
@@ -606,6 +614,7 @@
     if (instance.anims) {
       if (instance.anims.currentAnim && instance.anims.currentAnim.key) {
         animation = instance.anims.currentAnim.key
+        frameIndex = instance.anims.currentFrame.index
       }
       isPlaying = instance.anims.isPlaying
       delay = instance.anims.getDelay()
