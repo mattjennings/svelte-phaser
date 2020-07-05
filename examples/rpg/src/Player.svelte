@@ -136,6 +136,12 @@
   isPlaying={isPlayingAnimation}
   bind:frameIndex
   {...$$restProps}>
-  <ArcadePhysics bind:velocityX bind:velocityY collideWorldBounds />
+  <ArcadePhysics
+    height={16}
+    width={12}
+    offsetY={16}
+    bind:velocityX
+    bind:velocityY
+    collideWorldBounds />
   <ArcadeCollider with={['ground', 'props']} />
 </Sprite>

@@ -258,13 +258,13 @@
 
   /**
    * Sets the X offset of the Body's position from its Game Object's position.
-   * @type {string}
+   * @type {number}
    */
   export let offsetX = undefined
 
   /**
    * Sets the Y offset of the Body's position from its Game Object's position.
-   * @type {string}
+   * @type {number}
    */
   export let offsetY = undefined
 
