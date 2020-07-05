@@ -2,7 +2,7 @@
   import Phaser from './phaser.js'
   import { getScene } from './getScene'
   import { getTilemap } from './getTilemap'
-  import { setContext } from 'svelte'
+  import { setContext, onMount } from 'svelte'
   import { shouldApplyProps, findGameObjectsByName } from './util'
   import { onSceneEvent } from './onSceneEvent'
   import { onGameEvent } from './onGameEvent'
@@ -82,12 +82,14 @@
    *  - centerOn: boolean (optional) - If true the Camera will automatically be centered on the new bounds.
    * @type {object}
    */
-  export let bounds = {
-    x: 0,
-    y: 0,
-    width: tilemap.widthInPixels,
-    height: tilemap.heightInPixels,
-  }
+  export let bounds = tilemap
+    ? {
+        x: 0,
+        y: 0,
+        width: tilemap.widthInPixels,
+        height: tilemap.heightInPixels,
+      }
+    : undefined
 
   /**
    * The Camera Fade effect handler.
@@ -361,7 +363,7 @@
    * for moving it.
    * @type {number}
    */
-  export let x
+  export let x = undefined
 
   /**
    * The y position of the Camera, relative to the top-left of the game canvas.
@@ -371,7 +373,15 @@
    *
    * @type {number}
    */
-  export let y
+  export let y = undefined
+
+  /**
+   * Camera will not render until the target from the `follow` prop exists. This can prevent a flicker
+   * if the target has not been created yet when the Camera mounts.
+   *
+   * @type {boolean}
+   */
+  export let waitForTarget = false
 
   export let instance = new Phaser.Cameras.Scene2D.Camera(x, y, width, height)
 
@@ -387,12 +397,6 @@
 
   scene.cameras.addExisting(instance, makeMain)
 
-  $: if (shouldApplyProps(lerp)) {
-    instance.setLerp(lerp, lerp)
-  } else if (shouldApplyProps(lerpX, lerpY)) {
-    instance.setLerp(lerpX, lerpY)
-  }
-
   $: if (shouldApplyProps(follow)) {
     const target =
       typeof follow === 'string'
@@ -400,7 +404,10 @@
         : follow
 
     if (target) {
-      const _lerp = lerp || { x: lerpX, y: lerpY }
+      const _lerp =
+        typeof lerp !== 'undefined'
+          ? { x: lerp, y: lerp }
+          : { x: lerpX, y: lerpY }
 
       // we need to set roundPixels etc. in startFollow otherwise they get overwritten by defaults inside
       // the startFollow method
@@ -412,6 +419,12 @@
         followOffsetX,
         followOffsetY
       )
+
+      if (waitForTarget) {
+        visible = true
+      }
+    } else if (waitForTarget) {
+      visible = false
     }
   }
 
@@ -438,6 +451,12 @@
   $: shouldApplyProps(height) && (instance.height = height)
 
   $: shouldApplyProps(inputEnabled) && (instance.inputEnabled = inputEnabled)
+
+  $: if (shouldApplyProps(lerp)) {
+    instance.setLerp(lerp, lerp)
+  } else if (shouldApplyProps(lerpX, lerpY)) {
+    instance.setLerp(lerpX, lerpY)
+  }
 
   $: shouldApplyProps(name) && instance.setName(name)
 

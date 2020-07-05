@@ -1,7 +1,7 @@
 <script>
   import Phaser from './phaser.js'
   import { getContext, setContext, onMount, tick } from 'svelte'
-  import { removeUndefined } from './util'
+  import { removeUndefined, shouldApplyProps } from './util'
 
   /**
    * The unique key of this Scene. Must be unique within the entire Game instance.
@@ -98,6 +98,20 @@
   export let init = undefined
 
   /**
+   * Called with the Scene Manager update loop
+   *
+   * @type {function}
+   */
+  export let update = undefined
+
+  /**
+   * Pauses the Scene
+   *
+   * @type {boolean}
+   */
+  export let paused = undefined
+
+  /**
    * If you have your own Phaser.Scene instance you may pass it in
    * @type {Phaser.Scene}
    */
@@ -124,6 +138,7 @@
 
   instance.preload = preload ? () => preload(instance) : null
   instance.create = create ? () => create(instance) : null
+  instance.update = update ? () => update(instance) : null
   instance.init = init ? () => init(instance) : null
 
   game.scene.add(key, instance, true)
@@ -177,6 +192,18 @@
     // indicate that this is the default camera you get with the Scene
     instance.cameras.main.__isOriginalCamera = true
     setContext('phaser/camera', instance.cameras.main)
+  }
+
+  $: if (shouldApplyProps(paused) && !loading) {
+    if (paused) {
+      instance.scene.pause(key)
+    } else {
+      instance.scene.resume(key)
+    }
+  }
+
+  $: if (shouldApplyProps(visible) && !loading) {
+    instance.scene.setVisible(visible)
   }
 </script>
 

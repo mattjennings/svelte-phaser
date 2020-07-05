@@ -62,14 +62,15 @@
     Sprite,
     ArcadePhysics,
     ArcadeCollider,
+    onSceneEvent,
     onGameEvent,
     getScene,
   } from 'svelte-phaser'
 
   export let x
   export let y
-  export let velocityX
-  export let velocityY
+  export let velocityX = 0
+  export let velocityY = 0
 
   let instance
   let animation = 'anims/player/down'
@@ -84,6 +85,11 @@
     up: scene.input.keyboard.addKey('up'),
     down: scene.input.keyboard.addKey('down'),
   }
+
+  // prevents keys from being frozen in last state when paused
+  onSceneEvent('pause', () => {
+    scene.input.keyboard.keys.map(key => key.reset())
+  })
 
   // handle key inputs
   onGameEvent('step', () => {
