@@ -387,7 +387,7 @@
           x,
           y
         )
-      : tilemap.createDynamicLater(
+      : tilemap.createDynamicLayer(
           id,
           tilemap.tilesets.filter(ts => tilesets.includes(ts.name)),
           x,
