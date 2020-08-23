@@ -1,17 +1,20 @@
 {
+  "name": "snowpack-template",
+  "version": "1.0.0",
   "scripts": {
     "prepare": "snowpack",
     "start": "snowpack dev",
     "build": "snowpack build"
   },
   "webDependencies": {},
-  "devDependencies": {
-    "@snowpack/app-scripts-svelte": "^0.6.1",
-    "phaser": "^3.23.0",
-    "rollup-plugin-svelte": "^5.2.2",
-    "snowpack": "^2.0.0-0",
+  "dependencies": {
     "svelte": "^3.0.0",
-    "svelte-fragment": "^1.0.1",
-    "svelte-phaser": "latest"
+    "svelte-phaser": "latest",
+    "phaser": "^3.23.0"
+  },
+  "devDependencies": {
+    "@snowpack/app-scripts-svelte": "^1.8.4",
+    "snowpack": "^2.9.0",
+    "svelte-fragment": "^1.0.1"
   }
 }
