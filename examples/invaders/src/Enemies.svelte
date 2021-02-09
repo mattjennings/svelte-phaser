@@ -32,7 +32,7 @@
       if ($gameStatus === 'playing') {
         const player = scene.children.getByName('player')
         const enemies = scene.children.list.filter(
-          child => child.name === 'enemy'
+          (child) => child.name === 'enemy'
         )
 
         // get the gameobject reference of a random enemy
@@ -98,7 +98,8 @@
     y={70 + enemy.y + enemyY}
     velocityX={$gameStatus === 'playing' ? enemyVelocityX : 0}
     onDie={() => {
-      enemies = enemies.filter(e => e !== enemy)
-      score.update(prev => prev + 100)
-    }} />
+      enemies = enemies.filter((e) => e !== enemy)
+      score.update((prev) => prev + 100)
+    }}
+  />
 {/each}
