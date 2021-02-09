@@ -8,7 +8,6 @@
     TileLayer,
     Spawner,
   } from 'svelte-phaser'
-  import fragment from 'svelte-fragment'
   import LoadingBar from './LoadingBar.svelte'
   import Player from './Player.svelte'
 
@@ -64,40 +63,36 @@
   }
 </script>
 
-<style>
-  :global(body) {
-    margin: 0;
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-</style>
-
 <Game
   bind:instance={game}
   width={256}
   height={224}
   physics={{ default: 'arcade', arcade: { gravity: { y: 800 } } }}
   render={{ pixelArt: true }}
-  scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
+  scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}
+>
   <Scene
     key="main"
     physics={{ arcade: { width: 512, height: 256 } }}
     {preload}
-    {create}>
-    <template use:fragment slot="loading" let:progress>
+    {create}
+    let:progress
+  >
+    <slot slot="loading">
       <LoadingBar x={128} y={112} {progress} />
-    </template>
+    </slot>
 
     <Spawner>
       <Tilemap
         key="tilemaps/castle"
-        tilesets={[{ key: 'tilesets/castle', name: 'castle-tileset' }]}>
+        tilesets={[{ key: 'tilesets/castle', name: 'castle-tileset' }]}
+      >
         <TileLayer
           id="ground"
           name="ground"
           tilesets={['castle-tileset']}
-          collisionTilesByProperty={{ collision: true }} />
+          collisionTilesByProperty={{ collision: true }}
+        />
         <TileLayer id="bg" tilesets={['castle-tileset']} />
         <!-- <ObjectLayer id="enemies" components={{ }} /> -->
       </Tilemap>
@@ -109,8 +104,18 @@
       height={224}
       follow="player"
       roundPixels
-      bounds={{ x: 0, y: 0, width: 512, height: 256 }}>
+      bounds={{ x: 0, y: 0, width: 512, height: 256 }}
+    >
       <Player x={124} y={124} />
     </Camera>
   </Scene>
 </Game>
+
+<style>
+  :global(body) {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+</style>

@@ -1,11 +1,10 @@
 <script>
   import Phaser from 'phaser'
-  import fragment from 'svelte-fragment'
   import { Game, Scene, Text } from 'svelte-phaser'
   import Breakout from './Breakout.svelte'
   import LoadingBar from './LoadingBar.svelte'
 
-  function preload(scene) {
+  function preload(scene) {    
     scene.load.atlas('assets', 'assets/breakout.png', 'assets/breakout.json')
   }
 
@@ -26,10 +25,10 @@
   height={800}
   physics={{ default: 'arcade' }}
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
-  <Scene key="main" {preload}>
-    <template use:fragment slot="loading" let:progress>
+  <Scene key="main" {preload}  let:progress>
+    <slot slot="loading">
       <LoadingBar x={400} y={400} {progress} />
-    </template>
+    </slot>
     <Breakout />
   </Scene>
 </Game>

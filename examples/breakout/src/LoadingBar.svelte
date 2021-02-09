@@ -8,7 +8,7 @@
 
   export let x
   export let y
-  export let progress
+  export let progress = 0
 
   const tweenedProgress = tweened(progress, {
     duration: 200,

@@ -1,8 +1,6 @@
 <script>
   import Phaser from 'phaser'
   import { Game, Scene, Text, Spawner } from 'svelte-phaser'
-  import fragment from 'svelte-fragment'
-
   import LoadingBar from './LoadingBar.svelte'
   import Background from './Background.svelte'
   import Player from './Player.svelte'
@@ -50,25 +48,17 @@
   }
 </script>
 
-<style>
-  :global(body) {
-    margin: 0;
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-</style>
-
 <Game
   bind:instance={game}
   width={800}
   height={600}
   physics={{ default: 'arcade' }}
-  scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}>
-  <Scene key="main" {preload} {create}>
-    <template use:fragment slot="loading" let:progress>
+  scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}
+>
+  <Scene key="main" {preload} {create} let:progress>
+    <slot slot="loading">
       <LoadingBar x={400} y={300} {progress} />
-    </template>
+    </slot>
 
     <Spawner>
       <Background />
@@ -80,3 +70,12 @@
     </Spawner>
   </Scene>
 </Game>
+
+<style>
+  :global(body) {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+</style>

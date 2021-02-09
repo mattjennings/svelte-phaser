@@ -1,3 +1,5 @@
+<svelte:options immutable />
+
 <script>
   import Phaser from './phaser.js'
   import { onMount, createEventDispatcher } from 'svelte'
@@ -569,7 +571,7 @@
     ]
 
     return () => {
-      spriteEventListeners.forEach(listener => listener())
+      spriteEventListeners.forEach((listener) => listener())
       instance.destroy()
     }
   })
@@ -625,8 +627,6 @@
   })
 </script>
 
-<svelte:options immutable />
-
 <GameObject
   bind:instance
   bind:active
@@ -646,13 +646,15 @@
   on:pointermove
   on:pointerout
   on:pointerup
-  on:pointerwheel>
+  on:pointerwheel
+>
   <Alpha
     bind:alpha
     bind:alphaTopLeft
     bind:alphaTopRight
     bind:alphaBottomLeft
-    bind:alphaBottomRight />
+    bind:alphaBottomRight
+  />
   <BlendMode bind:blendMode />
   <Crop bind:crop />
   <Depth bind:depth />
@@ -672,13 +674,15 @@
     bind:scaleX
     bind:scaleY
     bind:angle
-    bind:rotation />
+    bind:rotation
+  />
   <Tint
     bind:tintTopLeft
     bind:tintTopRight
     bind:tintBottomLeft
     bind:tintBottomRight
-    bind:tintFill />
+    bind:tintFill
+  />
   <Visible bind:visible />
   <slot />
 </GameObject>

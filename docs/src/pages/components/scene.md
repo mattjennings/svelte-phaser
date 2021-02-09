@@ -29,38 +29,57 @@ you can load them with the `preload` prop.
 
 ### Loading Screen
 
-Scenes have a slot that can be used for loading screen. Svelte does not support slots on non-DOM elements,
-but we can make use of the `svelte-fragment` package to render a custom loading screen.
+Scenes have a `loading` slot that is rendered while it is preloading assets. You can get the progress
+by using `let:progress` on the Scene
 
 ```example
 <script>
-  import { Game, Scene, Sprite, Text } from 'svelte-phaser'
-  import fragment from 'svelte-fragment'
+  import { onMount } from 'svelte'
+  import { Game, Scene, Sprite, Text, Rectangle } from 'svelte-phaser'
+
+  onMount(() => {
+    const cb = () => window.location.reload()
+
+    window.addEventListener('pointerdown', cb)
+    return () => window.removeEventListener('pointerdown', cb)
+  })
+
+  // imitates a long load for the scene
+  function fakeLoad(scene) {
+      scene.load.emit('progress', 0.1)
+
+      setTimeout(() => {
+        scene.load.emit('progress', 0.5)
+      }, 1000)
+
+      setTimeout(() => {
+        scene.load.emit('progress', 0.75)
+      }, 2000)
+
+      setTimeout(() => {
+        scene.load.emit('progress', 1)
+        scene.load.emit('complete')
+      }, 3000)
+  }
 </script>
 
 <Game width={400} height={400}>
   <Scene
     key="main"
+    let:progress
     preload={async (scene) => {
-      scene.load.image('mushroom', '/static/images/mushroom.png')
-      scene.load.image('mushroom2', '/static/images/mushroom2.png')
-
-      // because we're only loading 2 assets the loading screen
-      // will go by pretty quick. try throttling your network speed
-      // in your browser dev tools and then clicking one of the mushrooms
+      fakeLoad(scene)
     }}
   >
-    <template use:fragment slot="loading" let:progress>
+    <slot slot="loading">
       <Text
-        x={100}
-        y={100}
+        x={120}
+        y={200}
         text={`Loading... ${Math.round(progress * 100)}%`}
         color="white" />
-    </template>
+    </slot>
 
-    <Sprite x={136} y={200} texture="mushroom" on:pointerdown={() => window.location.reload()}/>
-    <Sprite x={264} y={200} texture="mushroom2" on:pointerdown={() => window.location.reload()}/>
-    <Text x={60} y={300} text="Did it load too fast? Click a mushroom to reload the game" wordWrap={300} />
+    <Text x={40} y={200} text="Loading complete. Click to reload." />
   </Scene>
 </Game>
 ```

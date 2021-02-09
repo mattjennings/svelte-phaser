@@ -129,7 +129,7 @@
   game.scene.add(key, instance, true)
 
   let listeners = [
-    instance.load.on('progress', progress => {
+    instance.load.on('progress', (progress) => {
       loadingProgress = progress
     }),
 
@@ -143,8 +143,8 @@
     return () => {
       game.scene.remove(key)
 
-      listeners.forEach(listener => {
-        listener.eventNames().forEach(event => listener.off(event))
+      listeners.forEach((listener) => {
+        listener.eventNames().forEach((event) => listener.off(event))
       })
     }
   })

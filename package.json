@@ -24,7 +24,6 @@
       "docs"
     ],
     "nohoist": [
-      "**/svelte",
       "**/@svelte-docs/core",
       "**/@svelte-docs/core/**",
       "**/@svelte-docs/server",
@@ -36,7 +35,7 @@
     ]
   },
   "resolutions": {
-    "svelte": "^3.21.0"
+    "svelte": "^3.32.0"
   },
   "devDependencies": {
     "eslint": "6.8.0",
@@ -44,7 +43,7 @@
     "eslint-plugin-jest": "^23.11.0",
     "phaser": "^3.23.0",
     "prettier": "^2.0.5",
-    "svelte": "^3.21.0"
+    "svelte": "^3.32.0"
   },
   "keywords": [
     "svelte",
