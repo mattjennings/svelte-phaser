@@ -125,7 +125,7 @@
    * #phaserDefault 1
    * @type {Phaser.Types.Core.ScaleConfig}
    */
-  export let scale = undefined
+  export let scale: number = undefined
 
   /**
    * Seed for the random number generator.

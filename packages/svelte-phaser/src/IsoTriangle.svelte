@@ -27,7 +27,7 @@
    * If you prefer to work in radians, see the rotation property instead.
    * @type {number}
    */
-  export let angle = undefined
+  export let angle: number = undefined
 
   /**
    * Sets the Blend Mode being used by this Game Object.
@@ -179,7 +179,7 @@
    * If you prefer to work in degrees, see the angle property instead.
    * @type {number}
    */
-  export let rotation = undefined
+  export let rotation: number = undefined
 
   /**
    * This is a special setter that allows you to set both the horizontal and vertical scale of this Game Object to the same value, at the same time.
@@ -191,7 +191,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scale = undefined
+  export let scale: number = undefined
 
   /**
    * The horizontal scale of this Game Object.
@@ -199,7 +199,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scaleX = undefined
+  export let scaleX: number = undefined
 
   /**
    * The vertical scale of this Game Object.
@@ -207,7 +207,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scaleY = undefined
+  export let scaleY: number = undefined
 
   /**
    * The horizontal scroll factor of this Game Object.
@@ -259,19 +259,19 @@
    * The w position of this Game Object.
    * @type {number}
    */
-  export let w = undefined
+  export let w: number = undefined
 
   /**
    * The x position of this Game Object.
    * @type {number}
    */
-  export let x = undefined
+  export let x: number = undefined
 
   /**
    * The y position of this Game Object.
    * @type {number}
    */
-  export let y = undefined
+  export let y: number = undefined
 
   /**
    * The z position of this Game Object.
@@ -279,7 +279,7 @@
    * Note: The z position does not control the rendering order of 2D Game Objects. Use depth instead.
    * @type {number}
    */
-  export let z = undefined
+  export let z: number = undefined
 
   /**
    * The fill color of the top face of the iso box.
