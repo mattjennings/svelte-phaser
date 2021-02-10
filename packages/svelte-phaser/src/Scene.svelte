@@ -123,8 +123,11 @@
   let loading = !!preload
   let loadingProgress = 0
 
+  // @ts-ignore
   instance.preload = preload ? () => preload(instance) : null
+  // @ts-ignore
   instance.create = create ? () => create(instance) : null
+  // @ts-ignore
   instance.init = init ? () => init(instance) : null
 
   game.scene.add(key, instance, true)
@@ -176,6 +179,7 @@
 
   $: if (!loading) {
     // indicate that this is the default camera you get with the Scene
+    // @ts-ignore
     instance.cameras.main.__isOriginalCamera = true
     setContext('phaser/camera', instance.cameras.main)
   }
