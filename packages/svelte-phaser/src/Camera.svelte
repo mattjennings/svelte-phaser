@@ -218,7 +218,7 @@
    * #phaserDefault 0.5
    * @type {number}
    */
-  export let originX = undefined
+  export let originX: number = undefined
 
   /**
    * The vertical origin of rotation for this Camera.
@@ -232,7 +232,7 @@
    * #phaserDefault 0.5
    * @type {number}
    */
-  export let originY = undefined
+  export let originY: number = undefined
 
   /**
    * The Camera Pan effect handler.
