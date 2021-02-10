@@ -100,7 +100,12 @@
    * The object should contain x, y, width and height values.
    * @type {object}
    */
-  export let crop = undefined
+  export let crop: {
+    x?: number
+    y?: number
+    width?: number
+    height?: number
+  } = undefined
 
   /**
    * A Data Manager. It allows you to store, query and get key/value paired information specific to this Game Object. null by default.
