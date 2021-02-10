@@ -338,19 +338,19 @@
    *
    * @type {number}
    */
-  export let points = 5
+  export let points: number = 5
 
   /**
    * The inner radius of the star.
    * @type {number}
    */
-  export let innerRadius = 32
+  export let innerRadius: number = 32
 
   /**
    * The outer radius of the star.
    * @type {number}
    */
-  export let outerRadius = 64
+  export let outerRadius: number = 64
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
@@ -376,8 +376,11 @@
   $: shouldApplyProps(points) && instance.setPoints(points)
 
   onGameEvent('prestep', () => {
+    // @ts-ignore
     points = instance._points
+    // @ts-ignore
     innerRadius = instance._innerRadius
+    // @ts-ignore
     outerRadius = instance._outerRadius
   })
 </script>
