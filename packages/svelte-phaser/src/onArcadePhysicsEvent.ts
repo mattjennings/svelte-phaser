@@ -1,7 +1,7 @@
 import { onMount } from 'svelte'
 import { getScene } from './getScene'
 
-export function onArcadePhysicsEvent(event, callback) {
+export function onArcadePhysicsEvent(event: string, callback: Function) {
   const scene = getScene()
 
   onMount(() => {

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { setContext } from 'svelte'
 
   setContext('phaser/spawner', { spawn })
@@ -18,7 +18,7 @@
   }
 
   export function onDestroy(instance) {
-    instances = instances.filter(i => i !== instance)
+    instances = instances.filter((i) => i !== instance)
   }
 </script>
 
@@ -26,6 +26,7 @@
   <svelte:component
     this={instance.component}
     onDestroy={() => onDestroy(instance)}
-    {...instance.props} />
+    {...instance.props}
+  />
 {/each}
 <slot />

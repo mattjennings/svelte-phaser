@@ -1,7 +1,7 @@
-import { getContext, onMount } from 'svelte'
-import { getScene } from './getScene.js'
+import { onMount } from 'svelte'
+import { getScene } from './getScene'
 
-export function onSceneEvent(event, callback) {
+export function onSceneEvent(event: string, callback: Function) {
   const scene = getScene()
 
   onMount(() => {

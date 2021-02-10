@@ -1,4 +1,6 @@
-<script>
+<svelte:options immutable />
+
+<script lang="ts">
   import { getScene } from './getScene'
   import { onGameEvent } from './onGameEvent'
   import {
@@ -91,7 +93,7 @@
         dragY,
       })
     ),
-    createPhaserEventDispatcher(instance, dispatch, 'dragend', pointer => ({
+    createPhaserEventDispatcher(instance, dispatch, 'dragend', (pointer) => ({
       pointer,
     })),
     createPhaserEventDispatcher(
@@ -121,7 +123,7 @@
         target,
       })
     ),
-    createPhaserEventDispatcher(instance, dispatch, 'dragstart', pointer => ({
+    createPhaserEventDispatcher(instance, dispatch, 'dragstart', (pointer) => ({
       pointer,
     })),
     createPhaserEventDispatcher(
@@ -202,7 +204,7 @@
   ]
 
   onMount(() => () => {
-    listeners.forEach(listener => listener())
+    listeners.forEach((listener) => listener())
     instance.destroy()
   })
 
@@ -240,5 +242,4 @@
   })
 </script>
 
-<svelte:options immutable />
 <slot />
