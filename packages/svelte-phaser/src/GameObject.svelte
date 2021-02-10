@@ -15,19 +15,19 @@
    * Scenes UpdateList, if added to it. An active object is one which is having its logic and internal systems updated.
    * @type {boolean}
    */
-  export let active = undefined
+  export let active: boolean = undefined
 
   /**
    * A Data Manager. It allows you to store, query and get key/value paired information specific to this Game Object. null by default.
    * @type {any}
    */
-  export let data = undefined
+  export let data: any = undefined
 
   /**
    * Enables the firing of drag events
    * @type {boolean}
    */
-  export let draggable = false
+  export let draggable: boolean = false
 
   /**
    * Whether or not the game object should react to input from the pointer. This is true by default,
@@ -44,14 +44,20 @@
    *
    * @type {boolean | object}
    */
-  export let interactive = true
+  export let interactive:
+    | boolean
+    | {
+        shape: Phaser.Types.Input.InputConfiguration
+        callback: Phaser.Types.Input.HitAreaCallback
+        dropZone: boolean
+      } = true
 
   /**
    * The name of this Game Object. This is not used by Phaser, but some svelte-phaser components such as
    * ArcadeCollider will make use of names to find the reference to the Game Object.
    * @type {string}
    */
-  export let name = undefined
+  export let name: string = undefined
 
   /**
    * The flags that are compared against RENDER_MASK to determine if this Game Object will render or not.
@@ -61,7 +67,7 @@
    * #phaserDefault 15
    * @type {number}
    */
-  export let renderFlags = undefined
+  export let renderFlags: number = undefined
 
   /**
    * The Tab Index of the Game Object. Reserved for future use by plugins and the Input Manager.
@@ -69,7 +75,7 @@
    * #phaserDefault -1
    * @type {number}
    */
-  export let tabIndex = undefined
+  export let tabIndex: number = undefined
 
   export let instance
 
@@ -220,7 +226,7 @@
     instance.setInteractive(
       interactive.shape,
       interactive.callback,
-      interactive.dropzone
+      interactive.dropZone
     )
   }
 

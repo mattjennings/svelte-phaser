@@ -25,7 +25,7 @@
    * Scenes UpdateList, if added to it. An active object is one which is having its logic and internal systems updated.
    * @type {boolean}
    */
-  export let active = undefined
+  export let active: boolean = undefined
 
   /**
    * The alignment of the Text. This only impacts multi-line text.
@@ -140,7 +140,7 @@
    * A Data Manager. It allows you to store, query and get key/value paired information specific to this Game Object. null by default.
    * @type {any}
    */
-  export let data = undefined
+  export let data: any = undefined
 
   /**
    * The depth of this Game Object within the Scene.
@@ -187,7 +187,7 @@
    *
    * @type {boolean}
    */
-  export let draggable = false
+  export let draggable: boolean = false
 
   /**
    * Force the Text object to have the exact height specified in this property. Leave as zero for it to change accordingly to content.
@@ -291,7 +291,7 @@
    * ArcadeCollider will make use of names to find the reference to the Game Object.
    * @type {string}
    */
-  export let name = undefined
+  export let name: string = undefined
 
   /**
    * The horizontal origin of this Game Object.
@@ -329,7 +329,7 @@
    * #phaserDefault 15
    * @type {number}
    */
-  export let renderFlags = undefined
+  export let renderFlags: number = undefined
 
   /**
    * Sets the resolution (DPI setting) of the Text object. Leave at zero for it to use the game resolution.
@@ -455,7 +455,7 @@
    * #phaserDefault -1
    * @type {number}
    */
-  export let tabIndex = undefined
+  export let tabIndex: number = undefined
 
   /**
    * This is the string used to aid Canvas in calculating the height of the font.

@@ -27,7 +27,7 @@
    * Scenes UpdateList, if added to it. An active object is one which is having its logic and internal systems updated.
    * @type {boolean}
    */
-  export let active = undefined
+  export let active: boolean = undefined
 
   /**
    * The alpha value of the Game Object. This is a global value,
@@ -111,7 +111,7 @@
    * A Data Manager. It allows you to store, query and get key/value paired information specific to this Game Object. null by default.
    * @type {any}
    */
-  export let data = undefined
+  export let data: any = undefined
 
   /**
    * The depth of this Game Object within the Scene.
@@ -156,7 +156,7 @@
    * Enables the firing of drag events
    * @type {boolean}
    */
-  export let draggable = false
+  export let draggable: boolean = false
 
   /**
    * The horizontally flipped state of the Game Object.
@@ -208,7 +208,13 @@
    *
    * @type {boolean | object}
    */
-  export let interactive = true
+  export let interactive:
+    | boolean
+    | {
+        shape: Phaser.Types.Input.InputConfiguration
+        callback: Phaser.Types.Input.HitAreaCallback
+        dropZone: boolean
+      } = true
 
   /**
    * The Mask this Game Object is using during render.
@@ -223,7 +229,7 @@
    * ArcadeCollider will make use of names to find the reference to the Game Object.
    * @type {string}
    */
-  export let name = undefined
+  export let name: string = undefined
 
   /**
    * The horizontal origin of this Game Object.
@@ -254,7 +260,7 @@
    * #phaserDefault 15
    * @type {number}
    */
-  export let renderFlags = undefined
+  export let renderFlags: number = undefined
 
   /**
    * The angle of this Game Object in radians. Phaser uses a right-hand clockwise rotation system, where 0 is right, 90 is down, 180/-180 is left and -90 is up.
@@ -329,7 +335,7 @@
    * #phaserDefault -1
    * @type {number}
    */
-  export let tabIndex = undefined
+  export let tabIndex: number = undefined
 
   /**
    * The Texture this Game Object is using to render with. It is not required if you are

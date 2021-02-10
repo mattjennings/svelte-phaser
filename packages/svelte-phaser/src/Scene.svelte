@@ -16,7 +16,7 @@
    * Does the Scene start as active or not? An active Scene updates each step.
    * @type {boolean}
    */
-  export let active = undefined
+  export let active: boolean = undefined
 
   /**
    * Does the Scene start as visible or not? A visible Scene renders each step.

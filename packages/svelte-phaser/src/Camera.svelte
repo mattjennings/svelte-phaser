@@ -204,7 +204,7 @@
    * The name of the Camera. This is for your own use.
    * @type {string}
    */
-  export let name = undefined
+  export let name: string = undefined
 
   /**
    * The horizontal origin of rotation for this Camera.
