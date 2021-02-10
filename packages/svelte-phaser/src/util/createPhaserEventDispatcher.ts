@@ -7,11 +7,13 @@
  * @param makeArgs - called with the event parameters from phaser. should return an object to send with the svelte dispatcher
  * @returns a function to remove the event listener
  */
-export const createPhaserEventDispatcher = (
-  instance,
-  dispatch,
-  event,
-  makeArgs
+export const createPhaserEventDispatcher = <
+  T extends Phaser.GameObjects.GameObject
+>(
+  instance: T,
+  dispatch: (type: string, detail: any) => any,
+  event: string,
+  makeArgs: (...args: any[]) => any
 ) => {
   const callback = (...args) => dispatch(event, makeArgs(...args))
 

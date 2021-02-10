@@ -1,6 +1,6 @@
 import { getGame } from '../getGame'
 
-export function coroutine(callback) {
+export function coroutine(callback: () => any) {
   const game = getGame()
 
   const generator = callback()
