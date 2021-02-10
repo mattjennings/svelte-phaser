@@ -313,37 +313,37 @@
    *
    * @type {number}
    */
-  export let strokeWidth = 0
+  export let strokeWidth: number = 0
 
   /**
    * The horizontal position of the start of the line.
    * @type {number}
    */
-  export let x1 = undefined
+  export let x1: number = undefined
 
   /**
    * The horizontal position of the end of the line.
    * @type {number}
    */
-  export let x2 = undefined
+  export let x2: number = undefined
 
   /**
    * The vertical position of the start of the line.
    * @type {number}
    */
-  export let y1 = undefined
+  export let y1: number = undefined
 
   /**
    * The vertical position of the end of the line.
    * @type {number}
    */
-  export let y2 = undefined
+  export let y2: number = undefined
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
    * @type {string}
    */
-  export let pipeline = undefined
+  export let pipeline: string = undefined
 
   const scene = getScene()
 
@@ -359,12 +359,17 @@
     strokeAlpha
   )
 
+  // @ts-ignore
   $: shouldApplyProps(x1, y1, x2, y2) && instance.geom.setTo(x1, y1, x2, y2)
 
   onGameEvent('prestep', () => {
+    // @ts-ignore
     x1 = instance.geom.x1
+    // @ts-ignore
     x2 = instance.geom.x2
+    // @ts-ignore
     y1 = instance.geom.y1
+    // @ts-ignore
     y2 = instance.geom.y2
   })
 </script>
