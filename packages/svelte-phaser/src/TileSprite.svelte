@@ -305,7 +305,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scrollFactorX = undefined
+  export let scrollFactorX: number = undefined
 
   /**
    * The vertical scroll factor of this Game Object.
@@ -321,7 +321,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scrollFactorY = undefined
+  export let scrollFactorY: number = undefined
 
   /**
    * The Tab Index of the Game Object. Reserved for future use by plugins and the Input Manager.

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getGameObject } from '../getGameObject'
   import { onGameEvent } from '../onGameEvent'
   import { shouldApplyProps } from '../util'
@@ -17,7 +17,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scrollFactorX = undefined
+  export let scrollFactorX: number = undefined
 
   /**
    * The vertical scroll factor of this Game Object.
@@ -33,13 +33,15 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scrollFactorY = undefined
+  export let scrollFactorY: number = undefined
 
   /**
    * Defaults to the parent game object in Svelte context. If you need to provide
    * the instance yourself, you can do so here.
    */
-  export let gameObject = getGameObject()
+  export let gameObject = getGameObject<
+    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.ScrollFactor
+  >()
 
   $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {
     gameObject.setScrollFactor(scrollFactorX, scrollFactorY)
