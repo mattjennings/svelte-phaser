@@ -11,7 +11,7 @@
     "prebuild": "rm -rf ./dist",
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "validate": "svelte-check",
+    "validate": "svelte-check --threshold error",
     "publish:prod": "yarn publish --tag latest",
     "publish:next": "yarn publish --tag next",
     "prepublishOnly": "yarn test",
