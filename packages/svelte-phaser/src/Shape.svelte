@@ -137,9 +137,9 @@
   export let interactive:
     | boolean
     | {
-        shape: Phaser.Types.Input.InputConfiguration
-        callback: Phaser.Types.Input.HitAreaCallback
-        dropZone: boolean
+        shape?: Phaser.Types.Input.InputConfiguration
+        callback?: Phaser.Types.Input.HitAreaCallback
+        dropZone?: boolean
       } = true
 
   /**
