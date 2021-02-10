@@ -27,7 +27,7 @@
    * the instance yourself, you can do so here.
    */
   export let gameObject = getGameObject<
-    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.PathFollower
+    Phaser.GameObjects.Components.PathFollower
   >()
 
   // not sure if this is safe? we somehow need to give the instance PathFollower capabilities

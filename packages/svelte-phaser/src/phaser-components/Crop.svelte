@@ -19,9 +19,7 @@
    * Defaults to the parent game object in Svelte context. If you need to provide
    * the instance yourself, you can do so here.
    */
-  export let gameObject = getGameObject<
-    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Crop
-  >()
+  export let gameObject = getGameObject<Phaser.GameObjects.Components.Crop>()
 
   $: shouldApplyProps(crop) &&
     gameObject.setCrop(crop.x, crop.y, crop.width, crop.height)

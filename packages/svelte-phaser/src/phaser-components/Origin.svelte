@@ -42,9 +42,7 @@
    * Defaults to the parent game object in Svelte context. If you need to provide
    * the instance yourself, you can do so here.
    */
-  export let gameObject = getGameObject<
-    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Origin
-  >()
+  export let gameObject = getGameObject<Phaser.GameObjects.Components.Origin>()
 
   $: if (shouldApplyProps(displayOriginX, displayOriginY)) {
     gameObject.setDisplayOrigin(displayOriginX, displayOriginY)

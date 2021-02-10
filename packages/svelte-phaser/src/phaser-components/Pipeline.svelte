@@ -14,7 +14,7 @@
    * the instance yourself, you can do so here.
    */
   export let gameObject = getGameObject<
-    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Pipeline
+    Phaser.GameObjects.Components.Pipeline
   >()
 
   $: shouldApplyProps(pipeline) && gameObject.setPipeline(pipeline)

@@ -40,7 +40,7 @@
    * the instance yourself, you can do so here.
    */
   export let gameObject = getGameObject<
-    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.ScrollFactor
+    Phaser.GameObjects.Components.ScrollFactor
   >()
 
   $: if (shouldApplyProps(scrollFactorX, scrollFactorY)) {

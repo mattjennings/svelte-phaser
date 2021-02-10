@@ -36,9 +36,7 @@
    * Defaults to the parent game object in Svelte context. If you need to provide
    * the instance yourself, you can do so here.
    */
-  export let gameObject = getGameObject<
-    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Size
-  >()
+  export let gameObject = getGameObject<Phaser.GameObjects.Components.Size>()
 
   $: if (shouldApplyProps(displayHeight, displayWidth)) {
     gameObject.setDisplaySize(displayWidth, displayHeight)

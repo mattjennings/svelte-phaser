@@ -77,7 +77,7 @@
    * the instance yourself, you can do so here.
    */
   export let gameObject = getGameObject<
-    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Transform
+    Phaser.GameObjects.Components.Transform
   >()
 
   $: shouldApplyProps(angle) && gameObject.setAngle(angle)

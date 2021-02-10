@@ -30,7 +30,7 @@
    * the instance yourself, you can do so here.
    */
   export let gameObject = getGameObject<
-    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.BlendMode
+    Phaser.GameObjects.Components.BlendMode
   >()
 
   $: shouldApplyProps(blendMode) && gameObject.setBlendMode(blendMode)
