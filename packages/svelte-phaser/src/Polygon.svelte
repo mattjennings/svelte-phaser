@@ -340,7 +340,7 @@
    *
    * @type {object[] | Phaser.Math.Vector2[]}
    */
-  export let points
+  export let points: Phaser.Math.Vector2[] | Array<{ x: number; y: number }>
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
@@ -355,18 +355,19 @@
     x,
     y,
     points,
-    width,
-    height,
     fillColor,
     fillAlpha
   )
 
   $: if (shouldApplyProps(points)) {
+    // @ts-ignore
     instance.geom.points = points
+    // @ts-ignore
     instance.updateData()
   }
 
   onGameEvent('prestep', () => {
+    // @ts-ignore
     points = instance.geom.points
   })
 </script>
