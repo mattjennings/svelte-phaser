@@ -190,7 +190,9 @@
    * The Mask this Camera is using during render.
    * @type {Phaser.Display.Masks.BitmapMask | Phaser.Display.Masks.GeometryMask}
    */
-  export let mask = undefined
+  export let mask:
+    | Phaser.Display.Masks.BitmapMask
+    | Phaser.Display.Masks.GeometryMask = undefined
 
   /**
    * Makes this the main camera for the scene

@@ -248,7 +248,9 @@
    * The Mask this Game Object is using during render.
    * @type {Phaser.Display.Masks.BitmapMask | Phaser.Display.Masks.GeometryMask}
    */
-  export let mask = undefined
+  export let mask:
+    | Phaser.Display.Masks.BitmapMask
+    | Phaser.Display.Masks.GeometryMask = undefined
 
   /**
    * ms per frame, not including frame specific modifiers that may be present in the Animation data.

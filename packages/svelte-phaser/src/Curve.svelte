@@ -127,7 +127,9 @@
    * The Mask this Game Object is using during render.
    * @type {Phaser.Display.Masks.BitmapMask | Phaser.Display.Masks.GeometryMask}
    */
-  export let mask = undefined
+  export let mask:
+    | Phaser.Display.Masks.BitmapMask
+    | Phaser.Display.Masks.GeometryMask = undefined
 
   /**
    * The name of this Game Object. This is not used by Phaser, but some svelte-phaser components such as
