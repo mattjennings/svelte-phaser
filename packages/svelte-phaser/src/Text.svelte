@@ -149,7 +149,7 @@
    * Setting the depth will queue a depth sort event within the Scene.
    * @type {number}
    */
-  export let depth = undefined
+  export let depth: number = undefined
 
   /**
    * The displayed height of this Game Object.

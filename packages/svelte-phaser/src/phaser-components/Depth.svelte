@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getGameObject } from '../getGameObject'
   import { onGameEvent } from '../onGameEvent'
   import { shouldApplyProps } from '../util'
@@ -10,13 +10,15 @@
    * Setting the depth will queue a depth sort event within the Scene.
    * @type {number}
    */
-  export let depth = undefined
+  export let depth: number = undefined
 
   /**
    * Defaults to the parent game object in Svelte context. If you need to provide
    * the instance yourself, you can do so here.
    */
-  export let gameObject = getGameObject()
+  export let gameObject = getGameObject<
+    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Depth
+  >()
 
   $: shouldApplyProps(depth) && gameObject.setDepth(depth)
 
