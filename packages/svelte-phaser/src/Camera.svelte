@@ -12,7 +12,6 @@
   import Alpha from './phaser-components/Alpha.svelte'
   import Flip from './phaser-components/Flip.svelte'
   import Tint from './phaser-components/Tint.svelte'
-  import Origin from './phaser-components/Origin.svelte'
   import Visible from './phaser-components/Visible.svelte'
 
   const tilemap = getTilemap()
@@ -455,6 +454,10 @@
     instance.setScroll(scrollX, scrollY)
   }
 
+  $: if (shouldApplyProps(originX, originY)) {
+    instance.setOrigin(originX, originY)
+  }
+
   $: shouldApplyProps(shakeEffect) && (instance.shakeEffect = shakeEffect)
 
   $: shouldApplyProps(transparent) && (instance.transparent = transparent)
@@ -488,6 +491,8 @@
     roundPixels = instance.roundPixels
     scrollX = instance.scrollX
     scrollY = instance.scrollY
+    originX = instance.originX
+    originY = instance.originY
     transparent = instance.transparent
     width = instance.width
     zoom = instance.zoom
@@ -511,7 +516,6 @@
   bind:tintBottomRight
   bind:tintFill
 />
-<Origin gameObject={instance} bind:originX bind:originY />
 <Visible gameObject={instance} bind:visible />
 
 <slot />
