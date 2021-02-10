@@ -1,5 +1,5 @@
 <script>
-  import Phaser from '../phaser.js'
+  import Phaser from 'phaser'
   import { getGameObject } from '../getGameObject'
   import { onGameEvent } from '../onGameEvent'
   import { shouldApplyProps } from '../util'

@@ -1,6 +1,8 @@
-<script>
+<svelte:options immutable />
+
+<script lang="ts">
   import { setContext } from 'svelte'
-  import Phaser from './phaser.js'
+  import Phaser from 'phaser'
   import { getScene } from './getScene.js'
 
   import GameObject from './GameObject.svelte'
@@ -26,7 +28,7 @@
    * impacting the entire Game Object, not just a region of it.
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.
@@ -265,7 +267,6 @@
   setContext('phaser/container', instance)
 </script>
 
-<svelte:options immutable />
 <GameObject
   bind:instance
   bind:active
@@ -285,7 +286,8 @@
   on:pointermove
   on:pointerout
   on:pointerup
-  on:pointerwheel>
+  on:pointerwheel
+>
   <Alpha bind:alpha />
   <BlendMode bind:blendMode />
   <Depth bind:depth />
@@ -302,7 +304,8 @@
     bind:scaleX
     bind:scaleY
     bind:angle
-    bind:rotation />
+    bind:rotation
+  />
   <Visible bind:visible />
   <slot />
 </GameObject>

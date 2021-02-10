@@ -1,4 +1,6 @@
-<script>
+<svelte:options immutable />
+
+<script lang="ts">
   import { setContext } from 'svelte'
   import { getTilemap } from './getTilemap'
   import { shouldApplyProps } from './util'
@@ -21,35 +23,35 @@
    * impacting the entire Game Object, not just a region of it.
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The alpha value starting from the bottom-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaBottomLeft = undefined
+  export let alphaBottomLeft: number = undefined
 
   /**
    * The alpha value starting from the bottom-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaBottomRight = undefined
+  export let alphaBottomRight: number = undefined
 
   /**
    * The alpha value starting from the top-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaTopLeft = undefined
+  export let alphaTopLeft: number = undefined
 
   /**
    * The alpha value starting from the top-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaTopRight = undefined
+  export let alphaTopRight: number = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.
@@ -383,27 +385,32 @@
     type === 'static'
       ? tilemap.createStaticLayer(
           id,
-          tilemap.tilesets.filter(ts => tilesets.includes(ts.name)),
+          tilemap.tilesets.filter((ts) => tilesets.includes(ts.name)),
           x,
           y
         )
-      : tilemap.createDynamicLater(
+      : tilemap.createDynamicLayer(
           id,
-          tilemap.tilesets.filter(ts => tilesets.includes(ts.name)),
+          tilemap.tilesets.filter((ts) => tilesets.includes(ts.name)),
           x,
           y
         )
 
+  // @ts-ignore
   if (tilemap.useLayerOrder && typeof depth === 'undefined') {
     depth =
-      tilemap.layerOrder.findIndex(layerName => layerName === id) +
+      // @ts-ignore
+      tilemap.layerOrder.findIndex((layerName) => layerName === id) +
+      // @ts-ignore
       tilemap.startingDepth
   }
 
   setContext('phaser/tilemap-layer', instance)
 
   $: shouldApplyProps(collisionTiles) &&
+    // @ts-ignore
     instance.setCollisionTiles(collisionTiles)
+
   $: shouldApplyProps(collisionTilesBetween) &&
     instance.setCollisionBetween(
       collisionTilesBetween[0],
@@ -434,8 +441,6 @@
   })
 </script>
 
-<svelte:options immutable />
-
 <GameObject
   bind:instance
   bind:name
@@ -444,13 +449,15 @@
   on:pointermove
   on:pointerout
   on:pointerup
-  on:pointerwheel>
+  on:pointerwheel
+>
   <Alpha
     bind:alpha
     bind:alphaTopLeft
     bind:alphaTopRight
     bind:alphaBottomLeft
-    bind:alphaBottomRight />
+    bind:alphaBottomRight
+  />
   <BlendMode bind:blendMode />
   <Depth bind:depth />
   <Flip bind:flipX bind:flipY />
@@ -466,7 +473,8 @@
     bind:scale
     bind:scaleX
     bind:scaleY
-    bind:angle />
+    bind:angle
+  />
   <Visible bind:visible />
   <slot />
 </GameObject>

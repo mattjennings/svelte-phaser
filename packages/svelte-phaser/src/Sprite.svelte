@@ -1,7 +1,7 @@
 <svelte:options immutable />
 
-<script>
-  import Phaser from './phaser.js'
+<script lang="ts">
+  import Phaser from 'phaser'
   import { onMount, createEventDispatcher } from 'svelte'
   import { shouldApplyProps, createPhaserEventDispatcher } from './util'
   import { onGameEvent } from './onGameEvent'
@@ -35,35 +35,35 @@
    * impacting the entire Game Object, not just a region of it.
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The alpha value starting from the bottom-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaBottomLeft = undefined
+  export let alphaBottomLeft: number = undefined
 
   /**
    * The alpha value starting from the bottom-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaBottomRight = undefined
+  export let alphaBottomRight: number = undefined
 
   /**
    * The alpha value starting from the top-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaTopLeft = undefined
+  export let alphaTopLeft: number = undefined
 
   /**
    * The alpha value starting from the top-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaTopRight = undefined
+  export let alphaTopRight: number = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.

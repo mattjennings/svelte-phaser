@@ -1,5 +1,7 @@
+<svelte:options immutable />
+
 <script>
-  import Phaser from './phaser.js'
+  import Phaser from 'phaser'
   import { onMount, getContext } from 'svelte'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
@@ -545,5 +547,4 @@
   })
 </script>
 
-<svelte:options immutable />
 <slot />

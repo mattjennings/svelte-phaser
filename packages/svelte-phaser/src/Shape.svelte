@@ -1,5 +1,7 @@
-<script>
-  import Phaser from './phaser.js'
+<svelte:options immutable />
+
+<script lang="ts">
+  import Phaser from 'phaser'
   import { getScene } from './getScene'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
@@ -28,7 +30,7 @@
    * impacting the entire Game Object, not just a region of it.
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.
@@ -360,6 +362,7 @@
 
   onGameEvent('prestep', () => {
     // if not an isometric shape
+    // @ts-ignore
     if (!instance.fillTop) {
       // check if filled or stroked because these values get defaulted by phaser
       // and would cause them to be set
@@ -367,7 +370,7 @@
         fillColor = instance.fillColor
         fillAlpha = instance.fillAlpha
       }
-      if (instance.iStroked) {
+      if (instance.isStroked) {
         strokeAlpha = instance.strokeAlpha
         strokeColor = instance.strokeColor
         strokeWidth = instance.lineWidth
@@ -376,7 +379,6 @@
   })
 </script>
 
-<svelte:options immutable />
 <GameObject
   bind:instance
   bind:active
@@ -396,7 +398,8 @@
   on:pointermove
   on:pointerout
   on:pointerup
-  on:pointerwheel>
+  on:pointerwheel
+>
   <Alpha bind:alpha />
   <BlendMode bind:blendMode />
   <Depth bind:depth />
@@ -414,7 +417,8 @@
     bind:scaleX
     bind:scaleY
     bind:angle
-    bind:rotation />
+    bind:rotation
+  />
   <Visible bind:visible />
   <slot />
 </GameObject>

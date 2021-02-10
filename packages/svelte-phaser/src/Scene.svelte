@@ -1,7 +1,8 @@
-<script>
-  import Phaser from './phaser.js'
+<script lang="ts">
+  import Phaser from 'phaser'
   import { getContext, setContext, onMount, tick } from 'svelte'
   import { removeUndefined } from './util'
+  import { getGame } from './getGame'
 
   /**
    * The unique key of this Scene. Must be unique within the entire Game instance.
@@ -116,7 +117,7 @@
     })
   )
 
-  const game = getContext('phaser/game')
+  const game = getGame()
   setContext('phaser/scene', instance)
 
   let loading = !!preload
@@ -135,7 +136,7 @@
 
     instance.load.on('complete', () => {
       loading = false
-      loadingProgress = false
+      loadingProgress = 100
     }),
   ]
 

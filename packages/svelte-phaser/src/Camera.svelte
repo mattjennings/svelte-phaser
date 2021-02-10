@@ -1,5 +1,7 @@
-<script>
-  import Phaser from './phaser.js'
+<svelte:options immutable />
+
+<script lang="ts">
+  import Phaser from 'phaser'
   import { getScene } from './getScene'
   import { getTilemap } from './getTilemap'
   import { setContext } from 'svelte'
@@ -22,35 +24,35 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The alpha value starting from the bottom-left.
    * This value is interpolated from the corner to the center.
    * @type {number}
    */
-  export let alphaBottomLeft = undefined
+  export let alphaBottomLeft: number = undefined
 
   /**
    * The alpha value starting from the bottom-right.
    * This value is interpolated from the corner to the center.
    * @type {string}
    */
-  export let alphaBottomRight = undefined
+  export let alphaBottomRight: number = undefined
 
   /**
    * The alpha value starting from the top-left.
    * This value is interpolated from the corner to the cente.
    * @type {string}
    */
-  export let alphaTopLeft = undefined
+  export let alphaTopLeft: number = undefined
 
   /**
    * The alpha value starting from the top-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaTopRight = undefined
+  export let alphaTopRight: number = undefined
 
   /**
    * The background color of this Camera. Only used if transparent is false.
@@ -379,6 +381,7 @@
 
   // by using the Camera component we are opting-in to controlling the camera
   // ourselves, so we will destroy the one that came with the Scene
+  // @ts-ignore
   if (scene.cameras.main.__isOriginalCamera) {
     const oldCamera = scene.cameras.main
     scene.cameras.remove(oldCamera)
@@ -418,6 +421,7 @@
       bounds.y,
       bounds.width,
       bounds.height,
+      // @ts-ignore
       bounds.centerOn
     )
   }
@@ -456,7 +460,7 @@
   $: shouldApplyProps(zoom) && instance.setZoom(zoom)
   $: shouldApplyProps(zoomEffect) && (instance.zoomEffect = zoomEffect)
 
-  onSceneEvent('CHILD_ADDED', object => {
+  onSceneEvent('CHILD_ADDED', (object) => {
     if (object.name) {
       if (typeof follow === 'string' && follow === object.name) {
         // trigger reactive statements on follow
@@ -488,15 +492,14 @@
   })
 </script>
 
-<svelte:options immutable />
-
 <Alpha
   gameObject={instance}
   bind:alpha
   bind:alphaTopLeft
   bind:alphaTopRight
   bind:alphaBottomLeft
-  bind:alphaBottomRight />
+  bind:alphaBottomRight
+/>
 <Flip gameObject={instance} bind:flipX bind:flipY />
 <Tint
   gameObject={instance}
@@ -504,7 +507,8 @@
   bind:tintTopRight
   bind:tintBottomLeft
   bind:tintBottomRight
-  bind:tintFill />
+  bind:tintFill
+/>
 <Origin gameObject={instance} bind:originX bind:originY />
 <Visible gameObject={instance} bind:visible />
 

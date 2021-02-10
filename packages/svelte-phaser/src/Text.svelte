@@ -1,5 +1,7 @@
-<script>
-  import Phaser from './phaser.js'
+<svelte:options immutable />
+
+<script lang="ts">
+  import Phaser from 'phaser'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
   import { getScene } from './getScene'
@@ -38,35 +40,35 @@
    * impacting the entire Game Object, not just a region of it.
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The alpha value starting from the bottom-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaBottomLeft = undefined
+  export let alphaBottomLeft: number = undefined
 
   /**
    * The alpha value starting from the bottom-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaBottomRight = undefined
+  export let alphaBottomRight: number = undefined
 
   /**
    * The alpha value starting from the top-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaTopLeft = undefined
+  export let alphaTopLeft: number = undefined
 
   /**
    * The alpha value starting from the top-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaTopRight = undefined
+  export let alphaTopRight: number = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.
@@ -583,7 +585,8 @@
 
   $: shouldApplyProps(maxLines) && instance.setMaxLines(maxLines)
 
-  $: shouldApplyProps(padding) && instance.setPadding(padding)
+  $: shouldApplyProps(padding) &&
+    instance.setPadding(padding, padding, padding, padding)
 
   $: shouldApplyProps(resolution) && instance.setResolution(resolution)
 
@@ -606,6 +609,7 @@
     instance.setStroke(stroke, strokeThickness)
   }
 
+  // @ts-ignore
   $: shouldApplyProps(testString) && (instance.testString = testString)
 
   $: if (shouldApplyProps(wordWrap, useAdvancedWordWrap)) {
@@ -614,9 +618,9 @@
   $: shouldApplyProps(text) && instance.setText(text)
 
   onGameEvent('prestep', () => {
-    align = instance.align
     autoRound = instance.autoRound
     backgroundColor = instance.style.backgroundColor
+    align = instance.style.align
     baselineX = instance.style.baselineX
     baselineY = instance.style.baselineY
     fixedHeight = instance.style.fixedHeight
@@ -624,10 +628,10 @@
     fontFamily = instance.style.fontFamily
     fontSize = instance.style.fontSize
     fontStyle = instance.style.fontStyle
+    resolution = instance.style.resolution
     lineSpacing = instance.lineSpacing
     maxLines = instance.style.maxLines
     renderFlags = instance.renderFlags
-    resolution = instance.resolution
     rtl = instance.style.rtl
 
     if (
@@ -645,7 +649,7 @@
         color: instance.style.shadowColor,
         blur: instance.style.shadowBlur,
         stroke: instance.style.shadowStroke,
-        fill: instance.style.fill,
+        fill: instance.style.shadowFill,
       }
     }
 
@@ -654,12 +658,12 @@
     strokeThickness = instance.style.strokeThickness
     testString = instance.style.testString
     text = instance.text
+    // @ts-ignore
     wordWrap = instance.style.wordWrapWidth
+    // @ts-ignore
     useAdvancedWordWrap = instance.style.wordWrapUseAdvanced
   })
 </script>
-
-<svelte:options immutable />
 
 <GameObject
   bind:instance
@@ -680,13 +684,15 @@
   on:pointermove
   on:pointerout
   on:pointerup
-  on:pointerwheel>
+  on:pointerwheel
+>
   <Alpha
     bind:alpha
     bind:alphaTopLeft
     bind:alphaTopRight
     bind:alphaBottomLeft
-    bind:alphaBottomRight />
+    bind:alphaBottomRight
+  />
   <BlendMode bind:blendMode />
   <Depth bind:depth />
   <Flip bind:flipX bind:flipY />
@@ -704,13 +710,15 @@
     bind:scaleX
     bind:scaleY
     bind:angle
-    bind:rotation />
+    bind:rotation
+  />
   <Tint
     bind:tintTopLeft
     bind:tintTopRight
     bind:tintBottomLeft
     bind:tintBottomRight
-    bind:tintFill />
+    bind:tintFill
+  />
   <Visible bind:visible />
   <slot />
 </GameObject>

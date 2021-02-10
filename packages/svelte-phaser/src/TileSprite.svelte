@@ -1,5 +1,7 @@
-<script>
-  import Phaser from './phaser.js'
+<svelte:options immutable />
+
+<script lang="ts">
+  import Phaser from 'phaser'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
   import { getScene } from './getScene'
@@ -32,35 +34,35 @@
    * impacting the entire Game Object, not just a region of it.
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The alpha value starting from the bottom-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaBottomLeft = undefined
+  export let alphaBottomLeft: number = undefined
 
   /**
    * The alpha value starting from the bottom-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaBottomRight = undefined
+  export let alphaBottomRight: number = undefined
 
   /**
    * The alpha value starting from the top-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaTopLeft = undefined
+  export let alphaTopLeft: number = undefined
 
   /**
    * The alpha value starting from the top-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaTopRight = undefined
+  export let alphaTopRight: number = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.
@@ -454,8 +456,6 @@
   })
 </script>
 
-<svelte:options immutable />
-
 <GameObject
   bind:instance
   bind:active
@@ -475,13 +475,15 @@
   on:pointermove
   on:pointerout
   on:pointerup
-  on:pointerwheel>
+  on:pointerwheel
+>
   <Alpha
     bind:alpha
     bind:alphaTopLeft
     bind:alphaTopRight
     bind:alphaBottomLeft
-    bind:alphaBottomRight />
+    bind:alphaBottomRight
+  />
   <BlendMode bind:blendMode />
   <Crop bind:crop />
   <Depth bind:depth />
@@ -501,13 +503,15 @@
     bind:scaleX
     bind:scaleY
     bind:angle
-    bind:rotation />
+    bind:rotation
+  />
   <Tint
     bind:tintTopLeft
     bind:tintTopRight
     bind:tintBottomLeft
     bind:tintBottomRight
-    bind:tintFill />
+    bind:tintFill
+  />
   <Visible bind:visible />
   <slot />
 </GameObject>

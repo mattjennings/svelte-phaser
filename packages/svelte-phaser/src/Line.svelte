@@ -1,5 +1,7 @@
-<script>
-  import Phaser from './phaser.js'
+<svelte:options immutable />
+
+<script lang="ts">
+  import Phaser from 'phaser'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
   import { getScene } from './getScene.js'
@@ -17,7 +19,7 @@
    * impacting the entire Game Object, not just a region of it.
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.
@@ -359,7 +361,6 @@
   })
 </script>
 
-<svelte:options immutable />
 <Shape
   bind:instance
   bind:active
@@ -407,6 +408,7 @@
   on:pointermove
   on:pointerout
   on:pointerup
-  on:pointerwheel>
+  on:pointerwheel
+>
   <slot />
 </Shape>

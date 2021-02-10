@@ -1,5 +1,5 @@
-<script>
-  import Phaser from './phaser.js'
+<script lang="ts">
+  import Phaser from 'phaser'
   import { onMount, setContext, createEventDispatcher } from 'svelte'
   import { removeUndefined } from './util'
   const dispatch = createEventDispatcher()
@@ -217,8 +217,8 @@
       scale,
       audio,
       callbacks: {
-        preBoot: game => dispatch('preBoot', game),
-        postBoot: game => dispatch('postBoot', game),
+        preBoot: (game) => dispatch('preBoot', game),
+        postBoot: (game) => dispatch('postBoot', game),
       },
     })
   )

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
   import { getTilemap } from './getTilemap'
   import { getSpawner } from './getSpawner'
@@ -33,11 +33,11 @@
 
   const tilemap = getTilemap()
 
-  const layer = tilemap.objects.find(layer => layer.name === id)
+  const layer = tilemap.objects.find((layer) => layer.name === id)
 
   if (tilemap.useLayerOrder && typeof depth === 'undefined') {
     depth =
-      tilemap.layerOrder.findIndex(layerName => layerName === id) +
+      tilemap.layerOrder.findIndex((layerName) => layerName === id) +
       tilemap.startingDepth
   }
 
