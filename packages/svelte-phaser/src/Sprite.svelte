@@ -212,7 +212,7 @@
    * The Texture Frame this Game Object is using to render with.
    * @type {Phaser.Textures.Frame}
    */
-  export let frame = undefined
+  export let frame: string = undefined
 
   /**
    * The frame rate of playback in frames per second. The default is 24 if the duration property is null.
@@ -436,7 +436,7 @@
    * assigning an `animation`.
    * @type {string}
    */
-  export let texture = undefined
+  export let texture: string = undefined
 
   /**
    * Sets the Time Scale factor, allowing you to make the animation go go faster or slower than default.

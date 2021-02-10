@@ -184,7 +184,7 @@
    * The Texture Frame this Game Object is using to render with.
    * @type {Phaser.Textures.Frame}
    */
-  export let frame = undefined
+  export let frame: string = undefined
 
   /**
    * The height of this object.
@@ -336,7 +336,7 @@
    * assigning an `animation`.
    * @type {string}
    */
-  export let texture = undefined
+  export let texture: string = undefined
 
   /**
    * The tint value being applied to the bottom-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
