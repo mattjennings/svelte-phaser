@@ -128,7 +128,7 @@
    * For these reasons try to be careful about the construction of your Scene and the frequency of which blend modes are used.
    * @type {Phaser.BlendModes | string}
    */
-  export let blendMode = undefined
+  export let blendMode: Phaser.BlendModes | string = undefined
 
   /**
    * The color the Text is drawn in. Given as a CSS string color such as #fff or rgb()

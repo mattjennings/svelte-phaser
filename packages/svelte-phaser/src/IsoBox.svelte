@@ -49,7 +49,7 @@
    * For these reasons try to be careful about the construction of your Scene and the frequency of which blend modes are used.
    * @type {Phaser.BlendModes | string}
    */
-  export let blendMode = undefined
+  export let blendMode: Phaser.BlendModes | string = undefined
 
   /**
    * A Data Manager. It allows you to store, query and get key/value paired information specific to this Game Object. null by default.

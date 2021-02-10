@@ -100,7 +100,7 @@
    * For these reasons try to be careful about the construction of your Scene and the frequency of which blend modes are used.
    * @type {Phaser.BlendModes | string}
    */
-  export let blendMode = undefined
+  export let blendMode: Phaser.BlendModes | string = undefined
 
   /**
    * Applies a crop to a texture based Game Object, such as a Sprite or Image.
