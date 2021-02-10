@@ -477,13 +477,13 @@
    * The tint value being applied to the bottom-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintBottomLeft = undefined
+  export let tintBottomLeft: number = undefined
 
   /**
    * The tint value being applied to the bottom-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintBottomRight = undefined
+  export let tintBottomRight: number = undefined
 
   /**
    * Fill or additive?
@@ -491,19 +491,19 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let tintFill = undefined
+  export let tintFill: boolean = undefined
 
   /**
    * The tint value being applied to the top-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintTopLeft = undefined
+  export let tintTopLeft: number = undefined
 
   /**
    * The tint value being applied to the top-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintTopRight = undefined
+  export let tintTopRight: number = undefined
 
   /**
    * The visible state of the Game Object. An invisible Game Object will skip rendering, but will still process update logic.
