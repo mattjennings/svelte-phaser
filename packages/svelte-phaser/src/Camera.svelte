@@ -325,7 +325,7 @@
    * #phaserDefault true
    * @type {boolean}
    */
-  export let visible = undefined
+  export let visible: boolean = undefined
 
   /**
    * The Camera zoom value. Change this value to zoom in, or out of, a Scene.

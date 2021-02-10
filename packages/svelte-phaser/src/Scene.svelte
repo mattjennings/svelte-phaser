@@ -22,7 +22,7 @@
    * Does the Scene start as visible or not? A visible Scene renders each step.
    * @type {boolean}
    */
-  export let visible = undefined
+  export let visible: boolean = undefined
 
   /**
    * An optional Loader Packfile to be loaded before the Scene begins.

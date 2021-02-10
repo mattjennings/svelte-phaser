@@ -253,7 +253,7 @@
    * The visible state of the Game Object. An invisible Game Object will skip rendering, but will still process update logic.
    * @type {boolean}
    */
-  export let visible = undefined
+  export let visible: boolean = undefined
 
   /**
    * The w position of this Game Object.
