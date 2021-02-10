@@ -167,7 +167,7 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let flipX = undefined
+  export let flipX: boolean = undefined
 
   /**
    * The vertically flipped state of the Game Object.
@@ -178,7 +178,7 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let flipY = undefined
+  export let flipY: boolean = undefined
 
   /**
    * The Texture Frame this Game Object is using to render with.

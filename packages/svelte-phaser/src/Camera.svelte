@@ -112,7 +112,7 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let flipX = undefined
+  export let flipX: boolean = undefined
 
   /**
    * The vertically flipped state of the Game Object.
@@ -123,7 +123,7 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let flipY = undefined
+  export let flipY: boolean = undefined
 
   /**
    * The game object to follow. It can be the name of a game object, or a game object

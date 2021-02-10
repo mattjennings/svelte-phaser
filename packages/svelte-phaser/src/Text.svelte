@@ -211,7 +211,7 @@
    * If this Game Object has a physics body, it will not change the body. This is a rendering toggle only.
    * @type {boolean}
    */
-  export let flipX = undefined
+  export let flipX: boolean = undefined
 
   /**
    * The vertically flipped state of the Game Object.
@@ -220,7 +220,7 @@
    * If this Game Object has a physics body, it will not change the body. This is a rendering toggle only.
    * @type {boolean}
    */
-  export let flipY = undefined
+  export let flipY: boolean = undefined
 
   /**
    * The font the Text object will render with. This is a Canvas style font string.
