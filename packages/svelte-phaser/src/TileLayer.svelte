@@ -146,7 +146,7 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayHeight = undefined
+  export let displayHeight: number = undefined
 
   /**
    * The horizontal display origin of this Game Object. The origin is a normalized value between 0 and 1.
@@ -168,7 +168,7 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayWidth = undefined
+  export let displayWidth: number = undefined
 
   /**
    * The horizontally flipped state of the Game Object.
@@ -199,7 +199,7 @@
    * For that you need to either set the scale or the displayHeight.
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * The layer array index value, or the layer name from Tiled
@@ -351,7 +351,7 @@
    * The width of this Game object.
    * @type {number}
    */
-  export let width = undefined
+  export let width: number = undefined
 
   /**
    * The x position of this Game Object.

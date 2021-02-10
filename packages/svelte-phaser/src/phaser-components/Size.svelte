@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getGameObject } from '../getGameObject'
   import { onGameEvent } from '../onGameEvent'
   import { shouldApplyProps } from '../util'
@@ -9,7 +9,7 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayHeight = undefined
+  export let displayHeight: number = undefined
 
   /**
    * The displayed width of this Game Object.
@@ -18,25 +18,27 @@
    *
    * @type {number}
    */
-  export let displayWidth = undefined
+  export let displayWidth: number = undefined
 
   /**
    * The height of this Text object.
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * The width of this Text object.
    * @type {number}
    */
-  export let width = undefined
+  export let width: number = undefined
 
   /**
    * Defaults to the parent game object in Svelte context. If you need to provide
    * the instance yourself, you can do so here.
    */
-  export let gameObject = getGameObject()
+  export let gameObject = getGameObject<
+    Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Size
+  >()
 
   $: if (shouldApplyProps(displayHeight, displayWidth)) {
     gameObject.setDisplaySize(displayWidth, displayHeight)

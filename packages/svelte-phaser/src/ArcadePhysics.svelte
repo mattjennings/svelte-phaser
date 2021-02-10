@@ -286,7 +286,7 @@
    * If not given, and the parent Game Object has a frame, it will use the frame width.
    * @type {number}
    */
-  export let width = undefined
+  export let width: number = undefined
 
   /**
    * The height of the Body in pixels. Cannot be zero.
@@ -294,7 +294,7 @@
    *
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * Modify the Body's offset, placing the Body's center on its Game Object's center.

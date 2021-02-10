@@ -151,7 +151,7 @@
    * Setting the viewport does not restrict where the Camera can scroll to.
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * Does this Camera allow the Game Objects it renders to receive input events?

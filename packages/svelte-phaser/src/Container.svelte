@@ -81,7 +81,7 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayHeight = undefined
+  export let displayHeight: number = undefined
 
   /**
    * The displayed width of this Game Object.
@@ -89,7 +89,7 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayWidth = undefined
+  export let displayWidth: number = undefined
 
   /**
    * Enables the firing of drag events
@@ -101,7 +101,7 @@
    * The height of this object.
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * If you want the Container to be reactive to pointer events you will need to provide
@@ -234,7 +234,7 @@
    * The width of this Game object.
    * @type {number}
    */
-  export let width = undefined
+  export let width: number = undefined
 
   /**
    * The x position of this Game Object.

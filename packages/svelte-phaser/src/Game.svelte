@@ -79,7 +79,7 @@
    * #phaserDefault 1024
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * Images configuration
@@ -174,7 +174,7 @@
    * #phaserDefault 1024
    * @type {number}
    */
-  export let width = undefined
+  export let width: number = undefined
 
   /**
    * Simple scale applied to the game canvas. 2 is double size, 0.5 is half size, etc.

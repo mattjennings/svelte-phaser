@@ -142,7 +142,7 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayHeight = undefined
+  export let displayHeight: number = undefined
 
   /**
    * The horizontal display origin of this Game Object. The origin is a normalized value between 0 and 1.
@@ -164,7 +164,7 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayWidth = undefined
+  export let displayWidth: number = undefined
 
   /**
    * How long the animation should play for, in milliseconds. If the frameRate property has been set then it overrides this value, otherwise the frameRate is derived from duration.
@@ -225,7 +225,7 @@
    * The height of this object.
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * Whether or not the game object should react to input from the pointer. This is true by default,
@@ -493,7 +493,7 @@
    * The width of this Game object.
    * @type {number}
    */
-  export let width = undefined
+  export let width: number = undefined
 
   /**
    * The x position of this Game Object.
