@@ -307,7 +307,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let fillAlpha = undefined
+  export let fillAlpha: number = undefined
 
   /**
    * The default fill color.
@@ -317,7 +317,7 @@
    * #phaserDefault -1
    * @type {number}
    */
-  export let fillColor = undefined
+  export let fillColor: number = undefined
 
   /**
    * The default stroke alpha.
@@ -325,7 +325,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let strokeAlpha = undefined
+  export let strokeAlpha: number = undefined
 
   /**
    * The default stroke color.
@@ -335,14 +335,14 @@
    * #phaserDefault -1
    * @type {number}
    */
-  export let strokeColor = undefined
+  export let strokeColor: number = undefined
 
   /**
    * The stroke line width
    *
    * @type {number}
    */
-  export let strokeWidth = undefined
+  export let strokeWidth: number = undefined
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.

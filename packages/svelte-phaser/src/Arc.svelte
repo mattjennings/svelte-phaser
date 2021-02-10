@@ -296,7 +296,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let fillAlpha = undefined
+  export let fillAlpha: number = undefined
 
   /**
    * The default fill color.
@@ -306,7 +306,7 @@
    * #phaserDefault -1
    * @type {number}
    */
-  export let fillColor = undefined
+  export let fillColor: number = undefined
 
   /**
    * The default stroke alpha.
@@ -314,7 +314,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let strokeAlpha = undefined
+  export let strokeAlpha: number = undefined
 
   /**
    * The default stroke color.
@@ -324,14 +324,14 @@
    * #phaserDefault -1
    * @type {number}
    */
-  export let strokeColor = undefined
+  export let strokeColor: number = undefined
 
   /**
    * The stroke line width
    *
    * @type {number}
    */
-  export let strokeWidth = undefined
+  export let strokeWidth: number = undefined
 
   /**
    * The radius of the arc.
@@ -339,7 +339,7 @@
    * #phaserDefault 128
    * @type {number}
    */
-  export let radius = undefined
+  export let radius: number = undefined
 
   /**
    * The start angle of the arc, in degrees.
@@ -347,7 +347,7 @@
    * #phaserDefault 0
    * @type {number}
    */
-  export let startAngle = undefined
+  export let startAngle: number = undefined
 
   /**
    * The end angle of the arc, in degrees.
@@ -355,29 +355,29 @@
    * #phaserDefault 360
    * @type {number}
    */
-  export let endAngle = undefined
+  export let endAngle: number = undefined
 
   /**
    * The winding order of the start and end angles.
    *
    * #phaserDefault false
-   * @type {number}
+   * @type {boolean}
    */
-  export let counterClockwise = undefined
+  export let counterClockwise: boolean = undefined
 
   /**
    * The winding order of the start and end angles.
    *
    * #phaserDefault false
-   * @type {number}
+   * @type {boolean}
    */
-  export let anticlockwise = undefined
+  export let anticlockwise: boolean = undefined
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
    * @type {string}
    */
-  export let pipeline = undefined
+  export let pipeline: string = undefined
 
   const scene = getScene()
 
@@ -392,16 +392,15 @@
   )
 
   $: shouldApplyProps(radius) && instance.setRadius(radius)
-  $: shouldApplyProps(startAngle) &&
-    instance.setStartAngle(startAngle, anticlockwise)
-  $: shouldApplyProps(endAngle) && instance.setEndAngle(endAngle, anticlockwise)
+  $: shouldApplyProps(startAngle) && instance.setStartAngle(startAngle)
+  $: shouldApplyProps(endAngle) && instance.setEndAngle(endAngle)
   $: shouldApplyProps(anticlockwise) && (instance.anticlockwise = anticlockwise)
 
   onGameEvent('prestep', () => {
     radius = instance.radius
-    startAngle = instance._startAngle
-    endAngle = instance._endAngle
-    anticlockwise = instance._anticlockwise
+    startAngle = instance.startAngle
+    endAngle = instance.endAngle
+    anticlockwise = instance.anticlockwise
   })
 </script>
 

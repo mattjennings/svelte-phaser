@@ -296,7 +296,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let strokeAlpha = undefined
+  export let strokeAlpha: number = undefined
 
   /**
    * The default stroke color.
@@ -306,7 +306,7 @@
    * #phaserDefault -1
    * @type {number}
    */
-  export let strokeColor = undefined
+  export let strokeColor: number = undefined
 
   /**
    * The stroke line width
