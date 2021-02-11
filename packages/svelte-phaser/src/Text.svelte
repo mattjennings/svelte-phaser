@@ -13,7 +13,7 @@
   import Flip from './phaser-components/Flip.svelte'
   import Mask from './phaser-components/Mask.svelte'
   import Origin from './phaser-components/Origin.svelte'
-
+  import Pipeline from './phaser-components/Pipeline.svelte'
   import ScrollFactor from './phaser-components/ScrollFactor.svelte'
   import Size from './phaser-components/Size.svelte'
   import Tint from './phaser-components/Tint.svelte'
@@ -351,6 +351,12 @@
    * @type {boolean}
    */
   export let rtl = false
+
+  /**
+   * Sets the active WebGL Pipeline of this Game Object.
+   * @type {string}
+   */
+  export let pipeline = undefined
 
   /**
    * This is a special setter that allows you to set both the horizontal and vertical scale of this Game Object to the same value, at the same time.
@@ -696,7 +702,7 @@
   <Origin bind:originX bind:originY bind:displayOriginX bind:displayOriginY />
   <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
   <Size bind:width bind:height bind:displayWidth bind:displayHeight />
-
+  <Pipeline bind:pipeline />
   <Transform
     bind:x
     bind:y

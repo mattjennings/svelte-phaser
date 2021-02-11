@@ -342,6 +342,12 @@
    */
   export let points: Phaser.Math.Vector2[] | Array<{ x: number; y: number }>
 
+  /**
+   * Sets the active WebGL Pipeline of this Game Object.
+   * @type {string}
+   */
+  export let pipeline = undefined
+
   const scene = getScene()
 
   export let instance = new Phaser.GameObjects.Polygon(
@@ -402,6 +408,7 @@
   bind:strokeAlpha
   bind:strokeColor
   bind:strokeWidth
+  bind:pipeline
   on:drag
   on:dragenter
   on:dragleave

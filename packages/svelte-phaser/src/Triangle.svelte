@@ -368,6 +368,12 @@
    */
   export let y3 = 128
 
+  /**
+   * Sets the active WebGL Pipeline of this Game Object.
+   * @type {string}
+   */
+  export let pipeline = undefined
+
   const scene = getScene()
 
   export let instance = new Phaser.GameObjects.Triangle(
@@ -442,6 +448,7 @@
   bind:strokeAlpha
   bind:strokeColor
   bind:strokeWidth
+  bind:pipeline
   on:drag
   on:dragenter
   on:dragleave
