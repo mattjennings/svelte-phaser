@@ -42,20 +42,20 @@ test('animation props', async () => {
     yoyo: true,
   })
 
-  expect(instance.anims.getDelay()).toEqual(2)
+  expect(instance.anims.delay).toEqual(2)
   expect(instance.anims.duration).toEqual(10)
   expect(instance.anims.forward).toEqual(false)
   expect(instance.anims.isPlaying).toEqual(false)
   expect(instance.anims.msPerFrame).toEqual(100)
   expect(instance.anims.skipMissedFrames).toEqual(false)
-  expect(instance.anims.getRepeat()).toEqual(5)
-  expect(instance.anims.getRepeatDelay()).toEqual(10)
-  expect(instance.anims.getTimeScale()).toEqual(10)
-  expect(instance.anims.getYoyo()).toEqual(true)
+  expect(instance.anims.repeat).toEqual(5)
+  expect(instance.anims.repeatDelay).toEqual(10)
+  expect(instance.anims.timeScale).toEqual(10)
+  expect(instance.anims.yoyo).toEqual(true)
 
   // animation prop
   jest.spyOn(instance.anims, 'play')
   $$set({ animation: 'run' })
   await tick()
-  expect(instance.anims.play).toHaveBeenCalledWith('run', true, 0)
+  expect(instance.anims.play).toHaveBeenCalledWith('run', true)
 })

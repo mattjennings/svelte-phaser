@@ -589,10 +589,10 @@
     }
   })
 
-  $: shouldApplyProps(animation) && instance.anims.play(animation, true, 0)
+  $: shouldApplyProps(animation) && instance.anims.play(animation, true)
   $: shouldApplyProps(isPlaying) && (instance.anims.isPlaying = isPlaying)
 
-  $: shouldApplyProps(delay) && instance.anims.setDelay(delay)
+  $: shouldApplyProps(delay) && (instance.anims.delay = delay)
 
   $: shouldApplyProps(duration) && (instance.anims.duration = duration)
   $: shouldApplyProps(forward) && (instance.anims.forward = forward)
@@ -609,13 +609,13 @@
   $: shouldApplyProps(stopAfterDelay) &&
     instance.anims.stopAfterDelay(stopAfterDelay)
 
-  $: shouldApplyProps(repeat) && instance.anims.setRepeat(repeat)
+  $: shouldApplyProps(repeat) && (instance.anims.repeat = repeat)
 
-  $: shouldApplyProps(repeatDelay) && instance.anims.setRepeatDelay(repeatDelay)
+  $: shouldApplyProps(repeatDelay) && (instance.anims.repeatDelay = repeatDelay)
 
-  $: shouldApplyProps(timeScale) && instance.anims.setTimeScale(timeScale)
+  $: shouldApplyProps(timeScale) && (instance.anims.timeScale = timeScale)
 
-  $: shouldApplyProps(yoyo) && instance.anims.setYoyo(yoyo)
+  $: shouldApplyProps(yoyo) && (instance.anims.yoyo = yoyo)
 
   onGameEvent('prestep', () => {
     if (instance.anims) {
@@ -623,7 +623,7 @@
         animation = instance.anims.currentAnim.key
       }
       isPlaying = instance.anims.isPlaying
-      delay = instance.anims.getDelay()
+      delay = instance.anims.delay
       duration = instance.anims.duration
       forward = instance.anims.forward
       frameRate = instance.anims.frameRate
@@ -632,10 +632,10 @@
       if (instance.anims.currentFrame) {
         progress = instance.anims.getProgress()
       }
-      repeat = instance.anims.getRepeat()
-      repeatDelay = instance.anims.getRepeatDelay()
-      timeScale = instance.anims.getTimeScale()
-      yoyo = instance.anims.getYoyo()
+      repeat = instance.anims.repeat
+      repeatDelay = instance.anims.repeatDelay
+      timeScale = instance.anims.timeScale
+      yoyo = instance.anims.yoyo
     }
   })
 </script>
