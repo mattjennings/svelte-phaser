@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, createEventDispatcher } from 'svelte'
+  import { onMount, createEventDispatcher, tick } from 'svelte'
   import { toArray, findGameObjectsByName } from './util'
   import { onSceneEvent } from './onSceneEvent'
   import { getScene } from './getScene'
@@ -47,7 +47,10 @@
   onMount(() => () => collider.destroy())
 
   // update gameobject references by string when a child is added to the scene
-  onSceneEvent('CHILD_ADDED', (object) => {
+  onSceneEvent(Phaser.Scenes.Events.ADDED_TO_SCENE, async (object) => {
+    // wait for svelte to apply props
+    await tick()
+
     if (object.name) {
       const withStrings = toArray(_with).filter(
         (obj) => typeof obj === 'string'
