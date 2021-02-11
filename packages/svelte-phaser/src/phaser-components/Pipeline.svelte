@@ -1,6 +1,5 @@
 <script lang="ts">
   import { getGameObject } from '../getGameObject'
-  import { onGameEvent } from '../onGameEvent'
   import { shouldApplyProps } from '../util'
 
   /**
