@@ -46,16 +46,7 @@ async function preprocessSvelte(filePath) {
   const srcCode = await fs.readFile(filePath, { encoding: 'utf-8' })
   let { code } = await svelte.preprocess(
     srcCode,
-    sveltePreprocess({
-      // unfortunately, sourcemap on .svelte files sometimes comments out the </script> tag
-      // so we need to disable sourcemapping for them
-      sourceMap: false,
-      typescript: {
-        compilerOptions: {
-          sourceMap: false,
-        },
-      },
-    }),
+    sveltePreprocess(require('../svelte.config.js').preprocess),
     {
       filename: filePath,
     }

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import type Phaser from 'phaser'
-  import { GameObjects } from 'phaser'
+  import Phaser from 'phaser'
   import { getGameObject } from '../getGameObject'
   import { onGameEvent } from '../onGameEvent'
   import { shouldApplyProps } from '../util'
@@ -33,7 +32,7 @@
 
   // not sure if this is safe? we somehow need to give the instance PathFollower capabilities
   // @ts-ignore
-  Object.assign(gameObject, GameObjects.Components.PathFollower)
+  Object.assign(gameObject, Phaser.GameObjects.Components.PathFollower)
 
   $: if (shouldApplyProps(path)) {
     if (path) {

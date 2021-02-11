@@ -14,6 +14,7 @@ export function addInstance<
   const container = getContainer()
 
   if (scene) {
+    // @ts-ignore
     scene.add.existing(self)
   } else {
     throw new Error('Unable to find Scene for instance')

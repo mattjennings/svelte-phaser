@@ -1,4 +1,3 @@
-import { GameObjects } from 'phaser'
 import { render } from '@testing-library/svelte'
 import { tick, getContext } from 'svelte'
 import ArcadePhysics from './ArcadePhysics.svelte'
@@ -20,7 +19,7 @@ beforeAll(async () => {
 })
 
 beforeEach(() => {
-  gameObject = new GameObjects.Text(scene, 0, 0, 'blah', {})
+  gameObject = new Phaser.GameObjects.Text(scene, 0, 0, 'blah', {})
 
   asMock(getContext).mockImplementation((name) => {
     switch (name) {

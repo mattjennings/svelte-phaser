@@ -1,8 +1,7 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import type Phaser from 'phaser'
-  import { GameObjects } from 'phaser'
+  import Phaser from 'phaser'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
   import { getScene } from './getScene'
@@ -342,7 +341,7 @@
 
   const scene = getScene()
 
-  export let instance = new GameObjects.Ellipse(
+  export let instance = new Phaser.GameObjects.Ellipse(
     scene,
     x,
     y,

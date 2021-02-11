@@ -1,6 +1,5 @@
 <script lang="ts">
-  import type Phaser from 'phaser'
-  import { Scene } from 'phaser'
+  import Phaser from 'phaser'
   import { getContext, setContext, onMount, tick } from 'svelte'
   import { removeUndefined } from './util'
   import { getGame } from './getGame'
@@ -103,7 +102,7 @@
    * If you have your own Phaser.Scene instance you may pass it in
    * @type {Phaser.Scene}
    */
-  export let instance = new Scene(
+  export let instance = new Phaser.Scene(
     removeUndefined({
       key,
       active,
