@@ -15,7 +15,7 @@
   let enemyY = 0
 
   // change direction every 3 seconds
-  const moveTimer = scene.time.addEvent({
+  const timerConfig = {
     callback: () => {
       if ($gameStatus === 'playing') {
         enemyVelocityX = -enemyVelocityX
@@ -24,7 +24,8 @@
     },
     loop: true,
     delay: 3500,
-  })
+  }
+  const moveTimer = scene.time.addEvent(timerConfig)
 
   // shoot bullet at player every 2 seconds from random enemy
   const enemyShootTimer = scene.time.addEvent({
@@ -70,6 +71,7 @@
 
   // create enemies on to start or on game reset
   $: if ($gameStatus === 'playing') {
+    moveTimer.reset(timerConfig)
     enemyY = 0
     enemies = Array.from({ length: 40 }).map((_, index) => {
       const columns = 10
