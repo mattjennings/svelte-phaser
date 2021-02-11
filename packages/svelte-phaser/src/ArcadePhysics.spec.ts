@@ -153,13 +153,17 @@ test('gravity', async () => {
     component: { $$set },
   } = render(ArcadePhysics, {
     gravity: 1,
+    allowGravity: false,
   })
+
+  jest.spyOn(gameObject.body, 'setAllowGravity')
 
   expect(gameObject.body.gravity).toEqual({ x: 1, y: 1 })
 
-  $$set({ gravityX: 2, gravityY: 3 })
+  $$set({ gravityX: 2, gravityY: 3, allowGravity: true })
   await tick()
 
+  expect(gameObject.body.setAllowGravity).toHaveBeenCalledWith(true)
   expect(gameObject.body.gravity).toEqual({ x: 2, y: 3 })
 })
 

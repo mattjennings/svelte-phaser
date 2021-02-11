@@ -344,7 +344,9 @@
 
   const scene = getScene()
   const instance = getGameObject<
-    Phaser.GameObjects.GameObject & { body: Phaser.Physics.Arcade.Body }
+    Phaser.GameObjects.GameObject & {
+      body: Phaser.Physics.Arcade.Body
+    }
   >()
 
   scene.physics.world.enable(
@@ -373,7 +375,8 @@
   }
 
   $: shouldApplyProps(allowGravity) &&
-    (instance.body.allowGravity = allowGravity)
+    instance.body.allowGravity !== allowGravity &&
+    instance.body.setAllowGravity(allowGravity)
 
   $: shouldApplyProps(allowDrag) && (instance.body.allowDrag = allowDrag)
 
@@ -455,6 +458,7 @@
   }
 
   $: shouldApplyProps(onWorldBounds) &&
+    // @ts-ignore - types say it's readonly property, but that's only for static body type
     (instance.body.onWorldBounds = onWorldBounds)
 
   $: shouldApplyProps(maxSpeed) && instance.body.setMaxSpeed(maxSpeed)

@@ -2,6 +2,6 @@
   "name": "svelte-phaser-examples",
   "private": true,
   "scripts": {
-    "build": "(cd breakout && yarn build); (cd invaders && yarn build); (cd platforme && yarn build)"
+    "build": "(cd breakout && yarn build); (cd invaders && yarn build); (cd platformer && yarn build)"
   }
 }

@@ -36,7 +36,7 @@
     "jest": "^26.0.1",
     "jsdom": "^16.2.2",
     "nodemon": "^2.0.7",
-    "phaser": "^3.23.0",
+    "phaser": "^3.52.0",
     "svelte": "^3.32.2",
     "svelte-check": "^1.0.60",
     "svelte-jester": "^1.3.0",
