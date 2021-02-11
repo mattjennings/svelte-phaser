@@ -39,7 +39,7 @@ afterEach(() => {
   instance.destroy()
 })
 
-test('pipeline', async () => {
+test('pipeline as string', async () => {
   jest.spyOn(instance, 'setPipeline')
 
   // it relies on a webgl render target to actually do anything,
@@ -49,4 +49,32 @@ test('pipeline', async () => {
   })
 
   expect(instance.setPipeline).toHaveBeenCalledWith('bleh')
+})
+
+test('pipeline as object', async () => {
+  jest.spyOn(instance, 'setPipeline')
+
+  // it relies on a webgl render target to actually do anything,
+  // so we can't test instance.pipeline, but we can spy on the method
+  render(Pipeline, {
+    pipeline: { name: 'bleh', data: { something: true }, copy: true },
+  })
+
+  expect(instance.setPipeline).toHaveBeenCalledWith(
+    'bleh',
+    { something: true },
+    true
+  )
+})
+
+test('postPipeline', async () => {
+  jest.spyOn(instance, 'setPostPipeline')
+
+  // it relies on a webgl render target to actually do anything,
+  // so we can't test instance.pipeline, but we can spy on the method
+  render(Pipeline, {
+    postPipeline: ['asdf'],
+  })
+
+  expect(instance.setPostPipeline).toHaveBeenCalledWith(['asdf'])
 })
