@@ -206,3 +206,27 @@ test('width/height', async () => {
   expect(instance.width).toEqual(10)
   expect(instance.height).toEqual(10)
 })
+
+test('zoom', async () => {
+  const {
+    component: { instance },
+  } = render(Camera, {
+    ...baseProps,
+    zoom: 0.5,
+  })
+
+  expect(instance.zoom).toEqual(0.5)
+})
+
+test('zoom x/y', async () => {
+  const {
+    component: { instance },
+  } = render(Camera, {
+    ...baseProps,
+    zoomX: 0.5,
+    zoomY: 0.75,
+  })
+
+  expect(instance.zoomX).toEqual(0.5)
+  expect(instance.zoomY).toEqual(0.75)
+})
