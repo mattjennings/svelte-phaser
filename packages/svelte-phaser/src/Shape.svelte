@@ -1,8 +1,6 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
-  import { getScene } from './getScene'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
 

@@ -373,6 +373,7 @@
     fillRight
   )
 
+  // @ts-ignore - setSize does exist
   $: shouldApplyProps(size, height) && instance.setSize(size, height)
 
   $: shouldApplyProps(fillTop, fillLeft, fillRight) &&
