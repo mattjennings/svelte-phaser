@@ -10,7 +10,7 @@
    * #required
    * @type {string}
    */
-  export let key = undefined
+  export let key: string = undefined
 
   /**
    * Does the Scene start as active or not? An active Scene updates each step.
@@ -28,43 +28,47 @@
    * An optional Loader Packfile to be loaded before the Scene begins.
    * @type {false | Phaser.Types.Loader.FileTypes.PackFileConfig}
    */
-  export let pack = undefined
+  export let pack:
+    | false
+    | Phaser.Types.Loader.FileTypes.PackFileConfig = undefined
 
   /**
    * An optional Camera configuration object.
    * @type {Phaser.Types.Cameras.Scene2D.JSONCamera | Phaser.Types.Cameras.Scene2D.JSONCamera[]}
    */
-  export let cameras = undefined
+  export let cameras:
+    | Phaser.Types.Cameras.Scene2D.JSONCamera
+    | Phaser.Types.Cameras.Scene2D.JSONCamera[] = undefined
 
   /**
    * Overwrites the default injection map for a scene.
    * @type {object}
    */
-  export let map = undefined
+  export let map: any = undefined
 
   /**
    * Extends the injection map for a scene.
-   * @type {map}
+   * @type {object}
    */
-  export let mapAdd = undefined
+  export let mapAdd: any = undefined
 
   /**
    * The physics configuration object for the Scene.
    * @type {Phaser.Types.Core.PhysicsConfig}
    */
-  export let physics = undefined
+  export let physics: Phaser.Types.Core.PhysicsConfig = undefined
 
   /**
    * The loader configuration object for the Scene.
    * @type {Phaser.Types.Core.LoaderConfig}
    */
-  export let loader = undefined
+  export let loader: Phaser.Types.Core.LoaderConfig = undefined
 
   /**
    * The plugin configuration object for the Scene.
    * @type {any}
    */
-  export let plugins = undefined
+  export let plugins: any = undefined
 
   /**
    * Use this callback to load assets.
@@ -76,7 +80,7 @@
    * It is called with the Phaser.Scene instance as the parameter.
    * @type {function}
    */
-  export let preload = undefined
+  export let preload: (scene: Phaser.Scene) => any = undefined
 
   /**
    * Use this callback to create any other assets needed by the scene (animations, etc).
@@ -87,7 +91,7 @@
    * It is called with the Phaser.Scene instance as the parameter.
    * @type {function}
    */
-  export let create = undefined
+  export let create: (scene: Phaser.Scene) => any = undefined
 
   /**
    * This method is called by the Scene Manager when the scene starts,
@@ -96,13 +100,13 @@
    * It is called with the Phaser.Scene instance as the parameter.
    * @type {function}
    */
-  export let init = undefined
+  export let init: (scene: Phaser.Scene) => any = undefined
 
   /**
    * If you have your own Phaser.Scene instance you may pass it in
    * @type {Phaser.Scene}
    */
-  export let instance = new Phaser.Scene(
+  export let instance: Phaser.Scene = new Phaser.Scene(
     removeUndefined({
       key,
       active,
