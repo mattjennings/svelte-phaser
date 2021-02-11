@@ -54,5 +54,5 @@ Renders a polygon.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Polygon.svelte
+./../packages/svelte-phaser/dist/Polygon.svelte
 ```

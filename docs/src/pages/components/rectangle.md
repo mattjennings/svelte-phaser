@@ -32,5 +32,5 @@ Renders a rectangle.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Rectangle.svelte
+./../packages/svelte-phaser/dist/Rectangle.svelte
 ```

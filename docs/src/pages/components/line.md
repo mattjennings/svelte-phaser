@@ -27,5 +27,5 @@ Renders a line.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Line.svelte
+./../packages/svelte-phaser/dist/Line.svelte
 ```

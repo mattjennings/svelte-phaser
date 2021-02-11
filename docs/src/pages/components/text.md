@@ -19,7 +19,7 @@ Renders text onto the canvas.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Text.svelte
+./../packages/svelte-phaser/dist/Text.svelte
 ```
 
 ## Events

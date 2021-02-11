@@ -52,12 +52,11 @@ Containers are used to group game objects together. All children are positioned 
         fillColor={0xff0000} />
     </Container>
   </Scene>
-
 </Game>
 ```
 
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Container.svelte
+./../packages/svelte-phaser/dist/Container.svelte
 ```

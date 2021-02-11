@@ -31,5 +31,5 @@ Renders an "arc" shape. This can be used for circles or semi-circles.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Arc.svelte
+./../packages/svelte-phaser/dist/Arc.svelte
 ```

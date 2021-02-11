@@ -32,5 +32,5 @@ Renders a curve.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Curve.svelte
+./../packages/svelte-phaser/dist/Curve.svelte
 ```

@@ -32,5 +32,5 @@ Renders an ellipse.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Ellipse.svelte
+./../packages/svelte-phaser/dist/Ellipse.svelte
 ```

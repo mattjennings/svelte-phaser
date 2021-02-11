@@ -87,5 +87,5 @@ by using `let:progress` on the Scene
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Scene.svelte
+./../packages/svelte-phaser/dist/Scene.svelte
 ```

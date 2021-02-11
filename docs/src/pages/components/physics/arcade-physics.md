@@ -25,5 +25,5 @@ Alternatively, Phaser offers a Matter.js physics system, but svelte-phaser does 
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/ArcadePhysics.svelte
+./../packages/svelte-phaser/dist/ArcadePhysics.svelte
 ```

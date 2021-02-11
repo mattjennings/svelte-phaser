@@ -30,5 +30,5 @@ Renders a grid.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Grid.svelte
+./../packages/svelte-phaser/dist/Grid.svelte
 ```

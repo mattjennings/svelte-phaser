@@ -49,5 +49,5 @@ Renders an isometric rectangle.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/IsoBox.svelte
+./../packages/svelte-phaser/dist/IsoBox.svelte
 ```

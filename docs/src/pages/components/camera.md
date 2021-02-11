@@ -25,5 +25,5 @@ Creates a 2D Camera.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Camera.svelte
+./../packages/svelte-phaser/dist/Camera.svelte
 ```
