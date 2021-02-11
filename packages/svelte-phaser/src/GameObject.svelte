@@ -84,10 +84,6 @@
   const dispatch = createEventDispatcher()
   const scene = getScene()
 
-  if (!scene.children.exists(instance)) {
-    addInstance(instance)
-  }
-
   const listeners = [
     createPhaserEventDispatcher(
       instance,
@@ -235,6 +231,11 @@
   }
 
   $: shouldApplyProps(tabIndex) && (instance.tabIndex = tabIndex)
+
+  // add instance after all props have been applied
+  $: if (!scene.children.exists(instance)) {
+    addInstance(instance)
+  }
 
   onGameEvent('prestep', () => {
     active = instance.active

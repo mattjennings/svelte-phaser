@@ -48,9 +48,6 @@
 
   // update gameobject references by string when a child is added to the scene
   onSceneEvent(Phaser.Scenes.Events.ADDED_TO_SCENE, async (object) => {
-    // wait for svelte to apply props
-    await tick()
-
     if (object.name) {
       const withStrings = toArray(_with).filter(
         (obj) => typeof obj === 'string'
