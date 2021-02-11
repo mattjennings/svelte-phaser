@@ -91,10 +91,10 @@
           id="ground"
           name="ground"
           tilesets={['castle-tileset']}
-          collisionTilesByProperty={{ collision: true }}
+          collisionByProperty={{ collision: true }}
         />
         <TileLayer id="bg" tilesets={['castle-tileset']} />
-        <!-- <ObjectLayer id="enemies" components={{ }} /> -->
+
       </Tilemap>
     </Spawner>
     <Camera
