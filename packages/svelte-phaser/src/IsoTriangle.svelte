@@ -352,12 +352,6 @@
    */
   export let reversed = false
 
-  /**
-   * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
-   */
-  export let pipeline = undefined
-
   const scene = getScene()
 
   export let instance = new Phaser.GameObjects.IsoTriangle(
@@ -427,7 +421,6 @@
   bind:x
   bind:y
   bind:z
-  bind:pipeline
   on:drag
   on:dragenter
   on:dragleave

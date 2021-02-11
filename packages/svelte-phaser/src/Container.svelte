@@ -10,7 +10,6 @@
   import BlendMode from './phaser-components/BlendMode.svelte'
   import Depth from './phaser-components/Depth.svelte'
   import Mask from './phaser-components/Mask.svelte'
-  import Pipeline from './phaser-components/Pipeline.svelte'
   import ScrollFactor from './phaser-components/ScrollFactor.svelte'
   import Size from './phaser-components/Size.svelte'
   import Transform from './phaser-components/Transform.svelte'
@@ -256,12 +255,6 @@
    */
   export let z: number = undefined
 
-  /**
-   * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
-   */
-  export let pipeline = undefined
-
   const scene = getScene()
 
   export let instance = new Phaser.GameObjects.Container(scene, x, y, [])
@@ -296,7 +289,6 @@
   <Mask bind:mask />
   <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
   <Size bind:width bind:height bind:displayWidth bind:displayHeight />
-  <Pipeline bind:pipeline />
   <Transform
     bind:x
     bind:y

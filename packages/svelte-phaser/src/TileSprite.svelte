@@ -14,7 +14,7 @@
   import Flip from './phaser-components/Flip.svelte'
   import Mask from './phaser-components/Mask.svelte'
   import Origin from './phaser-components/Origin.svelte'
-  import Pipeline from './phaser-components/Pipeline.svelte'
+
   import ScrollFactor from './phaser-components/ScrollFactor.svelte'
   import Size from './phaser-components/Size.svelte'
   import Texture from './phaser-components/Texture.svelte'
@@ -438,12 +438,6 @@
    */
   export let tileScaleY = undefined
 
-  /**
-   * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
-   */
-  export let pipeline = undefined
-
   const scene = getScene()
 
   export let instance = new Phaser.GameObjects.TileSprite(
@@ -505,7 +499,7 @@
   <Origin bind:originX bind:originY bind:displayOriginX bind:displayOriginY />
   <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
   <Size bind:width bind:height bind:displayWidth bind:displayHeight />
-  <Pipeline bind:pipeline />
+
   <Texture bind:texture bind:frame />
   <Transform
     bind:x

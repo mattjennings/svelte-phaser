@@ -373,12 +373,6 @@
    */
   export let anticlockwise: boolean = undefined
 
-  /**
-   * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
-   */
-  export let pipeline: string = undefined
-
   const scene = getScene()
 
   export let instance = new Phaser.GameObjects.Arc(
@@ -442,7 +436,6 @@
   bind:strokeAlpha
   bind:strokeColor
   bind:strokeWidth
-  bind:pipeline
   on:drag
   on:dragenter
   on:dragleave

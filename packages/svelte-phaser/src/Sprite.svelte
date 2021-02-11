@@ -15,7 +15,7 @@
   import Flip from './phaser-components/Flip.svelte'
   import Mask from './phaser-components/Mask.svelte'
   import Origin from './phaser-components/Origin.svelte'
-  import Pipeline from './phaser-components/Pipeline.svelte'
+
   import ScrollFactor from './phaser-components/ScrollFactor.svelte'
   import Size from './phaser-components/Size.svelte'
   import Texture from './phaser-components/Texture.svelte'
@@ -291,12 +291,6 @@
    * @type {number}
    */
   export let originY: number = undefined
-
-  /**
-   * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
-   */
-  export let pipeline = undefined
 
   /**
    * Takes a value between 0 and 1 and uses it to set how far this animation is through playback. Does not factor in repeats or yoyos, but does handle playing forwards or backwards.
@@ -676,7 +670,7 @@
   <Origin bind:originX bind:originY bind:displayOriginX bind:displayOriginY />
   <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
   <Size bind:width bind:height bind:displayWidth bind:displayHeight />
-  <Pipeline bind:pipeline />
+
   <Texture bind:texture bind:frame />
   <Transform
     bind:x

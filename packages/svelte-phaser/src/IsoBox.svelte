@@ -345,12 +345,6 @@
    */
   export let projection = 4
 
-  /**
-   * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
-   */
-  export let pipeline = undefined
-
   const scene = getScene()
 
   export let instance = new Phaser.GameObjects.IsoBox(
@@ -418,7 +412,6 @@
   bind:x
   bind:y
   bind:z
-  bind:pipeline
   on:drag
   on:dragenter
   on:dragleave
