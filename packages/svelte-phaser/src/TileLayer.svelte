@@ -87,20 +87,20 @@
    * Sets collision on the given tile or tiles within a layer by index.
    * @type {number | number[]}
    */
-  export let collisionTiles = undefined
+  export let collision = undefined
 
   /**
    * Sets collision on a range of tiles in a layer whose index is between the specified start and stop (inclusive).
    * Calling this with a start value of 10 and a stop value of 14 would set collision for tiles 10, 11, 12, 13 and 14.
    * @type {[number, number]}
    */
-  export let collisionTilesBetween = undefined
+  export let collisionBetween = undefined
 
   /**
    * Sets collision on all tiles in the given layer, except for tiles that have an index specified in the given array.
    * @type {[number, number]}
    */
-  export let collisionTilesByExclusion = undefined
+  export let collisionByExclusion = undefined
 
   /**
    * Sets collision on the tiles within a layer by checking tile properties.
@@ -113,7 +113,7 @@
    *
    * @type {object}
    */
-  export let collisionTilesByProperty = undefined
+  export let collisionByProperty = undefined
 
   /**
    * Canvas only.
@@ -322,12 +322,6 @@
   export let skipCull = undefined
 
   /**
-   * Whether or not this layer is static or dynamic
-   * @type {"static"|"dynamic"}
-   */
-  export let type = 'static'
-
-  /**
    * The names of the tilesets used for this layer in the tilemap
    *
    * #required
@@ -390,20 +384,12 @@
 
   const tilemap = getTilemap()
 
-  export let instance =
-    type === 'static'
-      ? tilemap.createStaticLayer(
-          id,
-          tilemap.tilesets.filter((ts) => tilesets.includes(ts.name)),
-          x,
-          y
-        )
-      : tilemap.createDynamicLayer(
-          id,
-          tilemap.tilesets.filter((ts) => tilesets.includes(ts.name)),
-          x,
-          y
-        )
+  export let instance = tilemap.createLayer(
+    id,
+    tilemap.tilesets.filter((ts) => tilesets.includes(ts.name)),
+    x,
+    y
+  )
 
   // @ts-ignore
   if (tilemap.useLayerOrder && typeof depth === 'undefined') {
@@ -416,19 +402,14 @@
 
   setContext('phaser/tilemap-layer', instance)
 
-  $: shouldApplyProps(collisionTiles) &&
-    // @ts-ignore
-    instance.setCollisionTiles(collisionTiles)
+  $: shouldApplyProps(collision) && instance.setCollision(collision)
 
-  $: shouldApplyProps(collisionTilesBetween) &&
-    instance.setCollisionBetween(
-      collisionTilesBetween[0],
-      collisionTilesBetween[1]
-    )
-  $: shouldApplyProps(collisionTilesByExclusion) &&
-    instance.setCollisionByExclusion(collisionTilesByExclusion)
-  $: shouldApplyProps(collisionTilesByProperty) &&
-    instance.setCollisionByProperty(collisionTilesByProperty)
+  $: shouldApplyProps(collisionBetween) &&
+    instance.setCollisionBetween(collisionBetween[0], collisionBetween[1])
+  $: shouldApplyProps(collisionByExclusion) &&
+    instance.setCollisionByExclusion(collisionByExclusion)
+  $: shouldApplyProps(collisionByProperty) &&
+    instance.setCollisionByProperty(collisionByProperty)
 
   $: if (shouldApplyProps(cullPaddingX, cullPaddingY)) {
     if (
