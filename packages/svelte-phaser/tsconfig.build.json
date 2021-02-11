@@ -2,8 +2,7 @@
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
     "sourceMap": true,
-    "esModuleInterop": true,
-    "types": ["svelte", "jest", "phaser", "node"]
+    "esModuleInterop": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules/*"]

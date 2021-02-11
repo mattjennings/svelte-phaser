@@ -38,7 +38,9 @@ export default [
         preprocess: sveltePreprocess(),
       }),
       resolve(),
-      typescript(),
+      typescript({
+        tsconfig: './tsconfig.build.json',
+      }),
     ],
   },
 ]
