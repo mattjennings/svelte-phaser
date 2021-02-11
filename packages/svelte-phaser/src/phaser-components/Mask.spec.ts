@@ -40,7 +40,7 @@ afterEach(() => {
 })
 
 test('mask', async () => {
-  const mask = new Phaser.Display.Masks.BitmapMask(scene)
+  const mask = new Phaser.Display.Masks.BitmapMask(scene, null)
 
   render(Mask, {
     mask,
