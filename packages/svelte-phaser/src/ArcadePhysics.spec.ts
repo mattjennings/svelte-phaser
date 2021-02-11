@@ -1,3 +1,4 @@
+import { GameObjects } from 'phaser'
 import { render } from '@testing-library/svelte'
 import { tick, getContext } from 'svelte'
 import ArcadePhysics from './ArcadePhysics.svelte'
@@ -19,7 +20,7 @@ beforeAll(async () => {
 })
 
 beforeEach(() => {
-  gameObject = new Phaser.GameObjects.Text(scene, 0, 0, 'blah', {})
+  gameObject = new GameObjects.Text(scene, 0, 0, 'blah', {})
 
   asMock(getContext).mockImplementation((name) => {
     switch (name) {
@@ -39,14 +40,14 @@ afterEach(async () => {
 
 test('acceleration', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(ArcadePhysics, {
     acceleration: 1,
   })
 
   expect(gameObject.body.acceleration).toEqual({ x: 1, y: 1 })
 
-  $set({ accelerationX: 2, accelerationY: 3 })
+  $$set({ accelerationX: 2, accelerationY: 3 })
   await tick()
 
   expect(gameObject.body.acceleration).toEqual({ x: 2, y: 3 })
@@ -54,14 +55,14 @@ test('acceleration', async () => {
 
 test('angular', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(ArcadePhysics)
 
   jest.spyOn(gameObject.body, 'setAngularAcceleration')
   jest.spyOn(gameObject.body, 'setAngularDrag')
   jest.spyOn(gameObject.body, 'setAngularVelocity')
 
-  $set({
+  $$set({
     angularAcceleration: 1,
     angularDrag: 1,
     angularVelocity: 1,
@@ -75,14 +76,14 @@ test('angular', async () => {
 
 test('bounce', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(ArcadePhysics, {
     bounce: 1,
   })
 
   expect(gameObject.body.bounce).toEqual({ x: 1, y: 1 })
 
-  $set({ bounceX: 2, bounceY: 3 })
+  $$set({ bounceX: 2, bounceY: 3 })
   await tick()
 
   expect(gameObject.body.bounce).toEqual({ x: 2, y: 3 })
@@ -90,11 +91,11 @@ test('bounce', async () => {
 
 test('circle', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(ArcadePhysics)
 
   jest.spyOn(gameObject.body, 'setCircle')
-  $set({
+  $$set({
     circle: {
       radius: 5,
       offsetX: 10,
@@ -120,14 +121,14 @@ test('debug', async () => {
 
 test('drag', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(ArcadePhysics, {
     drag: 1,
   })
 
   expect(gameObject.body.drag).toEqual({ x: 1, y: 1 })
 
-  $set({ dragX: 2, dragY: 3 })
+  $$set({ dragX: 2, dragY: 3 })
   await tick()
 
   expect(gameObject.body.drag).toEqual({ x: 2, y: 3 })
@@ -135,14 +136,14 @@ test('drag', async () => {
 
 test('friction', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(ArcadePhysics, {
     friction: 1,
   })
 
   expect(gameObject.body.friction).toEqual({ x: 1, y: 1 })
 
-  $set({ frictionX: 2, frictionY: 3 })
+  $$set({ frictionX: 2, frictionY: 3 })
   await tick()
 
   expect(gameObject.body.friction).toEqual({ x: 2, y: 3 })
@@ -150,14 +151,14 @@ test('friction', async () => {
 
 test('gravity', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(ArcadePhysics, {
     gravity: 1,
   })
 
   expect(gameObject.body.gravity).toEqual({ x: 1, y: 1 })
 
-  $set({ gravityX: 2, gravityY: 3 })
+  $$set({ gravityX: 2, gravityY: 3 })
   await tick()
 
   expect(gameObject.body.gravity).toEqual({ x: 2, y: 3 })
@@ -173,7 +174,7 @@ test('immovable', async () => {
 
 test('offset', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(ArcadePhysics, {
     offsetX: 5,
     offsetY: 10,
@@ -181,7 +182,7 @@ test('offset', async () => {
 
   expect(gameObject.body.offset).toEqual({ x: 5, y: 10 })
 
-  $set({ offsetY: 15 })
+  $$set({ offsetY: 15 })
   await tick()
 
   expect(gameObject.body.offset).toEqual({ x: 5, y: 15 })
@@ -223,14 +224,14 @@ test('maxVelocity', async () => {
 })
 test('velocity', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(ArcadePhysics, {
     velocity: 1,
   })
 
   expect(gameObject.body.velocity).toEqual({ x: 1, y: 1 })
 
-  $set({ velocityX: 2, velocityY: 3 })
+  $$set({ velocityX: 2, velocityY: 3 })
   await tick()
 
   expect(gameObject.body.velocity).toEqual({ x: 2, y: 3 })

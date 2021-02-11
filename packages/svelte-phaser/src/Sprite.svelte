@@ -1,7 +1,8 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
+  import type Phaser from 'phaser'
+  import { GameObjects } from 'phaser'
   import { onMount, createEventDispatcher } from 'svelte'
   import { shouldApplyProps, createPhaserEventDispatcher } from './util'
   import { onGameEvent } from './onGameEvent'
@@ -532,13 +533,7 @@
   const dispatch = createEventDispatcher()
   const scene = getScene()
 
-  export let instance = new Phaser.GameObjects.Sprite(
-    scene,
-    x,
-    y,
-    texture,
-    frame
-  )
+  export let instance = new GameObjects.Sprite(scene, x, y, texture, frame)
 
   onMount(() => {
     const spriteEventListeners = [

@@ -1,8 +1,9 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
-  import { getScene } from './getScene.js'
+  import type Phaser from 'phaser'
+  import { GameObjects } from 'phaser'
+  import { getScene } from './getScene'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
   import Shape from './Shape.svelte'
@@ -381,7 +382,7 @@
 
   const scene = getScene()
 
-  export let instance = new Phaser.GameObjects.Arc(
+  export let instance = new GameObjects.Arc(
     scene,
     x,
     y,

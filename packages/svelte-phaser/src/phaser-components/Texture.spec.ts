@@ -41,12 +41,12 @@ afterEach(() => {
 
 test('texture props', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(Texture)
 
   const setTexture = jest.spyOn(instance, 'setTexture')
 
-  $set({ texture: 't', frame: 'f' })
+  $$set({ texture: 't', frame: 'f' })
   await tick()
 
   expect(setTexture).toHaveBeenCalledWith('t', 'f')

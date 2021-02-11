@@ -1,5 +1,5 @@
 import { onMount } from 'svelte'
-import { getScene } from './getScene.js'
+import { getScene } from './getScene'
 
 export function onInputEvent(event: string, callback: Function) {
   const scene = getScene()

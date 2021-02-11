@@ -1,7 +1,8 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
+  import type Phaser from 'phaser'
+  import { GameObjects } from 'phaser'
   import { getScene } from './getScene'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
@@ -352,7 +353,7 @@
 
   const scene = getScene()
 
-  export let instance = new Phaser.GameObjects.Rectangle(
+  export let instance = new GameObjects.Rectangle(
     scene,
     x,
     y,

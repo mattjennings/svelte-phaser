@@ -37,14 +37,14 @@ beforeAll(async () => {
 
 test('bounds props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance, $$set },
   } = render(Camera, {
     ...baseProps,
   })
 
   jest.spyOn(instance, 'setBounds')
 
-  $set({ bounds: { x: 100, y: 0, width: 512, height: 256, centerOn: true } })
+  $$set({ bounds: { x: 100, y: 0, width: 512, height: 256, centerOn: true } })
   await tick()
 
   expect(instance.setBounds).toHaveBeenCalledWith(100, 0, 512, 256, true)
@@ -74,14 +74,14 @@ describe('follow', () => {
     const target = { something: 'something' }
 
     const {
-      component: { instance, $set },
+      component: { instance, $$set },
     } = render(Camera, {
       ...baseProps,
     })
 
     jest.spyOn(instance, 'startFollow')
 
-    $set({
+    $$set({
       follow: target,
     })
 
@@ -104,14 +104,14 @@ describe('follow', () => {
     asMock(findGameObjectsByName).mockImplementation(() => [target])
 
     const {
-      component: { instance, $set },
+      component: { instance, $$set },
     } = render(Camera, {
       ...baseProps,
     })
 
     jest.spyOn(instance, 'startFollow')
 
-    $set({
+    $$set({
       follow: 'something',
       roundPixels: true,
       lerp: {
@@ -134,14 +134,14 @@ describe('follow', () => {
     asMock(findGameObjectsByName).mockImplementation(() => [target])
 
     const {
-      component: { instance, $set },
+      component: { instance, $$set },
     } = render(Camera, {
       ...baseProps,
     })
 
     jest.spyOn(instance, 'startFollow')
 
-    $set({
+    $$set({
       follow: 'something',
     })
 

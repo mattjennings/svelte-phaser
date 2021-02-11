@@ -50,18 +50,18 @@ test('active', async () => {
 
 test('draggable', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(GameObject, {
     instance,
     interactive: { shape: new Phaser.Geom.Rectangle(0, 0, 10, 10) },
   })
 
   jest.spyOn(scene.input, 'setDraggable')
-  $set({ draggable: true })
+  $$set({ draggable: true })
   await tick()
 
   expect(scene.input.setDraggable).toHaveBeenCalledWith(instance, true)
-  $set({ draggable: false })
+  $$set({ draggable: false })
   await tick()
 
   expect(scene.input.setDraggable).toHaveBeenCalledWith(instance, false)

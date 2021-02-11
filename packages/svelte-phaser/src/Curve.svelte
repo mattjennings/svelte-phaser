@@ -1,7 +1,8 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
+  import type Phaser from 'phaser'
+  import { GameObjects } from 'phaser'
   import { getScene } from './getScene'
   import Shape from './Shape.svelte'
 
@@ -347,7 +348,7 @@
 
   const scene = getScene()
 
-  export let instance = new Phaser.GameObjects.Curve(
+  export let instance = new GameObjects.Curve(
     scene,
     x,
     y,

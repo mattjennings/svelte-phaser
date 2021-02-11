@@ -2,7 +2,7 @@
   import { onMount, createEventDispatcher } from 'svelte'
   import { toArray, findGameObjectsByName } from './util'
   import { onSceneEvent } from './onSceneEvent'
-  import { getScene } from './getScene.js'
+  import { getScene } from './getScene'
   import { getGameObject } from './getGameObject'
   import { getTilemap } from './getTilemap'
 

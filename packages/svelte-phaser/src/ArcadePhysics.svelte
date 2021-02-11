@@ -1,11 +1,12 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
+  import type Phaser from 'phaser'
+  import { Physics } from 'phaser'
   import { onMount, getContext } from 'svelte'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
-  import { getScene } from './getScene.js'
+  import { getScene } from './getScene'
   import { getGameObject } from './getGameObject'
 
   /**
@@ -350,8 +351,8 @@
   scene.physics.world.enable(
     instance,
     bodyType === 'static'
-      ? Phaser.Physics.Arcade.STATIC_BODY
-      : Phaser.Physics.Arcade.DYNAMIC_BODY
+      ? Physics.Arcade.STATIC_BODY
+      : Physics.Arcade.DYNAMIC_BODY
   )
 
   onMount(() => {

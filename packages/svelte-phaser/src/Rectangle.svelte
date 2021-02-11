@@ -1,8 +1,9 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
-  import { getScene } from './getScene.js'
+  import type Phaser from 'phaser'
+  import { GameObjects } from 'phaser'
+  import { getScene } from './getScene'
   import Shape from './Shape.svelte'
 
   /**
@@ -339,7 +340,7 @@
 
   const scene = getScene()
 
-  export let instance = new Phaser.GameObjects.Rectangle(
+  export let instance = new GameObjects.Rectangle(
     scene,
     x,
     y,

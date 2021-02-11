@@ -1,9 +1,10 @@
 <svelte:options immutable />
 
 <script lang="ts">
+  import type Phaser from 'phaser'
+  import { GameObjects } from 'phaser'
   import { setContext } from 'svelte'
-  import Phaser from 'phaser'
-  import { getScene } from './getScene.js'
+  import { getScene } from './getScene'
 
   import GameObject from './GameObject.svelte'
   import Alpha from './phaser-components/Alpha.svelte'
@@ -264,7 +265,7 @@
 
   const scene = getScene()
 
-  export let instance = new Phaser.GameObjects.Container(scene, x, y, [])
+  export let instance = new GameObjects.Container(scene, x, y, [])
 
   setContext('phaser/container', instance)
 </script>

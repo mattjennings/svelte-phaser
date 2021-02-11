@@ -28,7 +28,7 @@ beforeAll(async () => {
 
 test('animation props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance, $$set },
   } = render(Sprite, {
     delay: 2,
     duration: 10,
@@ -55,7 +55,7 @@ test('animation props', async () => {
 
   // animation prop
   jest.spyOn(instance.anims, 'play')
-  $set({ animation: 'run' })
+  $$set({ animation: 'run' })
   await tick()
-  expect(instance.anims.play).toHaveBeenCalledWith('run', false)
+  expect(instance.anims.play).toHaveBeenCalledWith('run', true, 0)
 })

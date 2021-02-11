@@ -35,7 +35,7 @@ const commonProps = {
 
 test('line props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance, $$set },
   } = render(Line, {
     ...commonProps,
     x1: 10,
@@ -49,7 +49,7 @@ test('line props', async () => {
   expect(instance.geom.x2).toEqual(100)
   expect(instance.geom.y2).toEqual(200)
 
-  $set({
+  $$set({
     x1: 20,
     y1: 30,
     x2: 200,

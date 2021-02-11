@@ -1,7 +1,8 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
+  import type Phaser from 'phaser'
+  import { GameObjects } from 'phaser'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
   import { getScene } from './getScene'
@@ -560,7 +561,7 @@
 
   const scene = getScene()
 
-  export let instance = new Phaser.GameObjects.Text(scene, x, y, text, {})
+  export let instance = new GameObjects.Text(scene, x, y, text, {})
 
   $: shouldApplyProps(align) && instance.setAlign(align)
 

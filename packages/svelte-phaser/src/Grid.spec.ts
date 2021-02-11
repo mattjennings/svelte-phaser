@@ -40,7 +40,7 @@ test('outline props', () => {
 
 test('cell props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance, $$set },
   } = render(Grid, {
     cellWidth: 10,
     cellHeight: 20,
@@ -49,7 +49,7 @@ test('cell props', async () => {
   expect(instance.cellWidth).toEqual(10)
   expect(instance.cellHeight).toEqual(20)
 
-  $set({ cellWidth: 1, cellHeight: 2 })
+  $$set({ cellWidth: 1, cellHeight: 2 })
   await tick()
   expect(instance.cellWidth).toEqual(1)
   expect(instance.cellHeight).toEqual(2)

@@ -28,7 +28,7 @@ beforeAll(async () => {
 
 test('arc props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance, $$set },
   } = render(Arc, {
     radius: 5,
     startAngle: 20,
@@ -42,7 +42,7 @@ test('arc props', async () => {
   expect(instance._endAngle).toEqual(30)
   expect(instance._anticlockwise).toEqual(true)
 
-  $set({
+  $$set({
     radius: 10,
     startAngle: 30,
     endAngle: 40,

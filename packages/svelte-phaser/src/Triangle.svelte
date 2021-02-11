@@ -1,10 +1,11 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
+  import type Phaser from 'phaser'
+  import { GameObjects } from 'phaser'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
-  import { getScene } from './getScene.js'
+  import { getScene } from './getScene'
   import Shape from './Shape.svelte'
   /**
    * The active state of this Game Object. A Game Object with an active state of true is processed by the
@@ -376,7 +377,7 @@
 
   const scene = getScene()
 
-  export let instance = new Phaser.GameObjects.Triangle(
+  export let instance = new GameObjects.Triangle(
     scene,
     x,
     y,

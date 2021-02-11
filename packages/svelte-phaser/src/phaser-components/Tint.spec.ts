@@ -41,12 +41,30 @@ afterEach(() => {
 
 test('tint', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(Tint)
 
   const setTint = jest.spyOn(instance, 'setTint')
 
-  $set({
+  $$set({
+    tintTopLeft: 1,
+    tintTopRight: 2,
+    tintBottomLeft: 3,
+    tintBottomRight: 4,
+  })
+  await tick()
+
+  expect(setTint).toHaveBeenCalledWith(1, 2, 3, 4)
+})
+
+test('tintFill', async () => {
+  const {
+    component: { $$set },
+  } = render(Tint)
+
+  const setTintFill = jest.spyOn(instance, 'setTintFill')
+
+  $$set({
     tintTopLeft: 1,
     tintTopRight: 2,
     tintBottomLeft: 3,
@@ -55,5 +73,5 @@ test('tint', async () => {
   })
   await tick()
 
-  expect(setTint).toHaveBeenCalledWith(1, 2, 3, 4, 100)
+  expect(setTintFill).toHaveBeenCalledWith(1, 2, 3, 4)
 })

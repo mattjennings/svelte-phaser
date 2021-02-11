@@ -1,7 +1,8 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
+  import type Phaser from 'phaser'
+  import { Cameras } from 'phaser'
   import { getScene } from './getScene'
   import { getTilemap } from './getTilemap'
   import { setContext } from 'svelte'
@@ -376,7 +377,7 @@
    */
   export let y
 
-  export let instance = new Phaser.Cameras.Scene2D.Camera(x, y, width, height)
+  export let instance = new Cameras.Scene2D.Camera(x, y, width, height)
 
   setContext('phaser/camera', instance)
 

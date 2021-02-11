@@ -42,7 +42,7 @@ test('fill props', () => {
 
 test('show props', async () => {
   const {
-    component: { instance, $set },
+    component: { instance, $$set },
   } = render(IsoTriangle, {
     showTop: false,
     showLeft: false,
@@ -53,7 +53,7 @@ test('show props', async () => {
   expect(instance.showLeft).toEqual(false)
   expect(instance.showRight).toEqual(false)
 
-  $set({ showTop: true, showLeft: true, showRight: true })
+  $$set({ showTop: true, showLeft: true, showRight: true })
   await tick()
 
   expect(instance.showTop).toEqual(true)
@@ -72,14 +72,14 @@ test('projection prop', () => {
 })
 test('reversed prop', async () => {
   const {
-    component: { instance, $set },
+    component: { instance, $$set },
   } = render(IsoTriangle, {
     reversed: true,
   })
 
   expect(instance.isReversed).toEqual(true)
 
-  $set({ reversed: false })
+  $$set({ reversed: false })
   await tick()
 
   expect(instance.isReversed).toEqual(false)

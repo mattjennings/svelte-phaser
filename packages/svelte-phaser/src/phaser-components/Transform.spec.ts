@@ -41,7 +41,7 @@ afterEach(() => {
 
 test('transform props', async () => {
   const {
-    component: { $set },
+    component: { $$set },
   } = render(Transform, {
     x: 100,
     y: 100,
@@ -59,7 +59,7 @@ test('transform props', async () => {
   expect(instance.w).toEqual(2)
 
   // update scale using scaleX/Y
-  $set({ scaleX: 2, scaleY: 2 })
+  $$set({ scaleX: 2, scaleY: 2 })
   await tick()
   expect(instance.scale).toEqual(2)
 })
