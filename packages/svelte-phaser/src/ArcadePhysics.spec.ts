@@ -1,4 +1,5 @@
 import { render } from '@testing-library/svelte'
+import type { truncate } from 'fs'
 import { tick, getContext } from 'svelte'
 import ArcadePhysics from './ArcadePhysics.svelte'
 import { createGame, asMock } from './test-utils'
@@ -225,6 +226,17 @@ test('maxVelocity', async () => {
 
   expect(gameObject.body.maxVelocity).toEqual({ x: 1, y: 2 })
 })
+
+test('pushable', async () => {
+  const {
+    component: { $$set },
+  } = render(ArcadePhysics, {
+    pushable: true,
+  })
+
+  expect(gameObject.body.pushable).toEqual(true)
+})
+
 test('velocity', async () => {
   const {
     component: { $$set },
