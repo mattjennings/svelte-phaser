@@ -45,7 +45,7 @@ The texture can be scrolled and scaled independently of the TileSprite itself. T
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/TileSprite.svelte
+./../packages/svelte-phaser/dist/TileSprite.svelte
 ```
 
 ## Events

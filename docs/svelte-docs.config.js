@@ -39,6 +39,7 @@ module.exports = {
   },
 
   preprocess: [
+    require('svelte-preprocess')(),
     // preprocessors for Svelte if needed in Examples
     // syntax same as for `preprocess` option in `rollup-plugin-svelte`
     // Ex:  Import preprocessor at top of the config file:

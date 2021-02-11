@@ -52,5 +52,5 @@ Note: there is currently a [bug with Phaser 3.23.0](https://github.com/photonsto
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/IsoTriangle.svelte
+./../packages/svelte-phaser/dist/IsoTriangle.svelte
 ```

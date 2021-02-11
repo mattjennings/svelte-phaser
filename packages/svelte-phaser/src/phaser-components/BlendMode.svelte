@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getGameObject } from '../getGameObject'
   import { onGameEvent } from '../onGameEvent'
   import { shouldApplyProps } from '../util'
@@ -23,13 +23,15 @@
    * For these reasons try to be careful about the construction of your Scene and the frequency of which blend modes are used.
    * @type {Phaser.BlendModes | string}
    */
-  export let blendMode = undefined
+  export let blendMode: Phaser.BlendModes | string = undefined
 
   /**
    * Defaults to the parent game object in Svelte context. If you need to provide
    * the instance yourself, you can do so here.
    */
-  export let gameObject = getGameObject()
+  export let gameObject = getGameObject<
+    Phaser.GameObjects.Components.BlendMode
+  >()
 
   $: shouldApplyProps(blendMode) && gameObject.setBlendMode(blendMode)
 

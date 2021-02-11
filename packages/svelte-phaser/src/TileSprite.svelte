@@ -1,5 +1,7 @@
-<script>
-  import Phaser from './phaser.js'
+<svelte:options immutable />
+
+<script lang="ts">
+  import Phaser from 'phaser'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
   import { getScene } from './getScene'
@@ -25,42 +27,42 @@
    * Scenes UpdateList, if added to it. An active object is one which is having its logic and internal systems updated.
    * @type {boolean}
    */
-  export let active = undefined
+  export let active: boolean = undefined
 
   /**
    * The alpha value of the Game Object. This is a global value,
    * impacting the entire Game Object, not just a region of it.
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The alpha value starting from the bottom-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaBottomLeft = undefined
+  export let alphaBottomLeft: number = undefined
 
   /**
    * The alpha value starting from the bottom-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaBottomRight = undefined
+  export let alphaBottomRight: number = undefined
 
   /**
    * The alpha value starting from the top-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaTopLeft = undefined
+  export let alphaTopLeft: number = undefined
 
   /**
    * The alpha value starting from the top-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaTopRight = undefined
+  export let alphaTopRight: number = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.
@@ -68,7 +70,7 @@
    * If you prefer to work in radians, see the rotation property instead.
    * @type {number}
    */
-  export let angle = undefined
+  export let angle: number = undefined
 
   /**
    * Sets the Blend Mode being used by this Game Object.
@@ -90,7 +92,7 @@
    * For these reasons try to be careful about the construction of your Scene and the frequency of which blend modes are used.
    * @type {Phaser.BlendModes | string}
    */
-  export let blendMode = undefined
+  export let blendMode: Phaser.BlendModes | string = undefined
 
   /**
    * Applies a crop to a texture based Game Object, such as a Sprite or Image.
@@ -98,13 +100,18 @@
    * The object should contain x, y, width and height values.
    * @type {object}
    */
-  export let crop = undefined
+  export let crop: {
+    x?: number
+    y?: number
+    width?: number
+    height?: number
+  } = undefined
 
   /**
    * A Data Manager. It allows you to store, query and get key/value paired information specific to this Game Object. null by default.
    * @type {any}
    */
-  export let data = undefined
+  export let data: any = undefined
 
   /**
    * The depth of this Game Object within the Scene.
@@ -113,7 +120,7 @@
    * Setting the depth will queue a depth sort event within the Scene.
    * @type {number}
    */
-  export let depth = undefined
+  export let depth: number = undefined
 
   /**
    * The displayed height of this Game Object.
@@ -121,21 +128,21 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayHeight = undefined
+  export let displayHeight: number = undefined
 
   /**
    * The horizontal display origin of this Game Object. The origin is a normalized value between 0 and 1.
    * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
    * @type {number}
    */
-  export let displayOriginX = undefined
+  export let displayOriginX: number = undefined
 
   /**
    * The vertical display origin of this Game Object. The origin is a normalized value between 0 and 1.
    * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
    * @type {number}
    */
-  export let displayOriginY = undefined
+  export let displayOriginY: number = undefined
 
   /**
    * The displayed width of this Game Object.
@@ -143,13 +150,13 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayWidth = undefined
+  export let displayWidth: number = undefined
 
   /**
    * Enables the firing of drag events
    * @type {boolean}
    */
-  export let draggable = false
+  export let draggable: boolean = false
 
   /**
    * The horizontally flipped state of the Game Object.
@@ -160,7 +167,7 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let flipX = undefined
+  export let flipX: boolean = undefined
 
   /**
    * The vertically flipped state of the Game Object.
@@ -171,20 +178,20 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let flipY = undefined
+  export let flipY: boolean = undefined
 
   /**
    * The Texture Frame this Game Object is using to render with.
    * @type {Phaser.Textures.Frame}
    */
-  export let frame = undefined
+  export let frame: string = undefined
 
   /**
    * The height of this object.
    * #phaserDefault 1
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * Whether or not the game object should react to input from the pointer. This is true by default,
@@ -201,20 +208,28 @@
    *
    * @type {boolean | object}
    */
-  export let interactive = true
+  export let interactive:
+    | boolean
+    | {
+        shape?: Phaser.Types.Input.InputConfiguration
+        callback?: Phaser.Types.Input.HitAreaCallback
+        dropZone?: boolean
+      } = true
 
   /**
    * The Mask this Game Object is using during render.
    * @type {Phaser.Display.Masks.BitmapMask | Phaser.Display.Masks.GeometryMask}
    */
-  export let mask = undefined
+  export let mask:
+    | Phaser.Display.Masks.BitmapMask
+    | Phaser.Display.Masks.GeometryMask = undefined
 
   /**
    * The name of this Game Object. This is not used by Phaser, but some svelte-phaser components such as
    * ArcadeCollider will make use of names to find the reference to the Game Object.
    * @type {string}
    */
-  export let name = undefined
+  export let name: string = undefined
 
   /**
    * The horizontal origin of this Game Object.
@@ -225,7 +240,7 @@
    * #phaserDefault 0.5
    * @type {number}
    */
-  export let originX = undefined
+  export let originX: number = undefined
 
   /**
    * The vertical origin of this Game Object. The origin maps the relationship between the size and position of the Game Object.
@@ -235,7 +250,7 @@
    * #phaserDefault 0.5
    * @type {number}
    */
-  export let originY = undefined
+  export let originY: number = undefined
 
   /**
    * The flags that are compared against RENDER_MASK to determine if this Game Object will render or not.
@@ -245,14 +260,14 @@
    * #phaserDefault 15
    * @type {number}
    */
-  export let renderFlags = undefined
+  export let renderFlags: number = undefined
 
   /**
    * The angle of this Game Object in radians. Phaser uses a right-hand clockwise rotation system, where 0 is right, 90 is down, 180/-180 is left and -90 is up.
    * If you prefer to work in degrees, see the angle property instead.
    * @type {number}
    */
-  export let rotation = undefined
+  export let rotation: number = undefined
 
   /**
    * This is a special setter that allows you to set both the horizontal and vertical scale of this Game Object to the same value, at the same time.
@@ -264,7 +279,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scale = undefined
+  export let scale: number = undefined
 
   /**
    * The horizontal scale of this Game Object.
@@ -272,7 +287,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scaleX = undefined
+  export let scaleX: number = undefined
 
   /**
    * The vertical scale of this Game Object.
@@ -280,7 +295,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scaleY = undefined
+  export let scaleY: number = undefined
 
   /**
    * The horizontal scroll factor of this Game Object.
@@ -296,7 +311,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scrollFactorX = undefined
+  export let scrollFactorX: number = undefined
 
   /**
    * The vertical scroll factor of this Game Object.
@@ -312,7 +327,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scrollFactorY = undefined
+  export let scrollFactorY: number = undefined
 
   /**
    * The Tab Index of the Game Object. Reserved for future use by plugins and the Input Manager.
@@ -320,26 +335,26 @@
    * #phaserDefault -1
    * @type {number}
    */
-  export let tabIndex = undefined
+  export let tabIndex: number = undefined
 
   /**
    * The Texture this Game Object is using to render with. It is not required if you are
    * assigning an `animation`.
    * @type {string}
    */
-  export let texture = undefined
+  export let texture: string = undefined
 
   /**
    * The tint value being applied to the bottom-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintBottomLeft = undefined
+  export let tintBottomLeft: number = undefined
 
   /**
    * The tint value being applied to the bottom-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintBottomRight = undefined
+  export let tintBottomRight: number = undefined
 
   /**
    * Fill or additive?
@@ -347,49 +362,49 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let tintFill = undefined
+  export let tintFill: boolean = undefined
 
   /**
    * The tint value being applied to the top-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintTopLeft = undefined
+  export let tintTopLeft: number = undefined
 
   /**
    * The tint value being applied to the top-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintTopRight = undefined
+  export let tintTopRight: number = undefined
 
   /**
    * The visible state of the Game Object. An invisible Game Object will skip rendering, but will still process update logic.
    * @type {boolean}
    */
-  export let visible = undefined
+  export let visible: boolean = undefined
 
   /**
    * The w position of this Game Object.
    * @type {number}
    */
-  export let w = undefined
+  export let w: number = undefined
 
   /**
    * The width of this Game object.
    * @type {number}
    */
-  export let width = undefined
+  export let width: number = undefined
 
   /**
    * The x position of this Game Object.
    * @type {number}
    */
-  export let x = undefined
+  export let x: number = undefined
 
   /**
    * The y position of this Game Object.
    * @type {number}
    */
-  export let y = undefined
+  export let y: number = undefined
 
   /**
    * The z position of this Game Object.
@@ -397,7 +412,7 @@
    * Note: The z position does not control the rendering order of 2D Game Objects. Use depth instead.
    * @type {number}
    */
-  export let z = undefined
+  export let z: number = undefined
 
   /**
    * The horizontal scroll position of the Tile Sprite.
@@ -454,8 +469,6 @@
   })
 </script>
 
-<svelte:options immutable />
-
 <GameObject
   bind:instance
   bind:active
@@ -475,13 +488,15 @@
   on:pointermove
   on:pointerout
   on:pointerup
-  on:pointerwheel>
+  on:pointerwheel
+>
   <Alpha
     bind:alpha
     bind:alphaTopLeft
     bind:alphaTopRight
     bind:alphaBottomLeft
-    bind:alphaBottomRight />
+    bind:alphaBottomRight
+  />
   <BlendMode bind:blendMode />
   <Crop bind:crop />
   <Depth bind:depth />
@@ -501,13 +516,15 @@
     bind:scaleX
     bind:scaleY
     bind:angle
-    bind:rotation />
+    bind:rotation
+  />
   <Tint
     bind:tintTopLeft
     bind:tintTopRight
     bind:tintBottomLeft
     bind:tintBottomRight
-    bind:tintFill />
+    bind:tintFill
+  />
   <Visible bind:visible />
   <slot />
 </GameObject>

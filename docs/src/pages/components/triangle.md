@@ -40,5 +40,5 @@ Renders a triangle.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Triangle.svelte
+./../packages/svelte-phaser/dist/Triangle.svelte
 ```

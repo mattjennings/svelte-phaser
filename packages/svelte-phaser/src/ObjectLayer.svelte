@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
   import { getTilemap } from './getTilemap'
   import { getSpawner } from './getSpawner'
@@ -9,7 +9,7 @@
    * #required
    * @type {object}
    */
-  export let components
+  export let components: Record<string, any>
 
   /**
    * The layer array index value, or the layer name from Tiled
@@ -17,13 +17,13 @@
    * #required
    * @type {number|string}
    */
-  export let id
+  export let id: number | string
 
   /**
    * The depth for each component in this layer
    * @type {number}
    */
-  export let depth
+  export let depth: number
 
   const spawner = getSpawner()
 
@@ -33,11 +33,14 @@
 
   const tilemap = getTilemap()
 
-  const layer = tilemap.objects.find(layer => layer.name === id)
+  const layer = tilemap.objects.find((layer) => layer.name === id)
 
+  // @ts-ignore
   if (tilemap.useLayerOrder && typeof depth === 'undefined') {
     depth =
-      tilemap.layerOrder.findIndex(layerName => layerName === id) +
+      // @ts-ignore
+      tilemap.layerOrder.findIndex((layerName) => layerName === id) +
+      // @ts-ignore
       tilemap.startingDepth
   }
 

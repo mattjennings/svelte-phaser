@@ -61,5 +61,5 @@ passed into the component as props.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/ObjectLayer.svelte
+./../packages/svelte-phaser/dist/ObjectLayer.svelte
 ```

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getGameObject } from '../getGameObject'
   import { onGameEvent } from '../onGameEvent'
   import { shouldApplyProps } from '../util'
@@ -8,14 +8,14 @@
    * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
    * @type {number}
    */
-  export let displayOriginX = undefined
+  export let displayOriginX: number = undefined
 
   /**
    * The vertical display origin of this Game Object. The origin is a normalized value between 0 and 1.
    * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
    * @type {number}
    */
-  export let displayOriginY = undefined
+  export let displayOriginY: number = undefined
 
   /**
    * The horizontal origin of this Game Object.
@@ -26,7 +26,7 @@
    * #phaserDefault 0.5
    * @type {number}
    */
-  export let originX = undefined
+  export let originX: number = undefined
 
   /**
    * The vertical origin of this Game Object. The origin maps the relationship between the size and position of the Game Object.
@@ -36,13 +36,13 @@
    * #phaserDefault 0.5
    * @type {number}
    */
-  export let originY = undefined
+  export let originY: number = undefined
 
   /**
    * Defaults to the parent game object in Svelte context. If you need to provide
    * the instance yourself, you can do so here.
    */
-  export let gameObject = getGameObject()
+  export let gameObject = getGameObject<Phaser.GameObjects.Components.Origin>()
 
   $: if (shouldApplyProps(displayOriginX, displayOriginY)) {
     gameObject.setDisplayOrigin(displayOriginX, displayOriginY)

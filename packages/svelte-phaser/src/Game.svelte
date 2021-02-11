@@ -1,5 +1,5 @@
-<script>
-  import Phaser from './phaser.js'
+<script lang="ts">
+  import Phaser from 'phaser'
   import { onMount, setContext, createEventDispatcher } from 'svelte'
   import { removeUndefined } from './util'
   const dispatch = createEventDispatcher()
@@ -79,7 +79,7 @@
    * #phaserDefault 1024
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * Images configuration
@@ -122,22 +122,21 @@
   /**
    * Scale configuration
    *
-   * #phaserDefault 1
    * @type {Phaser.Types.Core.ScaleConfig}
    */
-  export let scale = undefined
+  export let scale: Phaser.Types.Core.ScaleConfig = undefined
 
   /**
    * Seed for the random number generator.
    * @type {string[]}
    */
-  export let seed = undefined
+  export let seed: string[] = undefined
 
   /**
    * The title of the game. Shown in the browser console.
    * @type {string}
    */
-  export let title = undefined
+  export let title: string = undefined
 
   /**
    *  Whether the game canvas will have a transparent background
@@ -145,7 +144,7 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let transparent = undefined
+  export let transparent: boolean = undefined
 
   /**
    * Which renderer to use. Phaser.AUTO, Phaser.CANVAS, Phaser.HEADLESS,
@@ -154,19 +153,19 @@
    * #phaserDefault Phaser.AUTO
    * @type {number}
    */
-  export let type = Phaser.AUTO
+  export let type: number = Phaser.AUTO
 
   /**
    * The URL of the game. Shown in the browser console.
    * @type {string}
    */
-  export let url = undefined
+  export let url: string = undefined
 
   /**
    * The version of the game. Shown in the browser console.
    * @type {string}
    */
-  export let version = undefined
+  export let version: string = undefined
 
   /**
    * The width of the game, in game pixels.
@@ -174,7 +173,7 @@
    * #phaserDefault 1024
    * @type {number}
    */
-  export let width = undefined
+  export let width: number = undefined
 
   /**
    * Simple scale applied to the game canvas. 2 is double size, 0.5 is half size, etc.
@@ -182,7 +181,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let zoom = undefined
+  export let zoom: number = undefined
 
   /**
    * If you have an existing Phaser.Game instnace you can pass it in here.
@@ -217,8 +216,8 @@
       scale,
       audio,
       callbacks: {
-        preBoot: game => dispatch('preBoot', game),
-        postBoot: game => dispatch('postBoot', game),
+        preBoot: (game) => dispatch('preBoot', game),
+        postBoot: (game) => dispatch('postBoot', game),
       },
     })
   )

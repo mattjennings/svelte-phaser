@@ -36,5 +36,5 @@ Renders a tile layer from the tilemap
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/TileLayer.svelte
+./../packages/svelte-phaser/dist/TileLayer.svelte
 ```

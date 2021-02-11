@@ -65,7 +65,7 @@ They require a texture to be loaded first, so be sure to load them in the Scene'
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Sprite.svelte
+./../packages/svelte-phaser/dist/Sprite.svelte
 ```
 
 ## Events

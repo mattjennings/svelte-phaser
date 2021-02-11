@@ -5,3 +5,4 @@ web_modules
 **/*/yarn.lock
 .now
 .vercel
+.vscode

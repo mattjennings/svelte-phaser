@@ -1,4 +1,6 @@
-<script>
+<svelte:options immutable />
+
+<script lang="ts">
   import { setContext } from 'svelte'
   import { getTilemap } from './getTilemap'
   import { shouldApplyProps } from './util'
@@ -21,35 +23,35 @@
    * impacting the entire Game Object, not just a region of it.
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The alpha value starting from the bottom-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaBottomLeft = undefined
+  export let alphaBottomLeft: number = undefined
 
   /**
    * The alpha value starting from the bottom-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaBottomRight = undefined
+  export let alphaBottomRight: number = undefined
 
   /**
    * The alpha value starting from the top-left of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {string}
    */
-  export let alphaTopLeft = undefined
+  export let alphaTopLeft: number = undefined
 
   /**
    * The alpha value starting from the top-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaTopRight = undefined
+  export let alphaTopRight: number = undefined
 
   /**
    * The angle of this Game Object as expressed in degrees.
@@ -57,7 +59,7 @@
    * If you prefer to work in radians, see the rotation property instead.
    * @type {number}
    */
-  export let angle = undefined
+  export let angle: number = undefined
 
   /**
    * Sets the Blend Mode being used by this Game Object.
@@ -79,7 +81,7 @@
    * For these reasons try to be careful about the construction of your Scene and the frequency of which blend modes are used.
    * @type {Phaser.BlendModes | string}
    */
-  export let blendMode = undefined
+  export let blendMode: Phaser.BlendModes | string = undefined
 
   /**
    * Sets collision on the given tile or tiles within a layer by index.
@@ -136,7 +138,7 @@
    * Setting the depth will queue a depth sort event within the Scene.
    * @type {number}
    */
-  export let depth = undefined
+  export let depth: number = undefined
 
   /**
    * The displayed height of this Game Object.
@@ -144,21 +146,21 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayHeight = undefined
+  export let displayHeight: number = undefined
 
   /**
    * The horizontal display origin of this Game Object. The origin is a normalized value between 0 and 1.
    * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
    * @type {number}
    */
-  export let displayOriginX = undefined
+  export let displayOriginX: number = undefined
 
   /**
    * The vertical display origin of this Game Object. The origin is a normalized value between 0 and 1.
    * The displayOrigin is a pixel value, based on the size of the Game Object combined with the origin.
    * @type {number}
    */
-  export let displayOriginY = undefined
+  export let displayOriginY: number = undefined
 
   /**
    * The displayed width of this Game Object.
@@ -166,7 +168,7 @@
    * Setting this value will adjust the Game Object's scale property.
    * @type {number}
    */
-  export let displayWidth = undefined
+  export let displayWidth: number = undefined
 
   /**
    * The horizontally flipped state of the Game Object.
@@ -177,7 +179,7 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let flipX = undefined
+  export let flipX: boolean = undefined
 
   /**
    * The vertically flipped state of the Game Object.
@@ -188,7 +190,7 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let flipY = undefined
+  export let flipY: boolean = undefined
 
   /**
    * The native (un-scaled) height of this Game Object.
@@ -197,7 +199,7 @@
    * For that you need to either set the scale or the displayHeight.
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * The layer array index value, or the layer name from Tiled
@@ -215,7 +217,7 @@
    *
    * @type {string}
    */
-  export let name = undefined
+  export let name: string = undefined
 
   /**
    * The horizontal origin of this Game Object.
@@ -226,7 +228,7 @@
    * #phaserDefault 0.5
    * @type {number}
    */
-  export let originX = undefined
+  export let originX: number = undefined
 
   /**
    * The vertical origin of this Game Object. The origin maps the relationship between the size and position of the Game Object.
@@ -236,7 +238,7 @@
    * #phaserDefault 0.5
    * @type {number}
    */
-  export let originY = undefined
+  export let originY: number = undefined
 
   /**
    * The flags that are compared against RENDER_MASK to determine if this Game Object will render or not.
@@ -246,7 +248,7 @@
    * #phaserDefault 15
    * @type {number}
    */
-  export let renderFlags = undefined
+  export let renderFlags: number = undefined
 
   /**
    * This is a special setter that allows you to set both the horizontal and vertical scale of this Game Object to the same value, at the same time.
@@ -258,7 +260,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scale = undefined
+  export let scale: number = undefined
 
   /**
    * The horizontal scale of this Game Object.
@@ -266,7 +268,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scaleX = undefined
+  export let scaleX: number = undefined
 
   /**
    * The vertical scale of this Game Object.
@@ -274,7 +276,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scaleY = undefined
+  export let scaleY: number = undefined
 
   /**
    * The horizontal scroll factor of this Game Object.
@@ -290,7 +292,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scrollFactorX = undefined
+  export let scrollFactorX: number = undefined
 
   /**
    * The vertical scroll factor of this Game Object.
@@ -306,7 +308,7 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let scrollFactorY = undefined
+  export let scrollFactorY: number = undefined
 
   /**
    * Canvas only.
@@ -337,31 +339,31 @@
    * The visible state of the Game Object. An invisible Game Object will skip rendering, but will still process update logic.
    * @type {boolean}
    */
-  export let visible = undefined
+  export let visible: boolean = undefined
 
   /**
    * The w position of this Game Object.
    * @type {number}
    */
-  export let w = undefined
+  export let w: number = undefined
 
   /**
    * The width of this Game object.
    * @type {number}
    */
-  export let width = undefined
+  export let width: number = undefined
 
   /**
    * The x position of this Game Object.
    * @type {number}
    */
-  export let x = undefined
+  export let x: number = undefined
 
   /**
    * The y position of this Game Object.
    * @type {number}
    */
-  export let y = undefined
+  export let y: number = undefined
 
   /**
    * The z position of this Game Object.
@@ -369,7 +371,7 @@
    * Note: The z position does not control the rendering order of 2D Game Objects. Use depth instead.
    * @type {number}
    */
-  export let z = undefined
+  export let z: number = undefined
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
@@ -383,27 +385,32 @@
     type === 'static'
       ? tilemap.createStaticLayer(
           id,
-          tilemap.tilesets.filter(ts => tilesets.includes(ts.name)),
+          tilemap.tilesets.filter((ts) => tilesets.includes(ts.name)),
           x,
           y
         )
-      : tilemap.createDynamicLater(
+      : tilemap.createDynamicLayer(
           id,
-          tilemap.tilesets.filter(ts => tilesets.includes(ts.name)),
+          tilemap.tilesets.filter((ts) => tilesets.includes(ts.name)),
           x,
           y
         )
 
+  // @ts-ignore
   if (tilemap.useLayerOrder && typeof depth === 'undefined') {
     depth =
-      tilemap.layerOrder.findIndex(layerName => layerName === id) +
+      // @ts-ignore
+      tilemap.layerOrder.findIndex((layerName) => layerName === id) +
+      // @ts-ignore
       tilemap.startingDepth
   }
 
   setContext('phaser/tilemap-layer', instance)
 
   $: shouldApplyProps(collisionTiles) &&
+    // @ts-ignore
     instance.setCollisionTiles(collisionTiles)
+
   $: shouldApplyProps(collisionTilesBetween) &&
     instance.setCollisionBetween(
       collisionTilesBetween[0],
@@ -434,8 +441,6 @@
   })
 </script>
 
-<svelte:options immutable />
-
 <GameObject
   bind:instance
   bind:name
@@ -444,13 +449,15 @@
   on:pointermove
   on:pointerout
   on:pointerup
-  on:pointerwheel>
+  on:pointerwheel
+>
   <Alpha
     bind:alpha
     bind:alphaTopLeft
     bind:alphaTopRight
     bind:alphaBottomLeft
-    bind:alphaBottomRight />
+    bind:alphaBottomRight
+  />
   <BlendMode bind:blendMode />
   <Depth bind:depth />
   <Flip bind:flipX bind:flipY />
@@ -466,7 +473,8 @@
     bind:scale
     bind:scaleX
     bind:scaleY
-    bind:angle />
+    bind:angle
+  />
   <Visible bind:visible />
   <slot />
 </GameObject>

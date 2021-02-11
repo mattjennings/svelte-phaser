@@ -1,27 +1,30 @@
-<script>
-  import Phaser from './phaser.js'
+<svelte:options immutable />
+
+<script lang="ts">
+  import Phaser from 'phaser'
   import { onMount, getContext } from 'svelte'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
-  import { getScene } from './getScene.js'
+  import { getScene } from './getScene'
+  import { getGameObject } from './getGameObject'
 
   /**
    * Sets the body's horizontal and vertical acceleration.
    * @type {number}
    */
-  export let acceleration = undefined
+  export let acceleration: number = undefined
 
   /**
    * Sets the body's horizontal acceleration
    * @type {number}
    */
-  export let accelerationX = undefined
+  export let accelerationX: number = undefined
 
   /**
    * Sets the body's vertical acceleration
    * @type {number}
    */
-  export let accelerationY = undefined
+  export let accelerationY: number = undefined
 
   /**
    * Whether this Body's velocity is affected by its drag.
@@ -29,7 +32,7 @@
    * #phaserDefault true
    * @type {boolean}
    */
-  export let allowDrag = undefined
+  export let allowDrag: boolean = undefined
 
   /**
    * Whether this Body's position is affected by gravity (local or world).
@@ -37,7 +40,7 @@
    * #phaserDefault true
    * @type {boolean}
    */
-  export let allowGravity = undefined
+  export let allowGravity: boolean = undefined
 
   /**
    * Whether this Body's rotation is affected by its angular acceleration and angular velocity.
@@ -45,13 +48,13 @@
    * #phaserDefault true
    * @type {boolean}
    */
-  export let allowRotation = undefined
+  export let allowRotation: boolean = undefined
 
   /**
    * The Body's angular acceleration (change in angular velocity), in degrees per second squared.
    * @type {number}
    */
-  export let angularAcceleration = undefined
+  export let angularAcceleration: number = undefined
 
   /**
    * Loss of angular velocity due to angular movement, in degrees per second.
@@ -59,13 +62,13 @@
    * Angular drag is applied only when angular acceleration is zero.
    * @type {number}
    */
-  export let angularDrag = undefined
+  export let angularDrag: number = undefined
 
   /**
    * The rate of change of this Body's rotation, in degrees per second.
    * @type {number}
    */
-  export let angularVelocity = undefined
+  export let angularVelocity: number = undefined
 
   /**
    * The type of physics body it has
@@ -77,25 +80,25 @@
    *
    * @type {'dynamic' | 'static'}
    */
-  export let bodyType = 'dynamic'
+  export let bodyType: 'dynamic' | 'static' = 'dynamic'
 
   /**
    * Rebound following a collision, relative to 1.
    * @type {number}
    */
-  export let bounce = undefined
+  export let bounce: number = undefined
 
   /**
    * Rebound on X-axis following a collision, relative to 1.
    * @type {number}
    */
-  export let bounceX = undefined
+  export let bounceX: number = undefined
 
   /**
    * Rebound on Y-axis following a collision, relative to 1.
    * @type {number}
    */
-  export let bounceY = undefined
+  export let bounceY: number = undefined
 
   /**
    * Set the body on a Game Object to a circle.
@@ -108,7 +111,11 @@
    *
    * @type {object}
    */
-  export let circle = undefined
+  export let circle: {
+    radius: number
+    offsetX?: number
+    offsetY?: number
+  } = undefined
 
   /**
    * Sets whether this Body collides with the world boundary
@@ -116,25 +123,25 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let collideWorldBounds = undefined
+  export let collideWorldBounds: boolean = undefined
 
   /**
    * The color of this Body on the debug display.
    * @type {number}
    */
-  export let debugBodyColor = undefined
+  export let debugBodyColor: number = undefined
 
   /**
    * Whether the Body's boundary is drawn to the debug display.
    * @type {boolean}
    */
-  export let debugShowBody = undefined
+  export let debugShowBody: boolean = undefined
 
   /**
    * Whether the Body's velocity is drawn to the debug display.
-   * @type {number}
+   * @type {boolean}
    */
-  export let debugShowVelocity = undefined
+  export let debugShowVelocity: boolean = undefined
 
   /**
    * When useDamping is false (the default), this is absolute loss of velocity due to movement,
@@ -147,19 +154,19 @@
    * Drag is applied only when acceleration is zero.
    * @type {number}
    */
-  export let drag = undefined
+  export let drag: number = undefined
 
   /**
    * Sets drag on X
    * @type {number}
    */
-  export let dragX = undefined
+  export let dragX: number = undefined
 
   /**
    * Sets drag on Y
    * @type {number}
    */
-  export let dragY = undefined
+  export let dragY: number = undefined
 
   /**
    * If this Body is immovable and in motion, friction is the proportion of this Body's motion received
@@ -170,19 +177,19 @@
    * not at all.
    * @type {number}
    */
-  export let friction = undefined
+  export let friction: number = undefined
 
   /**
    * Sets friction on X
    * @type {number}
    */
-  export let frictionX = undefined
+  export let frictionX: number = undefined
 
   /**
    * Sets friction on Y
    * @type {number}
    */
-  export let frictionY = undefined
+  export let frictionY: number = undefined
 
   /**
    * Acceleration due to gravity (specific to this Body), in pixels per second squared.
@@ -190,32 +197,32 @@
    *
    * @type {number}
    */
-  export let gravity = undefined
+  export let gravity: number = undefined
 
   /**
    * Sets the gravity on X
    * @type {number}
    */
-  export let gravityX = undefined
+  export let gravityX: number = undefined
 
   /**
    * Sets the gravity on Y
    * @type {number}
    */
-  export let gravityY = undefined
+  export let gravityY: number = undefined
 
   /**
    * Whether this Body can be moved by collisions with another Body.
    * @type {boolean}
    */
-  export let immovable = undefined
+  export let immovable: boolean = undefined
 
   /**
    * The Body's inertia, relative to a default unit (1).
    * With bounce, this affects the exchange of momentum (velocities) during collisions.
    * @type {number}
    */
-  export let mass = undefined
+  export let mass: number = undefined
 
   /**
    * The Body's maximum angular velocity, in degrees per second.
@@ -223,7 +230,7 @@
    * #phaserDefault 1000
    * @type {number}
    */
-  export let maxAngular = undefined
+  export let maxAngular: number = undefined
 
   /**
    * The maximum speed this Body is allowed to reach, in pixels per second.
@@ -235,38 +242,38 @@
    * #phaserDefault -1
    * @type {number}
    */
-  export let maxSpeed = undefined
+  export let maxSpeed: number = undefined
 
   /**
    * The Body's absolute maximum velocity, in pixels per second.
    * The horizontal and vertical components are applied separately.
    * @type {number}
    */
-  export let maxVelocity = undefined
+  export let maxVelocity: number = undefined
 
   /**
    * Sets the max velocity on the X
    * @type {number}
    */
-  export let maxVelocityX = undefined
+  export let maxVelocityX: number = undefined
 
   /**
    * Sets the max velocity on the Y
    * @type {number}
    */
-  export let maxVelocityY = undefined
+  export let maxVelocityY: number = undefined
 
   /**
    * Sets the X offset of the Body's position from its Game Object's position.
-   * @type {string}
+   * @type {number}
    */
-  export let offsetX = undefined
+  export let offsetX: number = undefined
 
   /**
    * Sets the Y offset of the Body's position from its Game Object's position.
-   * @type {string}
+   * @type {number}
    */
-  export let offsetY = undefined
+  export let offsetY: number = undefined
 
   /**
    * Whether the simulation emits a worldbounds event when this Body collides with the world boundary
@@ -277,14 +284,14 @@
    *
    * @type {boolean}
    */
-  export let onWorldBounds = true
+  export let onWorldBounds: boolean = true
 
   /**
    * The width of the Body in pixels. Cannot be zero.
    * If not given, and the parent Game Object has a frame, it will use the frame width.
    * @type {number}
    */
-  export let width = undefined
+  export let width: number = undefined
 
   /**
    * The height of the Body in pixels. Cannot be zero.
@@ -292,13 +299,13 @@
    *
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * Modify the Body's offset, placing the Body's center on its Game Object's center.
    * @type {boolean}
    */
-  export let center = true
+  export let center: boolean = true
 
   /**
    * If this Body is using drag for deceleration this property controls how the drag is applied.
@@ -315,28 +322,30 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let useDamping = undefined
+  export let useDamping: boolean = undefined
 
   /**
    * The Body's velocity, in pixels per second.
    * @type {number}
    */
-  export let velocity = undefined
+  export let velocity: number = undefined
 
   /**
    * The Body's velocity on the X, in pixels per second.
    * @type {number}
    */
-  export let velocityX = undefined
+  export let velocityX: number = undefined
 
   /**
    * The Body's velocity on the Y, in pixels per second.
    * @type {number}
    */
-  export let velocityY = undefined
+  export let velocityY: number = undefined
 
   const scene = getScene()
-  const instance = getContext('phaser/game-object')
+  const instance = getGameObject<
+    Phaser.GameObjects.GameObject & { body: Phaser.Physics.Arcade.Body }
+  >()
 
   scene.physics.world.enable(
     instance,
@@ -497,7 +506,9 @@
         gravityY = instance.body.gravity.y
       }
       if (shouldApplyProps(dragX, dragY)) {
+        // @ts-ignore
         dragX = instance.body.drag.x
+        // @ts-ignore
         dragY = instance.body.drag.y
       }
       if (shouldApplyProps(frictionX, frictionY)) {
@@ -527,6 +538,7 @@
         bounce = instance.body.bounce.x || instance.body.bounce.y
       }
       if (shouldApplyProps(drag) && instance.body.drag) {
+        // @ts-ignore
         drag = instance.body.drag.x || instance.body.drag.y
       }
       if (shouldApplyProps(friction) && instance.body.friction) {
@@ -545,5 +557,4 @@
   })
 </script>
 
-<svelte:options immutable />
 <slot />

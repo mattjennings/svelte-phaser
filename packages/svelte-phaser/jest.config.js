@@ -1,11 +1,14 @@
 module.exports = {
-  testRegex: 'src/.*.spec.js',
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  testRegex: 'src/.*.spec.ts',
   transform: {
     '^.+\\.js$': 'babel-jest',
-    '^.+\\.svelte$': 'svelte-jester',
+    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.svelte$': ['svelte-jester', { preprocess: true }],
   },
-  moduleFileExtensions: ['js'],
-  setupFiles: ['./src/test-utils/setup.js'],
+  moduleFileExtensions: ['js', 'ts'],
+  setupFiles: ['./src/test-utils/setup.ts'],
   testEnvironmentOptions: {
     runScripts: 'dangerously',
     resources: 'usable',

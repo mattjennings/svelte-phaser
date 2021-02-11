@@ -72,5 +72,5 @@ have to keep exporting each time.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Tilemap.svelte
+./../packages/svelte-phaser/dist/Tilemap.svelte
 ```

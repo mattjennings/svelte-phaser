@@ -1,5 +1,7 @@
-<script>
-  import Phaser from './phaser.js'
+<svelte:options immutable />
+
+<script lang="ts">
+  import Phaser from 'phaser'
   import { getScene } from './getScene'
   import { getTilemap } from './getTilemap'
   import { setContext } from 'svelte'
@@ -10,7 +12,6 @@
   import Alpha from './phaser-components/Alpha.svelte'
   import Flip from './phaser-components/Flip.svelte'
   import Tint from './phaser-components/Tint.svelte'
-  import Origin from './phaser-components/Origin.svelte'
   import Visible from './phaser-components/Visible.svelte'
 
   const tilemap = getTilemap()
@@ -22,35 +23,35 @@
    * #phaserDefault 1
    * @type {number}
    */
-  export let alpha = undefined
+  export let alpha: number = undefined
 
   /**
    * The alpha value starting from the bottom-left.
    * This value is interpolated from the corner to the center.
    * @type {number}
    */
-  export let alphaBottomLeft = undefined
+  export let alphaBottomLeft: number = undefined
 
   /**
    * The alpha value starting from the bottom-right.
    * This value is interpolated from the corner to the center.
    * @type {string}
    */
-  export let alphaBottomRight = undefined
+  export let alphaBottomRight: number = undefined
 
   /**
    * The alpha value starting from the top-left.
    * This value is interpolated from the corner to the cente.
    * @type {string}
    */
-  export let alphaTopLeft = undefined
+  export let alphaTopLeft: number = undefined
 
   /**
    * The alpha value starting from the top-right of the Game Object.
    * This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let alphaTopRight = undefined
+  export let alphaTopRight: number = undefined
 
   /**
    * The background color of this Camera. Only used if transparent is false.
@@ -110,7 +111,7 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let flipX = undefined
+  export let flipX: boolean = undefined
 
   /**
    * The vertically flipped state of the Game Object.
@@ -121,7 +122,7 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let flipY = undefined
+  export let flipY: boolean = undefined
 
   /**
    * The game object to follow. It can be the name of a game object, or a game object
@@ -149,7 +150,7 @@
    * Setting the viewport does not restrict where the Camera can scroll to.
    * @type {number}
    */
-  export let height = undefined
+  export let height: number = undefined
 
   /**
    * Does this Camera allow the Game Objects it renders to receive input events?
@@ -188,7 +189,9 @@
    * The Mask this Camera is using during render.
    * @type {Phaser.Display.Masks.BitmapMask | Phaser.Display.Masks.GeometryMask}
    */
-  export let mask = undefined
+  export let mask:
+    | Phaser.Display.Masks.BitmapMask
+    | Phaser.Display.Masks.GeometryMask = undefined
 
   /**
    * Makes this the main camera for the scene
@@ -200,7 +203,7 @@
    * The name of the Camera. This is for your own use.
    * @type {string}
    */
-  export let name = undefined
+  export let name: string = undefined
 
   /**
    * The horizontal origin of rotation for this Camera.
@@ -214,7 +217,7 @@
    * #phaserDefault 0.5
    * @type {number}
    */
-  export let originX = undefined
+  export let originX: number = undefined
 
   /**
    * The vertical origin of rotation for this Camera.
@@ -228,7 +231,7 @@
    * #phaserDefault 0.5
    * @type {number}
    */
-  export let originY = undefined
+  export let originY: number = undefined
 
   /**
    * The Camera Pan effect handler.
@@ -276,13 +279,13 @@
    * The tint value being applied to the bottom-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintBottomLeft = undefined
+  export let tintBottomLeft: number = undefined
 
   /**
    * The tint value being applied to the bottom-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintBottomRight = undefined
+  export let tintBottomRight: number = undefined
 
   /**
    * Fill or additive?
@@ -290,19 +293,19 @@
    * #phaserDefault false
    * @type {boolean}
    */
-  export let tintFill = undefined
+  export let tintFill: boolean = undefined
 
   /**
    * The tint value being applied to the top-left of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintTopLeft = undefined
+  export let tintTopLeft: number = undefined
 
   /**
    * The tint value being applied to the top-right of the Game Object. This value is interpolated from the corner to the center of the Game Object.
    * @type {number}
    */
-  export let tintTopRight = undefined
+  export let tintTopRight: number = undefined
 
   /**
    * Does this Camera have a transparent background?
@@ -321,7 +324,7 @@
    * #phaserDefault true
    * @type {boolean}
    */
-  export let visible = undefined
+  export let visible: boolean = undefined
 
   /**
    * The Camera zoom value. Change this value to zoom in, or out of, a Scene.
@@ -379,6 +382,7 @@
 
   // by using the Camera component we are opting-in to controlling the camera
   // ourselves, so we will destroy the one that came with the Scene
+  // @ts-ignore
   if (scene.cameras.main.__isOriginalCamera) {
     const oldCamera = scene.cameras.main
     scene.cameras.remove(oldCamera)
@@ -418,6 +422,7 @@
       bounds.y,
       bounds.width,
       bounds.height,
+      // @ts-ignore
       bounds.centerOn
     )
   }
@@ -449,6 +454,10 @@
     instance.setScroll(scrollX, scrollY)
   }
 
+  $: if (shouldApplyProps(originX, originY)) {
+    instance.setOrigin(originX, originY)
+  }
+
   $: shouldApplyProps(shakeEffect) && (instance.shakeEffect = shakeEffect)
 
   $: shouldApplyProps(transparent) && (instance.transparent = transparent)
@@ -456,7 +465,7 @@
   $: shouldApplyProps(zoom) && instance.setZoom(zoom)
   $: shouldApplyProps(zoomEffect) && (instance.zoomEffect = zoomEffect)
 
-  onSceneEvent('CHILD_ADDED', object => {
+  onSceneEvent('CHILD_ADDED', (object) => {
     if (object.name) {
       if (typeof follow === 'string' && follow === object.name) {
         // trigger reactive statements on follow
@@ -482,13 +491,13 @@
     roundPixels = instance.roundPixels
     scrollX = instance.scrollX
     scrollY = instance.scrollY
+    originX = instance.originX
+    originY = instance.originY
     transparent = instance.transparent
     width = instance.width
     zoom = instance.zoom
   })
 </script>
-
-<svelte:options immutable />
 
 <Alpha
   gameObject={instance}
@@ -496,7 +505,8 @@
   bind:alphaTopLeft
   bind:alphaTopRight
   bind:alphaBottomLeft
-  bind:alphaBottomRight />
+  bind:alphaBottomRight
+/>
 <Flip gameObject={instance} bind:flipX bind:flipY />
 <Tint
   gameObject={instance}
@@ -504,8 +514,8 @@
   bind:tintTopRight
   bind:tintBottomLeft
   bind:tintBottomRight
-  bind:tintFill />
-<Origin gameObject={instance} bind:originX bind:originY />
+  bind:tintFill
+/>
 <Visible gameObject={instance} bind:visible />
 
 <slot />

@@ -34,5 +34,5 @@ Renders a star.
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Star.svelte
+./../packages/svelte-phaser/dist/Star.svelte
 ```

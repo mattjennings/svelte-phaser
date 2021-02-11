@@ -15,7 +15,7 @@ Creates a Phaser.Game instance. Only [Scene](/svelte-phaser/components/scene/) c
 ## Properties
 
 ```properties
-./../packages/svelte-phaser/src/Game.svelte
+./../packages/svelte-phaser/dist/Game.svelte
 ```
 
 ## Events

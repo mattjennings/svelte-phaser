@@ -1,28 +1,49 @@
 {
   "name": "svelte-phaser",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Create Phaser 3 games with Svelte 3",
   "repository": "https://github.com/mattjennings/svelte-phaser",
-  "svelte": "src/index.mjs",
-  "main": "src/index.mjs",
+  "svelte": "dist/index.js",
+  "module": "dist/index.mjs",
+  "main": "dist/index.umd.js",
+  "types": "dist/ts/index.d.ts",
   "scripts": {
+    "prebuild": "rm -rf ./dist",
+    "build": "tsc --outDir ./dist --declaration && node scripts/preprocess.js",
+    "dev": "nodemon --exec \"yarn build\" --watch src -e js,ts,svelte",
+    "validate": "svelte-check --threshold error",
     "publish:prod": "yarn publish --tag latest",
     "publish:next": "yarn publish --tag next",
     "prepublishOnly": "yarn test",
     "test": "NODE_ENV=test jest",
     "test:watch": "yarn test -- --watch"
   },
+  "peerDependencies": {
+    "phaser": "^3.23.0"
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.9.6",
     "@testing-library/jest-dom": "^5.7.0",
     "@testing-library/svelte": "^3.0.0",
+    "@tsconfig/svelte": "^1.0.10",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.25",
     "babel-jest": "^26.0.1",
     "canvas": "^2.6.1",
     "datauri": "^3.0.0",
+    "fs-extra": "^9.0.1",
+    "glob": "^7.1.6",
     "jest": "^26.0.1",
     "jsdom": "^16.2.2",
-    "svelte": "^3.0.0",
-    "svelte-jester": "^1.0.5"
+    "nodemon": "^2.0.7",
+    "phaser": "^3.23.0",
+    "svelte": "^3.32.2",
+    "svelte-check": "^1.0.60",
+    "svelte-jester": "^1.3.0",
+    "svelte-preprocess": "^4.6.7",
+    "ts-jest": "^26.5.1",
+    "tslib": "^2.0.3",
+    "typescript": "^4.1.5"
   },
   "keywords": [
     "svelte"

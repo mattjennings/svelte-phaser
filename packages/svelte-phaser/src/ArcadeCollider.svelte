@@ -1,18 +1,27 @@
-<script>
-  import { getContext, onMount, createEventDispatcher } from 'svelte'
+<script lang="ts">
+  import { onMount, createEventDispatcher } from 'svelte'
   import { toArray, findGameObjectsByName } from './util'
   import { onSceneEvent } from './onSceneEvent'
-  import { getScene } from './getScene.js'
+  import { getScene } from './getScene'
+  import { getGameObject } from './getGameObject'
+  import { getTilemap } from './getTilemap'
 
   const dispatch = createEventDispatcher()
   const parent =
-    getContext('phaser/game-object') || getContext('phaser/tilemap-layer')
+    getGameObject() ||
+    ((getTilemap() as unknown) as Phaser.GameObjects.GameObject)
 
   // `with` is a reserved keyword
   let _with
 
-  export let overlapOnly = undefined
-  export let allowCollision = undefined
+  export let overlapOnly: boolean = undefined
+  export let allowCollision: <
+    Self extends Phaser.GameObjects.GameObject,
+    Other extends Phaser.GameObjects.GameObject
+  >(args: {
+    self: Self
+    other: Other
+  }) => boolean = undefined
 
   export { _with as with }
 
@@ -38,11 +47,14 @@
   onMount(() => () => collider.destroy())
 
   // update gameobject references by string when a child is added to the scene
-  onSceneEvent('CHILD_ADDED', object => {
+  onSceneEvent('CHILD_ADDED', (object) => {
     if (object.name) {
-      const withStrings = toArray(_with).filter(obj => typeof obj === 'string')
+      const withStrings = toArray(_with).filter(
+        (obj) => typeof obj === 'string'
+      )
 
       if (withStrings.includes(object.name)) {
+        // @ts-ignore
         collider.object2 = [...collider.object2, object]
       }
     }

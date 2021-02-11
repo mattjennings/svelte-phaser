@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount, setContext } from 'svelte'
   import { getScene } from './getScene'
 
@@ -37,7 +37,7 @@
 
   const tilemapData = scene.cache.tilemap.get(key)
 
-  const layerOrder = tilemapData.data.layers.map(layer => layer.name)
+  const layerOrder = tilemapData.data.layers.map((layer) => layer.name)
 
   setContext('phaser/tilemap', instance)
   onMount(() => () => {
@@ -45,8 +45,11 @@
   })
 
   tilesets.forEach(({ name, key }) => instance.addTilesetImage(name, key))
+  // @ts-ignore
   instance.layerOrder = layerOrder
+  // @ts-ignore
   instance.useLayerOrder = useLayerOrder
+  // @ts-ignore
   instance.startingDepth = startingDepth
 </script>
 

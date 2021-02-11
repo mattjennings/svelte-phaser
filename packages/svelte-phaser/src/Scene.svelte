@@ -1,7 +1,8 @@
-<script>
-  import Phaser from './phaser.js'
+<script lang="ts">
+  import Phaser from 'phaser'
   import { getContext, setContext, onMount, tick } from 'svelte'
   import { removeUndefined } from './util'
+  import { getGame } from './getGame'
 
   /**
    * The unique key of this Scene. Must be unique within the entire Game instance.
@@ -9,61 +10,65 @@
    * #required
    * @type {string}
    */
-  export let key = undefined
+  export let key: string = undefined
 
   /**
    * Does the Scene start as active or not? An active Scene updates each step.
    * @type {boolean}
    */
-  export let active = undefined
+  export let active: boolean = undefined
 
   /**
    * Does the Scene start as visible or not? A visible Scene renders each step.
    * @type {boolean}
    */
-  export let visible = undefined
+  export let visible: boolean = undefined
 
   /**
    * An optional Loader Packfile to be loaded before the Scene begins.
    * @type {false | Phaser.Types.Loader.FileTypes.PackFileConfig}
    */
-  export let pack = undefined
+  export let pack:
+    | false
+    | Phaser.Types.Loader.FileTypes.PackFileConfig = undefined
 
   /**
    * An optional Camera configuration object.
    * @type {Phaser.Types.Cameras.Scene2D.JSONCamera | Phaser.Types.Cameras.Scene2D.JSONCamera[]}
    */
-  export let cameras = undefined
+  export let cameras:
+    | Phaser.Types.Cameras.Scene2D.JSONCamera
+    | Phaser.Types.Cameras.Scene2D.JSONCamera[] = undefined
 
   /**
    * Overwrites the default injection map for a scene.
    * @type {object}
    */
-  export let map = undefined
+  export let map: any = undefined
 
   /**
    * Extends the injection map for a scene.
-   * @type {map}
+   * @type {object}
    */
-  export let mapAdd = undefined
+  export let mapAdd: any = undefined
 
   /**
    * The physics configuration object for the Scene.
    * @type {Phaser.Types.Core.PhysicsConfig}
    */
-  export let physics = undefined
+  export let physics: Phaser.Types.Core.PhysicsConfig = undefined
 
   /**
    * The loader configuration object for the Scene.
    * @type {Phaser.Types.Core.LoaderConfig}
    */
-  export let loader = undefined
+  export let loader: Phaser.Types.Core.LoaderConfig = undefined
 
   /**
    * The plugin configuration object for the Scene.
    * @type {any}
    */
-  export let plugins = undefined
+  export let plugins: any = undefined
 
   /**
    * Use this callback to load assets.
@@ -75,7 +80,7 @@
    * It is called with the Phaser.Scene instance as the parameter.
    * @type {function}
    */
-  export let preload = undefined
+  export let preload: (scene: Phaser.Scene) => any = undefined
 
   /**
    * Use this callback to create any other assets needed by the scene (animations, etc).
@@ -86,7 +91,7 @@
    * It is called with the Phaser.Scene instance as the parameter.
    * @type {function}
    */
-  export let create = undefined
+  export let create: (scene: Phaser.Scene) => any = undefined
 
   /**
    * This method is called by the Scene Manager when the scene starts,
@@ -95,13 +100,13 @@
    * It is called with the Phaser.Scene instance as the parameter.
    * @type {function}
    */
-  export let init = undefined
+  export let init: (scene: Phaser.Scene) => any = undefined
 
   /**
    * If you have your own Phaser.Scene instance you may pass it in
    * @type {Phaser.Scene}
    */
-  export let instance = new Phaser.Scene(
+  export let instance: Phaser.Scene = new Phaser.Scene(
     removeUndefined({
       key,
       active,
@@ -116,14 +121,17 @@
     })
   )
 
-  const game = getContext('phaser/game')
+  const game = getGame()
   setContext('phaser/scene', instance)
 
   let loading = !!preload
   let loadingProgress = 0
 
+  // @ts-ignore
   instance.preload = preload ? () => preload(instance) : null
+  // @ts-ignore
   instance.create = create ? () => create(instance) : null
+  // @ts-ignore
   instance.init = init ? () => init(instance) : null
 
   game.scene.add(key, instance, true)
@@ -135,7 +143,7 @@
 
     instance.load.on('complete', () => {
       loading = false
-      loadingProgress = false
+      loadingProgress = 100
     }),
   ]
 
@@ -175,6 +183,7 @@
 
   $: if (!loading) {
     // indicate that this is the default camera you get with the Scene
+    // @ts-ignore
     instance.cameras.main.__isOriginalCamera = true
     setContext('phaser/camera', instance.cameras.main)
   }
