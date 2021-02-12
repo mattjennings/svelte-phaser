@@ -1,5 +1,5 @@
 {
-  "name": "platformer",
+  "name": "video",
   "version": "1.0.0",
   "devDependencies": {
     "@snowpack/app-scripts-svelte": "^2.0.0",

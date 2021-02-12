@@ -24,6 +24,7 @@ export { default as Tilemap } from './Tilemap.svelte'
 export { default as TileSprite } from './TileSprite.svelte'
 export { default as Triangle } from './Triangle.svelte'
 export { default as Video } from './Video.svelte'
+export { default as HTML } from './HTML.svelte'
 
 export * from './getCamera'
 export * from './getContainer'
