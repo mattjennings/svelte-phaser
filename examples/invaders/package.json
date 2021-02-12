@@ -17,6 +17,6 @@
     "tslib": "^2.0.3",
     "typescript": "^4.1.2",
     "phaser": "^3.52.0",
-    "svelte-phaser": "latest"
+    "svelte-phaser": "next"
   }
 }
