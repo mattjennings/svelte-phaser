@@ -1,0 +1,16 @@
+{
+  "name": "svite-template",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "svite",
+    "build": "svite build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "svelte": "^3.29.7",
+    "svelte-hmr": "^0.11.6",
+    "svite": "^0.8.1",
+    "phaser": "^3.52.0",
+    "svelte-phaser": "latest"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "svite-ts-template",
+  "version": "0.0.0",
+  "scripts": {
+    "validate": "svelte-check && tsc --noEmit",
+    "dev": "svite -ts",
+    "build": "svite build -ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@tsconfig/svelte": "^1.0.10",
+    "svelte-check": "^1.1.15",
+    "svelte-preprocess": "^4.6.1",
+    "svelte": "^3.29.7",
+    "svelte-hmr": "^0.11.6",
+    "svite": "^0.8.1",
+    "tslib": "^2.0.3",
+    "typescript": "^4.1.2",
+    "phaser": "^3.52.0",
+    "svelte-phaser": "latest"
+  }
+}
