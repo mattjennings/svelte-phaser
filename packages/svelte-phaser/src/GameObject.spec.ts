@@ -33,6 +33,9 @@ beforeAll(async () => {
 
 beforeEach(() => {
   instance = scene.add.text(0, 0, 'hello')
+
+  // mock instance.input as it will be null
+  instance.input = jest.fn()
 })
 
 afterEach(() => {
