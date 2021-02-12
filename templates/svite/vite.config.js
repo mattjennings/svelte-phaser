@@ -2,7 +2,8 @@ const svite = require('svite')
 const sviteConfig = {
   hot: true,
 }
-module.exports = {
+
+module.exports = (mode) => ({
   // if you provide a svite plugin here, svite cli will use it instead of initializing one for you
   plugins: [svite(sviteConfig)],
   // if you don't use svite cli, you should provide rollupDedupe option, otherwise you risk duplicate svelte instances and errors
@@ -16,7 +17,14 @@ module.exports = {
     'svelte',
     'phaser',
   ],
-  optimizeDeps: {
-    include: ['phaser', 'svelte-phaser'],
+
+  alias: {
+    phaser:
+      mode === 'production'
+        ? 'phaser/dist/phaser.min.js'
+        : 'phaser/src/phaser.js',
   },
-}
+  optimizeDeps: {
+    include: ['phaser'],
+  },
+})
