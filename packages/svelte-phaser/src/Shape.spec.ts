@@ -11,12 +11,15 @@ jest.mock('svelte', () => ({
 
 let scene
 let game
+let instance
 
 beforeAll(async () => {
   const setup = await createGame()
 
   game = setup.game
   scene = setup.scene
+  instance = new Phaser.GameObjects.Rectangle(scene, 0, 0)
+
   asMock(getContext).mockImplementation((name) => {
     switch (name) {
       case 'phaser/scene':
@@ -28,9 +31,8 @@ beforeAll(async () => {
 })
 
 test('stroke and fill', () => {
-  const {
-    component: { instance },
-  } = render(Shape, {
+  render(Shape, {
+    instance,
     fillAlpha: 0.5,
     fillColor: 2,
     strokeAlpha: 3,
