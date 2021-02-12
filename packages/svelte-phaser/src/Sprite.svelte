@@ -210,7 +210,7 @@
 
   /**
    * The Texture Frame this Game Object is using to render with.
-   * @type {Phaser.Textures.Frame}
+   * @type {string}
    */
   export let frame: string = undefined
 

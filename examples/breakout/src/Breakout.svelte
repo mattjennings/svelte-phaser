@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onGameEvent, onInputEvent, getScene } from 'svelte-phaser'
   import Paddle from './Paddle.svelte'
   import Ball from './Ball.svelte'
@@ -10,9 +10,11 @@
   scene.physics.world.setBoundsCollision(true, true, true, false)
 
   let isBallLaunched = false
-  let paddle
-  let ball
-  let blocks = []
+  let paddle: Phaser.Physics.Arcade.Sprite & {
+    body: Phaser.Physics.Arcade.Body
+  }
+  let ball: Phaser.Physics.Arcade.Sprite & { body: Phaser.Physics.Arcade.Body }
+  let blocks: Array<{ x: number; y: number; key: number; frame: string }> = []
 
   setup()
 
@@ -78,6 +80,7 @@
     y={block.y + 200}
     frame={block.frame}
     onBallHit={() => {
-      blocks = blocks.filter(b => b !== block)
-    }} />
+      blocks = blocks.filter((b) => b !== block)
+    }}
+  />
 {/each}

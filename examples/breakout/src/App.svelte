@@ -15,6 +15,7 @@
   physics={{ default: 'arcade' }}
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}
 >
+  <!-- typescript doesn't like let:progress, so we use regular js for App.svelte -->
   <Scene key="main" {preload} let:progress>
     <slot slot="loading">
       <LoadingBar x={400} y={400} {progress} />

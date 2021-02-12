@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import { Sprite, ArcadePhysics, ArcadeCollider } from 'svelte-phaser'
 
-  export let instance = undefined
+  export let instance: Phaser.GameObjects.Sprite = undefined
 
   function handlePaddleCollide(event) {
     const { self, other: paddle } = event.detail
