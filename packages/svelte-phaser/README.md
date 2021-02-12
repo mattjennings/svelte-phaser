@@ -6,14 +6,21 @@ Check out the [documentation](https://svelte-phaser.com)
 
 ### Creating a new project
 
-The easiest way to get started is to create a new project using the blank template:
-
 ```shell
-npx degit mattjennings/svelte-phaser/templates/blank my-first-game
+npx degit mattjennings/svelte-phaser/templates/svite my-first-game
+cd my-first-game
+npm install
+npm run dev
+
+# or if you prefer typescript:
+
+npx degit mattjennings/svelte-phaser/templates/svite-typescript my-first-game
 cd my-first-game
 npm install
 npm run dev
 ```
+
+There are some other [templates](https://github.com/mattjennings/svelte-phaser/tree/master/templates) available as well
 
 If a blank project is too boring, feel free to look through the [examples](https://github.com/mattjennings/svelte-phaser/tree/master/examples).
 
