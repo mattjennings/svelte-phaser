@@ -183,86 +183,80 @@
    */
   export let zoom: number = undefined
 
+  /**
+   * The DOM Container configuration object.
+   *
+   * @type {Phaser.Types.Core.DOMContainerConfig}
+   */
   export let dom: Phaser.Types.Core.DOMContainerConfig = undefined
 
+  /**
+   * The parent HTMLElement instance or id. It must be mounted
+   * before <Game />, otherwise the reference won't be picked up by initialization.
+   *
+   * @type {HTMLElement | string}
+   */
   export let parent: HTMLElement | string = undefined
 
   /**
-   * If you have an existing Phaser.Game instance you can pass it in here.
+   * If you have an existing Phaser.Game instance you can pass it in here, or
+   * bind to the created one
    *
    * @type {Phaser.Game}
    */
-  export let instance = undefined
+  export let instance = new Phaser.Game(
+    removeUndefined({
+      canvas,
+      width,
+      height,
+      zoom,
+      resolution,
+      type,
+      customEnvironment,
+      context,
+      seed,
+      title,
+      url,
+      version,
+      autoFocus,
+      disableContextMenu,
+      transparent,
+      banner,
+      fps,
+      render,
+      backgroundColor,
+      loader,
+      images,
+      physics,
+      plugins,
+      scale,
+      audio,
+      parent,
+      dom,
+      callbacks: {
+        preBoot: (game) => dispatch('preBoot', game),
+        postBoot: (game) => dispatch('postBoot', game),
+      },
+    })
+  )
 
-  let booting = true
+  setContext('phaser/game', instance)
+
+  let booting = !instance.isRunning
+
+  instance.events.on('ready', () => {
+    booting = false
+  })
 
   onMount(() => {
-    // if parent prop is provided, wait until onMount for setup
-    if (shouldApplyProps(parent)) {
-      setup()
-    }
     return () => {
       instance.destroy(true)
     }
   })
-
-  // if parent is undefined, setup right away
-  if (!shouldApplyProps(parent)) {
-    setup()
-  }
-
-  function setup() {
-    if (!instance) {
-      instance = new Phaser.Game(
-        removeUndefined({
-          canvas,
-          width,
-          height,
-          zoom,
-          resolution,
-          type,
-          customEnvironment,
-          context,
-          seed,
-          title,
-          url,
-          version,
-          autoFocus,
-          disableContextMenu,
-          transparent,
-          banner,
-          fps,
-          render,
-          backgroundColor,
-          loader,
-          images,
-          physics,
-          plugins,
-          scale,
-          audio,
-          dom,
-          parent,
-          callbacks: {
-            preBoot: (game) => dispatch('preBoot', game),
-            postBoot: (game) => dispatch('postBoot', game),
-          },
-        })
-      )
-    }
-    booting = !instance.isRunning
-
-    instance.events.on('ready', () => {
-      booting = false
-    })
-
-    setContext('phaser/game', instance)
-  }
 </script>
 
-{#if !!instance}
-  {#if booting}
-    <slot name="booting" />
-  {:else}
-    <slot />
-  {/if}
+{#if booting}
+  <slot name="booting" />
+{:else}
+  <slot />
 {/if}

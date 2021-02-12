@@ -10,7 +10,7 @@
   "scripts": {
     "prebuild": "rm -rf ./dist",
     "build": "tsc --outDir ./dist --declaration && node scripts/preprocess.js",
-    "dev": "nodemon --exec \"yarn build\" --watch src -e js,ts,svelte",
+    "dev": "nodemon --exec \"tsc --outDir ./dist --declaration && node scripts/preprocess.js\" --watch src -e js,ts,svelte",
     "validate": "svelte-check --threshold error",
     "publish:prod": "yarn publish --tag latest",
     "publish:next": "yarn publish --tag next",
