@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Text, onInputEvent } from 'svelte-phaser'
   import { score, lives, gameStatus, reset } from './store'
 
@@ -19,6 +19,7 @@
     y={200}
     text={$gameStatus === 'win' ? 'You Win!' : 'Game Over'}
     fontSize="48px"
-    align="center" />
+    align="center"
+  />
   <Text x={280} y={265} text="Click to restart" fontSize="20px" />
 {/if}

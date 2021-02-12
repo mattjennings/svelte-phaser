@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   import { Sprite, ArcadePhysics, ArcadeCollider } from 'svelte-phaser'
 
-  export let x
-  export let y
-  export let velocityX
-  export let onDie
+  export let x: number
+  export let y: number
+  export let velocityX: number
+  export let onDie: () => any
 </script>
 
 <Sprite name="enemy" {x} {y} animation="anims/enemy/fly">

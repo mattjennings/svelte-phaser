@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
   import { TileSprite, onGameEvent } from 'svelte-phaser'
 
-  let tilePositionY = 0
+  let tilePositionY: number = 0
+
   onGameEvent('step', () => {
     tilePositionY -= 2
   })
@@ -16,4 +17,5 @@
   originX={0}
   originY={0}
   texture="textures/starfield"
-  {tilePositionY} />
+  {tilePositionY}
+/>

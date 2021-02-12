@@ -1,0 +1,10 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "include": ["src/**/*"],
+  "exclude": ["node_modules/*", "public/*"],
+  "compilerOptions": {
+    "module": "esnext",
+    "types": ["svelte", "vite/dist/importMeta"],
+    "esModuleInterop": true
+  }
+}

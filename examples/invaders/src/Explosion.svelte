@@ -1,9 +1,8 @@
-<script>
+<script lang="ts">
   import { Sprite } from 'svelte-phaser'
 
-  export let x
-  export let y
-  export let onAnimationComplete
+  export let x: number
+  export let y: number
 </script>
 
 <Sprite
@@ -12,4 +11,5 @@
   depth={30}
   animation="anims/explosion"
   scale={0.75}
-  on:animationcomplete={onAnimationComplete} />
+  on:animationcomplete
+/>

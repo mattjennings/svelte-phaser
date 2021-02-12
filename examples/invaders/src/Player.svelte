@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Phaser from 'phaser'
   import {
     Sprite,
@@ -11,9 +11,9 @@
   import Bullet from './Bullet.svelte'
   import { lives } from './store'
 
-  export let x
-  export let y
-  export let instance = undefined
+  export let x: number
+  export let y: number
+  export let instance: Phaser.Physics.Arcade.Sprite = undefined
 
   const { spawn } = getSpawner()
   const scene = getScene()
@@ -60,10 +60,12 @@
   name="player"
   texture="textures/player"
   {x}
-  {y}>
+  {y}
+>
   <ArcadeCollider
     with={['enemies', 'enemyBullet']}
     overlapOnly
-    on:collide={() => lives.update(prev => prev - 1)} />
+    on:collide={() => lives.update((prev) => prev - 1)}
+  />
   <ArcadePhysics {velocityX} collideWorldBounds />
 </Sprite>

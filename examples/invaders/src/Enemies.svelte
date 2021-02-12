@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Phaser from 'phaser'
   import { onMount } from 'svelte'
   import { getScene, getSpawner } from 'svelte-phaser'
@@ -10,7 +10,7 @@
   const scene = getScene()
   const { spawn } = getSpawner()
 
-  let enemies = []
+  let enemies: Array<{ x: number; y: number; key: number }> = []
   let enemyVelocityX = 40
   let enemyY = 0
 
@@ -31,14 +31,17 @@
   const enemyShootTimer = scene.time.addEvent({
     callback: () => {
       if ($gameStatus === 'playing') {
-        const player = scene.children.getByName('player')
+        const player = scene.children.getByName(
+          'player'
+        ) as Phaser.Physics.Arcade.Sprite
         const enemies = scene.children.list.filter(
           (child) => child.name === 'enemy'
         )
 
         // get the gameobject reference of a random enemy
-        const enemy =
-          enemies[Phaser.Math.RND.integerInRange(0, enemies.length - 1)]
+        const enemy = enemies[
+          Phaser.Math.RND.integerInRange(0, enemies.length - 1)
+        ] as Phaser.Physics.Arcade.Sprite
 
         if (player && enemy) {
           // get angle from enemy to player
@@ -66,7 +69,7 @@
   // cleanup timers
   onMount(() => () => {
     moveTimer.destroy()
-    enemyShootTimer()
+    enemyShootTimer.destroy()
   })
 
   // create enemies on to start or on game reset

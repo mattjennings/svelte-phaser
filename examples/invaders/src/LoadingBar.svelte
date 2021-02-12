@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Phaser from 'phaser'
   import { Rectangle, Container } from 'svelte-phaser'
   import { tweened } from 'svelte/motion'
@@ -6,9 +6,9 @@
 
   const barWidth = 400
 
-  export let x
-  export let y
-  export let progress
+  export let x: number
+  export let y: number
+  export let progress = 0
 
   const tweenedProgress = tweened(progress, {
     duration: 200,
@@ -24,7 +24,8 @@
     width={barWidth}
     height={50}
     fillColor={0x777777}
-    {...$$restProps} />
+    {...$$restProps}
+  />
   <!-- inner bar -->
   <Rectangle
     x={-barWidth / 2}
@@ -32,5 +33,6 @@
     originY={0.5}
     width={Phaser.Math.Clamp(barWidth * $tweenedProgress, 10, barWidth)}
     height={50}
-    fillColor={0xbbbbbb} />
+    fillColor={0xbbbbbb}
+  />
 </Container>
