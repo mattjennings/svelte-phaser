@@ -9866,7 +9866,7 @@ svelte-check@^1.0.60:
     svelte-preprocess "^4.0.0"
     typescript "*"
 
-svelte-check@^1.1.15:
+svelte-check@^1.1.15, svelte-check@^1.1.34:
   version "1.1.34"
   resolved "https://registry.yarnpkg.com/svelte-check/-/svelte-check-1.1.34.tgz#3d99d3dc48278d13509f223b2875688d5dd48b11"
   integrity sha512-9k3XoSBiXKIu34w3R8adM35pjJhbB7PJN8aMMusYVZQoPs9+HBJ8OPRfIr6c+LCT0kqR/3WnxkQ/1ooitISbBA==
@@ -9923,7 +9923,7 @@ svelte-preprocess@^4.0.0, svelte-preprocess@^4.6.0:
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
 
-svelte-preprocess@^4.6.1:
+svelte-preprocess@^4.6.1, svelte-preprocess@^4.6.8:
   version "4.6.8"
   resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.6.8.tgz#bad8a3a1a03163f3941f0dc264b64a40c44a7ae0"
   integrity sha512-yrT+vuHPoGnNx5Oxa6gMqWV5ZhLgA4isfhUOBwv9iVqZAro9/Nyy8XF5sahAglfMmnCxJkDZSwg7CdAwGpVxhw==
@@ -9943,7 +9943,7 @@ svelte-preprocess@^4.6.7:
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
 
-svelte@^3.0.0, svelte@^3.29.7, svelte@^3.31.0, svelte@^3.32.0, svelte@^3.32.2:
+svelte@^3.0.0, svelte@^3.29.7, svelte@^3.31.0, svelte@^3.32.0, svelte@^3.32.2, svelte@^3.32.3:
   version "3.32.2"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.32.2.tgz#c3a370b951ea2e0730dfd314b5fa57fd93ece399"
   integrity sha512-Zxh1MQQl/+vnToKbU1Per+PoMN8Jb2MeKJcGxiOsCGR677hXw7jkMfbnNXq33+dxIzV/HfA4xtoSPJrqeB0VUg==
