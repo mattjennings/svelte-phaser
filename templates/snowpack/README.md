@@ -5,7 +5,7 @@ however it has issues with HMR as of snowpack v3.0. Specifically when you bind
 to a svelte-phaser's `instance` prop, the HMR seems to break completely and requires
 a full reload.
 
-For this reason, I recommend the [svite](../svite) or [svite-ts](../svelte-ts) templates until HMR is fixed.
+For this reason, I recommend the [svite](../svite) or [svite-typescript](../svelte-typescript) templates until HMR is fixed.
 
 ## Available Scripts
 
