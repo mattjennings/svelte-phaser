@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Phaser from 'phaser'
   import {
     Sprite,
@@ -8,15 +8,15 @@
     ArcadeCollider,
   } from 'svelte-phaser'
 
-  export let x
-  export let y
+  export let x: number
+  export let y: number
 
   let flipX = false
   let velocityX = 0
   let velocityY = 0
   let animation = 'idle'
 
-  let instance
+  let instance: Phaser.Physics.Arcade.Sprite
 
   const scene = getScene()
   const X_SPEED = 100
@@ -78,7 +78,8 @@
   bind:y
   animation={`anims/player/${animation}`}
   on:animationcomplete={onAnimationComplete}
-  {flipX}>
+  {flipX}
+>
   <ArcadePhysics
     collideWorldBounds
     bind:velocityX
@@ -86,7 +87,7 @@
     width={16}
     height={32}
     offsetX={16}
-    offsetY={4} />
+    offsetY={4}
+  />
   <ArcadeCollider with="ground" />
-
 </Sprite>
