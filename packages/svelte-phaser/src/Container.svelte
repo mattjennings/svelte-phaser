@@ -258,7 +258,7 @@
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string | { name: string; data: object; copy?: boolean }}
+   * @type {string | object}
    */
   export let pipeline:
     | string

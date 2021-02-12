@@ -214,19 +214,21 @@
   $: shouldApplyProps(name) && instance.setName(name)
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
 
-  $: if (interactive === true) {
-    instance.setInteractive()
-  } else if (!interactive) {
-    instance.removeInteractive()
-  } else {
-    instance.setInteractive(
-      interactive.shape,
-      interactive.callback,
-      interactive.dropZone
-    )
+  $: if (instance.input) {
+    if (interactive === true) {
+      instance.setInteractive()
+    } else if (!interactive) {
+      instance.removeInteractive()
+    } else {
+      instance.setInteractive(
+        interactive.shape,
+        interactive.callback,
+        interactive.dropZone
+      )
+    }
   }
 
-  $: if (shouldApplyProps(draggable) && interactive) {
+  $: if (instance.input && shouldApplyProps(draggable) && interactive) {
     scene.input.setDraggable(instance, draggable)
   }
 

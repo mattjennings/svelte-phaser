@@ -55,6 +55,7 @@
   onGameEvent('prestep', () => {
     originX = gameObject.originX
     originY = gameObject.originY
+
     displayOriginX = gameObject.displayOriginX
     displayOriginY = gameObject.displayOriginY
   })

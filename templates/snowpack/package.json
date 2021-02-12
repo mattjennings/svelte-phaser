@@ -10,11 +10,10 @@
   "dependencies": {
     "svelte": "^3.0.0",
     "svelte-phaser": "latest",
-    "phaser": "^3.23.0"
+    "phaser": "^3.52.0"
   },
   "devDependencies": {
-    "@snowpack/app-scripts-svelte": "^1.8.4",
-    "snowpack": "^2.9.0",
-    "svelte-fragment": "^1.0.1"
+    "@snowpack/app-scripts-svelte": "^2.0.0",
+    "snowpack": "^3.0.11"
   }
 }
