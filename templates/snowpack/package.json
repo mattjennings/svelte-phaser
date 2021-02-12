@@ -1,12 +1,20 @@
 {
+  "name": "snowpack-template",
+  "version": "1.0.0",
   "scripts": {
     "prepare": "snowpack prepare",
     "start": "snowpack dev",
     "build": "snowpack build"
   },
   "webDependencies": {},
+  "dependencies": {
+    "svelte": "^3.0.0",
+    "svelte-phaser": "latest",
+    "phaser": "^3.23.0"
+  },
   "devDependencies": {
-    "@snowpack/app-scripts-svelte": "^2.0.0",
-    "snowpack": "^2.9.0"
+    "@snowpack/app-scripts-svelte": "^1.8.4",
+    "snowpack": "^2.9.0",
+    "svelte-fragment": "^1.0.1"
   }
 }
