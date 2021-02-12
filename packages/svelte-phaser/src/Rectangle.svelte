@@ -333,9 +333,18 @@
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
+   * @type {string | { name: string; data: object; copy?: boolean }}
    */
-  export let pipeline = undefined
+  export let pipeline:
+    | string
+    | { name: string; data: object; copy?: boolean } = undefined
+
+  /**
+   * The WebGL Post FX Pipelines this Game Object uses for post-render effects.
+   * The pipelines are processed in the order in which they appear in this array.
+   * @type {Phaser.Renderer.WebGL.Pipelines.PostFXPipeline}
+   */
+  export let postPipeline: Phaser.Renderer.WebGL.Pipelines.PostFXPipeline[] = undefined
 
   const scene = getScene()
 
@@ -377,6 +386,7 @@
   bind:scrollFactorX
   bind:scrollFactorY
   bind:pipeline
+  bind:postPipeline
   bind:tabIndex
   bind:visible
   bind:w

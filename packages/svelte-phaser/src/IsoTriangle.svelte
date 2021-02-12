@@ -354,9 +354,18 @@
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
+   * @type {string | { name: string; data: object; copy?: boolean }}
    */
-  export let pipeline = undefined
+  export let pipeline:
+    | string
+    | { name: string; data: object; copy?: boolean } = undefined
+
+  /**
+   * The WebGL Post FX Pipelines this Game Object uses for post-render effects.
+   * The pipelines are processed in the order in which they appear in this array.
+   * @type {Phaser.Renderer.WebGL.Pipelines.PostFXPipeline}
+   */
+  export let postPipeline: Phaser.Renderer.WebGL.Pipelines.PostFXPipeline[] = undefined
 
   const scene = getScene()
 
@@ -372,6 +381,7 @@
     fillRight
   )
 
+  // @ts-ignore - setSize does exist
   $: shouldApplyProps(size, height) && instance.setSize(size, height)
 
   $: shouldApplyProps(fillTop, fillLeft, fillRight) &&
@@ -428,6 +438,7 @@
   bind:y
   bind:z
   bind:pipeline
+  bind:postPipeline
   on:drag
   on:dragenter
   on:dragleave

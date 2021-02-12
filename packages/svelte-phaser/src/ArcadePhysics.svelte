@@ -287,6 +287,16 @@
   export let onWorldBounds: boolean = true
 
   /**
+   * Sets if this Body can be pushed by another Body.
+   *
+   * A body that cannot be pushed will reflect back all of the velocity it is given to the colliding body.
+   * If that body is also not pushable, then the separation will be split between them evenly.
+   *
+   * If you want your body to never move or seperate at all, see the immovable prop.
+   */
+  export let pushable = undefined
+
+  /**
    * The width of the Body in pixels. Cannot be zero.
    * If not given, and the parent Game Object has a frame, it will use the frame width.
    * @type {number}
@@ -344,7 +354,9 @@
 
   const scene = getScene()
   const instance = getGameObject<
-    Phaser.GameObjects.GameObject & { body: Phaser.Physics.Arcade.Body }
+    Phaser.GameObjects.GameObject & {
+      body: Phaser.Physics.Arcade.Body
+    }
   >()
 
   scene.physics.world.enable(
@@ -373,7 +385,8 @@
   }
 
   $: shouldApplyProps(allowGravity) &&
-    (instance.body.allowGravity = allowGravity)
+    instance.body.allowGravity !== allowGravity &&
+    instance.body.setAllowGravity(allowGravity)
 
   $: shouldApplyProps(allowDrag) && (instance.body.allowDrag = allowDrag)
 
@@ -455,17 +468,20 @@
   }
 
   $: shouldApplyProps(onWorldBounds) &&
+    // @ts-ignore - types say it's readonly property, but that's only for static body type
     (instance.body.onWorldBounds = onWorldBounds)
 
   $: shouldApplyProps(maxSpeed) && instance.body.setMaxSpeed(maxSpeed)
 
   $: shouldApplyProps(maxAngular) && (instance.body.maxAngular = maxAngular)
 
-  $: if (shouldApplyProps(maxVelocityX, maxVelocityY)) {
-    instance.body.setMaxVelocity(maxVelocityX || 0, maxVelocityY || 0)
-  } else if (shouldApplyProps(maxVelocity)) {
-    instance.body.setMaxVelocity(maxVelocity)
-  }
+  $: shouldApplyProps(maxVelocityX) &&
+    instance.body.setMaxVelocityX(maxVelocityX)
+
+  $: shouldApplyProps(maxVelocityY) &&
+    instance.body.setMaxVelocityY(maxVelocityY)
+
+  $: shouldApplyProps(pushable) && (instance.body.pushable = pushable)
 
   $: if (shouldApplyProps(velocity)) {
     instance.body.setVelocity(velocity, velocity)
@@ -488,6 +504,7 @@
       onWorldBounds = instance.body.onWorldBounds
       width = instance.body.width
       height = instance.body.height
+      pushable = instance.body.pushable
 
       if (!!collideWorldBounds !== instance.body.collideWorldBounds) {
         collideWorldBounds = instance.body.collideWorldBounds

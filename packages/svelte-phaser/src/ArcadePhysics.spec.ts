@@ -1,4 +1,5 @@
 import { render } from '@testing-library/svelte'
+import type { truncate } from 'fs'
 import { tick, getContext } from 'svelte'
 import ArcadePhysics from './ArcadePhysics.svelte'
 import { createGame, asMock } from './test-utils'
@@ -153,13 +154,17 @@ test('gravity', async () => {
     component: { $$set },
   } = render(ArcadePhysics, {
     gravity: 1,
+    allowGravity: false,
   })
+
+  jest.spyOn(gameObject.body, 'setAllowGravity')
 
   expect(gameObject.body.gravity).toEqual({ x: 1, y: 1 })
 
-  $$set({ gravityX: 2, gravityY: 3 })
+  $$set({ gravityX: 2, gravityY: 3, allowGravity: true })
   await tick()
 
+  expect(gameObject.body.setAllowGravity).toHaveBeenCalledWith(true)
   expect(gameObject.body.gravity).toEqual({ x: 2, y: 3 })
 })
 
@@ -221,6 +226,17 @@ test('maxVelocity', async () => {
 
   expect(gameObject.body.maxVelocity).toEqual({ x: 1, y: 2 })
 })
+
+test('pushable', async () => {
+  const {
+    component: { $$set },
+  } = render(ArcadePhysics, {
+    pushable: true,
+  })
+
+  expect(gameObject.body.pushable).toEqual(true)
+})
+
 test('velocity', async () => {
   const {
     component: { $$set },

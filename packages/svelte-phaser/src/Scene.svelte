@@ -157,30 +157,6 @@
     }
   })
 
-  // emit our own CHILD_ADDED and CHILD_REMOVED events on the scene
-  // (used for collider components)
-  $: if (!loading) {
-    const origAdd = instance.children.addCallback
-    instance.children.addCallback = async (...args) => {
-      await tick() // wait for svelte to apply props to components first
-
-      if (origAdd) {
-        origAdd(...args)
-      }
-
-      instance.events.emit('CHILD_ADDED', ...args)
-    }
-
-    const origRemove = instance.children.removeCallback
-    instance.children.removeCallback = async (...args) => {
-      await tick()
-      if (origRemove) {
-        origRemove(...args)
-      }
-      instance.events.emit('CHILD_REMOVED', ...args)
-    }
-  }
-
   $: if (!loading) {
     // indicate that this is the default camera you get with the Scene
     // @ts-ignore

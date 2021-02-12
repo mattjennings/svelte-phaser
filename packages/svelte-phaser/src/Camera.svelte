@@ -343,6 +343,38 @@
   export let zoom = undefined
 
   /**
+   * The Camera horizontal zoom value. Change this value to zoom in, or out of, a Scene.
+   *
+   * A value of 0.5 would zoom the Camera out, so you can now see twice as
+   *  much of the Scene as before. A value of 2 would zoom the Camera in,
+   * so every pixel now takes up 2 pixels when rendered.
+   *
+   * Set to 1 to return to the default zoom level.
+   *
+   * Be careful to never set this value to zero.
+   *
+   * #phaserDefault 1
+   * @type {number}
+   */
+  export let zoomX = undefined
+
+  /**
+   * The Camera vertical zoom value. Change this value to zoom in, or out of, a Scene.
+   *
+   * A value of 0.5 would zoom the Camera out, so you can now see twice as
+   * much of the Scene as before. A value of 2 would zoom the Camera in,
+   * so every pixel now takes up 2 pixels when rendered.
+   *
+   * Set to 1 to return to the default zoom level.
+   *
+   * Be careful to never set this value to zero.
+   *
+   * #phaserDefault 1
+   * @type {number}
+   */
+  export let zoomY = undefined
+
+  /**
    * The Camera Zoom effect handler.
    * @type {Phaser.Cameras.Scene2D.Effects.Zoom}
    */
@@ -462,7 +494,12 @@
 
   $: shouldApplyProps(transparent) && (instance.transparent = transparent)
 
-  $: shouldApplyProps(zoom) && instance.setZoom(zoom)
+  $: if (shouldApplyProps(zoom)) {
+    instance.setZoom(zoom)
+  } else if (shouldApplyProps(zoomX) || shouldApplyProps(zoomY)) {
+    instance.setZoom(zoomX, zoomY)
+  }
+
   $: shouldApplyProps(zoomEffect) && (instance.zoomEffect = zoomEffect)
 
   onSceneEvent('CHILD_ADDED', (object) => {
@@ -496,6 +533,8 @@
     transparent = instance.transparent
     width = instance.width
     zoom = instance.zoom
+    zoomX = instance.zoomX
+    zoomY = instance.zoomY
   })
 </script>
 

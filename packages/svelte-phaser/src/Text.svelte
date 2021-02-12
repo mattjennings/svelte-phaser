@@ -354,9 +354,18 @@
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
+   * @type {string | { name: string; data: object; copy?: boolean }}
    */
-  export let pipeline = undefined
+  export let pipeline:
+    | string
+    | { name: string; data: object; copy?: boolean } = undefined
+
+  /**
+   * The WebGL Post FX Pipelines this Game Object uses for post-render effects.
+   * The pipelines are processed in the order in which they appear in this array.
+   * @type {Phaser.Renderer.WebGL.Pipelines.PostFXPipeline}
+   */
+  export let postPipeline: Phaser.Renderer.WebGL.Pipelines.PostFXPipeline[] = undefined
 
   /**
    * This is a special setter that allows you to set both the horizontal and vertical scale of this Game Object to the same value, at the same time.
@@ -702,7 +711,7 @@
   <Origin bind:originX bind:originY bind:displayOriginX bind:displayOriginY />
   <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
   <Size bind:width bind:height bind:displayWidth bind:displayHeight />
-  <Pipeline bind:pipeline />
+  <Pipeline bind:pipeline bind:postPipeline />
   <Transform
     bind:x
     bind:y

@@ -1,8 +1,6 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import Phaser from 'phaser'
-  import { getScene } from './getScene'
   import { shouldApplyProps } from './util'
   import { onGameEvent } from './onGameEvent'
 
@@ -346,21 +344,20 @@
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
+   * @type {string | { name: string; data: object; copy?: boolean }}
    */
-  export let pipeline = undefined
+  export let pipeline:
+    | string
+    | { name: string; data: object; copy?: boolean } = undefined
 
-  const scene = getScene()
+  /**
+   * The WebGL Post FX Pipelines this Game Object uses for post-render effects.
+   * The pipelines are processed in the order in which they appear in this array.
+   * @type {Phaser.Renderer.WebGL.Pipelines.PostFXPipeline}
+   */
+  export let postPipeline: Phaser.Renderer.WebGL.Pipelines.PostFXPipeline[] = undefined
 
-  export let instance = new Phaser.GameObjects.Rectangle(
-    scene,
-    x,
-    y,
-    width,
-    height,
-    fillColor,
-    fillAlpha
-  )
+  export let instance: Phaser.GameObjects.Shape
 
   $: shouldApplyProps(fillColor, fillAlpha) &&
     instance.setFillStyle(fillColor, fillAlpha)
@@ -415,7 +412,7 @@
   <Origin bind:originX bind:originY bind:displayOriginX bind:displayOriginY />
   <ScrollFactor bind:scrollFactorX bind:scrollFactorY />
   <Size bind:width bind:height bind:displayWidth bind:displayHeight />
-  <Pipeline bind:pipeline />
+  <Pipeline bind:pipeline bind:postPipeline />
   <Transform
     bind:x
     bind:y

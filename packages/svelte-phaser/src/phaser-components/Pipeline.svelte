@@ -1,13 +1,21 @@
 <script lang="ts">
   import { getGameObject } from '../getGameObject'
-  import { onGameEvent } from '../onGameEvent'
   import { shouldApplyProps } from '../util'
 
   /**
    * Sets the active WebGL Pipeline of this Game Object.
-   * @type {string}
+   * @type {string | { name: string; data: object; copy?: boolean }}
    */
-  export let pipeline: string = undefined
+  export let pipeline:
+    | string
+    | { name: string; data: object; copy?: boolean } = undefined
+
+  /**
+   * The WebGL Post FX Pipelines this Game Object uses for post-render effects.
+   * The pipelines are processed in the order in which they appear in this array.
+   * @type {Phaser.Renderer.WebGL.Pipelines.PostFXPipeline}
+   */
+  export let postPipeline: Phaser.Renderer.WebGL.Pipelines.PostFXPipeline[] = undefined
 
   /**
    * Defaults to the parent game object in Svelte context. If you need to provide
@@ -17,5 +25,15 @@
     Phaser.GameObjects.Components.Pipeline
   >()
 
-  $: shouldApplyProps(pipeline) && gameObject.setPipeline(pipeline)
+  $: if (shouldApplyProps(pipeline)) {
+    if (typeof pipeline === 'string') {
+      gameObject.setPipeline(pipeline)
+    } else {
+      gameObject.setPipeline(pipeline.name, pipeline.data, pipeline.copy)
+    }
+  }
+
+  $: if (shouldApplyProps(postPipeline)) {
+    gameObject.setPostPipeline(postPipeline)
+  }
 </script>

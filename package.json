@@ -36,13 +36,12 @@
   },
   "resolutions": {
     "svelte": "^3.32.0",
-    "phaser": "3.24.1"
+    "phaser": "^3.52.0"
   },
   "devDependencies": {
     "eslint": "6.8.0",
     "eslint-plugin-svelte3": "^2.7.3",
     "eslint-plugin-jest": "^23.11.0",
-    "phaser": "^3.23.0",
     "prettier": "^2.0.5",
     "svelte": "^3.32.0"
   },
