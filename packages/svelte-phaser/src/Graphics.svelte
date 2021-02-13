@@ -259,7 +259,11 @@
   export let lineStyle: Phaser.Types.GameObjects.Graphics.LineStyle = undefined
 
   /**
-   * A function that will be called so you can draw the graphics
+   * A function that will be called with the instance so you can call its drawing functions.
+   * It is called on initilization and when the function reference changes. This means that
+   * if you define the draw function with a reactive expression, it will be re-run when the
+   * expression updates.
+   *
    * @type {function}
    */
   export let draw: (graphics: Phaser.GameObjects.Graphics) => any

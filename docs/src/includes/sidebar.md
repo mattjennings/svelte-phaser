@@ -7,6 +7,7 @@
   - [Curve](components/curve)
   - [Ellipse](components/ellipse)
   - [Game](components/game)
+  - [Graphics](components/graphics)
   - [Grid](components/grid)
   - [HTML](components/html)
   - [IsoBox](components/iso-box)
