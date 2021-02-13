@@ -6,10 +6,11 @@ Renders an "arc" shape. This can be used for circles or semi-circles.
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, Arc } from 'svelte-phaser'
 </script>
 
-<Game width={400} height={400}>
+<Game width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main">
     <Arc
       x={100}

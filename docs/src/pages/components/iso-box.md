@@ -6,6 +6,7 @@ Renders an isometric rectangle.
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, IsoBox } from 'svelte-phaser'
   import { tweened } from 'svelte/motion'
   import { cubicInOut } from 'svelte/easing'
@@ -22,7 +23,7 @@ Renders an isometric rectangle.
   }
 </script>
 
-<Game width={400} height={400}>
+<Game width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main">
     <IsoBox
       x={100}

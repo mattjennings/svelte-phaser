@@ -6,10 +6,11 @@ Renders a polygon.
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, Polygon } from 'svelte-phaser'
 </script>
 
-<Game width={400} height={400}>
+<Game width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main">
     <Polygon
       x={200}

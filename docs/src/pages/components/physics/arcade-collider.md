@@ -6,10 +6,11 @@ Enables collisions against another Arcade physics-enabled game object.
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, Sprite, ArcadePhysics, ArcadeCollider } from 'svelte-phaser'
 </script>
 
-<Game width={400} height={400} physics={{ default: "arcade" }}>
+<Game width={400} height={400} physics={{ default: "arcade" }} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main" preload={scene => scene.load.image('mushroom', '/static/images/mushroom.png')}>
     <Sprite name="mushroom" texture="mushroom" x={100} y={150}>
       <ArcadePhysics bounce={1} velocityX={150} collideWorldBounds/>

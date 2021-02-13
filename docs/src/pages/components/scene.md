@@ -12,10 +12,11 @@ you can load them with the `preload` prop.
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, Sprite } from 'svelte-phaser'
 </script>
 
-<Game width={400} height={400}>
+<Game width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene
     key="main"
     preload={(scene) => {
@@ -34,6 +35,7 @@ by using `let:progress` on the Scene
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { onMount } from 'svelte'
   import { Game, Scene, Sprite, Text, Rectangle } from 'svelte-phaser'
 
@@ -63,7 +65,7 @@ by using `let:progress` on the Scene
   }
 </script>
 
-<Game width={400} height={400}>
+<Game width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene
     key="main"
     let:progress

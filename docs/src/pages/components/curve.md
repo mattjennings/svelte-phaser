@@ -10,7 +10,7 @@ Renders a curve.
   import { Game, Scene, Curve } from 'svelte-phaser'
 </script>
 
-<Game width={400} height={400}>
+<Game width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main">
     <Curve
       x={200}

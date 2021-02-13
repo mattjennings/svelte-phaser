@@ -8,6 +8,7 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, Text, Sprite } from 'svelte-phaser'
   import { spring } from 'svelte/motion'
 
@@ -35,7 +36,8 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
 
 <Game
   width={600}
-  height={600}>
+  height={600}
+  scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene
     key="main"
     preload={scene => {
@@ -58,6 +60,7 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { onMount} from 'svelte'
   import { Game, Scene, Rectangle} from 'svelte-phaser'
   import { tweened } from 'svelte/motion'
@@ -86,7 +89,8 @@ This is a recreation of an example from [a svelte.dev tutorial](https://svelte.d
 
 <Game
   width={400}
-  height={400}>
+  height={400}
+  scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main">
     <Rectangle
       type="stroke"

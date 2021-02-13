@@ -10,10 +10,11 @@ Alternatively, Phaser offers a Matter.js physics system, but svelte-phaser does 
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, Sprite, ArcadePhysics } from 'svelte-phaser'
 </script>
 
-<Game width={400} height={400} physics={{ default: "arcade" }}>
+<Game width={400} height={400} physics={{ default: "arcade" }} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main" preload={scene => scene.load.image('mushroom', 'static/images/mushroom.png')}>
     <Sprite texture="mushroom" x={150} y={150}>
       <ArcadePhysics bounce={1} velocityX={150} velocityY={120} collideWorldBounds />

@@ -13,6 +13,7 @@ passed into the component as props.
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { onMount } from 'svelte'
   import { Game, Scene, Spawner, Tilemap, TileLayer, ObjectLayer } from 'svelte-phaser'
   import Ball from './Ball.svelte'
@@ -21,6 +22,7 @@ passed into the component as props.
 <Game
   width={512}
   height={256}
+  scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}
   physics={{
     default: 'arcade',
     arcade: {
@@ -50,7 +52,7 @@ passed into the component as props.
         id="ground"
         name="ground"
         tilesets={['castle-tileset']}
-        collisionTilesByProperty={{ collision: true }} />
+        collisionByProperty={{ collision: true }} />
     </Tilemap>
     </Spawner>
   </Scene>

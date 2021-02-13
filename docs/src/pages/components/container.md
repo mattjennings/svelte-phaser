@@ -8,6 +8,7 @@ Containers are used to group game objects together. All children are positioned 
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { onMount } from 'svelte'
   import { Game, Scene, Rectangle, Container } from 'svelte-phaser'
 
@@ -35,7 +36,7 @@ Containers are used to group game objects together. All children are positioned 
   })
 </script>
 
-<Game bind:instance={game} width={400} height={400}>
+<Game bind:instance={game} width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main">
     <Container bind:x y={200} width={100} height={100} {angle}>
       <Rectangle

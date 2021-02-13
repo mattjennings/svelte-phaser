@@ -8,6 +8,7 @@
   - [Ellipse](components/ellipse)
   - [Game](components/game)
   - [Grid](components/grid)
+  - [HTML](components/html)
   - [IsoBox](components/iso-box)
   - [IsoTriangle](components/iso-triangle)
   - [Line](components/line)

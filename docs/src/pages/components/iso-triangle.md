@@ -8,6 +8,7 @@ Note: there is currently a [bug with Phaser 3.23.0](https://github.com/photonsto
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, IsoTriangle } from 'svelte-phaser'
   import { tweened } from 'svelte/motion'
   import { cubicInOut } from 'svelte/easing'
@@ -24,7 +25,7 @@ Note: there is currently a [bug with Phaser 3.23.0](https://github.com/photonsto
   }
 </script>
 
-<Game width={400} height={400}>
+<Game width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene key="main">
     <IsoTriangle
       x={100}

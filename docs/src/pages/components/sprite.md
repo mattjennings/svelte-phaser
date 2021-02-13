@@ -10,10 +10,11 @@ They require a texture to be loaded first, so be sure to load them in the Scene'
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, Sprite } from 'svelte-phaser'
 </script>
 
-<Game width={400} height={400}>
+<Game width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene
     key="main"
     preload={(scene) => {
@@ -29,12 +30,13 @@ They require a texture to be loaded first, so be sure to load them in the Scene'
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { Game, Scene, Sprite } from 'svelte-phaser'
 </script>
 
-<Game width={400} height={400}>
+<Game width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene
-    sceneKey="main"
+    key="main"
     preload={(scene) => {
       scene.load.spritesheet(
         'adventurer',
@@ -52,7 +54,7 @@ They require a texture to be loaded first, so be sure to load them in the Scene'
           start: 0,
           end: 3,
         }),
-        frameRate: 10,
+        frameRate: 7,
         repeat: -1,
       })
     }}

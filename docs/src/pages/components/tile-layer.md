@@ -6,11 +6,12 @@ Renders a tile layer from the tilemap
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { onMount } from 'svelte'
   import { Game, Scene, Tilemap, TileLayer } from 'svelte-phaser'
 </script>
 
-<Game width={512} height={256}>
+<Game width={512} height={256} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene
     key="main"
     preload={(scene) => {

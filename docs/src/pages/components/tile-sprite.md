@@ -8,6 +8,7 @@ The texture can be scrolled and scaled independently of the TileSprite itself. T
 
 ```example
 <script>
+  import Phaser from 'phaser'
   import { onMount } from 'svelte'
   import { Game, Scene, TileSprite } from 'svelte-phaser'
 
@@ -21,7 +22,7 @@ The texture can be scrolled and scaled independently of the TileSprite itself. T
   })
 </script>
 
-<Game bind:instance={game} width={400} height={400}>
+<Game bind:instance={game} width={400} height={400} scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}>
   <Scene
     key="main"
     preload={(scene) => {
