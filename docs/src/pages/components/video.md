@@ -16,7 +16,6 @@ Renders a video
     // otherwise the video will require user interaction to start playing
     scene.load.video('wormhole', 'static/videos/wormhole.mp4', 'loadeddata', false, true)
   }
-
 </script>
 
 <Game
@@ -46,7 +45,6 @@ Renders a video
 <script>
   import Phaser from 'phaser'
   import { Text, Game, Scene, Video } from 'svelte-phaser'
-
 </script>
 
 <Game
@@ -55,9 +53,6 @@ Renders a video
   scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}
 >
   <Scene key="main">
-    <slot slot="loading">
-      <Text x={128} y={112} text="Loading..." color="white" />
-    </slot>
     <Video
       x={0}
       y={0}
@@ -104,10 +99,6 @@ Renders a video
   scale={{ autoCenter: Phaser.Scale.CENTER_BOTH }}
 >
   <Scene key="main" on:pointerdown={requestWebcam}>
-    <slot slot="loading">
-      <Text x={128} y={112} text="Loading..." color="white" />
-    </slot>
-
     {#if !stream}
       <Text x={280} y={300} text="Click here to start webcam" color="white" />
     {/if}
