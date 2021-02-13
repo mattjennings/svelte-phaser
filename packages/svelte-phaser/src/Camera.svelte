@@ -86,8 +86,8 @@
   export let bounds = {
     x: 0,
     y: 0,
-    width: tilemap.widthInPixels,
-    height: tilemap.heightInPixels,
+    width: tilemap?.widthInPixels ?? undefined,
+    height: tilemap?.heightInPixels ?? undefined,
   }
 
   /**
