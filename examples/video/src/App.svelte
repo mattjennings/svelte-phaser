@@ -9,7 +9,13 @@
   height={600}
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}
 >
-  <Scene key="main" let:progress>
+  <Scene
+    key="main"
+    let:progress
+    preload={(scene) => {
+      scene.load.video()
+    }}
+  >
     <slot slot="loading">
       <LoadingBar x={128} y={112} {progress} />
     </slot>

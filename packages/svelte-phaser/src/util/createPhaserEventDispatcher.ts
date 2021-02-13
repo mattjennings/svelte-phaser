@@ -8,7 +8,7 @@
  * @returns a function to remove the event listener
  */
 export const createPhaserEventDispatcher = <
-  T extends Phaser.GameObjects.GameObject
+  T extends Phaser.Events.EventEmitter
 >(
   instance: T,
   dispatch: (type: string, detail: any) => any,

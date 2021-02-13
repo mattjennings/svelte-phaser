@@ -20,6 +20,7 @@
   - [TileSprite](components/tile-sprite)
   - [Text](components/text)
   - [Triangle](components/triangle)
+  - [Video](components/video)
   - Physics
     - [ArcadePhysics](components/physics/arcade-physics)
     - [ArcadeCollider](components/physics/arcade-collider)

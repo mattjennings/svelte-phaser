@@ -1,8 +1,16 @@
 <script lang="ts">
   import Phaser from 'phaser'
-  import { getContext, setContext, onMount, tick } from 'svelte'
-  import { removeUndefined } from './util'
+  import {
+    getContext,
+    setContext,
+    onMount,
+    tick,
+    createEventDispatcher,
+  } from 'svelte'
+  import { createPhaserEventDispatcher, removeUndefined } from './util'
   import { getGame } from './getGame'
+
+  const dispatch = createEventDispatcher()
 
   /**
    * The unique key of this Scene. Must be unique within the entire Game instance.
@@ -147,6 +155,137 @@
     }),
   ]
 
+  let eventListeners = [
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'drag',
+      (pointer, dragX, dragY) => ({
+        pointer,
+        dragX,
+        dragY,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'dragend',
+      (pointer) => ({
+        pointer,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'dragenter',
+      (pointer, target) => ({
+        pointer,
+        target,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'dragleave',
+      (pointer, target) => ({
+        pointer,
+        target,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'dragover',
+      (pointer, target) => ({
+        pointer,
+        target,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'dragstart',
+      (pointer) => ({
+        pointer,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'drop',
+      (pointer, target) => ({
+        pointer,
+
+        target,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'pointerdown',
+      (pointer, localX, localY, event) => ({
+        pointer,
+        localX,
+        localY,
+        event,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'pointermove',
+      (pointer, localX, localY, event) => ({
+        pointer,
+        localX,
+        localY,
+        event,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'pointerout',
+      (pointer, event) => ({
+        pointer,
+        event,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'pointerover',
+      (pointer, localX, localY, event) => ({
+        pointer,
+        localX,
+        localY,
+        event,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'pointerup',
+      (pointer, localX, localY, event) => ({
+        pointer,
+        localX,
+        localY,
+        event,
+      })
+    ),
+    createPhaserEventDispatcher(
+      instance.input,
+      dispatch,
+      'pointerwheel',
+      (pointer, deltaX, deltaY, deltaZ, event) => ({
+        pointer,
+        deltaX,
+        deltaY,
+        deltaZ,
+        event,
+      })
+    ),
+  ]
+
   onMount(() => {
     return () => {
       game.scene.remove(key)
@@ -154,6 +293,8 @@
       listeners.forEach((listener) => {
         listener.eventNames().forEach((event) => listener.off(event))
       })
+
+      eventListeners.forEach((l) => l())
     }
   })
 

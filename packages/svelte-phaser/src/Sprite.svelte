@@ -228,8 +228,8 @@
   export let height: number = undefined
 
   /**
-   * Whether or not the game object should react to input from the pointer. This is true by default,
-   * and is required to emit pointer events.
+   * Whether or not the game object should react to input from the pointer. This is true by default
+   * if the instance has a width or height.
    *
    * If you wish to customize the hit area, you can provide an object containing "shape", "callback", and "dropZone" which
    * will get passed into Phaser's underlying `setInteractive` method.
@@ -248,7 +248,7 @@
         shape?: Phaser.Types.Input.InputConfiguration
         callback?: Phaser.Types.Input.HitAreaCallback
         dropZone?: boolean
-      } = true
+      } = undefined
 
   /**
    * The Mask this Game Object is using during render.
