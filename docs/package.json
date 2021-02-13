@@ -4,7 +4,7 @@
   "version": "0.3.1",
   "dependencies": {
     "@svelte-docs/server": "^0.1.6",
-    "svelte-phaser": "*",
+    "svelte-phaser": "latest",
     "svelte-fragment": "1.0.1"
   },
   "devDependencies": {

@@ -2115,13 +2115,6 @@
   dependencies:
     "@testing-library/dom" "^7.0.3"
 
-"@testing-library/svelte@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@testing-library/svelte/-/svelte-3.0.3.tgz#fd0653c02c95c8715ff5a51aa232e3306536755e"
-  integrity sha512-GxafAllShGM2nkntFGURZ7fYVlUYwv7K62lqv1aFqtTYzzeZ2Cu8zTVhtE/Qt3bk2zMl6+FPKP03wjLip/G8mA==
-  dependencies:
-    "@testing-library/dom" "^7.0.3"
-
 "@tsconfig/svelte@^1.0.10":
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/@tsconfig/svelte/-/svelte-1.0.10.tgz#30ec7feeee0bdf38b12a50f0686f8a2e7b6b9dc0"
@@ -9902,8 +9895,10 @@ svelte-jester@^1.3.0:
   dependencies:
     cosmiconfig "^6.0.0"
 
-svelte-phaser@latest:
-  version "0.1.0"
+svelte-phaser@*, svelte-phaser@latest, svelte-phaser@next:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/svelte-phaser/-/svelte-phaser-0.0.6.tgz#2e611421ed8429f71c4a16e54d2c8042bb0f7c95"
+  integrity sha512-QmSr9BTOD42phlLcNohi7TiQGepEOiybgFXO6avHYGcqUQmGu1Le0w1B2npQ7frctBnMQtqQIg/YZDL9nM9zYg==
 
 svelte-preprocess-markdown@^2.7.3:
   version "2.7.3"
