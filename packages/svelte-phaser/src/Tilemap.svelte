@@ -40,8 +40,21 @@
   const layerOrder = tilemapData.data.layers.map((layer) => layer.name)
 
   setContext('phaser/tilemap', instance)
-  onMount(() => () => {
-    instance.destroy()
+  onMount(() => {
+    if (scene.physics?.world) {
+      let width =
+        scene.physics.world.bounds.width < instance.widthInPixels
+          ? instance.widthInPixels
+          : scene.physics.world.bounds.width
+      let height =
+        scene.physics.world.bounds.height < instance.heightInPixels
+          ? instance.heightInPixels
+          : scene.physics.world.bounds.height
+      scene.physics.world.bounds.setSize(width, height)
+    }
+    return () => {
+      instance.destroy()
+    }
   })
 
   tilesets.forEach(({ name, key }) => instance.addTilesetImage(name, key))
