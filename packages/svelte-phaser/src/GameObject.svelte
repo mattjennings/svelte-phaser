@@ -30,29 +30,6 @@
   export let draggable: boolean = false
 
   /**
-   * Whether or not the game object should react to input from the pointer. This is true by default,
-   * and is required to emit pointer events.
-   *
-   * If you wish to customize the hit area, you can provide an object containing "shape", "callback", and "dropZone" which
-   * will get passed into Phaser's underlying `setInteractive` method.
-   *
-   * This property is not bindable.
-   *
-   * See Phaser's documentation for more information:
-   *
-   * https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html#setInteractive__anchor
-   *
-   * @type {boolean | object}
-   */
-  export let interactive:
-    | boolean
-    | {
-        shape?: Phaser.Types.Input.InputConfiguration
-        callback?: Phaser.Types.Input.HitAreaCallback
-        dropZone?: boolean
-      } = true
-
-  /**
    * The name of this Game Object. This is not used by Phaser, but some svelte-phaser components such as
    * ArcadeCollider will make use of names to find the reference to the Game Object.
    * @type {string}
@@ -78,6 +55,29 @@
   export let tabIndex: number = undefined
 
   export let instance
+
+  /**
+   * Whether or not the game object should react to input from the pointer. This is true by default
+   * if the instance has a width or height.
+   *
+   * If you wish to customize the hit area, you can provide an object containing "shape", "callback", and "dropZone" which
+   * will get passed into Phaser's underlying `setInteractive` method.
+   *
+   * This property is not bindable.
+   *
+   * See Phaser's documentation for more information:
+   *
+   * https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html#setInteractive__anchor
+   *
+   * @type {boolean | object}
+   */
+  export let interactive:
+    | boolean
+    | {
+        shape?: Phaser.Types.Input.InputConfiguration
+        callback?: Phaser.Types.Input.HitAreaCallback
+        dropZone?: boolean
+      } = instance.height && instance.width ? true : undefined
 
   setContext('phaser/game-object', instance)
 
@@ -214,21 +214,19 @@
   $: shouldApplyProps(name) && instance.setName(name)
   $: shouldApplyProps(renderFlags) && (instance.renderFlags = renderFlags)
 
-  $: if (instance.input) {
-    if (interactive === true) {
-      instance.setInteractive()
-    } else if (!interactive) {
-      instance.removeInteractive()
-    } else {
-      instance.setInteractive(
-        interactive.shape,
-        interactive.callback,
-        interactive.dropZone
-      )
-    }
+  $: if (interactive === true) {
+    instance.setInteractive()
+  } else if (!interactive) {
+    instance.removeInteractive()
+  } else {
+    instance.setInteractive(
+      interactive.shape,
+      interactive.callback,
+      interactive.dropZone
+    )
   }
 
-  $: if (instance.input && shouldApplyProps(draggable) && interactive) {
+  $: if (shouldApplyProps(draggable) && interactive) {
     scene.input.setDraggable(instance, draggable)
   }
 

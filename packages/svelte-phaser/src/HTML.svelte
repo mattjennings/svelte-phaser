@@ -122,12 +122,6 @@
   export let depth: number = undefined
 
   /**
-   * Enables the firing of drag events
-   * @type {boolean}
-   */
-  export let draggable: boolean = false
-
-  /**
    * The horizontally flipped state of the Game Object.
    * A Game Object that is flipped horizontally will render inversed on the horizontal axis.
    * Flipping always takes place from the middle of the texture and does not impact the scale value.
@@ -154,29 +148,6 @@
    * @type {Phaser.Textures.Frame}
    */
   export let frame: string = undefined
-
-  /**
-   * Whether or not the game object should react to input from the pointer. This is true by default,
-   * and is required to emit pointer events.
-   *
-   * If you wish to customize the hit area, you can provide an object containing "shape", "callback", and "dropZone" which
-   * will get passed into Phaser's underlying `setInteractive` method.
-   *
-   * This property is not bindable.
-   *
-   * See Phaser's documentation for more information:
-   *
-   * https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Sprite.html#setInteractive__anchor
-   *
-   * @type {boolean | object}
-   */
-  export let interactive:
-    | boolean
-    | {
-        shape?: Phaser.Types.Input.InputConfiguration
-        callback?: Phaser.Types.Input.HitAreaCallback
-        dropZone?: boolean
-      } = true
 
   /**
    * The Mask this Game Object is using during render.
@@ -417,19 +388,6 @@
       bind:tabIndex
       bind:data
       bind:renderFlags
-      bind:draggable
-      bind:interactive
-      on:drag
-      on:dragenter
-      on:dragleave
-      on:dragend
-      on:dragstart
-      on:drop
-      on:pointerdown
-      on:pointermove
-      on:pointerout
-      on:pointerup
-      on:pointerwheel
     >
       <Alpha
         bind:alpha
