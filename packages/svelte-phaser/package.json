@@ -1,6 +1,6 @@
 {
   "name": "svelte-phaser",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "Create Phaser 3 games with Svelte 3",
   "repository": "https://github.com/mattjennings/svelte-phaser",
   "svelte": "dist/index.js",
@@ -13,10 +13,7 @@
     "dev": "nodemon --exec \"tsc --outDir ./dist --declaration && node scripts/preprocess.js\" --watch src -e js,ts,svelte",
     "validate": "svelte-check --threshold error",
     "publish:prod": "yarn publish --tag latest",
-    "publish:next": "yarn publish --tag next",
-    "prepublishOnly": "yarn test",
-    "test": "NODE_ENV=test jest",
-    "test:watch": "yarn test -- --watch"
+    "publish:next": "yarn publish --tag next"
   },
   "peerDependencies": {
     "phaser": "^3.23.0"

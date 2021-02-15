@@ -9873,11 +9873,6 @@ svelte-check@^1.1.15, svelte-check@^1.1.34:
     svelte-preprocess "^4.0.0"
     typescript "*"
 
-svelte-fragment@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/svelte-fragment/-/svelte-fragment-1.0.1.tgz#7a1d6447bb0508451401fcdbd02ed87bd8b1b5ed"
-  integrity sha512-ZmuKDMPhsn/TFV3w1nIfwIJE+QJtvH1my6ETB/vPtbb7+zYTSiuLxNsjWLglYZdQAIWgthEoS7t8DeVBB3Wjfg==
-
 svelte-hmr@^0.11.3, svelte-hmr@^0.11.6:
   version "0.11.6"
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.11.6.tgz#67f0498e2cdce9e1039631d820c1951bd01caa3f"
