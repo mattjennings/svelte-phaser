@@ -102,6 +102,13 @@
   export let create: (scene: Phaser.Scene) => any = undefined
 
   /**
+   * Called with the Scene Manager update loop
+   *
+   * @type {function}
+   */
+  export let update: (scene: Phaser.Scene) => any = undefined
+
+  /**
    * This method is called by the Scene Manager when the scene starts,
    * before preload() and create().
    *
@@ -141,6 +148,8 @@
   instance.create = create ? () => create(instance) : null
   // @ts-ignore
   instance.init = init ? () => init(instance) : null
+
+  instance.update = update ? () => update(instance) : null
 
   game.scene.add(key, instance, true)
 
@@ -288,13 +297,13 @@
 
   onMount(() => {
     return () => {
-      game.scene.remove(key)
-
       listeners.forEach((listener) => {
         listener.eventNames().forEach((event) => listener.off(event))
       })
 
       eventListeners.forEach((l) => l())
+
+      game.scene.remove(key)
     }
   })
 
