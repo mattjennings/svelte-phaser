@@ -371,6 +371,12 @@
 
   export let instance = undefined
 
+  // `class` is a reserved keyword
+  let _class = undefined
+  export { _class as class }
+
+  export let style = undefined
+
   const scene = getScene()
 
   let el
@@ -385,7 +391,7 @@
   })
 </script>
 
-<div bind:this={el}>
+<div bind:this={el} class={_class} {style}>
   {#if !!instance}
     <GameObject
       bind:instance
