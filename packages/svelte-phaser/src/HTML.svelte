@@ -369,13 +369,19 @@
    */
   export let z: number = undefined
 
-  let el
   export let instance = undefined
 
   const scene = getScene()
 
+  let el
   onMount(() => {
-    instance = new Phaser.GameObjects.DOMElement(scene, 0, 0, el)
+    if (!instance) {
+      instance = new Phaser.GameObjects.DOMElement(scene, 0, 0, el)
+    }
+
+    // this is a hack to prevent phaser from destroying the actual element on destroy
+    // (we want svelte to handle that)
+    instance.removeElement = () => {}
   })
 </script>
 
