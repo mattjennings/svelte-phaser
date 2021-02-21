@@ -20,6 +20,7 @@
   import Tint from './phaser-components/Tint.svelte'
   import Transform from './phaser-components/Transform.svelte'
   import Visible from './phaser-components/Visible.svelte'
+  import { onGameEvent } from './onGameEvent'
 
   /**
    * The active state of this Game Object. A Game Object with an active state of true is processed by the
@@ -369,29 +370,36 @@
    */
   export let z: number = undefined
 
-  export let instance = undefined
-
   // `class` is a reserved keyword
   let _class = undefined
   export { _class as class }
 
-  export let style = undefined
+  export let instance: Phaser.GameObjects.DOMElement = undefined
 
   const scene = getScene()
 
-  let el
+  let el: HTMLDivElement
+  let canRender = false
+
   onMount(() => {
     if (!instance) {
-      instance = new Phaser.GameObjects.DOMElement(scene, 0, 0, el)
+      instance = new Phaser.GameObjects.DOMElement(scene, x, y, el)
     }
+  })
 
-    // this is a hack to prevent phaser from destroying the actual element on destroy
-    // (we want svelte to handle that)
-    instance.removeElement = () => {}
+  // this is a hack to prevent phaser from destroying the actual element on destroy (svelte will do that)
+  // @ts-ignore
+  $: instance && (instance.removeElement = () => {})
+
+  // wait until element styles have been applied by phaser (DOMElementCSSRenderer)
+  onGameEvent(Phaser.Core.Events.PRE_STEP, () => {
+    if (!canRender) {
+      canRender = true
+    }
   })
 </script>
 
-<div bind:this={el} class={_class} {style}>
+<div bind:this={el}>
   {#if !!instance}
     <GameObject
       bind:instance
@@ -441,7 +449,9 @@
         bind:tintFill
       />
       <Visible bind:visible />
-      <slot />
+      {#if canRender}
+        <slot />
+      {/if}
     </GameObject>
   {/if}
 </div>
