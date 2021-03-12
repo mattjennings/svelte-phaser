@@ -399,7 +399,7 @@
   })
 </script>
 
-<div bind:this={el}>
+<div bind:this={el} class={_class}>
   {#if !!instance}
     <GameObject
       bind:instance
