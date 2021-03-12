@@ -117,6 +117,8 @@
    */
   export let init: (scene: Phaser.Scene) => any = undefined
 
+  export let transition: Phaser.Types.Scenes.SceneTransitionConfig = undefined
+
   /**
    * If you have your own Phaser.Scene instance you may pass it in
    * @type {Phaser.Scene}
@@ -293,6 +295,36 @@
         event,
       })
     ),
+    createPhaserEventDispatcher(
+      instance.events,
+      dispatch,
+      'transitioninit',
+      (fromScene, duration) => ({ fromScene, duration })
+    ),
+    createPhaserEventDispatcher(
+      instance.events,
+      dispatch,
+      'transitionstart',
+      (fromScene, duration) => ({ fromScene, duration })
+    ),
+    createPhaserEventDispatcher(
+      instance.events,
+      dispatch,
+      'transitionwake',
+      (fromScene, duration) => ({ fromScene, duration })
+    ),
+    createPhaserEventDispatcher(
+      instance.events,
+      dispatch,
+      'transitionout',
+      () => ({})
+    ),
+    createPhaserEventDispatcher(
+      instance.events,
+      dispatch,
+      'transitioncomplete',
+      () => ({})
+    ),
   ]
 
   onMount(() => {
@@ -312,6 +344,11 @@
     // @ts-ignore
     instance.cameras.main.__isOriginalCamera = true
     setContext('phaser/camera', instance.cameras.main)
+  }
+
+  $: if (transition) {
+    // console.log(key, transition)
+    instance.scene.transition(transition)
   }
 </script>
 

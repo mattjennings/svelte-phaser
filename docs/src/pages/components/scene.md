@@ -91,3 +91,27 @@ by using `let:progress` on the Scene
 ```properties
 ./../packages/svelte-phaser/dist/Scene.svelte
 ```
+
+```properties
+on:animationstart | Animation has started playing | function
+on:animationcomplete | Animation has finished playing | function
+on:animationrestart | Animation has restarted | function
+on:animationrepeat | A repeating animation has begun a repeat | function
+on:drag | Pointer drag input event | function
+on:dragend | Pointer drag end input event | function
+on:dragenter | Pointer drag enter input event | function
+on:dragleave | Pointer drag leave input event | function
+on:dragstart | Pointer drag start input event | function
+on:drop | Pointer drag drop input event | function
+on:pointerdown | Pointer down input event | function
+on:pointermove | Pointer move input event | function
+on:pointerout | Pointer out input event | function
+on:pointerover | Pointer over input event | function
+on:pointerup | Pointer up input event | function
+on:pointerwheel | Pointer wheel input event | function
+on:transitioninit | Scene Transition Init Event | function
+on:transitionout | Scene Transition Out Event | function
+on:transitionstart | Scene Transition Start Event | function
+on:transitioncomplete | Scene Transition Complete Event | function
+on:transitionwake | Scene Transition Wake Event | function
+```
