@@ -1,8 +1,7 @@
 <script>
-  import { Text, Scene, onGameEvent } from 'svelte-phaser'
-  import { slide } from 'svelte/transition'
-  import { quintOut } from 'svelte/easing'
+  import { HTML, Scene } from 'svelte-phaser'
   import { getRouter } from '../context'
+  import WorldMap from './WorldMap.svelte'
 
   const router = getRouter()
 
@@ -11,32 +10,32 @@
 
   function create(scene) {
     keys = {
-      space: scene.input.keyboard.addKey('space'),
+      space: scene.input.keyboard.addKey('m'),
     }
   }
 
   function update() {
-    if (!exited && Phaser.Input.Keyboard.JustDown(keys.space)) {
-      exited = true
-      router.pop()
+    if (Phaser.Input.Keyboard.JustDown(keys.space)) {
+      // $router.remove($$props.key)
+      $router.go({ component: WorldMap })
     }
   }
 </script>
 
-<Scene {...$$props} {create} {update} />
+<Scene {...$$props} {create} {update}>
+  <HTML x={10} y={180}>
+    <div class="menu">
+      <ul>
+        <li>Attack</li>
+      </ul>
+    </div>
+  </HTML>
+</Scene>
 
-<!-- <div class="menu" transition:slide={{ easing: quintOut }}>
-  <ul>
-    <li>Attack</li>
-  </ul>
-</div> -->
 <style>
   .menu {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 20%;
+    height: 50px;
+    width: 200px;
     background: blue;
     border: 3px solid white;
     border-radius: 5px;

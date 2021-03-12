@@ -3,7 +3,10 @@
   "compilerOptions": {
     "sourceMap": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dist",
+    "declaration": true,
+    "emitDeclarationOnly": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules/*", "**/*.spec.*", "src/test-utils/*"]

@@ -11,10 +11,13 @@
   } from 'svelte-phaser'
   import * as Player from '../Player.svelte'
   import { getRouter } from '../context'
+  import Battle from './Battle.svelte'
 
   const router = getRouter()
   let scene
   let keys
+
+  $: inBattle = $router.scenes.find((scene) => scene.component === Battle)
 
   function create(scene) {
     Player.create(scene)
@@ -25,10 +28,19 @@
   }
 
   function update() {
-    if (Phaser.Input.Keyboard.JustDown(keys.space)) {
-      router.push('Battle', {
-        hidePrevious: false,
-      })
+    if (!inBattle) {
+      if (Phaser.Input.Keyboard.JustDown(keys.space)) {
+        // $router.add({ component: Battle })
+        $router.go({
+          component: Battle,
+          transition: {
+            duration: 3000,
+            onUpdate: (scene, progress) => {
+              debugger
+            },
+          },
+        })
+      }
     }
   }
 </script>

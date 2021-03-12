@@ -3,11 +3,9 @@
   import LoadingBar from '../LoadingBar.svelte'
   import * as Player from '../Player.svelte'
   import { getRouter } from '../context'
+  import WorldMap from './WorldMap.svelte'
 
   const router = getRouter()
-  let game
-  let camera
-  $: window.game = game
 
   function preload(scene) {
     scene.load.tilemapTiledJSON('tilemaps/level', 'assets/tilemaps/level.json')
@@ -26,16 +24,12 @@
 
     Player.preload(scene)
   }
-
-  function create(scene) {
-    Player.create(scene)
-  }
 </script>
 
 <Scene
   {...$$restProps}
   {preload}
-  create={() => router.set('WorldMap')}
+  create={() => $router.go({ component: WorldMap })}
   let:progress
 >
   <slot slot="loading">
