@@ -1,5 +1,5 @@
 {
-  "name": "vite-template",
+  "name": "svelte-phaser-template",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

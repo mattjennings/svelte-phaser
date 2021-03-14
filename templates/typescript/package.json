@@ -1,5 +1,5 @@
 {
-  "name": "vite-ts-template",
+  "name": "svelte-phaser-typescript-template",
   "version": "0.0.1",
   "scripts": {
     "validate": "svelte-check && tsc --noEmit",
