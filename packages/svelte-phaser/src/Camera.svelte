@@ -396,7 +396,7 @@
    * for moving it.
    * @type {number}
    */
-  export let x
+  export let x = undefined
 
   /**
    * The y position of the Camera, relative to the top-left of the game canvas.
@@ -406,7 +406,7 @@
    *
    * @type {number}
    */
-  export let y
+  export let y = undefined
 
   export let instance = new Phaser.Cameras.Scene2D.Camera(x, y, width, height)
 
