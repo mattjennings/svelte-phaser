@@ -1,16 +1,29 @@
-const svite = require('svite')
-const sviteConfig = {
-  hot: true,
-}
+const svelte = require('@svitejs/vite-plugin-svelte')
+const { defineConfig } = require('vite')
 
-module.exports = (mode) => {
+module.exports = defineConfig(({ mode }) => {
+  const isProduction = mode === 'production'
+
   /**
    * @type {import('vite').UserConfig}
    */
-  const config = {
-    // if you provide a svite plugin here, svite cli will use it instead of initializing one for you
-    plugins: [svite(sviteConfig)],
-    // if you don't use svite cli, you should provide rollupDedupe option, otherwise you risk duplicate svelte instances and errors
+  return {
+    plugins: [
+      svelte({
+        hot: true,
+      }),
+    ],
+    build: {
+      minify: isProduction,
+    },
+    resolve: {
+      alias: {
+        phaser:
+          mode === 'production'
+            ? 'phaser/dist/phaser.min.js'
+            : 'phaser/src/phaser.js',
+      },
+    },
     rollupDedupe: [
       'svelte/animate',
       'svelte/easing',
@@ -21,17 +34,15 @@ module.exports = (mode) => {
       'svelte',
       'phaser',
     ],
-
-    alias: {
-      phaser:
-        mode === 'production'
-          ? 'phaser/dist/phaser.min.js'
-          : 'phaser/src/phaser.js',
-    },
     optimizeDeps: {
       include: ['phaser'],
+      exclude: ['svelte-phaser'],
     },
+    define: !isProduction
+      ? {
+          // fix global.Phaser assignment in phaser/src/phaser.js
+          global: {},
+        }
+      : {},
   }
-
-  return config
-}
+})

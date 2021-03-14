@@ -79,7 +79,7 @@
     x={block.x + 116}
     y={block.y + 200}
     frame={block.frame}
-    onBallHit={() => {
+    on:collide={() => {
       blocks = blocks.filter((b) => b !== block)
     }}
   />

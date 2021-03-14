@@ -3,20 +3,20 @@
   "version": "0.0.1",
   "scripts": {
     "validate": "svelte-check && tsc --noEmit",
-    "dev": "svite -ts",
-    "build": "svite build -ts"
+    "dev": "vite",
+    "build": "vite build"
   },
   "dependencies": {},
   "devDependencies": {
+    "@svitejs/vite-plugin-svelte": "^0.11.0",
     "@tsconfig/svelte": "^1.0.10",
+    "phaser": "^3.52.0",
     "svelte-check": "^1.1.34",
+    "svelte-phaser": "latest",
     "svelte-preprocess": "^4.6.8",
     "svelte": "^3.32.3",
-    "svelte-hmr": "^0.11.6",
-    "svite": "^0.8.1",
     "tslib": "^2.0.3",
     "typescript": "^4.1.2",
-    "phaser": "^3.52.0",
-    "svelte-phaser": "next"
+    "vite": "^2.0.5"
   }
 }

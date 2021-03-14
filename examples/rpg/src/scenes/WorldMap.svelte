@@ -65,26 +65,20 @@
         id="ground"
         name="ground"
         tilesets={['worldmap-props', 'worldmap-road', 'worldmap-water']}
-        collisionTilesByProperty={{ collision: true }}
+        collisionByProperty={{ collision: true }}
       />
       <TileLayer
         id="props"
         name="props"
         tilesets={['worldmap-props', 'worldmap-road', 'worldmap-water']}
-        collisionTilesByProperty={{ collision: true }}
+        collisionByProperty={{ collision: true }}
       />
       <TileLayer
         id="foreground"
         tilesets={['worldmap-props', 'worldmap-road', 'worldmap-water']}
       />
       <ObjectLayer id="objects" components={{ Player }}>
-        <Camera
-          width={340}
-          height={244}
-          follow="player"
-          roundPixels
-          waitForTarget
-        />
+        <Camera width={340} height={244} follow="player" roundPixels />
       </ObjectLayer>
     </Tilemap>
   </Spawner>

@@ -16,7 +16,7 @@
   let velocityY = 0
   let animation = 'idle'
 
-  let instance: Phaser.Physics.Arcade.Sprite
+  let instance: Phaser.GameObjects.Sprite & { body: Phaser.Physics.Arcade.Body }
 
   const scene = getScene()
   const X_SPEED = 100
@@ -42,7 +42,7 @@
       velocityX = X_SPEED
     }
 
-    if (Phaser.Input.Keyboard.JustDown(keys.jump)) {
+    if (Phaser.Input.Keyboard.JustDown(keys.jump) && instance.body.onFloor()) {
       velocityY = -200
       animation = 'jump'
     } else if (Phaser.Input.Keyboard.JustUp(keys.jump) && velocityY < 0) {

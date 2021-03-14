@@ -74,7 +74,6 @@
 
   let instance
   let animation = 'anims/player/down'
-  let frameIndex = 0
   let isPlayingAnimation = true
 
   const scene = getScene()
@@ -121,7 +120,6 @@
 
     if (velocityX === 0 && velocityY === 0) {
       isPlayingAnimation = false
-      frameIndex = 0
     } else {
       isPlayingAnimation = true
     }
@@ -134,7 +132,6 @@
   bind:x
   bind:y
   isPlaying={isPlayingAnimation}
-  bind:frameIndex
   {...$$restProps}
 >
   <ArcadePhysics
