@@ -32,11 +32,13 @@
       "**/@svelte-docs/publisher",
       "**/@svelte-docs/publisher/**",
       "**/@svelte-docs/themes",
-      "**/@svelte-docs/themes/**"
+      "**/@svelte-docs/themes/**",
+      "**/vite",
+      "**/@sveltejs**"
     ]
   },
   "resolutions": {
-    "svelte": "^3.32.0",
+    "svelte": "^3.35.0",
     "phaser": "^3.52.0",
     "svelte-phaser": "0.1.0-beta.2"
   },

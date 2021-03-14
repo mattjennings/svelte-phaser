@@ -1,15 +1,15 @@
 {
-  "name": "svite-template",
+  "name": "vite-template",
   "version": "0.0.0",
   "scripts": {
-    "dev": "svite",
-    "build": "svite build"
+    "dev": "vite",
+    "build": "vite build"
   },
   "dependencies": {},
   "devDependencies": {
     "svelte": "^3.32.3",
-    "svelte-hmr": "^0.11.6",
-    "svite": "^0.8.1",
+    "vite": "^2.0.5",
+    "@svitejs/vite-plugin-svelte": "^0.11.0",
     "phaser": "^3.52.0",
     "svelte-phaser": "latest"
   }

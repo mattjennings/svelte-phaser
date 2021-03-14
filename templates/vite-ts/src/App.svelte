@@ -1,6 +1,8 @@
-<script>
+<script lang="ts">
   import Phaser from 'phaser'
   import { Game, Scene, Text } from 'svelte-phaser'
+
+  let message: string = 'svelte-phaser with vite'
 </script>
 
 <Game
@@ -9,7 +11,7 @@
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}
 >
   <Scene key="main">
-    <Text x={80} y={150} text="svelte-phaser with svite" color="white" />
+    <Text x={80} y={150} text={message} color="white" />
   </Scene>
 </Game>
 
