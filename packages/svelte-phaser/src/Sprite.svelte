@@ -630,23 +630,23 @@
 
   onGameEvent('prestep', () => {
     if (instance.anims) {
-      // if (instance.anims.currentAnim && instance.anims.currentAnim.key) {
-      //   animation = instance.anims.currentAnim.key
-      // }
-      // isPlaying = instance.anims.isPlaying
-      // delay = instance.anims.delay
-      // duration = instance.anims.duration
-      // forward = instance.anims.forward
-      // frameRate = instance.anims.frameRate
-      // msPerFrame = instance.anims.msPerFrame
-      // skipMissedFrames = instance.anims.skipMissedFrames
-      // if (instance.anims.currentFrame) {
-      //   progress = instance.anims.getProgress()
-      // }
-      // repeat = instance.anims.repeat
-      // repeatDelay = instance.anims.repeatDelay
-      // timeScale = instance.anims.timeScale
-      // yoyo = instance.anims.yoyo
+      if (instance.anims.currentAnim && instance.anims.currentAnim.key) {
+        animation = instance.anims.currentAnim.key
+      }
+      isPlaying = instance.anims.isPlaying
+      delay = instance.anims.delay
+      duration = instance.anims.duration
+      forward = instance.anims.forward
+      frameRate = instance.anims.frameRate
+      msPerFrame = instance.anims.msPerFrame
+      skipMissedFrames = instance.anims.skipMissedFrames
+      if (instance.anims.currentFrame) {
+        progress = instance.anims.getProgress()
+      }
+      repeat = instance.anims.repeat
+      repeatDelay = instance.anims.repeatDelay
+      timeScale = instance.anims.timeScale
+      yoyo = instance.anims.yoyo
     }
   })
 </script>
