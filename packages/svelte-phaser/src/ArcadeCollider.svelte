@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Phaser from 'phaser'
   import { onMount, createEventDispatcher, tick } from 'svelte'
   import { toArray, findGameObjectsByName } from './util'
   import { onSceneEvent } from './onSceneEvent'
