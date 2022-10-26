@@ -1,3 +1,7 @@
+# ⚠️ No longer maintained ⚠️
+
+I am no longer maintaining this project. The documentation will stay up as the content here may still be useful to some, but I have no plans on continuing this library.
+
 # Documentation
 
 Check out the [documentation](https://svelte-phaser.com)
